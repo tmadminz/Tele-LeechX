@@ -53,8 +53,12 @@ async def incoming_message_f(client, message):
     """/leech command or /gleech command"""
     user_command = message.command[0]
     g_id = message.from_user.id
+    u_men = message.from_user.mention
+    credit = await message.reply_text(
+        f"<b><i>🛃 Working For 🛃:</i></b> {u_men}", parse_mode="html"
+    )
     # get link from the incoming message
-    i_m_sefg = await message.reply_text("Processing...", quote=True)
+    i_m_sefg = await message.reply_text("<code>Processing . . . 🔄</code>", quote=True)
     rep_mess = message.reply_to_message
     is_file = False
     dl_url = ''
@@ -70,7 +74,7 @@ async def incoming_message_f(client, message):
             LOGGER.info(cf_name)
         else:
             if user_command == LEECH_COMMAND.lower():
-                await i_m_sefg.edit("No download source provided 🙄")
+                await i_m_sefg.edit("<i>😒 Hey {u_men}, \n ⚠️ Check and Send a Valid Download Source to Start Me Up !! ⚠️</i>")
                 return
             is_file = True
             dl_url = rep_mess
@@ -79,7 +83,7 @@ async def incoming_message_f(client, message):
         LOGGER.info(dl_url)
 
     else:
-        await i_m_sefg.edit("<b>Hey Dude !</b>\n\n 🐈 <code>Reply with Direct /Torrent Link</code>")
+        await i_m_sefg.edit("<b>⚠️!! Opps !!</b>\n\n <b><i>♻️ Reply with Direct/Torrent Link or File ⁉️</i></b>")
         return
     if dl_url is not None:
 
