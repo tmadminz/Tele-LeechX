@@ -27,7 +27,6 @@
     ✓ Added support for youtube playlist 😐
     ✓ Renaming of Telegram files support added. 😐
     ✓ Changing rclone destination config on fly (By using `/rlcone` in private mode)
-    ✓
 
 [![Maxx](https://telegra.ph/file/f3f3b950c2904756bb201.png)](https://t.me/MaxxRiderz) 👇
 
@@ -120,7 +119,7 @@
 🤧 <b> Before Deploy 𝗣𝗹𝗲𝗮𝘀𝗲 𝗛𝗶𝘁 𝗦𝘁𝗮𝗿 ★ else you are Gay</b>
 
 
-<p><a href="https://heroku.com/deploy?template=https://github.com/MaxxRider/Leech-Pro/tree/master)"> <img src="https://img.shields.io/badge/Deploy%20To%20Heroku-blueviolet?style=for-the-badge&logo=heroku" width="200""/></a></p>
+<p><a href="https://heroku.com/deploy?template=https://github.com/5MysterySD/Tele-LeechX/tree/master)"> <img src="https://img.shields.io/badge/Deploy%20To%20Heroku-blueviolet?style=for-the-badge&logo=heroku" width="200""/></a></p>
 
 
 [![MaxxRider](https://telegra.ph/file/aac59f2f35ee73b63019e.png)](https://telegram.dog/MaxxRiderz)
