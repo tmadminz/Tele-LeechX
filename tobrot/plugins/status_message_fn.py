@@ -40,12 +40,12 @@ from tobrot.UserDynaConfig import UserDynaConfig
 
 async def upload_as_doc(client, message):
     user_specific_config[message.from_user.id]=UserDynaConfig(message.from_user.id,True)
-    await message.reply_text("**🗞 Your Files Will Be Uploaded As Document 📁**")
+    await message.reply_text("<b>⚡<i>Your Items Will Be Uploaded As <code>Document 🗂</code> for Next Uploads</i>⚡</b>")
 
 
 async def upload_as_video(client, message):
     user_specific_config[message.from_user.id]=UserDynaConfig(message.from_user.id,False)
-    await message.reply_text("**🗞 Your Files Will Be Uploaded As Streamable 🎞**")
+    await message.reply_text("<b>⚡<i>Your Items Will Be Uploaded As <code>Streamable 📽</code> for Next Uploads</i>⚡</b>")
  
 
 async def status_message_f(
@@ -53,7 +53,7 @@ async def status_message_f(
 ):  # weird code but 'This is the way' @gautamajay52
     aria_i_p = await aria_start()
     # Show All Downloads
-    to_edit = await message.reply(".......")
+    to_edit = await message.reply("<code>Processing . . . 🔄</code>")
     chat_id = int(message.chat.id)
     mess_id = int(to_edit.message_id)
     async with _lock:
@@ -79,9 +79,9 @@ async def status_message_f(
             if file.status == "active":
                 is_file = file.seeder
                 if is_file is None:
-                    msgg = f"<b>Conn:</b> {file.connections}"
+                    msgg = f"<b>🔁Conn:</b> <code>{file.connections}</code>"
                 else:
-                    msgg = f"<b>Peers:</b> {file.connections} | <b>Seeders:</b> {file.num_seeders}"
+                    msgg = f"<b>🍱Seeds:</b> <code>{file.num_seeders}</code> | <b>🍒Peers:</b> <code>{file.connections}</code>"
 
                 percentage = int(file.progress_string(0).split('%')[0])
                 prog = "[{0}{1}]".format("".join([FINISHED_PROGRESS_STR for i in range(math.floor(percentage / 5))]),"".join([UN_FINISHED_PROGRESS_STR for i in range(20 - math.floor(percentage / 5))]))
