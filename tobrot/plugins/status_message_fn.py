@@ -40,12 +40,14 @@ from tobrot.UserDynaConfig import UserDynaConfig
 
 async def upload_as_doc(client, message):
     user_specific_config[message.from_user.id]=UserDynaConfig(message.from_user.id,True)
-    await message.reply_text("<b>⚡<i>Your Items Will Be Uploaded As <code>Document 🗂</code> for Next Uploads</i>⚡</b>")
+    u_men = message.from_user.mention
+    await message.reply_text(f"<i><b>👤 User : {u_men} \n\n🏷Toggle Changed : <code>Document 📂</code></b></i>")
 
 
 async def upload_as_video(client, message):
     user_specific_config[message.from_user.id]=UserDynaConfig(message.from_user.id,False)
-    await message.reply_text("<b>⚡<i>Your Items Will Be Uploaded As <code>Streamable 📽</code> for Next Uploads</i>⚡</b>")
+    u_men = message.from_user.mention
+    await message.reply_text(f"<i><b>👤 User : {u_men}\n\n🏷Toggle Changed : <code>Video 🎞</code></b></i>")
  
 
 async def status_message_f(
@@ -85,7 +87,7 @@ async def status_message_f(
 
                 percentage = int(file.progress_string(0).split('%')[0])
                 prog = "[{0}{1}]".format("".join([FINISHED_PROGRESS_STR for i in range(math.floor(percentage / 5))]),"".join([UN_FINISHED_PROGRESS_STR for i in range(20 - math.floor(percentage / 5))]))
-                msg += f"<b>⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊</b>\n"
+                msg += f"<b>⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊</b>\n"
                 msg += f"\n<b>🔖Filename:</b> <code>{downloading_dir_name}</code>"
                 msg += f"\n<b>📡 Status</b>: <i>Downloading...📥</i>"
                 msg += f"\n<code>{prog}</code>"
@@ -105,13 +107,13 @@ async def status_message_f(
         free = humanbytes(free)
 
         ms_g = (
-            f"<b>⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊</b>\n\n"
+            f"<b>⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊</b>\n\n"
             f"<b>CPU:</b> <code>{cpu}%</code> | <b>RAM:</b> <code>{ram}%</code>\n"
             f"<b>FREE:</b> <code>{free}</code> | <b>UPTIME</b>: <code>{hr}h {mi}m {se}s</code>\n"
             f"<b>TOTAL:</b> <code>{total}</code> | <b>USED:</b> <code>{used}</code>\n"
         )
         if msg == "":
-            msg = "<b>⚠️ No Active, Queued or Paused TORRENTs/Direct Links ⚠️</b>"
+            msg = "<b>⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊ \n\n⚠️ No Active, Queued or Paused TORRENTs/Direct Links ⚠️</b>"
             msg = msg + "\n" + ms_g
             await to_edit.edit(msg)
             break
