@@ -74,6 +74,7 @@ async def incoming_message_f(client, message):
             LOGGER.info(cf_name)
         else:
             if user_command == LEECH_COMMAND.lower():
+                u_men = message.from_user.mention
                 await i_m_sefg.edit("<i>😒 Hey {u_men}, \n ⚠️ Check and Send a Valid Download Source to Start Me Up !! ⚠️</i>")
                 return
             is_file = True
@@ -97,12 +98,12 @@ async def incoming_message_f(client, message):
             os.makedirs(new_download_location)
         aria_i_p = ''
         if not is_file:
-            await i_m_sefg.edit_text("Extracting links...")
+            await i_m_sefg.edit_text("<code>Extracting Links . . . 🔀</code>")
             # start the aria2c daemon
             aria_i_p = await aria_start()
             # LOGGER.info(aria_i_p)
 
-        await i_m_sefg.edit_text("Added to downloads. Send /status")
+        await i_m_sefg.edit_text("<b>👤 User : {u_men} \n Your Request Has Been Added To The Status \n Use /status To Check Your Progress</b>")
         # try to download the "link"
         is_zip = False
         is_cloud = False
@@ -139,14 +140,17 @@ async def incoming_message_f(client, message):
             await i_m_sefg.edit_text(err_message)
     else:
         await i_m_sefg.edit_text(
-            f"**FCUK**! wat have you entered. \n<b>API Error</b>: {cf_name}"
+            f"<b> 🏖Maybe You Didn't Know I am Being Used !!</b> \n\n<b>🌐 API Error</b>: {cf_name}"
         )
 
 
 async def incoming_youtube_dl_f(client, message):
     """ /ytdl command """
     current_user_id = message.from_user.id
-
+    u_men = message.from_user.mention
+    credit = await message.reply_text(
+        f"<b><i>🛃 Working For 🛃:</i></b> {u_men}", parse_mode="html"
+    )
     i_m_sefg = await message.reply_text("<code>Prrocessing...🔃</code>", quote=True)
     # LOGGER.info(message)
     # extract link from message
@@ -164,10 +168,10 @@ async def incoming_youtube_dl_f(client, message):
         yt_dl_pass_word = None
         cf_name = None
     else:
-        await i_m_sefg.edit("<b>🐈 Oops Reply To YTDL Supported Link.</b>")
+        await i_m_sefg.edit("<b>⚠️!! Opps !!</b>\n\n <b><i>♻️ Reply To YTDL Supported Link.</i></b>")
         return
     if dl_url is not None:
-        await i_m_sefg.edit_text("Extracting Links...")
+        await i_m_sefg.edit_text("<code>Extracting Links . . . 🔀</code>")
         # create an unique directory
         user_working_dir = os.path.join(DOWNLOAD_LOCATION, str(current_user_id))
         # create download directory, if not exist
@@ -194,8 +198,7 @@ async def incoming_youtube_dl_f(client, message):
             await i_m_sefg.edit_text(text=text_message, reply_markup=reply_markup)
     else:
         await i_m_sefg.edit_text(
-            "**FCUK**! wat have you entered.\n"
-            f"<b>API Error</b>: {cf_name}"
+            "<b> 🏖Maybe You Didn't Know I am Being Used !!</b> \n\n<b>🌐 API Error</b>: {cf_name}"
         )
 
 
