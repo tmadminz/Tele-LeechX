@@ -75,7 +75,7 @@ async def incoming_message_f(client, message):
         else:
             if user_command == LEECH_COMMAND.lower():
                 u_men = message.from_user.mention
-                await i_m_sefg.edit("<i>😒 Hey {u_men}, \n ⚠️ Check and Send a Valid Download Source to Start Me Up !! ⚠️</i>")
+                await i_m_sefg.edit(f"<i> Hey {u_men}, \n\n ⚠️ Check and Send a Valid Download Source to Start Me Up !! ⚠️</i>")
                 return
             is_file = True
             dl_url = rep_mess
@@ -84,7 +84,7 @@ async def incoming_message_f(client, message):
         LOGGER.info(dl_url)
 
     else:
-        await i_m_sefg.edit("<b>⚠️!! Opps !!</b>\n\n <b><i>♻️ Reply with Direct/Torrent Link or File ⁉️</i></b>")
+        await i_m_sefg.edit("<b>⚠️ Opps ⚠️</b>\n\n <b><i>⊠ Reply with Direct/Torrent Link or File⁉️</i></b>")
         return
     if dl_url is not None:
 
@@ -104,7 +104,7 @@ async def incoming_message_f(client, message):
             # LOGGER.info(aria_i_p)
         
         u_men = message.from_user.mention
-        await i_m_sefg.edit_text("<b>👤 User : {u_men} \n Your Request Has Been Added To The Status \n Use /status To Check Your Progress</b>")
+        await i_m_sefg.edit_text(f"<b>👤 User : {u_men} \n Your Request Has Been Added To The Status \n Use /status To Check Your Progress</b>")
         # try to download the "link"
         is_zip = False
         is_cloud = False
@@ -169,7 +169,7 @@ async def incoming_youtube_dl_f(client, message):
         yt_dl_pass_word = None
         cf_name = None
     else:
-        await i_m_sefg.edit("<b>⚠️!! Opps !!</b>\n\n <b><i>♻️ Reply To YTDL Supported Link.</i></b>")
+        await i_m_sefg.edit("<b>⚠️ Opps ⚠️</b>\n\n <b><i>⊠ Reply To YTDL Supported Link.</i></b>")
         return
     if dl_url is not None:
         await i_m_sefg.edit_text("<code>Extracting Links . . . 🔀</code>")
