@@ -82,7 +82,7 @@ class Progress:
                 ''.join([UN_FINISHED_PROGRESS_STR for i in range(20 - math.floor(percentage / 5))]),
                 round(percentage, 2))
             #cpu = "{psutil.cpu_percent()}%"
-            tmp = progress + "\n**⌧ Total 🗃:**`〚{1}〛`\n**⌧ Done ✅ :**`{0}`\n**⌧ Speed 📊 :** `{2}`\n**⌧ ETA 🔃 :**`{3}`".format(
+            tmp = progress + "\n**⌧ Total 🗃:**` 〚{1}〛`\n**⌧ Done ✅ :**` 〚{0}〛`\n**⌧ Speed 📊 :** ` 〚{2}〛`\n**⌧ ETA 🔃 :**` 〚{3}〛`".format(
                 humanbytes(current),
                 humanbytes(total),
                 humanbytes(speed),
@@ -113,11 +113,11 @@ def humanbytes(size):
         return ""
     power = 2 ** 10
     n = 0
-    Dic_powerN = {0: " ", 1: "Ki", 2: "Mi", 3: "Gi", 4: "Ti"}
+    Dic_powerN = {0: " ", 1: "𝙺𝚒", 2: "𝙼𝚒", 3: "𝙶𝚒", 4: "𝚃𝚒"}
     while size > power:
         size /= power
         n += 1
-    return str(round(size, 2)) + " " + Dic_powerN[n] + "B"
+    return str(round(size, 2)) + " " + Dic_powerN[n] + "𝙱"
 
 
 def TimeFormatter(milliseconds: int) -> str:
