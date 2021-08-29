@@ -9,14 +9,16 @@ than the modifications. See https://github.com/AvinashReddy3108/PaperplaneExtend
 for original authorship. """
 
 import json
+import math
 import re
 import urllib.parse
 from os import popen
 from random import choice
-from js2py import EvalJs
-import requests
-from bs4 import BeautifulSoup
+from urllib.parse import urlparse
 
+from js2py import EvalJs
+import requests, cfscrape
+from bs4 import BeautifulSoup
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
 
 
@@ -38,6 +40,12 @@ def direct_link_generator(text_url: str):
         return github(text_url)
     elif 'racaty.net' in text_url:
         return racaty(text_url)
+    elif '1drv.ms' in link:
+        return onedrive(link)
+    elif '1fichier.com' in link:
+        return fichier(link)
+    elif 'solidfiles.com' in link:
+        return solidfiles(link)
     else:
         raise DirectDownloadLinkException(f'No Direct link function found for {text_url}')
 
@@ -146,6 +154,20 @@ def github(url: str) -> str:
     except KeyError:
         raise DirectDownloadLinkException("`Error: Can't extract the link`\n")
 
+def onedrive(link: str) -> str:
+    """ Onedrive direct link generator
+    Based on https://github.com/UsergeTeam/Userge """
+    link_without_query = urlparse(link)._replace(query=None).geturl()
+    direct_link_encoded = str(standard_b64encode(bytes(link_without_query, "utf-8")), "utf-8")
+    direct_link1 = f"https://api.onedrive.com/v1.0/shares/u!{direct_link_encoded}/root/content"
+    resp = requests.head(direct_link1)
+    if resp.status_code != 302:
+        return "ERROR: Unauthorized link, the link may be private"
+    dl_link = resp.next.url
+    file_name = dl_link.rsplit("/", 1)[1]
+    resp2 = requests.head(dl_link)
+    return dl_link
+
 
 def useragent():
     """
@@ -159,17 +181,96 @@ def useragent():
     user_agent = choice(useragents)
     return user_agent.text
 
+
 def racaty(url: str) -> str:
+    """ Racaty direct links generator
+    based on https://github.com/Slam-Team/slam-mirrorbot """
     dl_url = ''
     try:
-        text_url = re.findall(r'\bhttps?://.*racaty\.net\S+', url)[0]
+        link = re.findall(r'\bhttps?://.*racaty\.net\S+', url)[0]
     except IndexError:
-        raise DirectDownloadLinkException("`No Racaty links found`\n")
-    reqs=requests.get(text_url)
-    bss=BeautifulSoup(reqs.text,'html.parser')
-    op=bss.find('input',{'name':'op'})['value']
-    id=bss.find('input',{'name':'id'})['value']
-    rep=requests.post(text_url,data={'op':op,'id':id})
-    bss2=BeautifulSoup(rep.text,'html.parser')
-    dl_url=bss2.find('a',{'id':'uniqueExpirylink'})['href']
+        raise DirectDownloadLinkException("No Racaty links found\n")
+    scraper = cfscrape.create_scraper()
+    r = scraper.get(url)
+    soup = BeautifulSoup(r.text, "lxml")
+    op = soup.find("input", {"name": "op"})["value"]
+    ids = soup.find("input", {"name": "id"})["value"]
+    rpost = scraper.post(url, data = {"op": op, "id": ids})
+    rsoup = BeautifulSoup(rpost.text, "lxml")
+    dl_url = rsoup.find("a", {"id": "uniqueExpirylink"})["href"].replace(" ", "%20")
     return dl_url
+
+
+def fichier(link: str) -> str:
+    """ 1Fichier direct links generator
+    Based on https://github.com/Maujar
+             https://github.com/Slam-Team/slam-mirrorbot """
+    regex = r"^([http:\/\/|https:\/\/]+)?.*1fichier\.com\/\?.+"
+    gan = re.match(regex, link)
+    if not gan:
+      raise DirectDownloadLinkException("ERROR: The link you entered is wrong!")
+    if "::" in link:
+      pswd = link.split("::")[-1]
+      url = link.split("::")[-2]
+    else:
+      pswd = None
+      url = link
+    try:
+      if pswd is None:
+        req = requests.post(url)
+      else:
+        pw = {"pass": pswd}
+        req = requests.post(url, data=pw)
+    except:
+      raise DirectDownloadLinkException("ERROR: Unable to reach 1fichier server!")
+    if req.status_code == 404:
+      raise DirectDownloadLinkException("ERROR: File not found/The link you entered is wrong!")
+    soup = BeautifulSoup(req.content, 'lxml')
+    if soup.find("a", {"class": "ok btn-general btn-orange"}) is not None:
+      dl_url = soup.find("a", {"class": "ok btn-general btn-orange"})["href"]
+      if dl_url is None:
+        raise DirectDownloadLinkException("ERROR: Unable to generate Direct Link 1fichier!")
+      else:
+        return dl_url
+    else:
+      if len(soup.find_all("div", {"class": "ct_warn"})) == 2:
+        str_2 = soup.find_all("div", {"class": "ct_warn"})[-1]
+        if "you must wait" in str(str_2).lower():
+          numbers = [int(word) for word in str(str_2).split() if word.isdigit()]
+          if len(numbers) == 0:
+            raise DirectDownloadLinkException("ERROR: 1fichier is on a limit. Please wait a few minutes/hour.")
+          else:
+            raise DirectDownloadLinkException(f"ERROR: 1fichier is on a limit. Please wait {numbers[0]} minute.")
+        elif "protect access" in str(str_2).lower():
+          raise DirectDownloadLinkException("ERROR: This link requires a password!\n\n<b>This link requires a password!</b>\n- Insert sign <b>::</b> after the link and write the password after the sign.\n\n<b>Example:</b>\n<code>/mirror https://1fichier.com/?smmtd8twfpm66awbqz04::love you</code>\n\n* No spaces between the signs <b>::</b>\n* For the password, you can use a space!")
+        else:
+          raise DirectDownloadLinkException("ERROR: Error trying to generate Direct Link from 1fichier!")
+      elif len(soup.find_all("div", {"class": "ct_warn"})) == 3:
+        str_1 = soup.find_all("div", {"class": "ct_warn"})[-2]
+        str_3 = soup.find_all("div", {"class": "ct_warn"})[-1]
+        if "you must wait" in str(str_1).lower():
+          numbers = [int(word) for word in str(str_1).split() if word.isdigit()]
+          if len(numbers) == 0:
+            raise DirectDownloadLinkException("ERROR: 1fichier is on a limit. Please wait a few minutes/hour.")
+          else:
+            raise DirectDownloadLinkException(f"ERROR: 1fichier is on a limit. Please wait {numbers[0]} minute.")
+        elif "bad password" in str(str_3).lower():
+          raise DirectDownloadLinkException("ERROR: The password you entered is wrong!")
+        else:
+          raise DirectDownloadLinkException("ERROR: Error trying to generate Direct Link from 1fichier!")
+      else:
+        raise DirectDownloadLinkException("ERROR: Error trying to generate Direct Link from 1fichier!")
+
+
+def solidfiles(url: str) -> str:
+    """ Solidfiles direct links generator
+    Based on https://github.com/Xonshiz/SolidFiles-Downloader
+    By https://github.com/Jusidama18 """
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.125 Safari/537.36'
+    }
+    pageSource = requests.get(url, headers = headers).text
+    mainOptions = str(re.search(r'viewerOptions\'\,\ (.*?)\)\;', pageSource).group(1))
+    dl_url = json.loads(mainOptions)["downloadUrl"]
+    return dl_url
+
