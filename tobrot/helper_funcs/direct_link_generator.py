@@ -16,9 +16,12 @@ from os import popen
 from random import choice
 from urllib.parse import urlparse
 
-from js2py import EvalJs
+import lk21
 import requests, cfscrape
+from js2py import EvalJs
+from lk21.extractors.bypasser import Bypass
 from bs4 import BeautifulSoup
+from base64 import standard_b64encode
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
 
 
@@ -42,6 +45,10 @@ def direct_link_generator(text_url: str):
         return racaty(text_url)
     elif '1drv.ms' in text_url:
         return onedrive(text_url)
+    elif 'bayfiles.com' in text_url:
+        return anonfiles(text_url)
+    elif 'anonfiles.com' in text_url: 
+        return anonfiles(text_url)
     elif '1fichier.com' in text_url:
         return fichier(text_url)
     elif 'solidfiles.com' in text_url:
@@ -260,6 +267,15 @@ def fichier(link: str) -> str:
           raise DirectDownloadLinkException("ERROR: Error trying to generate Direct Link from 1fichier!")
       else:
         raise DirectDownloadLinkException("ERROR: Error trying to generate Direct Link from 1fichier!")
+
+
+def anonfiles(url: str) -> str:
+    """ Anonfiles direct link generator
+    Based on https://github.com/zevtyardt/lk21
+             https://github.com/Slam-Team/slam-mirrorbot """
+    bypasser = lk21.Bypass()
+    dl_url=bypasser.bypass_anonfiles(url)
+    return dl_url
 
 
 def solidfiles(url: str) -> str:
