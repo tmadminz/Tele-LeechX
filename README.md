@@ -50,9 +50,9 @@ streamtape.com, streamsb.net, feurl.com, pixeldrain.com, racaty.net,
 
 </details>
 
-# Variable Description :-
+## Variable Description :-
 
-## Mandatory Variables :-
+### Mandatory Variables :-
 <details>
     <summary><b>Click Here For Description</b></summary>
 
@@ -69,7 +69,7 @@ streamtape.com, streamsb.net, feurl.com, pixeldrain.com, racaty.net,
 
 </details>
 
-## Optional Configuration Variables :-
+### Optional Configuration Variables :-
 
 <details>
     <summary><b>Click Here For Description</b></summary>
@@ -138,7 +138,7 @@ streamtape.com, streamsb.net, feurl.com, pixeldrain.com, racaty.net,
 
 </details>
 
-# RClone Guide 
+## RClone Guide 
 
 <details>
     <summary><b>Click Here For Description</b></summary>
