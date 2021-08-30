@@ -1,8 +1,8 @@
 ![FUZION LEECH](https://telegra.ph/file/213b587eee775e34ca221.jpg)
-# FuZionX Leech Bot 
+## FuZionX Leech Bot 
 
 
-# Features Supported :-
+## Features Supported :-
 <details>
     <summary><b>Click Here For More Details</b></summary>
 
@@ -25,7 +25,7 @@
 
 </details>
 
-# Mandatory Variables
+## Mandatory Variables
 
 * `TG_BOT_TOKEN`: Create a bot using [@BotFather](https://telegram.dog/BotFather), and get the Telegram API token.
 
@@ -38,7 +38,7 @@
 * `OWNER_ID`: ID of the bot owner, He/she can be abled to access bot in bot only mode too(private mode).
 
 
-# Optional Configuration Variables
+## Optional Configuration Variables
 
 * `DOWNLOAD_LOCATION`
 
