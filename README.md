@@ -1,12 +1,13 @@
 ![FUZION LEECH](https://telegra.ph/file/213b587eee775e34ca221.jpg)
 ## FuZionX Leech Bot 
 
+A Powerful 
 
 ## Features Supported :-
 <details>
     <summary><b>Click Here For More Details</b></summary>
 
-    ✓ Google Drive link cloning using gclone.(wip)
+    - Google Drive link cloning using gclone.(wip)
     ✓ Telegram File mirrorring to cloud along with its unzipping, unrar and untar
     ✓ Drive/Teamdrive support/All other cloud services rclone.org supports
     ✓ Unzip
@@ -21,7 +22,15 @@
     ✓ Added /renewme command to clear the downloads which are not deleted automatically.
     ✓ Added support for youtube playlist 😐
     ✓ Renaming of Telegram files support added. 😐
-    ✓ Changing rclone destination config on fly (By using `/rlcone` in private mode)
+- Changing rclone destination config on fly (By using `/rlcone` in private mode)
+- Direct links Supported:
+```
+letsupload.io, hxfile.co, anonfiles.com, bayfiles.com, antfiles,
+fembed.com, fembed.net, femax20.com, layarkacaxxi.icu, fcdn.stream,
+sbplay.org, naniplay.com, naniplay.nanime.in, naniplay.nanime.biz, sbembed.com,
+streamtape.com, streamsb.net, feurl.com, pixeldrain.com, racaty.net,
+1fichier.com, 1drv.ms (Only works for file not folder or business account), Solidfiles.com 
+```
 
 </details>
 
@@ -102,25 +111,22 @@
 
 * `DESTINATION_FOLDER`: Name of your folder in ur respective drive where you want to upload the files using the bot.
 
-[![Maxx](https://telegra.ph/file/3066ec5102c94b8135e09.png)](https://t.me/MaxxBotChat)
-
 ## ARE YOU NEW ??? Then READ Full 👉 [Instructions](https://github.com/5MysterySD/Tele-LeechX/blob/master/About-Leech.md)
 
-
-🤧 <b> Before Deploy 𝗣𝗹𝗲𝗮𝘀𝗲 𝗛𝗶𝘁 𝗦𝘁𝗮𝗿 ★ else you are Gay</b>
-
+## Deploying on Heroku
+- Deploying on Heroku Directly, Please Don't Abuse it. 
 
 <p><a href="https://heroku.com/deploy?template=https://github.com/5MysterySD/Tele-LeechX/tree/master)"> <img src="https://img.shields.io/badge/Deploy%20To%20Heroku-blueviolet?style=for-the-badge&logo=heroku" width="200""/></a></p>
 
 ## Credits Goes To : 
-* [MysterySD](https://github.com/5MysterySD) (Meh !!) For Direct Link Support. 
-* [KGK06](https://github.com/KGK06) Adding Features from Different Repos.
-* [XcodersHub](https://github.com/XcodersHub) for Modding 🙄 
-* [GautamKumar](https://github.com/gautamajay52/TorrentLeech-Gdrive) 😬
-* [SpEcHiDe](https://github.com/SpEcHiDe/PublicLeech) for his wonderful code😚
-* [Rclone Team](https://rclone.org) for theirs awesome tool☁️
-* [Dan Tès](https://telegram.dog/haskell) for his [Pyrogram Library](https://github.com/pyrogram/pyrogram)
-* [Robots](https://telegram.dog/Robots) for their [@UploadBot](https://telegram.dog/UploadBot)
-* [@AjeeshNair](https://telegram.dog/AjeeshNait) for his [torrent.ajee.sh](https://torrent.ajee.sh)
-* [@gotstc](https://telegram.dog/gotstc), @aryanvikash, [@HasibulKabir](https://telegram.dog/HasibulKabir) for their TORRENT groups
+* [`MysterySD`](https://github.com/5MysterySD) (Meh !!) For Direct Link Support. 
+* [`KGK06`](https://github.com/KGK06) Adding Features from Different Repos.
+* [`XcodersHub`](https://github.com/XcodersHub) for Modding 🙄 
+* [`GautamKumar`](https://github.com/gautamajay52/TorrentLeech-Gdrive) 😬
+* [`SpEcHiDe`](https://github.com/SpEcHiDe/PublicLeech) for his wonderful code😚
+* [`Rclone Team`](https://rclone.org) for theirs awesome tool☁️
+* [`Dan Tès`](https://telegram.dog/haskell) for his [Pyrogram Library](https://github.com/pyrogram/pyrogram)
+* [`Robots`](https://telegram.dog/Robots) for their [@UploadBot](https://telegram.dog/UploadBot)
+* [`@AjeeshNair`](https://telegram.dog/AjeeshNait) for his [torrent.ajee.sh](https://torrent.ajee.sh)
+* [`@gotstc`](https://telegram.dog/gotstc), @aryanvikash, [@HasibulKabir](https://telegram.dog/HasibulKabir) for their TORRENT groups
   [![CopyLeft](https://telegra.ph/file/b514ed14d994557a724cb.jpg)](https://telegra.ph/file/fab1017e21c42a5c1e613.mp4 "CopyLeft Credit Video")
