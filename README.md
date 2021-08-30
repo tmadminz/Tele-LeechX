@@ -23,8 +23,18 @@
 - Renaming of Telegram files support added. 😐
 - Changing rclone destination config on fly (By using `/rlcone` in private mode)
 
-### New In Repo :
+### From Different Repos :
+- Aria2 configs In Root
+- Small FIX for Gclone
+- Unzip Error Fixed
+- Added Dynamic Config 
+- Added Custom ToggleDoc and ToggleVid Commands
+- Added Custom Rename Command via vars
+- Added direct rclone.conf url in vars
 
+### New In Repo :
+- UI Added for Improved User Experience with Easy to Use.
+- Added New Status Bar using `/status` command. 
 - Direct links Supported:
 ```
 letsupload.io, hxfile.co, anonfiles.com, bayfiles.com, antfiles,
@@ -36,7 +46,7 @@ streamtape.com, streamsb.net, feurl.com, pixeldrain.com, racaty.net,
 
 </details>
 
-## Mandatory Variables
+## Mandatory Variables :-
 <details>
     <summary><b>Click Here For Description</b></summary>
 
@@ -45,14 +55,15 @@ streamtape.com, streamsb.net, feurl.com, pixeldrain.com, racaty.net,
 * `APP_ID`: Get this Value from [my.telegram.org/apps](https://my.telegram.org/apps).
 
 * `API_HASH`: Get this Value from [my.telegram.org/apps](https://my.telegram.org/apps).
-  * N.B.: if Telegram is blocked by your ISP, try our [Telegram bot](https://telegram.dog/UseTGXBot) to get the IDs.
+  * NOTE: If Telegram is blocked by your ISP, try Telegram to get the IDs.
 
-* `AUTH_CHANNEL`: Create a Super Group in Telegram, add `@GoogleIMGBot` to the group, and send /id in the chat, to get this value.
+* `AUTH_CHANNEL`: Create a Super(Means Changing it to `Visible` for `Chat History for New Members`) in Telegram, forward a Message from the Group to `@ShowJsonBot` to get this value.
 
-* `OWNER_ID`: ID of the bot owner, He/she can be abled to access bot in bot only mode too(private mode).
+* `OWNER_ID`: ID of the Bot Owner, He/She can be abled to access bot in bot only mode too(`Private mode`).
+
 </details>
 
-## Optional Configuration Variables
+## Optional Configuration Variables :-
 
 * `DOWNLOAD_LOCATION`
 
