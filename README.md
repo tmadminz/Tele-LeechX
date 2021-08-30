@@ -50,6 +50,8 @@ streamtape.com, streamsb.net, feurl.com, pixeldrain.com, racaty.net,
 
 </details>
 
+# Variable Description :-
+
 ## Mandatory Variables :-
 <details>
     <summary><b>Click Here For Description</b></summary>
@@ -136,8 +138,32 @@ streamtape.com, streamsb.net, feurl.com, pixeldrain.com, racaty.net,
 
 </details>
 
+# RClone Guide 
+
+<details>
+    <summary><b>Click Here For Description</b></summary>
+
+- Set Rclone locally by following the official repo : https://rclone.org/docs/
+- Get your `rclone.conf` file.
+will look like this
+
+```
+[NAME]
+type = 
+scope =
+token =
+client_id = 
+client_secret = 
+```
+
+- Copy `rclone.conf` file in the root directory (Where `Dockerfile` exists).
+
+- Your config can contains multiple drive entries.(Default: First one and change using `/rclone` command)
+
+</details>
+
 ## Deploying on Heroku
-- Deploying on Heroku Directly, Please Don't Abuse it. 
+- Deploying on Heroku Directly `Supported`, Please Don't Abuse it. 
 
 <p><a href="https://heroku.com/deploy?template=https://github.com/5MysterySD/Tele-LeechX/tree/master)"> <img src="https://img.shields.io/badge/Deploy%20To%20Heroku-blueviolet?style=for-the-badge&logo=heroku" width="200""/></a></p>
 
