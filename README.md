@@ -69,6 +69,9 @@ streamtape.com, streamsb.net, feurl.com, pixeldrain.com, racaty.net,
 
 ## Optional Configuration Variables :-
 
+<details>
+    <summary><b>Click Here For Description</b></summary>
+
 * `DOWNLOAD_LOCATION`
 
 * `MAX_FILE_SIZE`
@@ -130,6 +133,8 @@ streamtape.com, streamsb.net, feurl.com, pixeldrain.com, racaty.net,
 * `INDEX_LINK`: (Without `/` at last of the link, otherwise u will get error) During creating index, plz fill `Default Root ID` with the id of your `DESTINATION_FOLDER` after creating. Otherwise index will not work properly.
 
 * `DESTINATION_FOLDER`: Name of your folder in ur respective drive where you want to upload the files using the bot.
+
+</details>
 
 ## ARE YOU NEW ??? Then READ Full 👉 [Instructions](https://github.com/5MysterySD/Tele-LeechX/blob/master/About-Leech.md)
 
