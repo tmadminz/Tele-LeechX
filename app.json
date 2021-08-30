@@ -1,16 +1,16 @@
 {
-  "name": "Telegram Torrent Leecher",
-  "description": "A Telegram Torrent (and youtube-dl) Leecher based on Pyrogram. Powered by @MaxxBots",
+  "name": "Tele-Leech-X",
+  "description": "A Powerful Telegram Torrent (and YouTube-DL) Leecher based on Pyrogram. Powered by @FuZionX",
   "logo": "https://telegra.ph/file/101a7d52e02772152c6e3.jpg",
   "keywords": [
     "telegram"
   ],
-  "repository": "https://github.com/MaxxRider/Leech-Pro",
-  "success_url": "https://t.me/MaxxBotChat",
-  "website": "https://github.com/MaxxRider/Leech-Pro",
+  "repository": "https://github.com/5MysterySD/Tele-LeechX",
+  "success_url": "https://t.me/FuZionX",
+  "website": "https://github.com/5MysterySD/Tele-LeechX",
   "env": {
     "ENV": {
-      "description": "Setting this to ANYTHING will enable webhooks when in env mode",
+      "description": "Setting this to ANYTHING will enable Webhooks when in env mode",
       "value": "ANYTHING"
     },
     "APP_ID": {
@@ -22,15 +22,15 @@
       "value": ""
     },
     "TG_BOT_TOKEN": {
-      "description": "get this value from @BotFather",
+      "description": "Get this value from @BotFather by Making New Bot",
       "value": ""
     },
     "AUTH_CHANNEL": {
-      "description": "should be an integer. The BOT API ID of the Telegram Group, where the Leecher should work., Put Group ID",
+      "description": "Should be an integer. The BOT API ID of the Telegram Group, Where the Bot should work., Put Group ID. Multiple ID separated by Single Space",
       "value": ""
     },
     "OWNER_ID": {
-      "description": "should be an integer. ID of owner of bot",
+      "description": "Should be an integer. ID of owner of bot. Get it by sending /info to @MissRose_Bot",
       "value": ""
     },
     "UPLOAD_AS_DOC": {
@@ -38,30 +38,31 @@
       "required": false
     },
     "CHUNK_SIZE": {
-      "description": "should be an integer",
+      "description": "Should be an integer",
       "value": "128",
       "required": false
     },
     "ARIA_TWO_STARTED_PORT": {
-      "description": "should be an integer. The port on which aria2c daemon must start, and keep listening.",
+      "description": "Should be an integer. The port on which aria2c daemon must start, and keep listening.",
       "value": "6800",
       "required": false
     },
     "EDIT_SLEEP_TIME_OUT": {
-      "description": "should be an integer. Number of seconds to wait before editing a message.",
+      "description": "Should be an integer. Number of seconds to wait before editing a message. Put between from 6 - 15 else the Bot Crashes ",
       "value": "15",
       "required": false
     },
     "MAX_TIME_TO_WAIT_FOR_TORRENTS_TO_START": {
-      "description": "should be an integer. Number of seconds to wait before cancelling a torrent.",
+      "description": "should be an integer. Number of seconds to Wait before Cancelling a torrent.",
+      "value": "300",
       "required": false
     },
     "FINISHED_PROGRESS_STR": {
-      "description": "should be a single character.",
+      "description": "Should be a Single Character. Get any Cool Icon.",
       "required": false
     },
     "UN_FINISHED_PROGRESS_STR": {
-      "description": "should be a single character.",
+      "description": "Should be a Single Character. Get any Cool Icon.",
       "required": false
     },
     "TG_OFFENSIVE_API": {
@@ -69,15 +70,15 @@
       "required": false
     },
     "LEECH_COMMAND": {
-      "description": "Enter your custom leech command like /leech@botname and so on. Default is /leech",
+      "description": "Enter your Custom leech command like /leech@botname and so on. Default is /leech",
       "required": false
     },
     "SAVE_THUMBNAIL": {
-      "description": "For custom thumbnail Command. default is /savethumbnail",
+      "description": "For Custom Save thumbnail Command. Default is /savethumbnail",
       "required": false
     },
     "CLEAR_THUMBNAIL": {
-      "description": "For Delete Thumbnail Command. Default is /clearthumbnail",
+      "description": "For Custom Delete Thumbnail Command. Default is /clearthumbnail",
       "required": false
     },
     "INDEX_LINK": {
@@ -96,7 +97,7 @@
       "description": "Enter your custom ytdl command like ytdl1@urgroupname and so on. Default is /ytdl.",
       "required": false
     },
-    "PYTDL_COMMAND_G": {
+    "PYTDL_COMMAND": {
       "description": "Enter your custom pytdl command like pytdl1@urgroupname and so on. Default is /pytdl.",
       "required": false
     },
