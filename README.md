@@ -168,8 +168,7 @@ client_secret =
 <p><a href="https://heroku.com/deploy?template=https://github.com/5MysterySD/Tele-LeechX/tree/master)"> <img src="https://img.shields.io/badge/Deploy%20To%20Heroku-blueviolet?style=for-the-badge&logo=heroku" width="200""/></a></p>
 
 
----
-## Available Commands For The BOT
+## Bot Commands Available For Repo:-
 
 <details>
     <summary><b>Click Here For Description</b></summary>
@@ -201,4 +200,40 @@ client_secret =
 | `/help`| send help
 
 </details>
+
+## Commands Set To @BotFather :-
+- Set the Custom Commands in Heroku to Use it with Bot ( /<cmd>(bot_name) )
+
+<details>
+    <summary><b>Click Here For Description</b></summary>
+
 ---
+    leech - leech any torrent/magnet/direct-download link to Telegram 
+	leechunzip - This will unarchive file and upload to telegram.
+    leechzip - leech any torrent/magnet/direct-download link to Telegram and Upload It as .tar.gz acrhive...
+    ytdl - This command should be used as reply to a supported link
+    pytdl - This command will download videos from youtube playlist link and will upload to telegram.	
+	toggledoc - choose whether the file shall be uploaded as doc or not
+    togglevid - choose whether the file shall be uploaded as streamable or not
+	savethumbnail - save thumbnail
+    clearthumbnail - clear thumbnail
+    tleech - This will mirror the telegram files to ur respective cloud .
+    tleechunzip - This will unarchive telegram file and upload to cloud.
+    gclone - This command is used to clone gdrive files or folder using gclone
+    gytdl - This will download and upload to your cloud.
+    gpytdl - This download youtube playlist and upload to your cloud.
+    gleech - leech any torrent/magnet/direct-download link to cloud
+    gleechzip - leech any torrent/magnet/direct-download link to Cloud and Upload It as .tar.gz acrhive...
+    gleechunzip - This will unarchive file and upload to cloud.
+    getsize - This will give you total size of your destination folder in cloud.
+    rename - rename the file 
+    help - send help 
+    status - show bot stats and concurrent downloads
+    renewme - clear all downloads (admin only)⚠️
+    log - This will send you a txt file of the logs.(admin only)⚠️
+    rclone - This will change your drive config on fly.(First one will be default)--(admin only)⚠️
+---
+
+</details>
+
+## Give A Star Before You Go Anywhere 
