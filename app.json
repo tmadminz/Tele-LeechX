@@ -33,8 +33,32 @@
       "description": "Should be an integer. ID of owner of bot. Get it by sending /info to @MissRose_Bot",
       "value": ""
     },
-    "UPLOAD_AS_DOC": {
-      "description": "True/False. If true all files will be uploaded as documents. Default is False.",
+    "TOGGLE_DOC": {
+      "description": "Enter your custom toggle command like toggledoc1@botname and so on. Default is /toggledoc.",
+      "required": false
+    },
+    "TOGGLE_VID": {
+      "description": "Enter your custom toggle command like togglevid1@botname and so on. Default is /togglevid.",
+      "required": false
+    },
+    "RENAME_COMMAND": {
+      "description": "Enter your custom rename command like rename1@botname and so on. Default is /rename.",
+      "required": false
+    },
+    "LOG_COMMAND": {
+      "description": "Enter your custom log command like log1@botname and so on. Default is /log.",
+      "required": false
+    },
+    "STATUS_COMMAND": {
+      "description": "Enter your custom status command like status1@botname and so on. Default is /status.",
+      "required": false
+    },
+    "LEECH_ZIP_COMMAND": {
+      "description": "Enter your custom zip command like togglevid1@botname and so on. Default is /leexhzip.",
+      "required": false
+    },
+    "LEECH_UNZIP_COMMAND": {
+      "description": "Enter your custom unzip command like togglevid1@botname and so on. Default is /leechunzip.",
       "required": false
     },
     "CHUNK_SIZE": {
@@ -85,24 +109,12 @@
       "description": "Enter your index link:",
       "required": false
     },
-    "GLEECH_COMMAND": {
-      "description": "Enter your custom gleech command like /gleech1@urgroupname and so on. Default is /gleech",
-      "required": false
-    },
-    "TELEGRAM_LEECH_COMMAND_G": {
-      "description": "Enter your custom tleech command like /tleech1@urgroupname and so on. Default is /tleech",
-      "required": false
-    },
     "YTDL_COMMAND": {
       "description": "Enter your custom ytdl command like ytdl1@urgroupname and so on. Default is /ytdl.",
       "required": false
     },
     "PYTDL_COMMAND": {
-      "description": "Enter your custom pytdl command like pytdl1@urgroupname and so on. Default is /pytdl.",
-      "required": false
-    },
-    "CANCEL_COMMAND_G": {
-      "description": "Enter your custom cancel command like cancel@urgroupname and so on. Default is /cancel.",
+      "description": "Enter your custom pytdl command like pytdl1@botname and so on. Default is /pytdl.",
       "required": false
     },
     "GET_SIZE_G": {
