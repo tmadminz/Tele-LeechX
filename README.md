@@ -1,15 +1,11 @@
 ![FUZION LEECH](https://telegra.ph/file/213b587eee775e34ca221.jpg)
-![MAXX LEECH V2](https://telegra.ph/file/af8f0596124714a17e4e2.png)
-
-🛠 [Orginal Repository](https://github.com/gautamajay52/TorrentLeech-Gdrive)
-
-![Maxx](https://telegra.ph/file/d18fa7fa33f26f733adb9.png)
-
-[![MAXX LEECH](https://telegra.ph/file/29d788a656dd517eafd0a.png)](https://telegram.dog/FuZionX)
+# FuZionX Leech Bot 
 
 
+# Features Supported :-
+<details>
+    <summary><b>Click Here For More Details</b></summary>
 
-# Benefits :-
     ✓ Google Drive link cloning using gclone.(wip)
     ✓ Telegram File mirrorring to cloud along with its unzipping, unrar and untar
     ✓ Drive/Teamdrive support/All other cloud services rclone.org supports
@@ -26,6 +22,8 @@
     ✓ Added support for youtube playlist 😐
     ✓ Renaming of Telegram files support added. 😐
     ✓ Changing rclone destination config on fly (By using `/rlcone` in private mode)
+
+</details>
 
 # Mandatory Variables
 
@@ -113,7 +111,4 @@
 
 
 <p><a href="https://heroku.com/deploy?template=https://github.com/5MysterySD/Tele-LeechX/tree/master)"> <img src="https://img.shields.io/badge/Deploy%20To%20Heroku-blueviolet?style=for-the-badge&logo=heroku" width="200""/></a></p>
-
-
-[![MaxxRider](https://telegra.ph/file/aac59f2f35ee73b63019e.png)](https://telegram.dog/MaxxRiderz)
 
