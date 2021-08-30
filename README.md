@@ -1,4 +1,4 @@
-![FUZION LEECH](https://telegra.ph/file/8abf8d2addb8f4d982d8a.jpg)
+![FUZION LEECH](https://telegra.ph/file/213b587eee775e34ca221.jpg)
 ![MAXX LEECH V2](https://telegra.ph/file/af8f0596124714a17e4e2.png)
 
 🛠 [Orginal Repository](https://github.com/gautamajay52/TorrentLeech-Gdrive)
@@ -106,7 +106,7 @@
 
 [![Maxx](https://telegra.ph/file/3066ec5102c94b8135e09.png)](https://t.me/MaxxBotChat)
 
-## ARE YOU NEW ??? Then READ Full 👉 [Instructions](https://GitHub.com/MaxxRider/About-Leech)
+## ARE YOU NEW ??? Then READ Full 👉 [Instructions](https://github.com/5MysterySD/Tele-LeechX/blob/master/About-Leech.md)
 
 
 🤧 <b> Before Deploy 𝗣𝗹𝗲𝗮𝘀𝗲 𝗛𝗶𝘁 𝗦𝘁𝗮𝗿 ★ else you are Gay</b>
