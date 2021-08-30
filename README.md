@@ -1,3 +1,4 @@
+![FUZION LEECH](https://telegra.ph/file/8abf8d2addb8f4d982d8a.jpg)
 ![MAXX LEECH V2](https://telegra.ph/file/af8f0596124714a17e4e2.png)
 
 🛠 [Orginal Repository](https://github.com/gautamajay52/TorrentLeech-Gdrive)
@@ -15,7 +16,7 @@
     ✓ Unzip
     ✓ Unrar
     ✓ Untar
-    ✓ Custom file name
+    ✓ Custom file name (Used in Prefix on Every Item Leeched)
     ✓ Custom commands
     ✓ Get total size of your working cloud directory
     ✓ You can also upload files downloaded from /ytdl command to gdrive using `/ytdl gdrive` command.
