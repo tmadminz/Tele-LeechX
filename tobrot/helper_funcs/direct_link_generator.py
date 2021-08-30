@@ -41,11 +41,11 @@ def direct_link_generator(text_url: str):
     elif 'racaty.net' in text_url:
         return racaty(text_url)
     elif '1drv.ms' in link:
-        return onedrive(link)
+        return onedrive(text_url)
     elif '1fichier.com' in link:
-        return fichier(link)
+        return fichier(text_url)
     elif 'solidfiles.com' in link:
-        return solidfiles(link)
+        return solidfiles(text_url)
     else:
         raise DirectDownloadLinkException(f'No Direct link function found for {text_url}')
 
