@@ -15,3 +15,5 @@ lxml
 requests
 messages
 js2py
+cfscrape
+lk21
