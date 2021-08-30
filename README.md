@@ -6,6 +6,7 @@
 ## Features Supported :-
 <details>
     <summary><b>Click Here For Description</b></summary>
+
 ### From Original Repo :
 - Google Drive link cloning using gclone.(wip)
 - Telegram File mirrorring to cloud along with its unzipping, unrar and untar
@@ -38,6 +39,7 @@ streamtape.com, streamsb.net, feurl.com, pixeldrain.com, racaty.net,
 ## Mandatory Variables
 <details>
     <summary><b>Click Here For Description</b></summary>
+
 * `TG_BOT_TOKEN`: Create a Bot using [@BotFather](https://telegram.dog/BotFather), and get the Telegram API Token.
 
 * `APP_ID`: Get this Value from [my.telegram.org/apps](https://my.telegram.org/apps).
