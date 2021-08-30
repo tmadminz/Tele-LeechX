@@ -202,7 +202,7 @@ client_secret =
 </details>
 
 ## Commands Set To @BotFather :-
-- Set the Custom Commands in Heroku to Use it with Bot ( /<cmd>(bot_name) )
+- Set the Custom Commands in Heroku to Use it with Bot ( /(cmd)(bot_name) )
 
 <details>
     <summary><b>Click Here For Description</b></summary>
@@ -236,4 +236,4 @@ client_secret =
 
 </details>
 
-## Give A Star Before You Go Anywhere 
+## Give A ⭐ Star ⭐ Before You Go Anywhere 
