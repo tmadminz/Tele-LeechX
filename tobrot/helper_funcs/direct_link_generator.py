@@ -40,11 +40,11 @@ def direct_link_generator(text_url: str):
         return github(text_url)
     elif 'racaty.net' in text_url:
         return racaty(text_url)
-    elif '1drv.ms' in link:
+    elif '1drv.ms' in text_url:
         return onedrive(text_url)
-    elif '1fichier.com' in link:
+    elif '1fichier.com' in text_url:
         return fichier(text_url)
-    elif 'solidfiles.com' in link:
+    elif 'solidfiles.com' in text_url:
         return solidfiles(text_url)
     else:
         raise DirectDownloadLinkException(f'No Direct link function found for {text_url}')
