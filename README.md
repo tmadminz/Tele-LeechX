@@ -136,22 +136,7 @@ streamtape.com, streamsb.net, feurl.com, pixeldrain.com, racaty.net,
 
 </details>
 
-## ARE YOU NEW ??? Then READ Full 👉 [Instructions](https://github.com/5MysterySD/Tele-LeechX/blob/master/About-Leech.md)
-
 ## Deploying on Heroku
 - Deploying on Heroku Directly, Please Don't Abuse it. 
 
 <p><a href="https://heroku.com/deploy?template=https://github.com/5MysterySD/Tele-LeechX/tree/master)"> <img src="https://img.shields.io/badge/Deploy%20To%20Heroku-blueviolet?style=for-the-badge&logo=heroku" width="200""/></a></p>
-
-## Credits Goes To : 
-* [`MysterySD`](https://github.com/5MysterySD) (Meh !!) For Direct Link Support. 
-* [`KGK06`](https://github.com/KGK06) Adding Features from Different Repos.
-* [`XcodersHub`](https://github.com/XcodersHub) for Modding 🙄 
-* [`GautamKumar`](https://github.com/gautamajay52/TorrentLeech-Gdrive) 😬
-* [`SpEcHiDe`](https://github.com/SpEcHiDe/PublicLeech) for his wonderful code😚
-* [`Rclone Team`](https://rclone.org) for theirs awesome tool☁️
-* [`Dan Tès`](https://telegram.dog/haskell) for his [Pyrogram Library](https://github.com/pyrogram/pyrogram)
-* [`Robots`](https://telegram.dog/Robots) for their [@UploadBot](https://telegram.dog/UploadBot)
-* [`@AjeeshNair`](https://telegram.dog/AjeeshNait) for his [torrent.ajee.sh](https://torrent.ajee.sh)
-* [`@gotstc`](https://telegram.dog/gotstc), @aryanvikash, [@HasibulKabir](https://telegram.dog/HasibulKabir) for their TORRENT groups
-  [![CopyLeft](https://telegra.ph/file/b514ed14d994557a724cb.jpg)](https://telegra.ph/file/fab1017e21c42a5c1e613.mp4 "CopyLeft Credit Video")
