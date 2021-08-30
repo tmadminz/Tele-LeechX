@@ -163,9 +163,9 @@ client_secret =
 </details>
 
 ## Deploying on Heroku
-- Deploying on Heroku Directly `Supported`, Please Don't Abuse it. 
+- Deploying on Heroku Indirectly `Supported`, Please Don't Abuse it. 
 
-<p><a href="https://heroku.com/deploy?template=https://github.com/5MysterySD/Tele-LeechX/tree/master)"> <img src="https://img.shields.io/badge/Deployment%20Guide-blueviolet?style=for-the-badge&logo=heroku" width="200""/></a></p>
+<p><a href="https://heroku.com/deploy?template=https://github.com/5MysterySD/Tele-LeechX/blob/master/heroku-deploy.md)"> <img src="https://img.shields.io/badge/Deployment%20Guide-blueviolet?style=for-the-badge&logo=heroku" width="200""/></a></p>
 
 
 ## Bot Commands Available For Repo:-
