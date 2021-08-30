@@ -1,5 +1,9 @@
 ![FUZION LEECH](https://telegra.ph/file/213b587eee775e34ca221.jpg)
 ## FuZionX Leech Bot 
+![GitHub Repo stars](https://img.shields.io/github/stars/5MysterySD/Tele-LeechX?color=blue&style=flat)
+![GitHub forks](https://img.shields.io/github/forks/5MysterySD/Tele-LeechX?color=green&style=flat)
+![GitHub contributors](https://img.shields.io/github/contributors/5MysterySD/Tele-LeechX?style=flat)
+![GitHub watchers](https://img.shields.io/github/watchers/5MysterySD/Tele-LeechX)
 
 **A Powerful Leech Bot .**
 
@@ -41,7 +45,7 @@ letsupload.io, hxfile.co, anonfiles.com, bayfiles.com, antfiles,
 fembed.com, fembed.net, femax20.com, layarkacaxxi.icu, fcdn.stream,
 sbplay.org, naniplay.com, naniplay.nanime.in, naniplay.nanime.biz, sbembed.com,
 streamtape.com, streamsb.net, feurl.com, pixeldrain.com, racaty.net,
-1fichier.com, 1drv.ms (Only works for file not folder or business account), Solidfiles.com 
+1fichier.com, 1drv.ms (Only works for file not folder or business account), solidfiles.com 
 ```
 
 </details>
