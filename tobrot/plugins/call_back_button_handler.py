@@ -26,7 +26,7 @@ async def button(bot, update: CallbackQuery):
         chat_id, mes_id, from_usr = cmf[1], cmf[2], cmf[3]
         if (int(update.from_user.id) == int(from_usr)) or g:
             await bot.answer_callback_query(
-                update.id, text="<code>Going to Cancel . . . 🔃</code>", show_alert=False
+                update.id, text="Going to Cancel . . . 🛠", show_alert=False
             )
             gDict[int(chat_id)].append(int(mes_id))
         else:
@@ -39,7 +39,7 @@ async def button(bot, update: CallbackQuery):
         return
     if "|" in cb_data:
         await bot.answer_callback_query(
-            update.id, text="<code>Processing . . . 🔄</code>", show_alert=False
+            update.id, text="Processing . . . 🛠", show_alert=False
         )
         await youtube_dl_call_back(bot, update)
         return
@@ -136,6 +136,6 @@ async def button(bot, update: CallbackQuery):
             await update.message.edit_text("<i>I Got Info, \nYou Are Not Allowed to Do This 🤭</i>")
     elif cb_data == "fuckoff":
         await bot.answer_callback_query(
-            update.id, text="<code>Going to Cancel . . . 🔃</code>", show_alert=False
+            update.id, text="Going to Cancel . . . 🔃", show_alert=False
         )
-        await update.message.edit_text("<i>☢ Okay! ☢ \n Don't Disturb Me !! </i>")
+        await update.message.edit_text("<i>☢ Okay! ☢ \n\n ⌧ Don't Disturb Me !! </i>")
