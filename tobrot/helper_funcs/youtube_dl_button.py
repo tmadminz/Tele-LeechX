@@ -34,7 +34,7 @@ async def youtube_dl_call_back(bot, update):
     if current_user_id != current_touched_user_id:
         await bot.answer_callback_query(
             callback_query_id=update.id,
-            text="Dont Touch On This. This Leech isnt started by you..😡😡😡",
+            text=""⚠️ Opps ⚠️ \n I Got a False Visitor 🚸 !! \n\n 📛 Stay At Your Limits !!📛"",
             show_alert=True,
             cache_time=0,
         )
