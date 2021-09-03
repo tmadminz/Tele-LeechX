@@ -92,7 +92,7 @@ def add_magnet(aria_instance, magnetic_link, c_file_name):
     except Exception as e:
         return (
             False,
-            "**FAILED** \n" + str(e) + " \n<b> Your link is Dead 🐈</b>",
+            "⛔ **FAILED** ⛔ \n" + str(e) + " \n<b>⌧ Your link is Dead ⚰ .</b>",
         )
     else:
         return True, "" + download.gid + ""
@@ -102,9 +102,9 @@ def add_torrent(aria_instance, torrent_file_path):
     if torrent_file_path is None:
         return (
             False,
-            "**FAILED** \n"
+            "⛔ **FAILED** ⛔ \n"
             + str(e)
-            + " \nsomething wrongings when trying to add <u>TORRENT</u> file",
+            + " \n⌧ <i>Something went Wrong when trying to add <u>TORRENT</u> file to Status.</i>",
         )
     if os.path.exists(torrent_file_path):
         # Add Torrent Into Queue
@@ -115,14 +115,14 @@ def add_torrent(aria_instance, torrent_file_path):
         except Exception as e:
             return (
                 False,
-                "**FAILED** \n"
+                "⛔ **FAILED** ⛔ \n"
                 + str(e)
-                + " \n<b> Your Link is Slow Dude 🐈</b>",
+                + " \n<b>⌧ Your Link is Slow to Process .</b>",
             )
         else:
             return True, "" + download.gid + ""
     else:
-        return False, "**FAILED** \nPlease try other sources to get workable link"
+        return False, "⛔ **FAILED** ⛔ \n⌧ Please try other sources to get workable link to Process . . ."
 
 
 def add_url(aria_instance, text_url, c_file_name):
@@ -173,8 +173,8 @@ def add_url(aria_instance, text_url, c_file_name):
     except Exception as e:
         return (
             False,
-            "**FAILED** \n" +
-            str(e) + " \nPlease do not send SLOW links. Read /help",
+            "⛔ **FAILED** ⛔ \n" +
+            str(e) + " \n⌧ <i>Please do not send SLOW links to Process. Read /help</i>",
         )
     else:
         return True, "" + download.gid + ""
@@ -329,10 +329,10 @@ async def check_progress_for_dl(aria2, gid, event, previous_message):
                 if not file.error_message:
                     if file.has_failed:
                         LOGGER.info(
-                            f"Cancelling downloading of {file.name} may be due to slow torrent"
+                            f"⛔ Cancel Downloading . .⛔ \n\n ⌧ <i>FileName: `{file.name}` \n⌧ May Be Due to Slow Torrent (Less Seeds to Process).</i>"
                         )
                         await event.reply(
-                            f"Download cancelled :\n<code>{file.name}</code>\n\n #MetaDataError", quote=True
+                            f"⛔ Download Cancelled ⛔ :\n\n⌧ <i>FileName: </i><code>{file.name}</code>\n\n #MetaDataError", quote=True
                         )
                         file.remove(force=True, files=True)
                         return
