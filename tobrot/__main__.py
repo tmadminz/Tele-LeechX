@@ -48,6 +48,7 @@ from tobrot import (
 from tobrot.helper_funcs.download import down_load_media_f
 from tobrot.plugins.call_back_button_handler import button
 # the logging things
+from tobrot.helper_funcs.bot_commands import BotCommands
 from tobrot.plugins.choose_rclone_config import rclone_command_f
 from tobrot.plugins.custom_thumbnail import clear_thumb_nail, save_thumb_nail
 from tobrot.plugins.incoming_message_fn import (g_clonee, g_yt_playlist,
@@ -69,10 +70,29 @@ from tobrot.plugins.status_message_fn import (
     upload_as_video
 )
 
+botcmds = [
+        (f'{BotCommands.LeechCommand}','leech any torrent/magnet/direct-download'),
+        (f'{BotCommands.ExtractCommand}', 'Extract),
+        (f'{BotCommands.ArchiveCommand}','Leech As Archive as .tar'),
+        (f'{BotCommands.ToggleDocCommand}','ToggleDoc'),
+        (f'{BotCommands.ToggleVidCommand}','Extract files'),
+        (f'{BotCommands.SaveCommand}','Copy file/folder to Drive'),
+        (f'{BotCommands.ClearCommand}','Count file/folder of Drive link'),
+        (f'{BotCommands.RenameCommand}','Delete file from Drive'),
+        (f'{BotCommands.StatusCommand}','Mirror Youtube-dl support link'),
+        (f'{BotCommands.SpeedCommand}','Mirror Youtube playlist link as .tar'),
+        (f'{BotCommands.YtdlCommand}','Cancel a task'),
+        (f'{BotCommands.PytdlCommand}','Cancel all tasks'),
+        (f'{BotCommands.HelpCommand}','Searches files in Drive'),
+        (f'{BotCommands.LogCommand}','Get the Bot Log [owner/sudo only]'),
+    ]
+
 if __name__ == "__main__":
     # create download directory, if not exist
     if not os.path.isdir(DOWNLOAD_LOCATION):
         os.makedirs(DOWNLOAD_LOCATION)
+
+    bot.set_my_commands(botcmds)
     # Starting The Bot
     app.start()
     ##############################################################################
