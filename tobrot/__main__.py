@@ -72,7 +72,7 @@ from tobrot.plugins.status_message_fn import (
 
 botcmds = [
         (f'{BotCommands.LeechCommand}','leech any torrent/magnet/direct-download'),
-        (f'{BotCommands.ExtractCommand}', 'Extract),
+        (f'{BotCommands.ExtractCommand}', 'Extract'),
         (f'{BotCommands.ArchiveCommand}','Leech As Archive as .tar'),
         (f'{BotCommands.ToggleDocCommand}','ToggleDoc'),
         (f'{BotCommands.ToggleVidCommand}','Extract files'),
