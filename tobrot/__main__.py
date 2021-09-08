@@ -42,7 +42,8 @@ from tobrot import (
     TOGGLE_VID,
     RCLONE_COMMAND,
     TOGGLE_DOC,
-    HELP_COMMAND
+    HELP_COMMAND,
+    SPEEDTEST
 )
 from tobrot.helper_funcs.download import down_load_media_f
 from tobrot.plugins.call_back_button_handler import button
@@ -55,6 +56,7 @@ from tobrot.plugins.incoming_message_fn import (g_clonee, g_yt_playlist,
                                                 incoming_youtube_dl_f,
                                                 rename_tg_file)
 from tobrot.plugins.new_join_fn import help_message_f, new_join_f
+from tobrot.plugins.speedtest import get_speed
 from tobrot.plugins.rclone_size import check_size_g, g_clearme
 from tobrot.plugins.status_message_fn import (
     cancel_message_f,
@@ -237,7 +239,15 @@ if __name__ == "__main__":
     )
     app.add_handler(upload_as_video_handler)
     ##############################################################################
-    
+    get_speed_handler = MessageHandler(
+        get_speed,
+        filters=filters.command([f"{SPEEDTEST}"])
+        & filters.chat(chats=AUTH_CHANNEL),
+    )
+    app.add_handler(get_speed_handler)
+    ##############################################################################
+
+
     logging.info(f"@{(app.get_me()).username} Has Started Running...🏃💨💨")
     
     idle()

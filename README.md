@@ -1,17 +1,24 @@
 ![FUZION LEECH](https://telegra.ph/file/213b587eee775e34ca221.jpg)
-## FuZionX Leech Bot 
-![GitHub Repo stars](https://img.shields.io/github/stars/5MysterySD/Tele-LeechX?color=blue&style=flat)
-![GitHub forks](https://img.shields.io/github/forks/5MysterySD/Tele-LeechX?color=green&style=flat)
-![GitHub contributors](https://img.shields.io/github/contributors/5MysterySD/Tele-LeechX?style=flat)
-![GitHub watchers](https://img.shields.io/github/watchers/5MysterySD/Tele-LeechX)
+# FuZionX Leech Bot 
+![GitHub Repo Stars](https://img.shields.io/github/stars/5MysterySD/Tele-LeechX?color=blue&style=plastic)
+![GitHub Forks](https://img.shields.io/github/forks/5MysterySD/Tele-LeechX?color=green&style=plastic)
+![GitHub Contributors](https://img.shields.io/github/contributors/5MysterySD/Tele-LeechX?style=plastic)
+![GitHub Watchers](https://img.shields.io/github/watchers/5MysterySD/Tele-LeechX?style=plastic)
+![GitHub issues](https://img.shields.io/github/issues/5MysterySD/Tele-LeechX)
+![GitHub closed issues](https://img.shields.io/github/issues-closed/5MysterySD/Tele-LeechX)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/5MysterySD/Tele-LeechX)
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/5MysterySD/Tele-LeechX)
+![GitHub repo size](https://img.shields.io/github/repo-size/5MysterySD/Tele-LeechX?color=red)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/5MysterySD/Tele-LeechX)
+[![Bot Support](https://img.shields.io/badge/Tele_LeechX-Support%20Group-blue)](https://t.me/FuZionXLeech)
 
-**A Powerful Leech Bot .**
+**A Powerful Telegram Leech Bot** Modded by `MysterySD` to directly Leech to Telegram, with Multi Direct Links Support for Enhanced Leeching.
 
-## Features Supported :-
+# Features Supported :-
 <details>
     <summary><b>Click Here For Description</b></summary>
 
-### From Original Repo :
+## From Original Repo :
 - Google Drive link cloning using gclone.(wip)
 - Telegram File mirrorring to cloud along with its unzipping, unrar and untar
 - Drive/Teamdrive support/All other cloud services rclone.org supports
@@ -27,18 +34,21 @@
 - Renaming of Telegram files support added. 😐
 - Changing rclone destination config on fly (By using `/rlcone` in private mode)
 
-### From Different Repos :
+
+## From Different Repos :
 - Aria2 configs In Root
 - Small FIX for Gclone
-- Unzip Error Fixed
 - Added Dynamic Config 
 - Added Custom ToggleDoc and ToggleVid Commands
 - Added Custom Rename Command via vars
 - Added direct rclone.conf url in vars
 
-### New In Repo :
+
+## New In Repo :
+- Extract Error Fixed
 - UI Added for Improved User Experience with Easy to Use.
 - Added New Status Bar using `/status` command. 
+- Added Speedtest Support.
 - Direct links Supported:
 ```
 letsupload.io, hxfile.co, anonfiles.com, bayfiles.com, antfiles,
@@ -47,12 +57,21 @@ sbplay.org, naniplay.com, naniplay.nanime.in, naniplay.nanime.biz, sbembed.com,
 streamtape.com, streamsb.net, feurl.com, pixeldrain.com, racaty.net,
 1fichier.com, 1drv.ms (Only works for file not folder or business account), solidfiles.com 
 ```
+- Extract these filetypes and uploads Telegram 
+```
+ZIP, RAR, TAR, 7z, ISO, WIM, CAB, GZIP, BZIP2, 
+APM, ARJ, CHM, CPIO, CramFS, DEB, DMG, FAT, 
+HFS, LZH, LZMA, LZMA2, MBR, MSI, MSLZ, NSIS, 
+NTFS, RPM, SquashFS, UDF, VHD, XAR, Z.
+```
 
 </details>
 
-## Variable Description :-
 
-### Mandatory Variables :-
+# Variable Description :-
+
+
+## Mandatory Variables :-
 <details>
     <summary><b>Click Here For Description</b></summary>
 
@@ -69,7 +88,8 @@ streamtape.com, streamsb.net, feurl.com, pixeldrain.com, racaty.net,
 
 </details>
 
-### Optional Configuration Variables :-
+
+## Optional Configuration Variables :-
 
 <details>
     <summary><b>Click Here For Description</b></summary>
@@ -138,7 +158,8 @@ streamtape.com, streamsb.net, feurl.com, pixeldrain.com, racaty.net,
 
 </details>
 
-## RClone Guide 
+
+# RClone Guide 
 
 <details>
     <summary><b>Click Here For Description</b></summary>
@@ -162,8 +183,9 @@ client_secret =
 
 </details>
 
-## Deploying on Heroku
-- Deploying on Heroku Indirectly `Supported`, Please Don't Abuse it. 
+
+# Deploying on Heroku
+- Deploying on Heroku Indirectly `Supported`, Please Don't Abuse it or Share this Repo like Anything !!
 
 <p><a href="https://github.com/5MysterySD/Tele-LeechX/blob/master/heroku-deploy.md"> <img src="https://img.shields.io/badge/Deployment%20Guide-blueviolet?style=for-the-badge&logo=heroku" width="200""/></a></p>
 
@@ -201,7 +223,8 @@ client_secret =
 
 </details>
 
-## Commands Set To @BotFather :-
+
+### Commands Set To @BotFather :-
 - Set the Custom Commands in Heroku to Use it with Bot ( /(cmd)(bot_name) )
 
 <details>
@@ -227,6 +250,7 @@ client_secret =
     gleechunzip - This will unarchive file and upload to cloud.
     getsize - This will give you total size of your destination folder in cloud.
     rename - rename the file 
+    speedtest - Check Server Speedtest 
     help - send help 
     status - show bot stats and concurrent downloads
     renewme - clear all downloads (admin only)⚠️
@@ -235,5 +259,6 @@ client_secret =
 ---
 
 </details>
+
 
 ## Give A ⭐ Star ⭐ Before You Go Anywhere 

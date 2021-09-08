@@ -1,6 +1,6 @@
 {
-  "name": "Tele-Leech-X",
-  "description": "A Powerful Telegram Torrent (and YouTube-DL) Leecher based on Pyrogram. Powered by @FuZionX",
+  "name": "Tele-LeechX",
+  "description": "A Powerful Telegram Torrent (and YouTube-DL) Leecher based on Pyrogram. Powered by @FuZionX and @FuZionXLeech",
   "logo": "https://telegra.ph/file/8abf8d2addb8f4d982d8a.jpg",
   "keywords": [
     "telegram"
@@ -22,7 +22,7 @@
       "value": ""
     },
     "TG_BOT_TOKEN": {
-      "description": "Get this value from @BotFather by Making New Bot",
+      "description": "Get this value from @BotFather by Making New Bot and Paste the API token.",
       "value": ""
     },
     "AUTH_CHANNEL": {
@@ -54,11 +54,11 @@
       "required": false
     },
     "LEECH_ZIP_COMMAND": {
-      "description": "Enter your custom zip command like togglevid1@botname and so on. Default is /leexhzip.",
+      "description": "Enter your custom zip command like archive1@botname and so on. Default is /leexhzip.",
       "required": false
     },
     "LEECH_UNZIP_COMMAND": {
-      "description": "Enter your custom unzip command like togglevid1@botname and so on. Default is /leechunzip.",
+      "description": "Enter your custom unzip command like extract@botname and so on. Default is /leechunzip.",
       "required": false
     },
     "CHUNK_SIZE": {
@@ -72,7 +72,7 @@
       "required": false
     },
     "EDIT_SLEEP_TIME_OUT": {
-      "description": "Should be an integer. Number of seconds to wait before editing a message. Put between from 6 - 15 else the Bot Crashes ",
+      "description": "Should be an integer. Number of seconds to wait before editing a message. Put between from 6 - 15 else the Bot Crashes 🥲",
       "value": "15",
       "required": false
     },
@@ -94,7 +94,7 @@
       "required": false
     },
     "LEECH_COMMAND": {
-      "description": "Enter your Custom leech command like /leech@botname and so on. Default is /leech",
+      "description": "Enter your Custom leech command like leech1@botname and so on. Default is /leech",
       "required": false
     },
     "SAVE_THUMBNAIL": {
@@ -110,7 +110,7 @@
       "required": false
     },
     "YTDL_COMMAND": {
-      "description": "Enter your custom ytdl command like ytdl1@urgroupname and so on. Default is /ytdl.",
+      "description": "Enter your custom ytdl command like ytdl1@botname and so on. Default is /ytdl.",
       "required": false
     },
     "PYTDL_COMMAND": {
@@ -130,9 +130,13 @@
       "required": false
     },
     "CUSTOM_FILE_NAME": {
-      "description": "fill with name u want to prefix the file name like ur channel username🙊, keep empty for do nothing, but add to ur config vars even without input.",
+      "description": "Fill with name you want to prefix the file name like ur channel username🙊, keep empty for do nothing, but add to ur config vars even without input.",
       "required": false
-    }
+    },
+    "SPEEDTEST": {
+      "description": "For Custom Speedtest Command. Default is /speedtest",
+      "required": false
+    },
   },
   "stack": "container"
 }

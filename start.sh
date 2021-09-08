@@ -13,6 +13,6 @@ if [[ -n $RCLONE_CONFIG ]]; then
  echo -e "$RCLONE_CONFIG" > /app/rclone.conf
 fi
 
-echo "Starting Your Bot... 👾👾"
+echo "Starting Your Bot... ♻️♻️"
 python3 -m tobrot
 
