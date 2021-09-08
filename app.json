@@ -35,30 +35,37 @@
     },
     "TOGGLE_DOC": {
       "description": "Enter your custom toggle command like toggledoc1@botname and so on. Default is /toggledoc.",
+      "value": "toggledoc",
       "required": false
     },
     "TOGGLE_VID": {
       "description": "Enter your custom toggle command like togglevid1@botname and so on. Default is /togglevid.",
+      "value": "togglevid",
       "required": false
     },
     "RENAME_COMMAND": {
       "description": "Enter your custom rename command like rename1@botname and so on. Default is /rename.",
+      "value": "rename",
       "required": false
     },
     "LOG_COMMAND": {
       "description": "Enter your custom log command like log1@botname and so on. Default is /log.",
+      "value": "log",
       "required": false
     },
     "STATUS_COMMAND": {
       "description": "Enter your custom status command like status1@botname and so on. Default is /status.",
+      "value": "status",
       "required": false
     },
     "LEECH_ZIP_COMMAND": {
-      "description": "Enter your custom zip command like archive1@botname and so on. Default is /leexhzip.",
+      "description": "Enter your custom zip command like archive1@botname and so on. Default is /leechzip.",
+      "value": "archive",
       "required": false
     },
     "LEECH_UNZIP_COMMAND": {
       "description": "Enter your custom unzip command like extract@botname and so on. Default is /leechunzip.",
+      "value": "extract",
       "required": false
     },
     "CHUNK_SIZE": {
@@ -95,14 +102,17 @@
     },
     "LEECH_COMMAND": {
       "description": "Enter your Custom leech command like leech1@botname and so on. Default is /leech",
+      "value": "leech",
       "required": false
     },
     "SAVE_THUMBNAIL": {
       "description": "For Custom Save thumbnail Command. Default is /savethumbnail",
+      "value": "savethumb",
       "required": false
     },
     "CLEAR_THUMBNAIL": {
       "description": "For Custom Delete Thumbnail Command. Default is /clearthumbnail",
+      "value": "clearthumb",
       "required": false
     },
     "INDEX_LINK": {
@@ -111,10 +121,12 @@
     },
     "YTDL_COMMAND": {
       "description": "Enter your custom ytdl command like ytdl1@botname and so on. Default is /ytdl.",
+      "value": "ytdl",
       "required": false
     },
     "PYTDL_COMMAND": {
       "description": "Enter your custom pytdl command like pytdl1@botname and so on. Default is /pytdl.",
+      "value": "pytdl",
       "required": false
     },
     "GET_SIZE_G": {
@@ -135,6 +147,7 @@
     },
     "SPEEDTEST": {
       "description": "For Custom Speedtest Command. Default is /speedtest",
+      "value": "speedtest",
       "required": false
     },
   },
