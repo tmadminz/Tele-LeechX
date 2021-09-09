@@ -351,7 +351,7 @@ def searchhelp(update, context):
 • /rarbg <i>[search query]</i>
 • /ts <i>[search query]</i>
 '''
-    await message.reply(help_string, parse_mode="HTML")
+    message.reply(help_string, parse_mode="HTML")
     sendMessage(help_string, context.bot, update)
     
     #& CustomFilters.mirror_owner_filter Not Used 😉
