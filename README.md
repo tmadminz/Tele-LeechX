@@ -262,3 +262,16 @@ client_secret =
 
 
 ## Give A ⭐ Star ⭐ Before You Go Anywhere 
+
+
+## Credits Goes To 🎖🏆  . . .
+* [MysterySD](https://github.com/5MysterySD) Meh 🧐 For Speedtest, Direct Link Support, More in Future. 
+* [KGK06](https://github.com/KGK06) For Merging Different Repos 
+* [XcodersHub](https://github.com/XcodersHub) For The Aria2 Config & Little More
+* [GautamKumar](https://github.com/gautamajay52/TorrentLeech-Gdrive) 😬
+* [SpEcHiDe](https://github.com/SpEcHiDe/PublicLeech) for his wonderful code😚
+* [Rclone Team](https://rclone.org) for theirs awesome tool☁️
+* [Dan Tès](https://telegram.dog/haskell) for his [Pyrogram Library](https://github.com/pyrogram/pyrogram)
+* [Robots](https://telegram.dog/Robots) for their [@UploadBot](https://telegram.dog/UploadBot)
+* [@AjeeshNair](https://telegram.dog/AjeeshNait) for his [torrent.ajee.sh](https://torrent.ajee.sh)
+* [@gotstc](https://telegram.dog/gotstc), @aryanvikash, [@HasibulKabir](https://telegram.dog/HasibulKabir) for their TORRENT groups
