@@ -118,12 +118,12 @@ async def init_search(client, message, query, sukebei):
         ]))
         message_info[(reply.chat.id, reply.message_id)] = message.from_user.id, ttl, query, 1, pages, sukebei
 
-@app.on_callback_query(custom_filters.callback_data('nyaa_nop'))
+@app.on_callback_query(callback_data('nyaa_nop'))
 async def nyaa_nop(client, callback_query):
     await callback_query.answer(cache_time=3600)
 
 callback_lock = asyncio.Lock()
-@app.on_callback_query(custom_filters.callback_data(['nyaa_back', 'nyaa_next']))
+@app.on_callback_query(callback_data(['nyaa_back', 'nyaa_next']))
 async def nyaa_callback(client, callback_query):
     message = callback_query.message
     message_identifier = (message.chat.id, message.message_id)
