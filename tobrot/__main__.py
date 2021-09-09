@@ -143,7 +143,7 @@ if __name__ == "__main__":
     ##############################################################################
     incoming_g_clear_handler = MessageHandler(
         g_clearme,
-        filters=filters.command([f"{RENEWME_COMMAND}", f"{RENEWME_COMMAND}@{bot.username}"])
+        filters=filters.command([f"{RENEWME_COMMAND}"])
         & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(incoming_g_clear_handler)
@@ -164,7 +164,7 @@ if __name__ == "__main__":
     ##############################################################################
     status_message_handler = MessageHandler(
         status_message_f,
-        filters=filters.command([f"{STATUS_COMMAND}", f"{STATUS_COMMAND}@{bot.username}"])
+        filters=filters.command([f'{STATUS_COMMAND}', f'{RENAME_COMMAND}@{bot.username}'])
         & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(status_message_handler)
