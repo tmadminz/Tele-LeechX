@@ -43,7 +43,7 @@ from tobrot import (
     RCLONE_COMMAND,
     TOGGLE_DOC,
     HELP_COMMAND,
-    SPEEDTEST
+    SPEEDTEST,
     TSEARCH_COMMAND
 )
 from tobrot.helper_funcs.download import down_load_media_f
