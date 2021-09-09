@@ -263,7 +263,7 @@ if __name__ == "__main__":
     ##############################################################################
     get_speed_handler = MessageHandler(
         get_speed,
-        filters=filters.command([f"{SPEEDTEST}", f"{SPEEDTEST}@{bot.username}"])
+        filters=filters.command([f"{SPEEDTEST}", f"{SPEEDTEST}@{(app.get_me()).username}"])
         & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(get_speed_handler)
