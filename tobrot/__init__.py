@@ -155,7 +155,7 @@ def multi_rclone_init():
 
 multi_rclone_init()
 
-updater = tg.Updater(token=BOT_TOKEN)
+updater = tg.Updater(token=TG_BOT_TOKEN)
 bot = updater.bot
 
 app = Client("LeechBot", bot_token=TG_BOT_TOKEN, api_id=APP_ID, api_hash=API_HASH, workers=343)
