@@ -8,6 +8,7 @@ import os
 import sys
 import traceback
 
+from bot import bot
 from pyrogram import Client, filters, idle
 from pyrogram.raw import functions, types
 from pyrogram.handlers import CallbackQueryHandler, MessageHandler
