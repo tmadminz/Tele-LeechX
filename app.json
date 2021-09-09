@@ -149,7 +149,7 @@
       "description": "For Custom Speedtest Command. Default is /speedtest",
       "value": "speedtest",
       "required": false
-    },
+    }
   },
   "stack": "container"
 }
