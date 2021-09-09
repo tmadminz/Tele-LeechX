@@ -12,6 +12,7 @@ from sys import exit
 import urllib.request
 import dotenv
 import telegram.ext as tg
+from telegram.update import Update
 
 from pyrogram import Client
 
@@ -156,10 +157,10 @@ def multi_rclone_init():
 
 multi_rclone_init()
 
+app = Client("LeechBot", bot_token=TG_BOT_TOKEN, api_id=APP_ID, api_hash=API_HASH, workers=343)
+
 updater = tg.Updater(token=TG_BOT_TOKEN)
 bot = updater.bot
 dispatcher = updater.dispatcher
 
-
-app = Client("LeechBot", bot_token=TG_BOT_TOKEN, api_id=APP_ID, api_hash=API_HASH, workers=343)
 
