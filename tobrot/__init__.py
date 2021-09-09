@@ -12,7 +12,6 @@ from sys import exit
 import urllib.request
 import dotenv
 import telegram.ext as tg
-from telegram.update import Update
 
 from pyrogram import Client
 
