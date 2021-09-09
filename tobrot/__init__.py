@@ -11,6 +11,7 @@ from logging.handlers import RotatingFileHandler
 from sys import exit
 import urllib.request
 import dotenv
+import telegram.ext as tg
 
 from pyrogram import Client
 
