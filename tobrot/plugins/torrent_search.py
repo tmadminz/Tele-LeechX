@@ -8,6 +8,7 @@ import feedparser
 import requests
 import itertools
 
+from telegram.update import Update
 from telegram.ext import CommandHandler
 from telegram import ParseMode
 
@@ -18,14 +19,31 @@ from pyrogram.parser import html as pyrogram_html
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.handlers import MessageHandler, CallbackQueryHandler
 
-from bot import app, dispatcher, bot
-from bot.helper import custom_filters
-from bot.helper.telegram_helper.bot_commands import BotCommands
-from bot.helper.telegram_helper.filters import CustomFilters
-from bot.helper.telegram_helper.message_utils import sendMessage
+from tobrot import app, dispatcher, bot, LOGGER 
+from tobrot.helper_funcs.bot_commands import BotCommands
+from tobrot.helper_funcs.filters import CustomFilters
 
 search_lock = asyncio.Lock()
 search_info = {False: dict(), True: dict()}
+
+def sendMessage(text: str, bot, update: Update):
+    try:
+        return bot.send_message(update.message.chat_id,
+                            reply_to_message_id=update.message.message_id,
+                            text=text, allow_sending_without_reply=True,  parse_mode='HTMl')
+    except Exception as e:
+        LOGGER.error(str(e))
+
+def callback_data(data):
+    def func(flt, client, callback_query):
+        return callback_query.data in flt.data
+
+    data = data if isinstance(data, list) else [data]
+    return filters.create(
+        func,
+        'CustomCallbackDataFilter',
+        data=data
+    )
 
 async def return_search(query, page=1, sukebei=False):
     page -= 1
