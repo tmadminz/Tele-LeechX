@@ -85,6 +85,7 @@ botcmds = [
         (f'{BotCommands.PytdlCommand}','Cancel all tasks'),
         (f'{BotCommands.HelpCommand}','Searches files in Drive'),
         (f'{BotCommands.LogCommand}','Get the Bot Log [owner/sudo only]'),
+        (f'{BotCommands.TsHelpCommand}','Get help for Torrent search module'),
     ]
 
 if __name__ == "__main__":
