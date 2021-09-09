@@ -49,7 +49,7 @@ from tobrot import (
 from tobrot.helper_funcs.download import down_load_media_f
 from tobrot.plugins.call_back_button_handler import button
 # the logging things
-from tobrot.plugins.torrent_search import searchhelp
+from tobrot.plugins.torrent_search import __init__
 from tobrot.helper_funcs.bot_commands import BotCommands
 from tobrot.plugins.choose_rclone_config import rclone_command_f
 from tobrot.plugins.custom_thumbnail import clear_thumb_nail, save_thumb_nail
@@ -164,7 +164,7 @@ if __name__ == "__main__":
     ##############################################################################
     status_message_handler = MessageHandler(
         status_message_f,
-        filters=filters.command([f'{STATUS_COMMAND}', f'{RENAME_COMMAND}@{bot.username}'])
+        filters=filters.command([f"{STATUS_COMMAND}", f"{STATUS_COMMAND}@{app.username}"])
         & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(status_message_handler)
@@ -190,7 +190,7 @@ if __name__ == "__main__":
     ##############################################################################
     rename_message_handler = MessageHandler(
         rename_tg_file,
-        filters=filters.command([f"{RENAME_COMMAND}", f"{RENAME_COMMAND}@{bot.username}"]) & filters.chat(chats=AUTH_CHANNEL),
+        filters=filters.command([f"{RENAME_COMMAND}"]) & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(rename_message_handler)
     ##############################################################################
@@ -203,13 +203,13 @@ if __name__ == "__main__":
     ##############################################################################
     upload_log_handler = MessageHandler(
         upload_log_file,
-        filters=filters.command([f"{LOG_COMMAND}", f"{LOG_COMMAND}@{bot.username}"]) & filters.chat(chats=AUTH_CHANNEL),
+        filters=filters.command([f"{LOG_COMMAND}"]) & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(upload_log_handler)
     ##############################################################################
     help_text_handler = MessageHandler(
         help_message_f,
-        filters=filters.command([f"{HELP_COMMAND}", f"{HELP_COMMAND}@{bot.username}"]) & filters.chat(chats=AUTH_CHANNEL),
+        filters=filters.command([f"{HELP_COMMAND}"]) & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(help_text_handler)
     ##############################################################################
@@ -231,14 +231,14 @@ if __name__ == "__main__":
     ##############################################################################
     save_thumb_nail_handler = MessageHandler(
         save_thumb_nail,
-        filters=filters.command([f"{SAVE_THUMBNAIL}", f"{SAVE_THUMBNAIL}@{bot.username}"])
+        filters=filters.command([f"{SAVE_THUMBNAIL}"])
         & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(save_thumb_nail_handler)
     ##############################################################################
     clear_thumb_nail_handler = MessageHandler(
         clear_thumb_nail,
-        filters=filters.command([f"{CLEAR_THUMBNAIL}", f"{CLEAR_THUMBNAIL}@{bot.username}"])
+        filters=filters.command([f"{CLEAR_THUMBNAIL}"])
         & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(clear_thumb_nail_handler)
@@ -250,7 +250,7 @@ if __name__ == "__main__":
     ##############################################################################
     upload_as_doc_handler = MessageHandler(
         upload_as_doc,
-        filters=filters.command([f"{TOGGLE_DOC}", f"{TOGGLE_DOC}@{bot.username}"])
+        filters=filters.command([f"{TOGGLE_DOC}"])
         & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(upload_as_doc_handler)
@@ -270,8 +270,8 @@ if __name__ == "__main__":
     app.add_handler(get_speed_handler)
     ##############################################################################
     searchhelp_handler = MessageHandler(
-        searchhelp,
-        filters=filters.command([f"{TSEARCH_COMMAND}", f"{TSEARCH_COMMAND}@{(app.get_me()).username}"])
+        __init__,
+        filters=filters.command([f"{TSEARCH_COMMAND}"])
         & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(searchhelp_handler)
