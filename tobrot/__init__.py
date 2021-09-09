@@ -15,6 +15,10 @@ import telegram.ext as tg
 
 from pyrogram import Client
 
+updater = tg.Updater(token=TG_BOT_TOKEN)
+bot = updater.bot
+dispatcher = updater.dispatcher
+
 if os.path.exists("TorrentLeech-Gdrive.txt"):
     with open("Torrentleech-Gdrive.txt", "r+") as f_d:
         f_d.truncate(0)
@@ -120,7 +124,7 @@ TOGGLE_DOC = os.environ.get("TOGGLE_DOC", "toggledoc")
 RCLONE_COMMAND = os.environ.get("RCLONE_COMMAND", "rclone")
 HELP_COMMAND = os.environ.get("HELP_COMMAND", "help")
 SPEEDTEST = os.environ.get("SPEEDTEST", "speedtest", f"speedtest@{bot.username}")
-
+TSEARCH_COMMAND = os.environ.get("TSEARCH_COMMAND", "tsearch")
 BOT_START_TIME = time.time()
 # dict to control uploading and downloading
 gDict = defaultdict(lambda: [])
@@ -155,10 +159,6 @@ def multi_rclone_init():
 
 
 multi_rclone_init()
-
-updater = tg.Updater(token=TG_BOT_TOKEN)
-bot = updater.bot
-dispatcher = updater.dispatcher
 
 app = Client("LeechBot", bot_token=TG_BOT_TOKEN, api_id=APP_ID, api_hash=API_HASH, workers=343)
 
