@@ -19,4 +19,5 @@ pybase64
 requests
 speedtest-cli
 tgcrypto
+urllib3
 youtube_dl
