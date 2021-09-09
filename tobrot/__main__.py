@@ -71,21 +71,21 @@ from tobrot.plugins.status_message_fn import (
 )
 
 botcmds = [
-        (f'{BotCommands.LeechCommand}','leech any torrent/magnet/direct-download'),
-        (f'{BotCommands.ExtractCommand}', 'Extract'),
-        (f'{BotCommands.ArchiveCommand}','Leech As Archive as .tar'),
-        (f'{BotCommands.ToggleDocCommand}','ToggleDoc'),
-        (f'{BotCommands.ToggleVidCommand}','Extract files'),
-        (f'{BotCommands.SaveCommand}','Copy file/folder to Drive'),
-        (f'{BotCommands.ClearCommand}','Count file/folder of Drive link'),
-        (f'{BotCommands.RenameCommand}','Delete file from Drive'),
-        (f'{BotCommands.StatusCommand}','Mirror Youtube-dl support link'),
-        (f'{BotCommands.SpeedCommand}','Mirror Youtube playlist link as .tar'),
-        (f'{BotCommands.YtdlCommand}','Cancel a task'),
-        (f'{BotCommands.PytdlCommand}','Cancel all tasks'),
-        (f'{BotCommands.HelpCommand}','Searches files in Drive'),
-        (f'{BotCommands.LogCommand}','Get the Bot Log [owner/sudo only]'),
-        (f'{BotCommands.TsHelpCommand}','Get help for Torrent search module'),
+        (f'{BotCommands.LeechCommand}','📨 [Reply] Leech any Torrent/ Magnet/ Direct Link '),
+        (f'{BotCommands.ExtractCommand}', '🔐 Unarchive items . .'),
+        (f'{BotCommands.ArchiveCommand}','🗜 Archive as .tar.gz acrhive... '),
+        (f'{BotCommands.ToggleDocCommand}','📂 Toggle to Document Upload '),
+        (f'{BotCommands.ToggleVidCommand}','🎞 Toggle to Streamable Upload '),
+        (f'{BotCommands.SaveCommand}','🖼 Save Thumbnail For Uploads'),
+        (f'{BotCommands.ClearCommand}','🕹 Clear Thumbnail '),
+        (f'{BotCommands.RenameCommand}','♻️ [Reply] Rename Telegram File '),
+        (f'{BotCommands.StatusCommand}','🖲 Show Bot stats and concurrent Downloads'),
+        (f'{BotCommands.SpeedCommand}','📡 Get Current Server Speed of Your Bot'),
+        (f'{BotCommands.YtdlCommand}','🧲 [Reply] YT-DL Links for Uploading...'),
+        (f'{BotCommands.PytdlCommand}','🧧 [Reply] YT-DL Playlists Links for Uploading...'),
+        (f'{BotCommands.HelpCommand}','🆘 Get Help, How to Use and What to Do. . .'),
+        (f'{BotCommands.LogCommand}','🔀 Get the Bot Log [Owner Only]'),
+        (f'{BotCommands.TsHelpCommand}','🌐 Get help for Torrent Search Module'),
     ]
 
 if __name__ == "__main__":
