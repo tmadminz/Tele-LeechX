@@ -200,7 +200,7 @@ class TorrentSearch:
         string = self.RESULT_STR.format(**values)
         extra = ""
         if "Files" in values:
-            tmp_str = "➲[{Quality} - {Type} ({Size})]({Torrent}): `{magnet}`"
+            tmp_str = "❂[{Quality} - {Type} ({Size})]({Torrent}): `{magnet}`"
             extra += "\n".join(
                 tmp_str.format(**f, magnet=self.format_magnet(f['Magnet']))
                 for f in values['Files']
@@ -208,7 +208,7 @@ class TorrentSearch:
         else:
             magnet = values.get('magnet', values.get('Magnet'))  # Avoid updating source dict
             if magnet:
-                extra += f"➲Magnet: `{self.format_magnet(magnet)}`"
+                extra += f"☠Magnet: `{self.format_magnet(magnet)}`"
         if (extra):
             string += "\n" + extra
         return string
@@ -227,7 +227,7 @@ class TorrentSearch:
 
         res_lim = min(self.RESULT_LIMIT, len(self.response) - self.RESULT_LIMIT*self.index)
         result = f"**Page - {self.index+1}**\n\n"
-        result += "\n\n=======================\n\n".join(
+        result += "\n\n≡≡≡≡≡≡≡≡≡≡≡≡≡≡\n\n".join(
             self.get_formatted_string(self.response[self.response_range[self.index]+i])
             for i in range(res_lim)
         )
@@ -278,9 +278,9 @@ class TorrentSearch:
         await self.update_message()
 
 RESULT_STR_1337 = (
-    "➲Name: `{Name}`\n"
-    "➲Size: {Size}\n"
-    "➲Seeders: {Seeders} || ➲Leechers: {Leechers}"
+    "✘Name: `{Name}`\n"
+    "✘Size: {Size}\n"
+    "✘Seeders: {Seeders} || ✘Leechers: {Leechers}"
 )
 RESULT_STR_PIRATEBAY = (
     "➲Name: `{Name}`\n"
@@ -288,38 +288,38 @@ RESULT_STR_PIRATEBAY = (
     "➲Seeders: {Seeders} || ➲Leechers: {Leechers}"
 )
 RESULT_STR_TGX = (
-    "➲Name: `{Name}`\n" 
-    "➲Size: {Size}\n"
-    "➲Seeders: {Seeders} || ➲Leechers: {Leechers}"
+    "⇒Name: `{Name}`\n" 
+    "⇒Size: {Size}\n"
+    "⇒Seeders: {Seeders} || ⇒Leechers: {Leechers}"
 )
 RESULT_STR_YTS = (
-    "➲Name: `{Name}`\n"
-    "➲Released on: {ReleasedDate}\n"
-    "➲Genre: {Genre}\n"
-    "➲Rating: {Rating}\n"
-    "➲Likes: {Likes}\n"
-    "➲Duration: {Runtime}\n"
-    "➲Language: {Language}"
+    "❂Name: `{Name}`\n"
+    "❂Released on: {ReleasedDate}\n"
+    "❂Genre: {Genre}\n"
+    "❂Rating: {Rating}\n"
+    "❂Likes: {Likes}\n"
+    "❂Duration: {Runtime}\n"
+    "❂Language: {Language}"
 )
 RESULT_STR_EZTV = (
-    "➲Name: `{Name}`\n"
-    "➲Size: {Size}\n"
-    "➲Seeders: {Seeders}"
+    "★Name: `{Name}`\n"
+    "★Size: {Size}\n"
+    "★Seeders: {Seeders}"
 )
 RESULT_STR_TORLOCK = (
-    "➲Name: `{Name}`\n"
-    "➲Size: {Size}\n"
-    "➲Seeders: {Seeders} || ➲Leechers: {Leechers}"
+    "✿Name: `{Name}`\n"
+    "✿Size: {Size}\n"
+    "✿Seeders: {Seeders} || ✿Leechers: {Leechers}"
 )
 RESULT_STR_RARBG = (
-    "➲Name: `{Name}`\n"
-    "➲Size: {Size}\n"
-    "➲Seeders: {Seeders} || ➲Leechers: {Leechers}"
+    "⊗Name: `{Name}`\n"
+    "⊗Size: {Size}\n"
+    "⊗Seeders: {Seeders} || ⊗Leechers: {Leechers}"
 )
 RESULT_STR_ALL = (
-    "➲Name: `{Name}`\n"
-    "➲Size: {Size}\n"
-    "➲Seeders: {Seeders} || ➲Leechers: {Leechers}"
+    "❖Name: `{Name}`\n"
+    "❖Size: {Size}\n"
+    "❖Seeders: {Seeders} || ❖ Leechers: {Leechers}"
 )
 
 TORRENT_API = 'https://api.linkstore.eu.org/api'
