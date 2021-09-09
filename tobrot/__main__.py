@@ -164,7 +164,7 @@ if __name__ == "__main__":
     ##############################################################################
     status_message_handler = MessageHandler(
         status_message_f,
-        filters=filters.command([f"{STATUS_COMMAND}", f"{STATUS_COMMAND}@{app.username}"])
+        filters=filters.command([f"{STATUS_COMMAND}", f"{STATUS_COMMAND}@{bot.username}"])
         & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(status_message_handler)
