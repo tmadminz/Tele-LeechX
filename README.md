@@ -4,12 +4,12 @@
 ![GitHub Forks](https://img.shields.io/github/forks/5MysterySD/Tele-LeechX?color=green&style=plastic)
 ![GitHub Contributors](https://img.shields.io/github/contributors/5MysterySD/Tele-LeechX?style=plastic)
 ![GitHub Watchers](https://img.shields.io/github/watchers/5MysterySD/Tele-LeechX?style=plastic)
-![GitHub issues](https://img.shields.io/github/issues/5MysterySD/Tele-LeechX)
-![GitHub closed issues](https://img.shields.io/github/issues-closed/5MysterySD/Tele-LeechX)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/5MysterySD/Tele-LeechX)
-![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/5MysterySD/Tele-LeechX)
-![GitHub repo size](https://img.shields.io/github/repo-size/5MysterySD/Tele-LeechX?color=red)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/5MysterySD/Tele-LeechX)
+![GitHub issues](https://img.shields.io/github/issues/5MysterySD/Tele-LeechX?style=plastic)
+![GitHub closed issues](https://img.shields.io/github/issues-closed/5MysterySD/Tele-LeechX?style=plastic)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/5MysterySD/Tele-LeechX?style=plastic)
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/5MysterySD/Tele-LeechX?style=plastic)
+![GitHub repo size](https://img.shields.io/github/repo-size/5MysterySD/Tele-LeechX?color=red?style=plastic)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/5MysterySD/Tele-LeechX?style=plastic)
 [![Bot Support](https://img.shields.io/badge/Tele_LeechX-Support%20Group-blue)](https://t.me/FuZionXLeech)
 
 **A Powerful Telegram Leech Bot** Modded by `MysterySD` to directly Leech to Telegram, with Multi Direct Links Support for Enhanced Leeching.
@@ -224,8 +224,8 @@ client_secret =
 </details>
 
 
-### Commands Set To @BotFather :-
-- Set the Custom Commands in Heroku to Use it with Bot ( /(cmd)(bot_name) )
+### Commands Available :-
+- Set the Custom Commands in Heroku with Respective Var like leech1 or So on . .
 
 <details>
     <summary><b>Click Here For Description</b></summary>
