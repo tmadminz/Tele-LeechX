@@ -14,5 +14,6 @@ class _BotCommands:
         self.PytdlCommand = 'pytdl'
         self.HelpCommand = 'help'
         self.LogCommand = 'log'
+        self.TsHelpCommand = 'tshelp'
 
 BotCommands = _BotCommands()
