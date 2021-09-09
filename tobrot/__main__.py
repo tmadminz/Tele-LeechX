@@ -142,7 +142,7 @@ if __name__ == "__main__":
     ##############################################################################
     incoming_g_clear_handler = MessageHandler(
         g_clearme,
-        filters=filters.command([f"{RENEWME_COMMAND}"])
+        filters=filters.command([f"{RENEWME_COMMAND}", f"{RENEWME_COMMAND}@{(app.get_me()).username}"]])
         & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(incoming_g_clear_handler)
@@ -163,7 +163,7 @@ if __name__ == "__main__":
     ##############################################################################
     status_message_handler = MessageHandler(
         status_message_f,
-        filters=filters.command([f"{STATUS_COMMAND}"])
+        filters=filters.command([f"{STATUS_COMMAND}", f"{STATUS_COMMAND}@{(app.get_me()).username}"]])
         & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(status_message_handler)
@@ -189,7 +189,7 @@ if __name__ == "__main__":
     ##############################################################################
     rename_message_handler = MessageHandler(
         rename_tg_file,
-        filters=filters.command([f"{RENAME_COMMAND}"]) & filters.chat(chats=AUTH_CHANNEL),
+        filters=filters.command([f"{RENAME_COMMAND}", f"{RENAME_COMMAND}@{(app.get_me()).username}"]]) & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(rename_message_handler)
     ##############################################################################
@@ -202,13 +202,13 @@ if __name__ == "__main__":
     ##############################################################################
     upload_log_handler = MessageHandler(
         upload_log_file,
-        filters=filters.command([f"{LOG_COMMAND}"]) & filters.chat(chats=AUTH_CHANNEL),
+        filters=filters.command([f"{LOG_COMMAND}", f"{LOG_COMMAND}@{(app.get_me()).username}"]]) & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(upload_log_handler)
     ##############################################################################
     help_text_handler = MessageHandler(
         help_message_f,
-        filters=filters.command([f"{HELP_COMMAND}"]) & filters.chat(chats=AUTH_CHANNEL),
+        filters=filters.command([f"{HELP_COMMAND}", f"{HELP_COMMAND}@{(app.get_me()).username}"]]) & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(help_text_handler)
     ##############################################################################
@@ -230,33 +230,33 @@ if __name__ == "__main__":
     ##############################################################################
     save_thumb_nail_handler = MessageHandler(
         save_thumb_nail,
-        filters=filters.command([f"{SAVE_THUMBNAIL}"])
+        filters=filters.command([f"{SAVE_THUMBNAIL}", f"{SAVE_THUMBNAIL}@{(app.get_me()).username}"]])
         & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(save_thumb_nail_handler)
     ##############################################################################
     clear_thumb_nail_handler = MessageHandler(
         clear_thumb_nail,
-        filters=filters.command([f"{CLEAR_THUMBNAIL}"])
+        filters=filters.command([f"{CLEAR_THUMBNAIL}", f"{CLEAR_THUMBNAIL}@{(app.get_me()).username}"]])
         & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(clear_thumb_nail_handler)
     ##############################################################################
     rclone_config_handler = MessageHandler(
-        rclone_command_f, filters=filters.command([f"{RCLONE_COMMAND}"])
+        rclone_command_f, filters=filters.command([f"{RCLONE_COMMAND}", f"{RCLONE_COMMAND}@{(app.get_me()).username}"]])
     )
     app.add_handler(rclone_config_handler)
     ##############################################################################
     upload_as_doc_handler = MessageHandler(
         upload_as_doc,
-        filters=filters.command([f"{TOGGLE_DOC}"])
+        filters=filters.command([f"{TOGGLE_DOC}", f"{TOGGLE_DOC}@{(app.get_me()).username}"]])
         & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(upload_as_doc_handler)
     ##############################################################################
     upload_as_video_handler = MessageHandler(
         upload_as_video,
-        filters=filters.command([f"{TOGGLE_VID}"])
+        filters=filters.command([f"{TOGGLE_VID}", f"{TOGGLE_VID}@{(app.get_me()).username}"]])
         & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(upload_as_video_handler)
