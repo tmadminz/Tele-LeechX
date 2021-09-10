@@ -339,7 +339,7 @@ torrent_handlers = []
 for command, value in torrents_dict.items():
     torrent_handlers.append(TorrentSearch(command, value['source'], value['result_str']))
 
-def searchhelp(update, context):
+async def searchhelp(self, message):
     help_string = '''
 <b>Torrent Search</b>
 • /nyaasi <i>[search query]</i>
@@ -353,7 +353,8 @@ def searchhelp(update, context):
 • /rarbg <i>[search query]</i>
 • /ts <i>[search query]</i>
 '''
-    sendMessage(help_string, context.bot, update)
+    await message.reply(help_string, parse_mode="HTML")
+    #sendMessage(help_string, context.bot, update)
     
     #& CustomFilters.mirror_owner_filter Not Used 😉
 SEARCHHELP_HANDLER = CommandHandler(BotCommands.TsHelpCommand, searchhelp, filters=(CustomFilters.authorized_chat | CustomFilters.authorized_user), run_async=True)
