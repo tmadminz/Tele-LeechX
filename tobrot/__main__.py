@@ -49,7 +49,7 @@ from tobrot import (
 from tobrot.helper_funcs.download import down_load_media_f
 from tobrot.plugins.call_back_button_handler import button
 # the logging things
-from tobrot.plugins.torrent_search import __init__
+from tobrot.plugins.torrent_search import searchhelp
 from tobrot.helper_funcs.bot_commands import BotCommands
 from tobrot.plugins.choose_rclone_config import rclone_command_f
 from tobrot.plugins.custom_thumbnail import clear_thumb_nail, save_thumb_nail
@@ -270,7 +270,7 @@ if __name__ == "__main__":
     app.add_handler(get_speed_handler)
     ##############################################################################
     searchhelp_handler = MessageHandler(
-        __init__,
+        searchhelp,
         filters=filters.command([f"{TSEARCH_COMMAND}", f"{TSEARCH_COMMAND}@{bot.username}"])
         & filters.chat(chats=AUTH_CHANNEL),
     )
