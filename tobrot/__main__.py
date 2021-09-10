@@ -103,9 +103,9 @@ if __name__ == "__main__":
         incoming_message_f,
         filters=filters.command(
             [
-                LEECH_COMMAND,
-                LEECH_UNZIP_COMMAND,
-                LEECH_ZIP_COMMAND,
+                f"{LEECH_COMMAND}", f"{LEECH_COMMAND}@{bot.username}",
+                f"{LEECH_UNZIP_COMMAND}", f"{LEECH_UNZIP_COMMAND}@{bot.username}",
+                f"{LEECH_ZIP_COMMAND}", f"{LEECH_ZIP_COMMAND}@{bot.username}",
                 GLEECH_COMMAND,
                 GLEECH_UNZIP_COMMAND,
                 GLEECH_ZIP_COMMAND,
@@ -130,7 +130,7 @@ if __name__ == "__main__":
     ##############################################################################
     incoming_clone_handler = MessageHandler(
         g_clonee,
-        filters=filters.command([f"{CLONE_COMMAND_G}"])
+        filters=filters.command([f"{CLONE_COMMAND_G}", f"{CLONE_COMMAND_G}@{bot.username}"])
         & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(incoming_clone_handler)
@@ -157,7 +157,7 @@ if __name__ == "__main__":
     ##############################################################################
     incoming_youtube_playlist_dl_handler = MessageHandler(
         g_yt_playlist,
-        filters=filters.command([PYTDL_COMMAND, GPYTDL_COMMAND])
+        filters=filters.command([f"{PYTDL_COMMAND}", f"{PYTDL_COMMAND}@{bot.username}", GPYTDL_COMMAND])
         & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(incoming_youtube_playlist_dl_handler)
@@ -171,7 +171,7 @@ if __name__ == "__main__":
     ##############################################################################
     cancel_message_handler = MessageHandler(
         cancel_message_f,
-        filters=filters.command([f"{CANCEL_COMMAND_G}"])
+        filters=filters.command([f"{CANCEL_COMMAND_G}", f"{CANCEL_COMMAND_G}@{bot.username}"])
         & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(cancel_message_handler)
