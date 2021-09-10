@@ -11,6 +11,7 @@ from logging.handlers import RotatingFileHandler
 from sys import exit
 import urllib.request
 import dotenv
+import telegram.ext as tg
 
 from pyrogram import Client
 
@@ -89,8 +90,8 @@ UN_FINISHED_PROGRESS_STR = os.environ.get("UN_FINISHED_PROGRESS_STR", "░")
 TG_OFFENSIVE_API = os.environ.get("TG_OFFENSIVE_API", None)
 CUSTOM_FILE_NAME = os.environ.get("CUSTOM_FILE_NAME", "")
 LEECH_COMMAND = os.environ.get("LEECH_COMMAND", "leech")
-LEECH_UNZIP_COMMAND = os.environ.get("LEECH_UNZIP_COMMAND", "leechunzip")
-LEECH_ZIP_COMMAND = os.environ.get("LEECH_ZIP_COMMAND", "leechzip")
+LEECH_UNZIP_COMMAND = os.environ.get("LEECH_UNZIP_COMMAND", "extract")
+LEECH_ZIP_COMMAND = os.environ.get("LEECH_ZIP_COMMAND", "archive")
 GLEECH_COMMAND = os.environ.get("GLEECH_COMMAND", "gleech")
 GLEECH_UNZIP_COMMAND = os.environ.get("GLEECH_UNZIP_COMMAND", "gleechunzip")
 GLEECH_ZIP_COMMAND = os.environ.get("GLEECH_ZIP_COMMAND", "gleechzip")
@@ -104,8 +105,8 @@ TELEGRAM_LEECH_UNZIP_COMMAND = os.environ.get("TELEGRAM_LEECH_UNZIP_COMMAND", "t
 CANCEL_COMMAND_G = os.environ.get("CANCEL_COMMAND_G", "cancel")
 GET_SIZE_G = os.environ.get("GET_SIZE_G", "getsize")
 STATUS_COMMAND = os.environ.get("STATUS_COMMAND", "status")
-SAVE_THUMBNAIL = os.environ.get("SAVE_THUMBNAIL", "savethumbnail")
-CLEAR_THUMBNAIL = os.environ.get("CLEAR_THUMBNAIL", "clearthumbnail")
+SAVE_THUMBNAIL = os.environ.get("SAVE_THUMBNAIL", "savethumb")
+CLEAR_THUMBNAIL = os.environ.get("CLEAR_THUMBNAIL", "clearthumb")
 UPLOAD_AS_DOC = os.environ.get("UPLOAD_AS_DOC", "False")
 PYTDL_COMMAND = os.environ.get("PYTDL_COMMAND", "pytdl")
 GPYTDL_COMMAND = os.environ.get("GPYTDL_COMMAND", "gpytdl")
@@ -119,6 +120,7 @@ TOGGLE_DOC = os.environ.get("TOGGLE_DOC", "toggledoc")
 RCLONE_COMMAND = os.environ.get("RCLONE_COMMAND", "rclone")
 HELP_COMMAND = os.environ.get("HELP_COMMAND", "help")
 SPEEDTEST = os.environ.get("SPEEDTEST", "speedtest")
+TSEARCH_COMMAND = os.environ.get("TSEARCH_COMMAND", "tshelp")
 BOT_START_TIME = time.time()
 # dict to control uploading and downloading
 gDict = defaultdict(lambda: [])
@@ -155,4 +157,9 @@ def multi_rclone_init():
 multi_rclone_init()
 
 app = Client("LeechBot", bot_token=TG_BOT_TOKEN, api_id=APP_ID, api_hash=API_HASH, workers=343)
+
+updater = tg.Updater(token=TG_BOT_TOKEN)
+bot = updater.bot
+dispatcher = updater.dispatcher
+
 

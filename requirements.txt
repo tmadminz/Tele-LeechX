@@ -3,6 +3,7 @@ aria2p==0.9.1
 beautifulsoup4
 bs4
 cfscrape
+feedparser
 hachoir
 hurry.filesize
 js2py
@@ -19,4 +20,5 @@ pybase64
 requests
 speedtest-cli
 tgcrypto
+urllib3
 youtube_dl
