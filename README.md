@@ -49,6 +49,13 @@
 
 
 ## New In Repo :
+- Dual Commands Usage (Both With / Without Bot Username)
+- Auto Commands Set To BotFather in Telegram 
+- New Torrent Search Support 
+```
+nyaa.si, sukebei, 1337x, piratebay,
+tgx, yts, eztv, torlock, rarbg
+```
 - Extract Error Fixed
 - UI Added for Improved User Experience with Easy to Use.
 - Added New Status Bar using `/status` command. 
