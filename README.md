@@ -14,6 +14,10 @@
 
 **A Powerful Telegram Leech Bot** Modded by `MysterySD` to directly Leech to Telegram, with Multi Direct Links Support for Enhanced Leeching.
 
+# Demo Group
+<a href="https://t.me/FuZionXLeech"><img src="https://img.shields.io/badge/FuZion Leech Bot-2cb6e0?style=for-the-badge&logo=telegram&logoColor=white"></a>
+
+
 # Features Supported :-
 <details>
     <summary><b>Click Here For Description</b></summary>
