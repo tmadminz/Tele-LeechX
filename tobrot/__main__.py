@@ -150,7 +150,7 @@ if __name__ == "__main__":
     ##############################################################################
     incoming_youtube_dl_handler = MessageHandler(
         incoming_youtube_dl_f,
-        filters=filters.command([YTDL_COMMAND, GYTDL_COMMAND])
+        filters=filters.command([f"{YTDL_COMMAND}", f"{YTDL_COMMAND}@{bot.username}", f"{GYTDL_COMMAND]}", f"{GYTDL_COMMAND]}@{bot.username}"])
         & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(incoming_youtube_dl_handler)
