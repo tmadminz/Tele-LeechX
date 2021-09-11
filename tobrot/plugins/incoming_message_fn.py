@@ -111,7 +111,7 @@ async def incoming_message_f(client, message):
         is_cloud = False
         is_unzip = False
         bot_unzip = f"{LEECH_UNZIP_COMMAND}@{bot.username}"
-        bot_unzip = f"{LEECH_ZIP_COMMAND}@{bot.username}"
+        bot_zip = f"{LEECH_ZIP_COMMAND}@{bot.username}"
 
         if user_command == LEECH_UNZIP_COMMAND.lower() or bot_unzip.lower():
             is_unzip = True
