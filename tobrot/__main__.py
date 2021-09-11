@@ -105,6 +105,7 @@ if __name__ == "__main__":
             [
                 f"{LEECH_COMMAND}", f"{LEECH_COMMAND}@{bot.username}",
                 LEECH_ZIP_COMMAND, f"{LEECH_ZIP_COMMAND}@{bot.username}",
+                LEECH_UNZIP_COMMAND, f"{LEECH_UNZIP_COMMAND}@{bot.username}",
                 GLEECH_COMMAND,
                 GLEECH_UNZIP_COMMAND,
                 GLEECH_ZIP_COMMAND,
@@ -113,13 +114,6 @@ if __name__ == "__main__":
         & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(incoming_message_handler)
-    ##############################################################################
-    incoming_leechunzip_handler = MessageHandler(
-        incoming_message_f,
-        filters=filters.command([f"{LEECH_UNZIP_COMMAND}", f"{LEECH_UNZIP_COMMAND}@{bot.username}"])
-        & filters.chat(chats=AUTH_CHANNEL),
-    )
-    app.add_handler(incoming_leechunzip_handler)
     ##############################################################################
     incoming_telegram_download_handler = MessageHandler(
         down_load_media_f,
