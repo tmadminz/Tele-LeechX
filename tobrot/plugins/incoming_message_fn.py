@@ -22,6 +22,7 @@ from tobrot import (
     GPYTDL_COMMAND,
     PYTDL_COMMAND,
 )
+from tobrot import bot
 from tobrot.helper_funcs.admin_check import AdminCheck
 from tobrot.helper_funcs.cloneHelper import CloneHelper
 from tobrot.helper_funcs.download import download_tg
@@ -109,8 +110,9 @@ async def incoming_message_f(client, message):
         is_zip = False
         is_cloud = False
         is_unzip = False
+        bot_unzip = f"{LEECH_UNZIP_COMMAND}@{bot.username}"
 
-        if user_command == LEECH_UNZIP_COMMAND.lower():
+        if user_command == LEECH_UNZIP_COMMAND.lower() | bot_unzip.lower():
             is_unzip = True
         elif user_command == LEECH_ZIP_COMMAND.lower():
             is_zip = True
