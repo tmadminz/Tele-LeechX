@@ -94,6 +94,13 @@ async def status_message_f(
                 msg += f"\n<b>🗃 Downloaded</b>: <code>{file.progress_string()}</code> <b>of</b> <code>{file.total_length_string()}</code>"
                 msg += f"\n<b>📊Speed</b>: <code>{file.download_speed_string()}</code>,"
                 msg += f"<b>🔍ETA:</b> <code>{file.eta_string()}</code>"
+                if download.message.from_user.username:
+                    uname = f'<a href="tg://user?id={download.message.from_user.id}">{download.message.from_user.username}</a>'
+                else:
+                    uname = f'<a href="tg://user?id={download.message.from_user.id}">{download.message.from_user.first_name}</a>'    
+                msg += f"\n<b>👤User:</b> {uname} (<code>{download.message.from_user.id}</code>)"
+                uid = {download.message.from_user.id}
+                msg += f"\n<b>Warn:</b> <code>/warn {uid}</code>"
                 msg += f"\n{msgg}"
                 msg += f"\n<b>⛔ To Stop:</b> <code>/cancel {file.gid}</code>"
                 msg += "\n"
