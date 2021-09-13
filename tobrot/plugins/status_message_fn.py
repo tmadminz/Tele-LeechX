@@ -123,6 +123,8 @@ async def status_message_f(
             msg = "<b>⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊ \n\n⚠️ No Active, Queued or Paused TORRENTs/Direct Links ⚠️</b>\n"
             msg = msg + "\n" + ms_g
             await to_edit.edit(msg)
+            await asyncio.sleep(5)
+            await msg.delete() #Delete Bot Message after 5 sec 
             break
         msg = msg + "\n" + ms_g
         if len(msg) > MAX_MESSAGE_LENGTH:  # todo - will catch later
