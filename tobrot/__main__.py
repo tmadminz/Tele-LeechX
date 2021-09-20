@@ -89,6 +89,7 @@ botcmds = [
         (f'{BotCommands.PytdlCommand}','🧧 [Reply] YT-DL Playlists Links for Uploading...'),
         (f'{BotCommands.HelpCommand}','🆘 Get Help, How to Use and What to Do. . .'),
         (f'{BotCommands.LogCommand}','🔀 Get the Bot Log [Owner Only]'),
+        (f'{BotCommands.MediaInfoCommand}','🆔️ [Reply] Get Telegram Files Media Info'),
         (f'{BotCommands.TsHelpCommand}','🌐 Get help for Torrent Search Module'),
     ]
 
