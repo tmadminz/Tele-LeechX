@@ -10,6 +10,7 @@ hurry.filesize
 js2py
 lk21
 lxml
+mediainfo
 messages
 Pillow
 psutil
