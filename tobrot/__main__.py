@@ -103,6 +103,7 @@ if __name__ == "__main__":
 
     # Starting The Bot
     app.start()
+    dispatcher.bot.sendMessage(f"Bot is Successfully Restarted By Heroku !! ")
     ##############################################################################
     incoming_message_handler = MessageHandler(
         incoming_message_f,
