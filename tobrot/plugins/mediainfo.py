@@ -1,13 +1,50 @@
-# Suggested by - @d0n0t (https://github.com/code-rgb/USERGE-X/issues/9)
+# Suggested by - @MysterySD (https://github.com/code-rgb/USERGE-X/issues/9)
 # Copyright (C) 2020 BY - GitHub.com/code-rgb [TG - @deleteduser420]
+# Taken From Slam-mirrorbot, I thereby Take No Extra Credit on Code !!
 # All rights reserved.
 
 import os
+from typing import Tuple
+from html_telegraph_poster import TelegraphPoster
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from bot import app, bot
-from bot.helper.telegram_helper.bot_commands import BotCommands
-from bot.helper import post_to_telegraph, runcmd, safe_filename
+from tobrot import app, bot
+from tobrot.helper_funcs.bot_commands import BotCommands
+
+def post_to_telegraph(a_title: str, content: str) -> str:
+    """ Create a Telegram Post using HTML Content """
+    post_client = TelegraphPoster(use_api=True)
+    auth_name = "slam-mirrorbot"
+    post_client.create_api_token(auth_name)
+    post_page = post_client.post(
+        title=a_title,
+        author=auth_name,
+        author_url="https://github.com/breakdowns/slam-mirrorbot",
+        text=content,
+    )
+    return post_page["url"]
+
+async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
+    """ run command in terminal """
+    args = shlex.split(cmd)
+    process = await asyncio.create_subprocess_exec(
+        *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+    )
+    stdout, stderr = await process.communicate()
+    return (
+        stdout.decode("utf-8", "replace").strip(),
+        stderr.decode("utf-8", "replace").strip(),
+        process.returncode,
+        process.pid,
+    )
+
+def safe_filename(path_):
+    if path_ is None:
+        return
+    safename = path_.replace("'", "").replace('"', "")
+    if safename != path_:
+        os.rename(path_, safename)
+    return safename
 
 @app.on_message(filters.command([BotCommands.MediaInfoCommand, f'{BotCommands.MediaInfoCommand}@{bot.username}']))
 async def mediainfo(client, message):
