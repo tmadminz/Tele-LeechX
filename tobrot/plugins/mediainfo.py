@@ -50,7 +50,7 @@ def safe_filename(path_):
         os.rename(path_, safename)
     return safename
 
-@app.on_message(filters.command([BotCommands.MediaInfoCommand, f'{BotCommands.MediaInfoCommand}@{bot.username}']))
+#@app.on_message(filters.command([BotCommands.MediaInfoCommand, f'{BotCommands.MediaInfoCommand}@{bot.username}']))
 async def mediainfo(client, message):
     reply = message.reply_to_message
     if not reply:
