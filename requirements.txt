@@ -5,6 +5,7 @@ bs4
 cfscrape
 feedparser
 hachoir
+html-telegraph-poster
 hurry.filesize
 js2py
 lk21
