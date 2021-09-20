@@ -3,11 +3,15 @@
 # Taken From Slam-mirrorbot, I thereby Take No Extra Credit on Code !!
 # All rights reserved.
 
+import asyncio
 import os
+import shlex
+
 from typing import Tuple
 from html_telegraph_poster import TelegraphPoster
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
 from tobrot import app, bot
 from tobrot.helper_funcs.bot_commands import BotCommands
 
