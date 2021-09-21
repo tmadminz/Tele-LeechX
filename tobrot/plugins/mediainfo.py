@@ -13,6 +13,7 @@ from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 from tobrot import app, bot
+from tobrot.plugins import runcmd 
 from tobrot.helper_funcs.bot_commands import BotCommands
 
 def post_to_telegraph(a_title: str, content: str) -> str:
@@ -28,6 +29,7 @@ def post_to_telegraph(a_title: str, content: str) -> str:
     )
     return post_page["url"]
 
+'''
 async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
     """ run command in terminal """
     args = shlex.split(cmd)
@@ -41,6 +43,7 @@ async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
         process.returncode,
         process.pid,
     )
+'''
 
 def safe_filename(path_):
     if path_ is None:
@@ -74,11 +77,11 @@ async def mediainfo(client, message):
         if x_media is not None:
             break
     if x_media is None:
-       await process.edit_text("Reply To a Valid Media Format")
+       await process.edit_text("<b>⚠️Opps⚠️ \n\n<i>⊠ Reply To a Valid Media Format to process.</i></b>")
        return
     media_type = str(type(x_media)).split("'")[1]
     file_path = safe_filename(await reply.download())
-    output_ = await runcmd(f'/plugins/mediainfo "{file_path}"')
+    output_ = await runcmd(f'mediainfo "{file_path}"')
     out = None
     if len(output_) != 0:
          out = output_[0]
