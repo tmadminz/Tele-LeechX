@@ -87,6 +87,8 @@ async def status_message_f(
 
                 percentage = int(file.progress_string(0).split('%')[0])
                 prog = "[{0}{1}]".format("".join([FINISHED_PROGRESS_STR for i in range(math.floor(percentage / 5))]),"".join([UN_FINISHED_PROGRESS_STR for i in range(20 - math.floor(percentage / 5))]))
+                #umen = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
+                #msg += f"\n<b>👤User:</b> {umen} (<code>{message.from_user.id}</code>)"
                 msg += f"<b>⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊</b>\n"
                 msg += f"\n<b>🔖Filename:</b> <code>{downloading_dir_name}</code>"
                 msg += f"\n<b>📡 Status</b>: <i>Downloading...📥</i>"
@@ -96,7 +98,7 @@ async def status_message_f(
                 msg += f"<b>🔍ETA:</b> <code>{file.eta_string()}</code>"  
                 #umen = f'<a href="tg://user?id={file.message.from_user.id}">{file.message.from_user.first_name}</a>'
                 #msg += f"\n<b>👤User:</b> {umen} (<code>{file.message.from_user.id}</code>)"
-                msg += f"\n<b>⚠️Warn:</b> <code>/warn {file.message.from_user.id}</code>"
+                #msg += f"\n<b>⚠️Warn:</b> <code>/warn {file.message.from_user.id}</code>"
                 msg += f"\n{msgg}"
                 msg += f"\n<b>⛔ Cancel:</b> <code>/cancel {file.gid}</code>"
                 msg += "\n"
