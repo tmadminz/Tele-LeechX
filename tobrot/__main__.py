@@ -12,7 +12,7 @@ from pyrogram import Client, filters, idle
 from pyrogram.raw import functions, types
 from pyrogram.handlers import CallbackQueryHandler, MessageHandler
 
-from tobrot import app, bot, dispatcher 
+from tobrot import app, bot
 from tobrot import (
     AUTH_CHANNEL,
     CANCEL_COMMAND_G,
@@ -49,7 +49,7 @@ from tobrot import (
 from tobrot.helper_funcs.download import down_load_media_f
 from tobrot.plugins.call_back_button_handler import button
 # the logging things
-from tobrot.plugins.torrent_search import searchhelp, sendMessage
+from tobrot.plugins.torrent_search import searchhelp
 from tobrot.helper_funcs.bot_commands import BotCommands
 from tobrot.plugins.choose_rclone_config import rclone_command_f
 from tobrot.plugins.custom_thumbnail import clear_thumb_nail, save_thumb_nail
@@ -96,15 +96,8 @@ if __name__ == "__main__":
         os.makedirs(DOWNLOAD_LOCATION)
 
     bot.set_my_commands(botcmds)
-
-    #now=datetime.now(pytz.timezone('Asia/Kolkata'))
-    #current = now.strftime('%Y/%m/%d %I:%M:%P')
-    LOG_GROUP = -1001280533370
-    dispatcher.bot.sendMessage(f'{LOG_GROUP}', f"Bot is Successfully Restarted By Heroku !! ")
-
     # Starting The Bot
     app.start()
-    dispatcher.bot.sendMessage(1978774817, f"Bot is Successfully Restarted By Heroku !! ")
     ##############################################################################
     incoming_message_handler = MessageHandler(
         incoming_message_f,
