@@ -14,6 +14,7 @@ from pyrogram.handlers import CallbackQueryHandler, MessageHandler
 
 from tobrot import app, bot, dispatcher 
 from tobrot import (
+    OWNER_ID,
     AUTH_CHANNEL,
     CANCEL_COMMAND_G,
     CLEAR_THUMBNAIL,
@@ -48,6 +49,7 @@ from tobrot import (
     MEDIAINFO_CMD
 )
 from tobrot.helper_funcs.download import down_load_media_f
+from tobrot.plugins import *
 from tobrot.plugins.call_back_button_handler import button
 # the logging things
 from tobrot.plugins.torrent_search import searchhelp, sendMessage 
@@ -93,14 +95,39 @@ botcmds = [
         (f'{BotCommands.TsHelpCommand}','🌐 Get help for Torrent Search Module'),
     ]
 
+def restart(update, context): 
+    restart_message = sendMessage("Restarting, Please wait!", context.bot, update)
+    with open(".restartmsg", "w") as f: 
+        f.truncate(0)       
+        f.write(f"{restart_message.chat.id}\n{restart_message.message_id}\n") 
+    clean_all()
+    os.execl(executable, executable, "-m", "bot")
+
+
 if __name__ == "__main__":
     # create download directory, if not exist
     if not os.path.isdir(DOWNLOAD_LOCATION):
         os.makedirs(DOWNLOAD_LOCATION)
 
+    if os.path.isfile(".restartmsg"):
+        with open(".restartmsg") as f:
+            chat_id, msg_id = map(int, f)
+        bot.edit_message_text("Restarted successfully!", chat_id, msg_id)
+        os.remove(".restartmsg")
+    elif OWNER_ID:
+        try:
+            text = "<b>Bot Restarted!</b>"
+            bot.sendMessage(chat_id=OWNER_ID, text=text, parse_mode=ParseMode.HTML)
+            if AUTH_CHANNEL:
+                for i in AUTH_CHANNEL:
+                    bot.sendMessage(chat_id=i, text=text, parse_mode=ParseMode.HTML)
+        except Exception as e:
+            LOGGER.warning(e)
+
     bot.set_my_commands(botcmds)
+
     LOG_GROUP = -1001280533370 
-    dispatcher.bot.sendMessage(f'{LOG_GROUP}', f"Bot is Successfully Restarted By Heroku !! ")
+    dispatcher.bot.sendMessage(f'{LOG_GROUP}', f"<b>Bot is Successfully Restarted By Heroku !! </b>")
 
     # Starting The Bot
     app.start()
@@ -289,7 +316,13 @@ if __name__ == "__main__":
     )
     app.add_handler(mediainfo_handler)
     ##############################################################################
-
+    restart_handler = MessageHandler(
+        restart,
+        filters=filters.command(["restart", f"restart@{bot.username}"])
+        & filters.chat(chats=AUTH_CHANNEL),
+    )
+    app.add_handler(restart_handler)
+    ##############################################################################
 
     logging.info(f"@{(app.get_me()).username} Has Started Running...🏃💨💨")
     
