@@ -8,6 +8,7 @@ import os
 import sys
 import traceback
 
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram import Client, filters, idle
 from pyrogram.raw import functions, types
 from pyrogram.handlers import CallbackQueryHandler, MessageHandler
@@ -91,11 +92,38 @@ botcmds = [
         (f'{BotCommands.PytdlCommand}','🧧 [Reply] YT-DL Playlists Links for Uploading...'),
         (f'{BotCommands.HelpCommand}','🆘 Get Help, How to Use and What to Do. . .'),
         (f'{BotCommands.LogCommand}','🔀 Get the Bot Log [Owner Only]'),
-        (f'{BotCommands.MediaInfoCommand}','🆔️ [Reply] Get Telegram Files Media Info'),
         (f'{BotCommands.TsHelpCommand}','🌐 Get help for Torrent Search Module'),
     ]
 
-def restart(update, context): 
+       # (f'{BotCommands.MediaInfoCommand}','🆔️ [Reply] Get Telegram Files Media Info'),
+
+@app.on_message(filters.command('start', f'start@{bot.username}'))
+async def start(client, message):
+    """/start command"""
+    reply_markup=InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton('Channel', url='https://t.me/FuZionX')
+            ],
+            [
+                InlineKeyboardButton('Torrent Group', url='https://t.me/FuZionXTorrentQuater')
+            ]
+        ]
+    ),
+    start_string = f'''
+This bot can Leech direct / Torrent Links !!
+'''
+    #await message.reply(start_string, reply_markup=reply_markup)
+    if message.chat.type == 'private':
+        await message.reply_text(
+           text=start_string,
+           reply_markup=reply_markup
+        )
+    else:
+        await message.reply_text(f"**I Am is Alive and Working !** ✨")
+
+
+def restart(client, message): 
     restart_message = sendMessage("Restarting, Please wait!", context.bot, update)
     with open(".restartmsg", "w") as f: 
         f.truncate(0)       
