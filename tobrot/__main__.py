@@ -102,16 +102,15 @@ botcmds = [
 #@Client.on_message(filters.command(['start', f'start@{bot.username}']))
 async def start(client, message):
     """/start command"""
-    reply_markup=InlineKeyboardMarkup(
-        [
+    buttons = [
             [
-                InlineKeyboardButton('🚦 Channel 🚦', url='https://t.me/FuZionX')
+                InlineKeyboardButton('🚦 Channel 🚦', url='https://t.me/FuZionX'),
             ],
             [
-                InlineKeyboardButton('🛃 Torrent Group 🛃', url='https://t.me/FuZionXTorrentQuater')
+                InlineKeyboardButton('🛃 Torrent Group 🛃', url='https://t.me/FuZionXTorrentQuater'),
             ]
-        ]
-    ),
+            ]
+    reply_markup=InlineKeyboardMarkup(buttons)
     start_string = f'''
 This bot can Leech direct / Torrent Links !!
 Many More, Get It by /help Command.
@@ -119,7 +118,7 @@ Many More, Get It by /help Command.
     #await message.reply(start_string, reply_markup=reply_markup)
     if message.chat.type == 'private':
         await message.reply_text(
-           text=start_string,
+           start_string,
            reply_markup=reply_markup
         )
     else:
