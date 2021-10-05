@@ -105,15 +105,16 @@ async def start(client, message):
     reply_markup=InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton('Channel', url='https://t.me/FuZionX')
+                InlineKeyboardButton('🚦 Channel 🚦', url='https://t.me/FuZionX')
             ],
             [
-                InlineKeyboardButton('Torrent Group', url='https://t.me/FuZionXTorrentQuater')
+                InlineKeyboardButton('🛃 Torrent Group 🛃', url='https://t.me/FuZionXTorrentQuater')
             ]
         ]
     ),
     start_string = f'''
 This bot can Leech direct / Torrent Links !!
+Many More, Get It by /help Command.
 '''
     #await message.reply(start_string, reply_markup=reply_markup)
     if message.chat.type == 'private':
@@ -122,7 +123,7 @@ This bot can Leech direct / Torrent Links !!
            reply_markup=reply_markup
         )
     else:
-        await message.reply_text(f"**I Am is Alive and Working !** ✨")
+        await message.reply_text(f"**I Am is Alive and Working !** ✨", parse_mode="markdown")
 
 
 def restart(client, message): 
@@ -146,7 +147,7 @@ if __name__ == "__main__":
         os.remove(".restartmsg")
     elif OWNER_ID:
         try:
-            text = "<b>Bot Restarted!</b>"
+            text = "<b>Bot is Successfully Restarted By Heroku !!</b>"
             bot.sendMessage(chat_id=OWNER_ID, text=text, parse_mode=ParseMode.HTML)
             if AUTH_CHANNEL:
                 for i in AUTH_CHANNEL:
@@ -156,8 +157,8 @@ if __name__ == "__main__":
 
     bot.set_my_commands(botcmds)
 
-    LOG_GROUP = -1001280533370 
-    dispatcher.bot.sendMessage(f'{LOG_GROUP}', f"<b>Bot is Successfully Restarted By Heroku !!</b>", parse_mode=ParseMode.HTML)
+    #LOG_GROUP = -1001280533370 
+    #dispatcher.bot.sendMessage(f'{LOG_GROUP}', f"<b>Bot is Successfully Restarted By Heroku !!</b>", parse_mode=ParseMode.HTML)
 
     # Starting The Bot
     app.start()
