@@ -8,6 +8,8 @@ import os
 import sys
 import traceback
 
+from telegram import ParseMode
+
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram import Client, filters, idle
 from pyrogram.raw import functions, types
@@ -97,7 +99,7 @@ botcmds = [
 
        # (f'{BotCommands.MediaInfoCommand}','🆔️ [Reply] Get Telegram Files Media Info'),
 
-@Client.on_message(filters.command('start', f'start@{bot.username}'))
+@Client.on_message(filters.command(['start', f'start@{bot.username}']))
 async def start(client, message):
     """/start command"""
     reply_markup=InlineKeyboardMarkup(
@@ -155,7 +157,7 @@ if __name__ == "__main__":
     bot.set_my_commands(botcmds)
 
     LOG_GROUP = -1001280533370 
-    dispatcher.bot.sendMessage(f'{LOG_GROUP}', f"**Bot is Successfully Restarted By Heroku !!**")
+    dispatcher.bot.sendMessage(f'{LOG_GROUP}', f"<b>Bot is Successfully Restarted By Heroku !!</b>", parse_mode=ParseMode.HTML)
 
     # Starting The Bot
     app.start()
