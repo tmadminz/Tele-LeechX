@@ -99,7 +99,7 @@ botcmds = [
 
        # (f'{BotCommands.MediaInfoCommand}','🆔️ [Reply] Get Telegram Files Media Info'),
 
-@Client.on_message(filters.command(['start', f'start@{bot.username}']))
+#@Client.on_message(filters.command(['start', f'start@{bot.username}']))
 async def start(client, message):
     """/start command"""
     reply_markup=InlineKeyboardMarkup(
@@ -352,6 +352,13 @@ if __name__ == "__main__":
         & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(restart_handler)
+    ##############################################################################
+    start_handler = MessageHandler(
+        start,
+        filters=filters.command(["start", f"start@{bot.username}"])
+        & filters.chat(chats=AUTH_CHANNEL),
+    )
+    app.add_handler(start_handler)
     ##############################################################################
 
     logging.info(f"@{(app.get_me()).username} Has Started Running...🏃💨💨")
