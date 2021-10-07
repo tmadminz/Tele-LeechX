@@ -89,7 +89,7 @@ async def status_message_f(
                 prog = "[{0}{1}]".format("".join([FINISHED_PROGRESS_STR for i in range(math.floor(percentage / 5))]),"".join([UN_FINISHED_PROGRESS_STR for i in range(20 - math.floor(percentage / 5))]))
                 umen = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
                 mssg = f"\n⚡𝙎𝙩𝙖𝙩𝙪𝙨 𝘽𝙮 : {umen} (<code>{message.from_user.id}</code>)\n◆━━━━━━◆ ❃ ◆━━━━━━◆"
-                msg += f"┏━━━━━━━━━━━━━━━╻\n"
+                msg += f"\n┏━━━━━━━━━━━━━━━╻\n"
                 msg += f"\n┣🔰𝐍𝐚𝐦𝐞: <code>{downloading_dir_name}</code>"
                 msg += f"\n┣🔰𝐒𝐭𝐚𝐭𝐮𝐬: <i>Downloading...📥</i>"
                 msg += f"\n┃<code>{prog}</code>"
@@ -120,7 +120,7 @@ async def status_message_f(
             f"┗━━━━━━━━━━━━━━┛"
         )
         if msg == "":
-            msg = "<b>┏━━━━━━━━━━━━━━━╻\n \n\n┃ ⚠️ No Active, Queued or Paused \n┃ Torrents /Direct Links ⚠️</b>\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 @FuZionX♦️━╹"
+            msg = "\n┏━━━━━━━━━━━━━━━╻\n┃ ⚠️ <b>No Active, Queued or Paused \n┃ Torrents /Direct Links ⚠️</b>\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 @FuZionX♦️━╹"
             msg = mssg + "\n" + msg + "\n" + ms_g
             await to_edit.edit(msg)
             break
