@@ -87,8 +87,8 @@ async def status_message_f(
 
                 percentage = int(file.progress_string(0).split('%')[0])
                 prog = "[{0}{1}]".format("".join([FINISHED_PROGRESS_STR for i in range(math.floor(percentage / 5))]),"".join([UN_FINISHED_PROGRESS_STR for i in range(20 - math.floor(percentage / 5))]))
-                #umen = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
-                #msg += f"\n<b>👤User:</b> {umen} (<code>{message.from_user.id}</code>)"
+                umen = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
+                mssg = f"\n⚡𝙎𝙩𝙖𝙩𝙪𝙨 𝘽𝙮 : {umen} (<code>{message.from_user.id}</code>)\n◆━━━━━━◆ ❃ ◆━━━━━━◆"
                 msg += f"<b>⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊</b>\n"
                 msg += f"\n<b>🔖Filename:</b> <code>{downloading_dir_name}</code>"
                 msg += f"\n<b>📡 Status</b>: <i>Downloading...📥</i>"
@@ -112,17 +112,15 @@ async def status_message_f(
         free = humanbytes(free)
 
         ms_g = (
-            f"<b>⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊</b>\n\n"
+            f"◆━━━━━━◆ ❃ ◆━━━━━━◆\n"
             f"<b>CPU:</b> <code>{cpu}%</code> | <b>RAM:</b> <code>{ram}%</code>\n"
             f"<b>FREE:</b> <code>{free}</code> | <b>UPTIME</b>: <code>{hr}h{mi}m{se}s</code>\n"
             f"<b>TOTAL:</b> <code>{total}</code> | <b>USED:</b> <code>{used}</code>\n"
         )
         if msg == "":
-            msg = "<b>⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊ \n\n⚠️ No Active, Queued or Paused TORRENTs/Direct Links ⚠️</b>\n"
-            msg = msg + "\n" + ms_g
+            msg = "<b>┏━━━━━━━━━━━━━━━╻\n \n\n┃ ⚠️ No Active, Queued or Paused Torrents /Direct Links ⚠️</b>\n"
+            msg = mssg + "\n" + msg + "\n" + ms_g
             await to_edit.edit(msg)
-            #await asyncio.sleep(5)
-            #await msg.delete() #Delete Bot Message after 5 sec 
             break
         msg = msg + "\n" + ms_g
         if len(msg) > MAX_MESSAGE_LENGTH:  # todo - will catch later
