@@ -113,12 +113,14 @@ async def status_message_f(
 
         ms_g = (
             f"◆━━━━━━◆ ❃ ◆━━━━━━◆\n"
-            f"<b>CPU:</b> <code>{cpu}%</code> | <b>RAM:</b> <code>{ram}%</code>\n"
-            f"<b>FREE:</b> <code>{free}</code> | <b>UPTIME</b>: <code>{hr}h{mi}m{se}s</code>\n"
-            f"<b>TOTAL:</b> <code>{total}</code> | <b>USED:</b> <code>{used}</code>\n"
+            f"┏━━━━━━━━━━━━━━┓"
+            f"┃ᑕᑭᑌ: <code>{cpu}%</code> ┃ ᖇᗩᗰ: <code>{ram}%</code>  ┃\n"
+            f"┃ᖴ: <code>{free}</code> ┃ ᑌᑭ: <code>{hr}h{mi}m{se}s</code> ┃\n"
+            f"┃T: <code>{total}</code> ┃ ᑌ: <code>{used}</code>┃\n"
+            f"┗━━━━━━━━━━━━━━┛"
         )
         if msg == "":
-            msg = "<b>┏━━━━━━━━━━━━━━━╻\n \n\n┃ ⚠️ No Active, Queued or Paused Torrents /Direct Links ⚠️</b>\n"
+            msg = "<b>┏━━━━━━━━━━━━━━━╻\n \n\n┃ ⚠️ No Active, Queued or Paused \n┃ Torrents /Direct Links ⚠️</b>\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 @FuZionX♦️━╹"
             msg = mssg + "\n" + msg + "\n" + ms_g
             await to_edit.edit(msg)
             break
