@@ -81,27 +81,27 @@ async def status_message_f(
             if file.status == "active":
                 is_file = file.seeder
                 if is_file is None:
-                    msgg = f"<b>🔁Conn:</b> <code>{file.connections}</code>"
+                    msgg = f"┣🔰𝐂𝐨𝐧𝐧𝐞𝐜𝐭𝐢𝐨𝐧𝐬: <code>{file.connections}</code>"
                 else:
-                    msgg = f"<b>🍱Seeds:</b> <code>{file.num_seeders}</code> | <b>🍒Peers:</b> <code>{file.connections}</code>"
+                    msgg = f"┣🔰𝐒𝐞𝐞𝐝𝐬: <code>{file.num_seeders}</code> ┃ 🔰𝐏𝐞𝐞𝐫𝐬: <code>{file.connections}</code>"
 
                 percentage = int(file.progress_string(0).split('%')[0])
                 prog = "[{0}{1}]".format("".join([FINISHED_PROGRESS_STR for i in range(math.floor(percentage / 5))]),"".join([UN_FINISHED_PROGRESS_STR for i in range(20 - math.floor(percentage / 5))]))
                 umen = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
                 mssg = f"\n⚡𝙎𝙩𝙖𝙩𝙪𝙨 𝘽𝙮 : {umen} (<code>{message.from_user.id}</code>)\n◆━━━━━━◆ ❃ ◆━━━━━━◆"
-                msg += f"<b>⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊</b>\n"
-                msg += f"\n<b>🔖Filename:</b> <code>{downloading_dir_name}</code>"
-                msg += f"\n<b>📡 Status</b>: <i>Downloading...📥</i>"
-                msg += f"\n<code>{prog}</code>"
-                msg += f"\n<b>🗃 Downloaded</b>: <code>{file.progress_string()}</code> <b>of</b> <code>{file.total_length_string()}</code>"
-                msg += f"\n<b>📊Speed</b>: <code>{file.download_speed_string()}</code>,"
-                msg += f"<b>🔍ETA:</b> <code>{file.eta_string()}</code>"  
+                msg += f"┏━━━━━━━━━━━━━━━╻\n"
+                msg += f"\n┣🔰𝐍𝐚𝐦𝐞: <code>{downloading_dir_name}</code>"
+                msg += f"\n┣🔰𝐒𝐭𝐚𝐭𝐮𝐬: <i>Downloading...📥</i>"
+                msg += f"\n┃<code>{prog}</code>"
+                msg += f"\n┣🔰𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐞𝐝: <code>{file.progress_string()}</code> <b>of</b> <code>{file.total_length_string()}</code>"
+                msg += f"\n┣🔰𝐒𝐩𝐞𝐞𝐝: <code>{file.download_speed_string()}</code>,"
+                msg += f"🔰𝐄𝐓𝐀: <code>{file.eta_string()}</code>"  
                 #umen = f'<a href="tg://user?id={file.message.from_user.id}">{file.message.from_user.first_name}</a>'
                 #msg += f"\n<b>👤User:</b> {umen} (<code>{file.message.from_user.id}</code>)"
                 #msg += f"\n<b>⚠️Warn:</b> <code>/warn {file.message.from_user.id}</code>"
                 msg += f"\n{msgg}"
-                msg += f"\n<b>⛔ Cancel:</b> <code>/cancel {file.gid}</code>"
-                msg += "\n"
+                msg += f"\n┣🔰𝐂𝐚𝐧𝐜𝐞𝐥: <code>/cancel {file.gid}</code>"
+                msg += "\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 @FuZionX♦️━╹\n"
 
         hr, mi, se = up_time(time.time() - BOT_START_TIME)
         total, used, free = shutil.disk_usage(".")
