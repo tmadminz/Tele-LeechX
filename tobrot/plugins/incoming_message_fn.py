@@ -107,7 +107,7 @@ async def incoming_message_f(client, message):
             # LOGGER.info(aria_i_p)
         
         u_men = message.from_user.mention
-        await i_m_sefg.edit_text(f"┏━━━━━━━━━━━━━━━━╻\n┣👤 𝐔𝐬𝐞𝐫 : {u_men} \n┃\n┃ <code>⚡️ Your Request Has Been Added To The Status List ⚡️</code> \n┣ <b><u>Send <code>/status{BOT_NO}</code> To Check Your Progress</u></b>\n┃\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 UPDATES_CHANNEL♦️━╹")
+        await i_m_sefg.edit_text(f"┏━━━━━━━━━━━━━━━━╻\n┣👤 𝐔𝐬𝐞𝐫 : {u_men} \n┃\n┃ <code>⚡️ Your Request Has Been Added To The Status List ⚡️</code> \n┣ <b><u>Send</u> /status{BOT_NO} <u>To Check Your Progress</u></b>\n┃\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹")
         # try to download the "link"
         is_zip = False
         is_cloud = False
