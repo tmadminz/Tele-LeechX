@@ -87,8 +87,6 @@ async def status_message_f(
 
                 percentage = int(file.progress_string(0).split('%')[0])
                 prog = "[{0}{1}]".format("".join([FINISHED_PROGRESS_STR for i in range(math.floor(percentage / 5))]),"".join([UN_FINISHED_PROGRESS_STR for i in range(20 - math.floor(percentage / 5))]))
-                umen = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
-                mssg = f"\n⚡𝙎𝙩𝙖𝙩𝙪𝙨 𝘽𝙮 : {umen} (<code>{message.from_user.id}</code>)\n◆━━━━━━◆ ❃ ◆━━━━━━◆"
                 msg += f"\n┏━━━━━━━━━━━━━━━╻\n"
                 msg += f"\n┣🔰𝐍𝐚𝐦𝐞: <code>{downloading_dir_name}</code>"
                 msg += f"\n┣🔰𝐒𝐭𝐚𝐭𝐮𝐬: <i>Downloading...📥</i>"
@@ -119,12 +117,15 @@ async def status_message_f(
             f"┃T: <code>{total}</code> ┃ ᑌ: <code>{used}</code>┃\n"
             f"┗━━━━━━━━━━━━━━┛"
         )
+
+        umen = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
+        mssg = f"\n⚡𝙎𝙩𝙖𝙩𝙪𝙨 𝘽𝙮 : {umen} (<code>{message.from_user.id}</code>)\n◆━━━━━━◆ ❃ ◆━━━━━━◆"
         if msg == "":
             msg = "\n┏━━━━━━━━━━━━━━━╻\n┃ ⚠️ <b>No Active, Queued or Paused \n┃ Torrents /Direct Links ⚠️</b>\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 @FuZionX♦️━╹"
             msg = mssg + "\n" + msg + "\n" + ms_g
             await to_edit.edit(msg)
             break
-        msg = msg + "\n" + ms_g
+        msg = mssg + "\n" + msg + "\n" + ms_g
         if len(msg) > MAX_MESSAGE_LENGTH:  # todo - will catch later
             with io.BytesIO(str.encode(msg)) as out_file:
                 out_file.name = "status.text"
