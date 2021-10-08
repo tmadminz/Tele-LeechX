@@ -27,7 +27,8 @@ from tobrot import (
     EDIT_SLEEP_TIME_OUT,
     FINISHED_PROGRESS_STR,
     UN_FINISHED_PROGRESS_STR,
-    UPDATES_CHANNEL
+    UPDATES_CHANNEL,
+    BOT_NO
     )
 
 
@@ -42,13 +43,13 @@ from tobrot.UserDynaConfig import UserDynaConfig
 async def upload_as_doc(client, message):
     user_specific_config[message.from_user.id]=UserDynaConfig(message.from_user.id,True)
     u_men = message.from_user.mention
-    await message.reply_text(f"┏━━━━━━━━━━━━━━━━╻\n┣👤 𝐔𝐬𝐞𝐫 : {u_men} \n┃ (<code>{message.from_user.id}</code>)\n┣🏷𝐓𝐨𝐠𝐠𝐥𝐞 𝐂𝐡𝐚𝐧𝐠𝐞𝐝 : 📁<code>Document 📂</code>\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 UPDATES_CHANNEL♦️━╹")
+    await message.reply_text(f"┏━━━━━━━━━━━━━━━━╻\n┣👤 𝐔𝐬𝐞𝐫 : {u_men} \n┃ (<code>{message.from_user.id}</code>)\n┣🏷𝐓𝐨𝐠𝐠𝐥𝐞 𝐂𝐡𝐚𝐧𝐠𝐞𝐝 : 📁<code>Document 📂</code>\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹")
 
 
 async def upload_as_video(client, message):
     user_specific_config[message.from_user.id]=UserDynaConfig(message.from_user.id,False)
     u_men = message.from_user.mention
-    await message.reply_text(f"┏━━━━━━━━━━━━━━━━╻\n┣👤 𝐔𝐬𝐞𝐫 : {u_men} \n┃ (<code>{message.from_user.id}</code>)\n┣🏷𝐓𝐨𝐠𝐠𝐥𝐞 𝐂𝐡𝐚𝐧𝐠𝐞𝐝 : <code>🎞 Video 🎞</code>\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 UPDATES_CHANNEL♦️━╹")
+    await message.reply_text(f"┏━━━━━━━━━━━━━━━━╻\n┣👤 𝐔𝐬𝐞𝐫 : {u_men} \n┃ (<code>{message.from_user.id}</code>)\n┣🏷𝐓𝐨𝐠𝐠𝐥𝐞 𝐂𝐡𝐚𝐧𝐠𝐞𝐝 : <code>🎞 Video 🎞</code>\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹")
  
 
 async def status_message_f(
@@ -99,8 +100,8 @@ async def status_message_f(
                 #msg += f"\n<b>👤User:</b> {umen} (<code>{file.message.from_user.id}</code>)"
                 #msg += f"\n<b>⚠️Warn:</b> <code>/warn {file.message.from_user.id}</code>"
                 msg += f"\n{msgg}"
-                msg += f"\n┣🔰𝐂𝐚𝐧𝐜𝐞𝐥: <code>/cancel {file.gid}</code>"
-                msg += f"\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 UPDATES_CHANNEL♦️━╹\n"
+                msg += f"\n┣🔰𝐂𝐚𝐧𝐜𝐞𝐥: <code>/cancel{BOT_NO} {file.gid}</code>"
+                msg += f"\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹\n"
 
         hr, mi, se = up_time(time.time() - BOT_START_TIME)
         total, used, free = shutil.disk_usage(".")
@@ -114,15 +115,15 @@ async def status_message_f(
             f"◆━━━━━━◆ ❃ ◆━━━━━━◆\n"
             f"┏━━━━━━━━━━━━━━┓\n"
             f"┃ᑕᑭᑌ: <code>{cpu}%</code> ┃ ᖇᗩᗰ: <code>{ram}%</code>  ┃\n"
-            f"┃ᖴ: <code>{free}</code> ┃ ᑌᑭ: <code>{hr}h{mi}m{se}s</code> ┃\n"
-            f"┃T: <code>{total}</code> ┃ ᑌ: <code>{used}</code>┃\n"
+            f"┃ᖴ: <code>{free}</code> ┃ᑌᑭ: <code>{hr}h{mi}m{se}s</code> ┃\n"
+            f"┃T: <code>{total}</code> ┃ᑌ: <code>{used}</code>┃\n"
             f"┗━━━━━━━━━━━━━━┛"
         )
 
         umen = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
         mssg = f"\n❣𝙎𝙩𝙖𝙩𝙪𝙨 𝙍𝙚𝙦𝙪𝙚𝙨𝙩𝙚𝙙 𝘽𝙮 : {umen} (<code>{message.from_user.id}</code>)\n◆━━━━━━◆ ❃ ◆━━━━━━◆"
         if msg == "":
-            msg = f"\n┏━━━━━━━━━━━━━━━╻\n┃\n┃ ⚠️ <b>No Active, Queued or Paused \n┃ Torrents / Direct Links ⚠️</b>\n┃\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 UPDATES_CHANNEL♦️━╹"
+            msg = f"\n┏━━━━━━━━━━━━━━━╻\n┃\n┃ ⚠️ <b>No Active, Queued or Paused \n┃ Torrents / Direct Links ⚠️</b>\n┃\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹\n"
             msg = mssg + "\n" + msg + "\n" + ms_g
             await to_edit.edit(msg)
             break
