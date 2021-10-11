@@ -3,7 +3,7 @@ import string
 import shelve
 import dbm  # this import is necessary to handle the custom exception when shelve tries to load a missing file as "read"
 
-from helpers.database.access_db import db
+#from helpers.database.access_db import db
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 
 # https://stackoverflow.com/questions/62173294/how-can-i-keep-save-the-user-input-in-dictionary
@@ -14,7 +14,7 @@ def save_dict(dict_to_be_saved):  # your original function, parameter renamed to
         s['Dict'] = dict_to_be_saved # just as you had it
 
 
-aysnc def load_dict():  # loading dictionary
+async def load_dict():  # loading dictionary
     try:  # file might not exist when we try to open it
         with shelve.open('shelve2.db', 'r') as s:  # the "r" flag used to only read the dictionary
             my_saved_dict = s['Dict']  # load and assign to a variable
@@ -40,9 +40,8 @@ elif ask == 'n':
 
 
 async def prefix_set(client, message):
-
     
-    await cb.message.edit(
+    await message.reply_text(
         text="Send me New File Name Prefix!"
     )
     try:
@@ -54,16 +53,21 @@ async def prefix_set(client, message):
             #await SetupPrefix(ask_.text, user_id=cb.from_user.id, editable=cb.message)
             words[new_word] = word_meaning
             save_dict(words)
+            ascii_ = ''.join([i if (i in string.digits or i in string.ascii_letters or i == " ") else "" for i in text])
+            #await db.set_prefix(user_id, prefix=text)
+            await message.reply_text(
+                text=f"File Name Prefix Successfully Added!\n\n**Prefix:** `{ascii_}`",
+            )
 
         elif ask_.text and (ask_.text.startswith("/") is True):
-            await message.edit(
+            await message.reply_text(
                 text="Current Process Cancelled!",
                 #reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Go Back", callback_data="openSettings")]])
             )
-    ascii_ = ''.join([i if (i in string.digits or i in string.ascii_letters or i == " ") else "" for i in text])
-    await db.set_prefix(user_id, prefix=text)
-    await message.reply_text(
-        text=f"File Name Prefix Successfully Added!\n\n**Prefix:** `{ascii_}`",
-    )
+    except TimeoutError:
+        await message.send_message(
+            text="Sorry Unkil,\n5 Minutes Passed! I can't wait more. Send me File Again to Rename.",
+            #reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Go Back", callback_data="openSettings")]])
+        )
 
 
