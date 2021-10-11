@@ -42,10 +42,12 @@ elif ask == 'n':
 async def prefix_set(client, message):
     
     await message.reply_text(
-        text="Send me New File Name Prefix!"
+        text="**Send me New File Name Prefix!**"
+        reply_to_message_id=message.reply_to_message.message_id,
+        parse_mode="markdown"
     )
     try:
-        ask_: Message = await bot.listen(message.chat.id)
+        ask_: Message = await bot.listen(message.from_user.id)
         if ask_.text and (ask_.text.startswith("/") is False):
             await ask_.delete(True)
             new_word = message.from_user.id
@@ -66,6 +68,7 @@ async def prefix_set(client, message):
             )
     except TimeoutError:
         await message.send_message(
+            message.reply_to_message.from_user.id
             text="Sorry Unkil,\n5 Minutes Passed! I can't wait more. Send me File Again to Rename.",
             #reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Go Back", callback_data="openSettings")]])
         )
