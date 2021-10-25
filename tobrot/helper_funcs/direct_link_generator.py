@@ -22,7 +22,7 @@ from js2py import EvalJs
 from lk21.extractors.bypasser import Bypass
 from bs4 import BeautifulSoup
 from base64 import standard_b64encode
-from tobrot import UPTOBOX_TOKEN
+from tobrot import UPTOBOX_TOKEN, LOGGER 
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
 
 
