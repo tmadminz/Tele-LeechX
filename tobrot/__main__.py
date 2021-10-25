@@ -8,12 +8,16 @@ import os
 import sys
 import traceback
 
+from telegram import ParseMode
+
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram import Client, filters, idle
 from pyrogram.raw import functions, types
 from pyrogram.handlers import CallbackQueryHandler, MessageHandler
 
-from tobrot import app, bot
+from tobrot import app, bot, dispatcher 
 from tobrot import (
+    OWNER_ID,
     AUTH_CHANNEL,
     CANCEL_COMMAND_G,
     CLEAR_THUMBNAIL,
@@ -44,12 +48,14 @@ from tobrot import (
     TOGGLE_DOC,
     HELP_COMMAND,
     SPEEDTEST,
-    TSEARCH_COMMAND
+    TSEARCH_COMMAND,
+    MEDIAINFO_CMD
 )
 from tobrot.helper_funcs.download import down_load_media_f
+from tobrot.plugins import *
 from tobrot.plugins.call_back_button_handler import button
 # the logging things
-from tobrot.plugins.torrent_search import searchhelp
+from tobrot.plugins.torrent_search import searchhelp, sendMessage 
 from tobrot.helper_funcs.bot_commands import BotCommands
 from tobrot.plugins.choose_rclone_config import rclone_command_f
 from tobrot.plugins.custom_thumbnail import clear_thumb_nail, save_thumb_nail
@@ -60,6 +66,7 @@ from tobrot.plugins.incoming_message_fn import (g_clonee, g_yt_playlist,
                                                 rename_tg_file)
 from tobrot.plugins.new_join_fn import help_message_f, new_join_f
 from tobrot.plugins.speedtest import get_speed
+from tobrot.plugins.mediainfo import mediainfo
 from tobrot.plugins.rclone_size import check_size_g, g_clearme
 from tobrot.plugins.status_message_fn import (
     cancel_message_f,
@@ -90,12 +97,68 @@ botcmds = [
         (f'{BotCommands.TsHelpCommand}','🌐 Get help for Torrent Search Module'),
     ]
 
+       # (f'{BotCommands.MediaInfoCommand}','🆔️ [Reply] Get Telegram Files Media Info'),
+
+#@Client.on_message(filters.command(['start', f'start@{bot.username}']))
+async def start(client, message):
+    """/start command"""
+    buttons = [
+            [
+                InlineKeyboardButton('🚦 Channel 🚦', url='https://t.me/FuZionX'),
+            ],
+            [
+                InlineKeyboardButton('🛃 Torrent Group 🛃', url='https://t.me/FuZionXTorrentQuater'),
+            ]
+            ]
+    reply_markup=InlineKeyboardMarkup(buttons)
+    start_string = f'''
+This bot can Leech direct / Torrent Links !!
+Many More, Get It by /help Command.
+'''
+    #await message.reply(start_string, reply_markup=reply_markup)
+    if message.chat.type == 'private':
+        await message.reply_text(
+           start_string,
+           reply_markup=reply_markup
+        )
+    else:
+        await message.reply_text(f"**I Am is Alive and Working !** ✨", parse_mode="markdown")
+
+
+def restart(client, message): 
+    restart_message = sendMessage("Restarting, Please wait!", message.tobrot, client)
+    with open(".restartmsg", "w") as f: 
+        f.truncate(0)       
+        f.write(f"{restart_message.chat.id}\n{restart_message.message_id}\n") 
+    clean_all()
+    os.execl(executable, executable, "-m", "bot")
+
+
 if __name__ == "__main__":
     # create download directory, if not exist
     if not os.path.isdir(DOWNLOAD_LOCATION):
         os.makedirs(DOWNLOAD_LOCATION)
 
+    if os.path.isfile(".restartmsg"):
+        with open(".restartmsg") as f:
+            chat_id, msg_id = map(int, f)
+        bot.edit_message_text("Restarted successfully!", chat_id, msg_id)
+        os.remove(".restartmsg")
+    elif OWNER_ID:
+        try:
+            text = "<b>Bot is Successfully Restarted By Heroku !!</b>"
+            bot.sendMessage(chat_id=OWNER_ID, text=text, parse_mode=ParseMode.HTML)
+            if AUTH_CHANNEL:
+                for i in AUTH_CHANNEL:
+                    bot.sendMessage(chat_id=i, text=text, parse_mode=ParseMode.HTML)
+        except Exception as e:
+            LOGGER.warning(e)
+
     bot.set_my_commands(botcmds)
+
+    #LOG_GROUP = -1001280533370 
+    #dispatcher.bot.sendMessage(f'{LOG_GROUP}', f"<b>Bot is Successfully Restarted By Heroku !!</b>", parse_mode=ParseMode.HTML)
+
     # Starting The Bot
     app.start()
     ##############################################################################
@@ -276,7 +339,27 @@ if __name__ == "__main__":
     )
     app.add_handler(searchhelp_handler)
     ##############################################################################
-
+    mediainfo_handler = MessageHandler(
+        mediainfo,
+        filters=filters.command([f"{MEDIAINFO_CMD}", f"{MEDIAINFO_CMD}@{bot.username}"])
+        & filters.chat(chats=AUTH_CHANNEL),
+    )
+    app.add_handler(mediainfo_handler)
+    ##############################################################################
+    restart_handler = MessageHandler(
+        restart,
+        filters=filters.command(["restart", f"restart@{bot.username}"])
+        & filters.chat(chats=AUTH_CHANNEL),
+    )
+    app.add_handler(restart_handler)
+    ##############################################################################
+    start_handler = MessageHandler(
+        start,
+        filters=filters.command(["start", f"start@{bot.username}"])
+        & filters.chat(chats=AUTH_CHANNEL),
+    )
+    app.add_handler(start_handler)
+    ##############################################################################
 
     logging.info(f"@{(app.get_me()).username} Has Started Running...🏃💨💨")
     

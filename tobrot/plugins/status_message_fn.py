@@ -26,7 +26,9 @@ from tobrot import (
     _lock,
     EDIT_SLEEP_TIME_OUT,
     FINISHED_PROGRESS_STR,
-    UN_FINISHED_PROGRESS_STR
+    UN_FINISHED_PROGRESS_STR,
+    UPDATES_CHANNEL,
+    BOT_NO
     )
 
 
@@ -41,13 +43,13 @@ from tobrot.UserDynaConfig import UserDynaConfig
 async def upload_as_doc(client, message):
     user_specific_config[message.from_user.id]=UserDynaConfig(message.from_user.id,True)
     u_men = message.from_user.mention
-    await message.reply_text(f"<i><b>👤 User : {u_men} \n\n🏷Toggle Changed : <code>Document 📂</code></b></i>")
+    await message.reply_text(f"┏━━━━━━━━━━━━━━━━╻\n┣👤 𝐔𝐬𝐞𝐫 : {u_men} \n┃ (<code>{message.from_user.id}</code>)\n┣🏷𝐓𝐨𝐠𝐠𝐥𝐞 𝐂𝐡𝐚𝐧𝐠𝐞𝐝 : 📁<code>Document 📂</code>\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹")
 
 
 async def upload_as_video(client, message):
     user_specific_config[message.from_user.id]=UserDynaConfig(message.from_user.id,False)
     u_men = message.from_user.mention
-    await message.reply_text(f"<i><b>👤 User : {u_men}\n\n🏷Toggle Changed : <code>Video 🎞</code></b></i>")
+    await message.reply_text(f"┏━━━━━━━━━━━━━━━━╻\n┣👤 𝐔𝐬𝐞𝐫 : {u_men} \n┃ (<code>{message.from_user.id}</code>)\n┣🏷𝐓𝐨𝐠𝐠𝐥𝐞 𝐂𝐡𝐚𝐧𝐠𝐞𝐝 : <code>🎞 Video 🎞</code>\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹")
  
 
 async def status_message_f(
@@ -55,7 +57,7 @@ async def status_message_f(
 ):  # weird code but 'This is the way' @gautamajay52
     aria_i_p = await aria_start()
     # Show All Downloads
-    to_edit = await message.reply("<code>Processing . . . 🔄</code>")
+    to_edit = await message.reply("<code>🧭𝐆𝐞𝐭𝐭𝐢𝐧𝐠 𝐂𝐮𝐫𝐫𝐞𝐧𝐭 𝐒𝐭𝐚𝐭𝐮𝐬 . .</code>")
     chat_id = int(message.chat.id)
     mess_id = int(to_edit.message_id)
     async with _lock:
@@ -81,25 +83,25 @@ async def status_message_f(
             if file.status == "active":
                 is_file = file.seeder
                 if is_file is None:
-                    msgg = f"<b>🔁Conn:</b> <code>{file.connections}</code>"
+                    msgg = f"┣🔰𝐂𝐨𝐧𝐧𝐞𝐜𝐭𝐢𝐨𝐧𝐬: <code>{file.connections}</code>"
                 else:
-                    msgg = f"<b>🍱Seeds:</b> <code>{file.num_seeders}</code> | <b>🍒Peers:</b> <code>{file.connections}</code>"
+                    msgg = f"┣🔰𝐒𝐞𝐞𝐝𝐬: <code>{file.num_seeders}</code> ┃ 🔰𝐏𝐞𝐞𝐫𝐬: <code>{file.connections}</code>"
 
                 percentage = int(file.progress_string(0).split('%')[0])
                 prog = "[{0}{1}]".format("".join([FINISHED_PROGRESS_STR for i in range(math.floor(percentage / 5))]),"".join([UN_FINISHED_PROGRESS_STR for i in range(20 - math.floor(percentage / 5))]))
-                msg += f"<b>⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊</b>\n"
-                msg += f"\n<b>🔖Filename:</b> <code>{downloading_dir_name}</code>"
-                msg += f"\n<b>📡 Status</b>: <i>Downloading...📥</i>"
-                msg += f"\n<code>{prog}</code>"
-                msg += f"\n<b>🗃 Downloaded</b>: <code>{file.progress_string()}</code> <b>of</b> <code>{file.total_length_string()}</code>"
-                msg += f"\n<b>📊Speed</b>: <code>{file.download_speed_string()}</code>,"
-                msg += f"<b>🔍ETA:</b> <code>{file.eta_string()}</code>"  
+                msg += f"\n┏━━━━━━━━━━━━━━━━╻"
+                msg += f"\n┣🔰𝐍𝐚𝐦𝐞: <code>{downloading_dir_name}</code>"
+                msg += f"\n┣🔰𝐒𝐭𝐚𝐭𝐮𝐬: <i>Downloading...📥</i>"
+                msg += f"\n┃<code>{prog}</code>"
+                msg += f"\n┣🔰𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐞𝐝: <code>{file.progress_string()}</code> <b>of</b> <code>{file.total_length_string()}</code>"
+                msg += f"\n┣🔰𝐒𝐩𝐞𝐞𝐝: <code>{file.download_speed_string()}</code>,"
+                msg += f"🔰𝐄𝐓𝐀: <code>{file.eta_string()}</code>"  
                 #umen = f'<a href="tg://user?id={file.message.from_user.id}">{file.message.from_user.first_name}</a>'
                 #msg += f"\n<b>👤User:</b> {umen} (<code>{file.message.from_user.id}</code>)"
                 #msg += f"\n<b>⚠️Warn:</b> <code>/warn {file.message.from_user.id}</code>"
                 msg += f"\n{msgg}"
-                msg += f"\n<b>⛔ Cancel:</b> <code>/cancel {file.gid}</code>"
-                msg += "\n"
+                msg += f"\n┣🔰𝐂𝐚𝐧𝐜𝐞𝐥: <code>/cancel{BOT_NO} {file.gid}</code>"
+                msg += f"\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹\n"
 
         hr, mi, se = up_time(time.time() - BOT_START_TIME)
         total, used, free = shutil.disk_usage(".")
@@ -110,19 +112,22 @@ async def status_message_f(
         free = humanbytes(free)
 
         ms_g = (
-            f"<b>⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊</b>\n\n"
-            f"<b>CPU:</b> <code>{cpu}%</code> | <b>RAM:</b> <code>{ram}%</code>\n"
-            f"<b>FREE:</b> <code>{free}</code> | <b>UPTIME</b>: <code>{hr}h{mi}m{se}s</code>\n"
-            f"<b>TOTAL:</b> <code>{total}</code> | <b>USED:</b> <code>{used}</code>\n"
+            f"◆━━━━━━◆ ❃ ◆━━━━━━◆\n"
+            f"┏━━━━━━━━━━━━━━┓\n"
+            f"┃ᑕᑭᑌ: <code>{cpu}%</code> ┃ ᖇᗩᗰ: <code>{ram}%</code>  ┃\n"
+            f"┃ᖴ: <code>{free}</code> ┃ᑌᑭ: <code>{hr}h{mi}m{se}s</code> ┃\n"
+            f"┃T: <code>{total}</code> ┃ᑌ: <code>{used}</code>┃\n"
+            f"┗━━━━━━━━━━━━━━┛"
         )
+
+        umen = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
+        mssg = f"\n❣𝙎𝙩𝙖𝙩𝙪𝙨 𝙍𝙚𝙦𝙪𝙚𝙨𝙩𝙚𝙙 𝘽𝙮 : {umen} (<code>{message.from_user.id}</code>)\n◆━━━━━━◆ ❃ ◆━━━━━━◆"
         if msg == "":
-            msg = "<b>⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊⑊ \n\n⚠️ No Active, Queued or Paused TORRENTs/Direct Links ⚠️</b>\n"
-            msg = msg + "\n" + ms_g
+            msg = f"\n┏━━━━━━━━━━━━━━━╻\n┃\n┃ ⚠️ <b>No Active, Queued or Paused \n┃ Torrents / Direct Links ⚠️</b>\n┃\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹\n"
+            msg = mssg + "\n" + msg + "\n" + ms_g
             await to_edit.edit(msg)
-            #await asyncio.sleep(5)
-            #await msg.delete() #Delete Bot Message after 5 sec 
             break
-        msg = msg + "\n" + ms_g
+        msg = mssg + "\n" + msg + "\n" + ms_g
         if len(msg) > MAX_MESSAGE_LENGTH:  # todo - will catch later
             with io.BytesIO(str.encode(msg)) as out_file:
                 out_file.name = "status.text"

@@ -21,6 +21,8 @@ from tobrot import (
     YTDL_COMMAND,
     GPYTDL_COMMAND,
     PYTDL_COMMAND,
+    BOT_NO,
+    UPDATES_CHANNEL
 )
 from tobrot import bot
 from tobrot.helper_funcs.admin_check import AdminCheck
@@ -105,7 +107,7 @@ async def incoming_message_f(client, message):
             # LOGGER.info(aria_i_p)
         
         u_men = message.from_user.mention
-        await i_m_sefg.edit_text(f"<b>👤 User : {u_men} \n Your Request Has Been Added To The Status \n Use /status To Check Your Progress</b>")
+        await i_m_sefg.edit_text(f"┏━━━━━━━━━━━━━━━━╻\n┣👤 𝐔𝐬𝐞𝐫 : {u_men} \n┃\n┃ <code>⚡️ Your Request Has Been Added To The Status List ⚡️</code> \n┣ <b><u>Send</u> /status{BOT_NO} <u>To Check Your Progress</u></b>\n┃\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹")
         # try to download the "link"
         is_zip = False
         is_cloud = False
