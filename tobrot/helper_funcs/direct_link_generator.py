@@ -22,6 +22,7 @@ from js2py import EvalJs
 from lk21.extractors.bypasser import Bypass
 from bs4 import BeautifulSoup
 from base64 import standard_b64encode
+from tobrot import UPTOBOX_TOKEN
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
 
 
@@ -37,6 +38,8 @@ def direct_link_generator(text_url: str):
         return cm_ru(text_url)
     elif 'mediafire.com' in text_url:
         return mediafire(text_url)
+    elif 'uptobox.com' in text_url:
+        return uptobox(text_url)
     elif 'osdn.net' in text_url:
         return osdn(text_url)
     elif 'github.com' in text_url:
@@ -148,6 +151,29 @@ def cm_ru(url: str) -> str:
     except json.decoder.JSONDecodeError:
         raise DirectDownloadLinkException("`Error: Can't extract the link`\n")
     dl_url = data['download']
+    return dl_url
+
+
+def uptobox(url: str) -> str:
+    """ Uptobox direct links generator
+    based on https://github.com/jovanzers/WinTenCermin """
+    try:
+        link = re.findall(r'\bhttps?://.*uptobox\.com\S+', url)[0]
+    except IndexError:
+        raise DirectDownloadLinkException("No Uptobox links found\n")
+    if UPTOBOX_TOKEN is None:
+        LOGGER.error('UPTOBOX_TOKEN not provided!')
+        dl_url = link
+    else:
+        try:
+            link = re.findall(r'\bhttp?://.*uptobox\.com/dl\S+', url)[0]
+            dl_url = link
+        except:
+            file_id = re.findall(r'\bhttps?://.*uptobox\.com/(\w+)', url)[0]
+            file_link = 'https://uptobox.com/api/link?token=%s&file_code=%s' % (UPTOBOX_TOKEN, file_id)
+            req = requests.get(file_link)
+            result = req.json()
+            dl_url = result['data']['dlLink']
     return dl_url
 
 
