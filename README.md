@@ -1,3 +1,5 @@
+# Note :
+### This Bot is Not Modified Completely, and has Plenty of Bugs 🐞 to be Fixed.
 ![FUZION LEECH](https://telegra.ph/file/213b587eee775e34ca221.jpg)
 # FuZionX Leech Bot 
 ![GitHub Repo Stars](https://img.shields.io/github/stars/5MysterySD/Tele-LeechX?color=blue&style=plastic)

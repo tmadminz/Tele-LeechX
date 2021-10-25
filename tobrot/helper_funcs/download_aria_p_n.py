@@ -134,6 +134,7 @@ def add_url(aria_instance, text_url, c_file_name):
     if "zippyshare.com" in text_url \
         or "osdn.net" in text_url \
         or "mediafire.com" in text_url \
+        or "uptobox.com" in text_url \
         or "cloud.mail.ru" in text_url \
         or "github.com" in text_url \
         or "yadi.sk" in text_url  \
