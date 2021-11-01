@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# (c) Shrimadhav U K | gautamajay52
+# (c) Shrimadhav U K | gautamajay52 | 5MysterySD 
 
 import asyncio
 import logging
@@ -31,6 +31,7 @@ from tobrot import (
     RCLONE_CONFIG,
     TG_MAX_FILE_SIZE,
     UPLOAD_AS_DOC,
+    CAP_STYLE,
     gDict,
     user_specific_config,
 )
@@ -61,9 +62,9 @@ async def upload_to_tg(
 ):
     base_file_name = os.path.basename(local_file_name)
     caption_str = ""
-    caption_str += "<code>"
+    caption_str += f"<{CAP_STYLE}>"
     caption_str += base_file_name
-    caption_str += "</code>"
+    caption_str += f"</{CAP_STYLE}>"
     if os.path.isdir(local_file_name):
         directory_contents = os.listdir(local_file_name)
         directory_contents.sort()
@@ -337,7 +338,7 @@ async def upload_single_file(
             disable_notification=True,
             progress=prog.progress_for_pyrogram,
             progress_args=(
-                f"**• Uploading :** `{os.path.basename(local_file_name)}`",
+                f"◆━━━━━━◆ ❃ ◆━━━━━━◆\n\n┏━━━━━━━━━━━━━━━━╻\n┣⚡️ 𝐅𝐢𝐥𝐞𝐧𝐚𝐦𝐞 : `{os.path.basename(local_file_name)}`",
                 start_time,
             ),
         )
