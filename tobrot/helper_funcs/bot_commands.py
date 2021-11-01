@@ -13,7 +13,8 @@ from tobrot import (
     HELP_COMMAND,
     SPEEDTEST,
     TSEARCH_COMMAND,
-    BOT_NO
+    PYTDL_COMMAND,
+    MEDIAINFO_CMD
     )
 
 class _BotCommands:
@@ -29,10 +30,10 @@ class _BotCommands:
         self.StatusCommand = f'{STATUS_COMMAND}'
         self.SpeedCommand = f'{SPEEDTEST}'
         self.YtdlCommand = f'{YTDL_COMMAND}'
-        self.PytdlCommand = 'pytdl'
+        self.PytdlCommand = f'{PYTDL_COMMAND}'
         self.HelpCommand = f'{HELP_COMMAND}'
         self.LogCommand = f'{LOG_COMMAND}'
-        self.MediaInfoCommand = 'mediainfo'
+        self.MediaInfoCommand = f'{MEDIAINFO_CMD}'
         self.TsHelpCommand = f'{TSEARCH_COMMAND}'
 
 BotCommands = _BotCommands()
