@@ -208,7 +208,7 @@ class TorrentSearch:
         else:
             magnet = values.get('magnet', values.get('Magnet'))  # Avoid updating source dict
             if magnet:
-                extra += f"☠Magnet: `{self.format_magnet(magnet)}`"
+                extra += f"⚡Magnet: `{self.format_magnet(magnet)}`"
         if (extra):
             string += "\n" + extra
         return string
@@ -227,7 +227,7 @@ class TorrentSearch:
 
         res_lim = min(self.RESULT_LIMIT, len(self.response) - self.RESULT_LIMIT*self.index)
         result = f"**Page - {self.index+1}**\n\n"
-        result += "\n\n≡≡≡≡≡≡≡≡≡≡≡≡≡≡\n\n".join(
+        result += "\n\n≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡\n\n".join(
             self.get_formatted_string(self.response[self.response_range[self.index]+i])
             for i in range(res_lim)
         )
@@ -341,17 +341,19 @@ for command, value in torrents_dict.items():
 
 async def searchhelp(self, message):
     help_string = '''
-<b>Torrent Search</b>
-• /nyaasi <i>[search query]</i>
-• /sukebei <i>[search query]</i>
-• /1337x <i>[search query]</i>
-• /piratebay <i>[search query]</i>
-• /tgx <i>[search query]</i>
-• /yts <i>[search query]</i>
-• /eztv <i>[search query]</i>
-• /torlock <i>[search query]</i>
-• /rarbg <i>[search query]</i>
-• /ts <i>[search query]</i>
+┏ 𝗧𝗼𝗿𝗿𝗲𝗻𝘁 𝗦𝗲𝗮𝗿𝗰𝗵 𝗠𝗼𝗱𝘂𝗹𝗲 :
+┃• /nyaasi <i>[search query]</i>
+┃• /sukebei <i>[search query]</i>
+┃• /1337x <i>[search query]</i>
+┃• /piratebay <i>[search query]</i>
+┃• /tgx <i>[search query]</i>
+┃• /yts <i>[search query]</i>
+┃• /eztv <i>[search query]</i>
+┃• /torlock <i>[search query]</i>
+┃• /rarbg <i>[search query]</i>
+┃• /ts <i>[search query]</i>
+┃
+┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 @FuZionX♦️━╹
 '''
     await message.reply(help_string, parse_mode="HTML")
     #sendMessage(help_string, context.bot, update)
