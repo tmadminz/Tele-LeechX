@@ -125,10 +125,10 @@ async def start(client, message):
     #await message.reply(start_string, reply_markup=reply_markup)
     if message.chat.type == 'private':
         await message.reply_text(
-           parse_mode="html",
-           quote=True,
            start_string,
-           reply_markup=reply_markup
+           reply_markup=reply_markup,
+           parse_mode="html",
+           quote=True
         )
     else:
         await message.reply_text(f"**I Am is Alive and Working !** ✨", parse_mode="markdown")
