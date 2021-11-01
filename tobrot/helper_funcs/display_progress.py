@@ -14,6 +14,7 @@ from tobrot import (
     UN_FINISHED_PROGRESS_STR,
     gDict,
     LOGGER,
+    UPDATES_CHANNEL 
 )
 from pyrogram import Client
 
@@ -51,7 +52,7 @@ class Progress:
             [
                 [
                     InlineKeyboardButton(
-                        "⛔ Cancel ⛔",
+                        "⛔ Cancel Now ⛔",
                         callback_data=(
                             f"gUPcancel/{chat_id}/{mes_id}/{from_user}"
                         ).encode("UTF-8"),
@@ -62,7 +63,7 @@ class Progress:
         if self.is_cancelled:
             LOGGER.info("stopping ")
             await self._mess.edit(
-                f"⛔ **Cancelled/ERROR** ⛔ \n\n `{ud_type}` ({humanbytes(total)})"
+                f"⛔ **Cancelled / Error** ⛔ \n\n `{ud_type}` ({humanbytes(total)})"
             )
             await self._client.stop_transmission()
 
@@ -77,18 +78,18 @@ class Progress:
             elapsed_time = TimeFormatter(milliseconds=elapsed_time)
             estimated_total_time = TimeFormatter(milliseconds=estimated_total_time)
 
-            progress = "\n<code>[{0}{1}] {2}%</code>\n".format(
+            progress = "\n┃\n┃<code>[{0}{1}] {2}%</code>\n┃\n".format(
                 ''.join([FINISHED_PROGRESS_STR for i in range(math.floor(percentage / 5))]),
                 ''.join([UN_FINISHED_PROGRESS_STR for i in range(20 - math.floor(percentage / 5))]),
                 round(percentage, 2))
             #cpu = "{psutil.cpu_percent()}%"
-            tmp = progress + "\n**⌧ Total 🗃:**` 〚{1}〛`\n**⌧ Done ✅ :**` 〚{0}〛`\n**⌧ Speed 📊 :** ` 〚{2}〛`\n**⌧ ETA 🔃 :**` 〚{3}〛`".format(
+            tmp = progress + "\n┣⚡️ 𝐓𝐨𝐭𝐚𝐥 : `〚{1}〛`\n┣⚡️ 𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐞𝐝  :` 〚{0}〛`\n┣⚡️ 𝐒𝐩𝐞𝐞𝐝 : ` 〚{2}〛`\n┣⚡️ 𝐄𝐓𝐀 : `〚{3}〛`".format(
                 humanbytes(current),
                 humanbytes(total),
                 humanbytes(speed),
                 # elapsed_time if elapsed_time != '' else "0 s",
                 estimated_total_time if estimated_total_time != "" else "0 s",
-            #tmp += "\n│"+"\n╰── ⌊ @TGFilmZone ⌉"
+            tmp += "\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹\n\n◆━━━━━━◆ ❃ ◆━━━━━━◆"
             )
             try:
                 if not self._mess.photo:
