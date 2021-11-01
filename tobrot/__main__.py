@@ -49,7 +49,8 @@ from tobrot import (
     HELP_COMMAND,
     SPEEDTEST,
     TSEARCH_COMMAND,
-    MEDIAINFO_CMD
+    MEDIAINFO_CMD,
+    UPDATES_CHANNEL 
 )
 from tobrot.helper_funcs.download import down_load_media_f
 from tobrot.plugins import *
@@ -111,13 +112,21 @@ async def start(client, message):
             ]
             ]
     reply_markup=InlineKeyboardMarkup(buttons)
+    u_men = message.from_user.mention 
     start_string = f'''
-This bot can Leech direct / Torrent Links !!
-Many More, Get It by /help Command.
+┏ Hey, {u_men}
+┃
+┣<b>Lets Get Started . . .</b>
+┣<i>This bot can Leech direct / Torrent / Magnet Links !!
+┣Many More, Get It by /help Command.</i>
+┃
+┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹
 '''
     #await message.reply(start_string, reply_markup=reply_markup)
     if message.chat.type == 'private':
         await message.reply_text(
+           parse_mode="html",
+           quote=True,
            start_string,
            reply_markup=reply_markup
         )
