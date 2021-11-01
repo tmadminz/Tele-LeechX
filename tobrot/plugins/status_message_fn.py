@@ -28,7 +28,7 @@ from tobrot import (
     FINISHED_PROGRESS_STR,
     UN_FINISHED_PROGRESS_STR,
     UPDATES_CHANNEL,
-    BOT_NO
+    CANCEL_COMMAND_G
     )
 
 
@@ -100,7 +100,7 @@ async def status_message_f(
                 #msg += f"\n<b>👤User:</b> {umen} (<code>{file.message.from_user.id}</code>)"
                 #msg += f"\n<b>⚠️Warn:</b> <code>/warn {file.message.from_user.id}</code>"
                 msg += f"\n{msgg}"
-                msg += f"\n┣🔰𝐂𝐚𝐧𝐜𝐞𝐥: <code>/cancel{BOT_NO} {file.gid}</code>"
+                msg += f"\n┣🔰𝐂𝐚𝐧𝐜𝐞𝐥: <code>/{CANCEL_COMMAND_G} {file.gid}</code>"
                 msg += f"\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹\n"
 
         hr, mi, se = up_time(time.time() - BOT_START_TIME)
