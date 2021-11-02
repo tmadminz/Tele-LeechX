@@ -43,13 +43,13 @@ from tobrot.UserDynaConfig import UserDynaConfig
 async def upload_as_doc(client, message):
     user_specific_config[message.from_user.id]=UserDynaConfig(message.from_user.id,True)
     u_men = message.from_user.mention
-    await message.reply_text(f"┏━━━━━━━━━━━━━━━━╻\n┣👤 𝐔𝐬𝐞𝐫 : {u_men} \n┃ (<code>{message.from_user.id}</code>)\n┣🏷𝐓𝐨𝐠𝐠𝐥𝐞 𝐂𝐡𝐚𝐧𝐠𝐞𝐝 : 📁<code>Document 📂</code>\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹")
+    await message.reply_text(f"┏━━━━━━━━━━━━━━━━╻\n┣👤 𝐔𝐬𝐞𝐫 : {u_men} \n┃\n┃ (<code>{message.from_user.id}</code>)\n┃\n┣🏷𝐓𝐨𝐠𝐠𝐥𝐞 𝐂𝐡𝐚𝐧𝐠𝐞𝐝 : 📁<code>Document 📂</code>\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹")
 
 
 async def upload_as_video(client, message):
     user_specific_config[message.from_user.id]=UserDynaConfig(message.from_user.id,False)
     u_men = message.from_user.mention
-    await message.reply_text(f"┏━━━━━━━━━━━━━━━━╻\n┣👤 𝐔𝐬𝐞𝐫 : {u_men} \n┃ (<code>{message.from_user.id}</code>)\n┣🏷𝐓𝐨𝐠𝐠𝐥𝐞 𝐂𝐡𝐚𝐧𝐠𝐞𝐝 : <code>🎞 Video 🎞</code>\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹")
+    await message.reply_text(f"┏━━━━━━━━━━━━━━━━╻\n┣👤 𝐔𝐬𝐞𝐫 : {u_men} \n┃\n┃ (<code>{message.from_user.id}</code>)\n┃\n┣🏷𝐓𝐨𝐠𝐠𝐥𝐞 𝐂𝐡𝐚𝐧𝐠𝐞𝐝 : <code>🎞 Video 🎞</code>\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹")
  
 
 async def status_message_f(
@@ -89,7 +89,7 @@ async def status_message_f(
 
                 percentage = int(file.progress_string(0).split('%')[0])
                 prog = "[{0}{1}]".format("".join([FINISHED_PROGRESS_STR for i in range(math.floor(percentage / 5))]),"".join([UN_FINISHED_PROGRESS_STR for i in range(20 - math.floor(percentage / 5))]))
-                msg += f"\n┏━━━━━━━━━━━━━━━━╻"
+                msg += f"\n┏━━━━━━━━━━━━━━━━━╻"
                 msg += f"\n┣🔰𝐍𝐚𝐦𝐞: <code>{downloading_dir_name}</code>"
                 msg += f"\n┣🔰𝐒𝐭𝐚𝐭𝐮𝐬: <i>Downloading...📥</i>"
                 msg += f"\n┃<code>{prog}</code>"
@@ -115,7 +115,7 @@ async def status_message_f(
             f"◆━━━━━━◆ ❃ ◆━━━━━━◆\n"
             f"┏━━━━━━━━━━━━━━┓\n"
             f"┃ᑕᑭᑌ: <code>{cpu}%</code> ┃ ᖇᗩᗰ: <code>{ram}%</code>  ┃\n"
-            f"┃ᖴ: <code>{free}</code> ┃ᑌᑭ: <code>{hr}h{mi}m{se}s</code> ┃\n"
+            f"┃ᖴ: <code>{free}</code> ┃ᑌᑭ: <code>{hr}h{mi}m{se}s</code>┃\n"
             f"┃T: <code>{total}</code> ┃ᑌ: <code>{used}</code>┃\n"
             f"┗━━━━━━━━━━━━━━┛"
         )
