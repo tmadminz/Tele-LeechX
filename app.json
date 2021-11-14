@@ -145,6 +145,20 @@
       "description": "Fill with name you want to prefix the file name like ur channel username🙊, keep empty for do nothing, but add to ur config vars even without input.",
       "required": false
     },
+    "CANCEL_COMMAND_G": {
+      "description": "For Custom cancel Command. Default is /cancel",
+      "value": "cancel",
+      "required": false
+    },
+    "UPTOBOX_TOKEN": {
+      "description": "Give Uptobox Premium API Token to Leech Uptobox.com Links",
+      "required": false
+    },
+    "CAP_STYLE": {
+      "description": "For Custom Caption Style . Default is <code> in HTML !!",
+      "value": "code",
+      "required": false
+    },
     "SPEEDTEST": {
       "description": "For Custom Speedtest Command. Default is /speedtest",
       "value": "speedtest",
