@@ -12,19 +12,23 @@ import json
 import math
 import re
 import urllib.parse
+import lk21
+import requests
+import cfscrape
+import time
+
 from os import popen
 from random import choice
 from urllib.parse import urlparse
-
-import lk21
-import requests, cfscrape
 from js2py import EvalJs
 from lk21.extractors.bypasser import Bypass
 from bs4 import BeautifulSoup
 from base64 import standard_b64encode
-from tobrot import UPTOBOX_TOKEN, LOGGER 
+
+from tobrot import UPTOBOX_TOKEN, LOGGER, PHPSESSID, CRYPT
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
 
+cookies = {"PHPSESSID": PHPSESSID, "crypt": CRYPT}
 
 def direct_link_generator(text_url: str):
     """ direct links generator """
@@ -90,6 +94,12 @@ def direct_link_generator(text_url: str):
         return fichier(text_url)
     elif 'solidfiles.com' in text_url:
         return solidfiles(text_url)
+    elif 'krakenfiles.com' in text_url:
+        return krakenfiles(text_url)
+    elif 'new.gdtot.top' in text_url:
+        return gdtot(text_url)
+    elif 'gplinks.co' in text_url:
+        return gplink(text_url)
     else:
         raise DirectDownloadLinkException(f'No Direct link function found for {text_url}')
 
@@ -413,15 +423,112 @@ def solidfiles(url: str) -> str:
     dl_url = json.loads(mainOptions)["downloadUrl"]
     return dl_url
 
-def useragent():
-    """
-    useragent random setter
-    """
-    useragents = BeautifulSoup(
-        requests.get(
-            'https://developers.whatismybrowser.com/'
-            'useragents/explore/operating_system_name/android/').content,
-        'lxml').findAll('td', {'class': 'useragent'})
-    user_agent = choice(useragents)
-    return user_agent.text
+def krakenfiles(page_link: str) -> str:
+    """ krakenfiles direct link generator
+    Based on https://github.com/tha23rd/py-kraken
+    By https://github.com/junedkh """
+    page_resp = requests.session().get(page_link)
+    soup = BeautifulSoup(page_resp.text, "lxml")
+    try:
+        token = soup.find("input", id="dl-token")["value"]
+    except:
+        raise DirectDownloadLinkException(f"Page link is wrong: {page_link}")
+
+    hashes = [
+        item["data-file-hash"]
+        for item in soup.find_all("div", attrs={"data-file-hash": True})
+    ]
+    if not hashes:
+        raise DirectDownloadLinkException(
+            f"Hash not found for : {page_link}")
+
+    dl_hash = hashes[0]
+
+    payload = f'------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name="token"\r\n\r\n{token}\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW--'
+    headers = {
+        "content-type": "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW",
+        "cache-control": "no-cache",
+        "hash": dl_hash,
+    }
+
+    dl_link_resp = requests.session().post(
+        f"https://krakenfiles.com/download/{hash}", data=payload, headers=headers)
+
+    dl_link_json = dl_link_resp.json()
+
+    if "url" in dl_link_json:
+        return dl_link_json["url"]
+    else:
+        raise DirectDownloadLinkException(
+            f"Failed to acquire download URL from kraken for : {page_link}")
+
+def gdtot(url: str) -> str:
+    """ Gdtot google drive link generator
+    By https://github.com/oxosec """
+
+    if CRYPT is None:
+        raise DirectDownloadLinkException("ERROR: PHPSESSID and CRYPT variables not provided")
+
+    headers = {'upgrade-insecure-requests': '1',
+               'save-data': 'on',
+               'user-agent': 'Mozilla/5.0 (Linux; Android 10; Redmi 8A Dual) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.101 Mobile Safari/537.36',
+               'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+               'sec-fetch-site': 'same-origin',
+               'sec-fetch-mode': 'navigate',
+               'sec-fetch-dest': 'document',
+               'referer': '',
+               'prefetchAd_3621940': 'true',
+               'accept-language': 'en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7'}
+
+    r1 = requests.get(url, headers=headers, cookies=cookies).content
+    s1 = BeautifulSoup(r1, 'html.parser').find('button', id="down").get('onclick').split("'")[1]
+    headers['referer'] = url
+    s2 = BeautifulSoup(requests.get(s1, headers=headers, cookies=cookies).content, 'html.parser').find('meta').get('content').split('=',1)[1]
+    headers['referer'] = s1
+    s3 = BeautifulSoup(requests.get(s2, headers=headers, cookies=cookies).content, 'html.parser').find('div', align="center")
+    if s3 is not None:
+        return s3.find(
+            'a', class_="btn btn-outline-light btn-user font-weight-bold"
+        ).get('href')
+
+    s3 = BeautifulSoup(requests.get(s2, headers=headers, cookies=cookies).content, 'html.parser')
+    status = s3.find('h4').text
+    raise DirectDownloadLinkException(f"ERROR: {status}") 
+
+
+def gplink(url: str) -> str:
+    """ GPLinks link generator
+    By https://github.com/oxosec """
+    check = re.findall(r'\bhttps?://.*gplink\S+', url)
+    if not check:
+        raise DirectDownloadLinkException("It's Not GPLinks")
+    resp = requests.head(url).headers
+    regex = re.findall(r"(?:AppSession|app_visitor|__cf_bm)\S+;", resp['set-cookie'])
+    join_ = " ".join(regex).replace("=", ": ", 3).replace(";", ",")
+    cookies = json.loads(re.sub(r"([a-zA-Z_0-9.%+/=-]+)", r'"\1"', '{%s __viCookieActive: true, __cfduid: dca0c83db7d849cdce8d82d043f5347bd1617421634}' % join_))
+    headers = {
+        "app_visitor": cookies["AppSession"],
+        "user-agent": "Mozilla/5.0 (Symbian/3; Series60/5.2 NokiaN8-00/012.002; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/533.4 (KHTML, like Gecko) NokiaBrowser/7.3.0 Mobile Safari/533.4 3gpp-gba",
+        "upgrade-insecure-requests": "1",
+        "referer": resp["location"],
+    }
+    resp_2 = requests.get(url, cookies=cookies, headers=headers).content
+    soup = BeautifulSoup(resp_2, 'html.parser')
+    found = soup.find_all('input')
+    dicts = {find.get('name'): find.get('value') for find in found}
+    cookies_2 = {
+        "AppSession": cookies["AppSession"], 
+        "csrfToken": dicts["_csrfToken"],
+    }
+    headers_2 = {
+        "content-type": "application/x-www-form-urlencoded; charset=UTF-8", 
+        "accept": "application/json, text/javascript, */*; q=0.01", 
+        "x-requested-with": "XMLHttpRequest",
+    }
+    time.sleep(10)
+    result = requests.post("%s/links/go"%(url.rsplit("/",1)[0]), headers=headers_2, cookies=cookies_2, data=dicts).json()
+    return result['url']
+
+
+
 
