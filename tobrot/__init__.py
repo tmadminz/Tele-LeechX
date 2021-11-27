@@ -125,6 +125,8 @@ MEDIAINFO_CMD = os.environ.get("MEDIAINFO_CMD", "mediainfo")
 UPDATES_CHANNEL = os.environ.get("UPDATES_CHANNEL", "@FuZionX")
 CAP_STYLE = os.environ.get("CAP_STYLE", "code")
 UPTOBOX_TOKEN = os.environ.get("UPTOBOX_TOKEN", "")
+PHPSESSID = os.environ.get("PHPSESSID", "")
+CRYPT = os.environ.get("CRYPT", "")
 BOT_START_TIME = time.time()
 # dict to control uploading and downloading
 gDict = defaultdict(lambda: [])
