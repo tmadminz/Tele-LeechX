@@ -202,7 +202,7 @@ async def exec_message_f(client, message):
         else:
             _o = o.split("\n")
             o = "`\n".join(_o)
-        OUTPUT = f"**QUERY:**\n\n__Link:__\n`{link}` \n\n**PID:**\n`{process.pid}`\n\n**Stderr:** \n`{e}`\n**Output:**\n\n**{o}**"
+        OUTPUT = f"**QUERY:**\n\n__Link:__\n`{link}` \n\n**PID:**\n`{process.pid}`\n\n**Stderr:** \n`{e}`\n**Output:**\n\n **{o}**"
 
         if len(OUTPUT) > MAX_MESSAGE_LENGTH:
             with io.BytesIO(str.encode(OUTPUT)) as out_file:
@@ -216,7 +216,7 @@ async def exec_message_f(client, message):
                 )
             await message.delete()
         else:
-            await message.reply_text(OUTPUT, parse_mode="markdown")
+            await message.reply_text(OUTPUT, parse_mode="markdown", disable_web_page_preview=True)
 
 
 async def upload_document_f(client, message):
