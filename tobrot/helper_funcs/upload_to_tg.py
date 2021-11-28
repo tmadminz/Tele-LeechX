@@ -32,6 +32,7 @@ from tobrot import (
     TG_MAX_FILE_SIZE,
     UPLOAD_AS_DOC,
     CAP_STYLE,
+    CUSTOM_CAPTION,
     gDict,
     user_specific_config,
 )
@@ -65,6 +66,8 @@ async def upload_to_tg(
     caption_str += f"<{CAP_STYLE}>"
     caption_str += base_file_name
     caption_str += f"</{CAP_STYLE}>"
+    if CUSTOM_CAPTION:
+        caption_str += f"\n\n{CUSTOM_CAPTION}"
     if os.path.isdir(local_file_name):
         directory_contents = os.listdir(local_file_name)
         directory_contents.sort()
