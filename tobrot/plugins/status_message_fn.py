@@ -182,6 +182,7 @@ async def exec_message_f(client, message):
         DELAY_BETWEEN_EDITS = 0.3
         PROCESS_RUN_TIME = 100
         cmd = message.text.split(" ", maxsplit=1)[1]
+        link = message.text.split(' ', 2)
 
         reply_to_id = message.message_id
         if message.reply_to_message:
@@ -201,11 +202,11 @@ async def exec_message_f(client, message):
         else:
             _o = o.split("\n")
             o = "`\n".join(_o)
-        OUTPUT = f"**QUERY:**\n__Command:__\n`{cmd}` \n__PID:__\n`{process.pid}`\n\n**stderr:** \n`{e}`\n**Output:**\n{o}"
+        OUTPUT = f"**QUERY:**\n\n__Link:__\n`{link}` \n\n**PID:**\n`{process.pid}`\n\n**Stderr:** \n`{e}`\n**Output:**\n\n**{o}**"
 
         if len(OUTPUT) > MAX_MESSAGE_LENGTH:
             with io.BytesIO(str.encode(OUTPUT)) as out_file:
-                out_file.name = "exec.text"
+                out_file.name = "shell.txt"
                 await client.send_document(
                     chat_id=message.chat.id,
                     document=out_file,
@@ -215,7 +216,7 @@ async def exec_message_f(client, message):
                 )
             await message.delete()
         else:
-            await message.reply_text(OUTPUT)
+            await message.reply_text(OUTPUT, parse_mode="markdown")
 
 
 async def upload_document_f(client, message):
