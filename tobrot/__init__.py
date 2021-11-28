@@ -127,6 +127,7 @@ CAP_STYLE = os.environ.get("CAP_STYLE", "code")
 UPTOBOX_TOKEN = os.environ.get("UPTOBOX_TOKEN", "")
 PHPSESSID = os.environ.get("PHPSESSID", "")
 CRYPT = os.environ.get("CRYPT", "")
+CUSTOM_CAPTION = os.environ.get("CUSTOM_CAPTION", "")
 BOT_START_TIME = time.time()
 # dict to control uploading and downloading
 gDict = defaultdict(lambda: [])
