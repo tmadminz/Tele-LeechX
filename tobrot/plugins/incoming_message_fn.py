@@ -68,7 +68,7 @@ async def incoming_message_f(client, message):
         link = reply_to.text
     else:
         link = "None"
-    link_text = await message.reply_text(f"<b>Link Send By User :</b>\n\n<code>{link_send}</code>", parse_mode="html", quote=True)
+    link_text = await message.reply_text(f"<b>Link Send By User :</b>\n\n<code>{link}</code>", parse_mode="html", quote=True)
     # get link from the incoming message
     i_m_sefg = await message.reply_text("<code>Processing . . . 🔄</code>", quote=True)
     rep_mess = message.reply_to_message
