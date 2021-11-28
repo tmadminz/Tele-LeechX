@@ -182,7 +182,7 @@ async def exec_message_f(client, message):
         DELAY_BETWEEN_EDITS = 0.3
         PROCESS_RUN_TIME = 100
         cmd = message.text.split(" ", maxsplit=1)[1]
-        link = message.text.split(' ', maxsplit=1)[2]
+        link = message.text.split(' ', maxsplit=1)[1]
         work_in = await message.reply_text("`Generating ...`")
 
         reply_to_id = message.message_id
