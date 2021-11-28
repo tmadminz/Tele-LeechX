@@ -182,7 +182,8 @@ async def exec_message_f(client, message):
         DELAY_BETWEEN_EDITS = 0.3
         PROCESS_RUN_TIME = 100
         cmd = message.text.split(" ", maxsplit=1)[1]
-        link = message.text.split(' ', 2)
+        link = message.text.split(' ', maxsplit=1)[2]
+        work_in = await message.reply_text("`Generating ...`")
 
         reply_to_id = message.message_id
         if message.reply_to_message:
@@ -202,7 +203,8 @@ async def exec_message_f(client, message):
         else:
             _o = o.split("\n")
             o = "`\n".join(_o)
-        OUTPUT = f"**QUERY:**\n\n__Link:__\n`{link}` \n\n**PID:**\n`{process.pid}`\n\n**Stderr:** \n`{e}`\n**Output:**\n\n **{o}**"
+        OUTPUT = f"**QUERY:**\n\n__Link:__ `{link}` \n\n**PID: **`{process.pid}`\n\n**Stderr:** \n`{e}`\n**Output:**\n\n <b>{o}</b>"
+        await work_in.delete()
 
         if len(OUTPUT) > MAX_MESSAGE_LENGTH:
             with io.BytesIO(str.encode(OUTPUT)) as out_file:
@@ -216,7 +218,7 @@ async def exec_message_f(client, message):
                 )
             await message.delete()
         else:
-            await message.reply_text(OUTPUT, parse_mode="markdown", disable_web_page_preview=True)
+            await message.reply_text(OUTPUT, disable_web_page_preview=True)
 
 
 async def upload_document_f(client, message):
