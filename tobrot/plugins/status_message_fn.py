@@ -178,47 +178,46 @@ async def cancel_message_f(client, message):
 
 
 async def exec_message_f(client, message):
-    if message.from_user.id in AUTH_CHANNEL:
-        DELAY_BETWEEN_EDITS = 0.3
-        PROCESS_RUN_TIME = 100
-        cmd = message.text.split(" ", maxsplit=1)[1]
-        link = message.text.split(' ', maxsplit=1)[1]
-        work_in = await message.reply_text("`Generating ...`")
+    DELAY_BETWEEN_EDITS = 0.3
+    PROCESS_RUN_TIME = 100
+    cmd = message.text.split(" ", maxsplit=1)[1]
+    link = message.text.split(' ', maxsplit=1)[1]
+    work_in = await message.reply_text("`Generating ...`")
 
-        reply_to_id = message.message_id
-        if message.reply_to_message:
-            reply_to_id = message.reply_to_message.message_id
+    reply_to_id = message.message_id
+    if message.reply_to_message:
+        reply_to_id = message.reply_to_message.message_id
 
-        start_time = time.time() + PROCESS_RUN_TIME
-        process = await asyncio.create_subprocess_shell(
-            cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
-        )
-        stdout, stderr = await process.communicate()
-        e = stderr.decode()
-        if not e:
-            e = "No Error"
-        o = stdout.decode()
-        if not o:
-            o = "No Output"
-        else:
-            _o = o.split("\n")
-            o = "`\n".join(_o)
-        OUTPUT = f"**QUERY:**\n\n__Link:__ `{link}` \n\n**PID: **`{process.pid}`\n\n**Stderr:** \n`{e}`\n**Output:**\n\n <b>{o}</b>"
-        await work_in.delete()
+    start_time = time.time() + PROCESS_RUN_TIME
+    process = await asyncio.create_subprocess_shell(
+        cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+    )
+    stdout, stderr = await process.communicate()
+    e = stderr.decode()
+    if not e:
+        e = "No Error"
+    o = stdout.decode()
+    if not o:
+        o = "No Output"
+    else:
+        _o = o.split("\n")
+        o = "`\n".join(_o)
+    OUTPUT = f"<b>QUERY:\n\nLink: {link} \n\nPID: {process.pid}</b>\n\n<b>Stderr: \n{e}\nOutput:\n\n {o}</b> "
+    await work_in.delete()
 
-        if len(OUTPUT) > MAX_MESSAGE_LENGTH:
-            with io.BytesIO(str.encode(OUTPUT)) as out_file:
-                out_file.name = "shell.txt"
-                await client.send_document(
-                    chat_id=message.chat.id,
-                    document=out_file,
-                    caption=cmd,
-                    disable_notification=True,
-                    reply_to_message_id=reply_to_id,
-                )
-            await message.delete()
-        else:
-            await message.reply_text(OUTPUT, disable_web_page_preview=True)
+    if len(OUTPUT) > MAX_MESSAGE_LENGTH:
+        with io.BytesIO(str.encode(OUTPUT)) as out_file:
+            out_file.name = "shell.txt"
+            await client.send_document(
+                chat_id=message.chat.id,
+                document=out_file,
+                caption=cmd,
+                disable_notification=True,
+                reply_to_message_id=reply_to_id,
+            )
+        await message.delete()
+    else:
+        await message.reply_text(OUTPUT, disable_web_page_preview=True, parse_mode="html", quote=True)
 
 
 async def upload_document_f(client, message):
