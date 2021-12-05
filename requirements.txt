@@ -12,6 +12,7 @@ lk21
 lxml
 mediainfo
 messages
+natsort
 Pillow
 psutil
 pyrogram
