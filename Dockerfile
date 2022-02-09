@@ -8,7 +8,7 @@ WORKDIR /app
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Asia/Kolkata
 
-RUN wget pv jq python3-dev mediainfo
+RUN apt -qq update && apt -qq install -y git wget pv jq python3-dev mediainfo
 
 RUN apt -qq update --fix-missing && \
     apt -qq install -y git \
