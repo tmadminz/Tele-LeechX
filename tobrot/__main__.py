@@ -93,12 +93,11 @@ botcmds = [
         (f'{BotCommands.SpeedCommand}','📡 Get Current Server Speed of Your Bot'),
         (f'{BotCommands.YtdlCommand}','🧲 [Reply] YT-DL Links for Uploading...'),
         (f'{BotCommands.PytdlCommand}','🧧 [Reply] YT-DL Playlists Links for Uploading...'),
+        (f'{BotCommands.MediaInfoCommand}','🆔️ [Reply] Get Telegram Files Media Info'),
         (f'{BotCommands.HelpCommand}','🆘 Get Help, How to Use and What to Do. . .'),
         (f'{BotCommands.LogCommand}','🔀 Get the Bot Log [Owner Only]'),
         (f'{BotCommands.TsHelpCommand}','🌐 Get help for Torrent Search Module'),
     ]
-
-       # (f'{BotCommands.MediaInfoCommand}','🆔️ [Reply] Get Telegram Files Media Info'),
 
 #@Client.on_message(filters.command(['start', f'start@{bot.username}']))
 async def start(client, message):
