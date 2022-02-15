@@ -38,7 +38,7 @@ elif ask == 'n':
 
 async def prefix_set(client, message):
     
-    words = load_dict()  # first we attempt to load previous dictionary, or make a blank one
+    set_pre = {}  # first we attempt to load previous dictionary, or make a blank one
     await message.reply_text(
         text="**Send me New File Name Prefix!**"
         reply_to_message_id=message.reply_to_message.message_id,
@@ -48,11 +48,11 @@ async def prefix_set(client, message):
         ask_: Message = await bot.listen(message.from_user.id)
         if ask_.text and (ask_.text.startswith("/") is False):
             await ask_.delete(True)
-            new_word = message.from_user.id
-            word_meaning = ask_.text
+            user_id_ = message.from_user.id
+            prefix_ = ask_.text
             #await SetupPrefix(ask_.text, user_id=cb.from_user.id, editable=cb.message)
-            words[new_word] = word_meaning
-            save_dict(words)
+            set_pre[user_id_] = prefix_
+            save_dict(set_pre)
             ascii_ = ''.join([i if (i in string.digits or i in string.ascii_letters or i == " ") else "" for i in text])
             #await db.set_prefix(user_id, prefix=text)
             await message.reply_text(
@@ -61,7 +61,7 @@ async def prefix_set(client, message):
 
         elif ask_.text and (ask_.text.startswith("/") is True):
             await message.reply_text(
-                text="Current Process Cancelled!",
+                text="`Current Process Cancelled!`",
                 #reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Go Back", callback_data="openSettings")]])
             )
     except TimeoutError:
