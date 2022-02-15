@@ -39,6 +39,8 @@ from tobrot.helper_funcs.download import download_tg
 from tobrot.helper_funcs.direct_link_generator import direct_link_generator
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
 
+from tobrot.plugins.custom_utils import prefix_set
+
 sys.setrecursionlimit(10 ** 4)
 
 
@@ -255,6 +257,10 @@ async def call_apropriate_function(
             LOGGER.info(
                 f"Can't extract {os.path.basename(to_upload_file)}, Uploading the same file"
             )
+
+    prefix = set_pre.get(user_id_)
+    if prefix:
+        CUSTOM_FILE_NAME = prefix
 
     if to_upload_file:
         if CUSTOM_FILE_NAME:
