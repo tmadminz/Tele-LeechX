@@ -57,7 +57,7 @@ async def prefix_set(client, message):
     set_pre[user_id_] = prefix_
     save_dict(set_pre)
 
-    pre_text = await lm.edit_text(f"<b>Prefix Send By User :</b>\n\n<code>{txt}</code>", parse_mode="html", quote=True)
+    pre_text = await lm.edit_text(f"<b>Prefix Send By User :</b>\n\n<code>{txt}</code>", parse_mode="html")
     
 
 
