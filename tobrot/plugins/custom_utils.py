@@ -40,8 +40,9 @@ async def prefix_set(client, message):
     
     set_pre = {}  # first we attempt to load previous dictionary, or make a blank one
     await message.reply_text(
-        text="**Send me New File Name Prefix!**"
-        parse_mode="markdown"
+        text="**Send me New File Name Prefix!**",
+        reply_to_message_id=message.reply_to_message.message_id,
+        parse_mode="markdown",
     )
     try:
         ask_: Message = await bot.listen(message.from_user.id)
