@@ -66,9 +66,8 @@ async def prefix_set(client, message):
             )
     except TimeoutError:
         await message.send_message(
-            message.reply_to_message.from_user.id
+            message.reply_to_message.from_user.id,
             text="Sorry Unkil,\n5 Minutes Passed! I can't wait more. Send me Text Again to Set.",
-            #reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Go Back", callback_data="openSettings")]])
         )
-
+            #reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Go Back", callback_data="openSettings")]])
 
