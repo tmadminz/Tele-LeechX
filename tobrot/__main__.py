@@ -57,6 +57,7 @@ from tobrot.plugins import *
 from tobrot.plugins.call_back_button_handler import button
 # the logging things
 from tobrot.plugins.torrent_search import searchhelp, sendMessage 
+from tobrot.plugins.custom_utils import prefix_set 
 from tobrot.helper_funcs.bot_commands import BotCommands
 from tobrot.plugins.choose_rclone_config import rclone_command_f
 from tobrot.plugins.custom_thumbnail import clear_thumb_nail, save_thumb_nail
@@ -367,6 +368,13 @@ if __name__ == "__main__":
         & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(start_handler)
+    ##############################################################################
+    prefixx_handler = MessageHandler(
+        prefix_set,
+        filters=filters.command(["setpre", f"setpre@{bot.username}"])
+        & filters.chat(chats=AUTH_CHANNEL),
+    )
+    app.add_handler(prefixx_handler)
     ##############################################################################
 
     logging.info(f"@{(app.get_me()).username} Has Started Running...🏃💨💨")
