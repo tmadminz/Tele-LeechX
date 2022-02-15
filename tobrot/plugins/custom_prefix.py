@@ -23,9 +23,6 @@ async def load_dict():  # loading dictionary
         await message.reply_text("Not Found !!")
         return {} #... and return an empty dictionary instead
 
-
-words = load_dict()  # first we attempt to load previous dictionary, or make a blank one
-
 '''
 ask = input('Do you want to add a new word?(y/n): ') 
 if ask == 'y':
@@ -41,6 +38,7 @@ elif ask == 'n':
 
 async def prefix_set(client, message):
     
+    words = load_dict()  # first we attempt to load previous dictionary, or make a blank one
     await message.reply_text(
         text="**Send me New File Name Prefix!**"
         reply_to_message_id=message.reply_to_message.message_id,
@@ -69,7 +67,7 @@ async def prefix_set(client, message):
     except TimeoutError:
         await message.send_message(
             message.reply_to_message.from_user.id
-            text="Sorry Unkil,\n5 Minutes Passed! I can't wait more. Send me File Again to Rename.",
+            text="Sorry Unkil,\n5 Minutes Passed! I can't wait more. Send me Text Again to Set.",
             #reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Go Back", callback_data="openSettings")]])
         )
 
