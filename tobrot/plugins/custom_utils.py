@@ -45,7 +45,7 @@ async def prefix_set(client, message):
         parse_mode="markdown",
     )
     try:
-        ask_: Message = await bot.listen(message.from_user.id)
+        ask_: Message = await client.listen(message.from_user.id)
         if ask_.text and (ask_.text.startswith("/") is False):
             await ask_.delete(True)
             user_id_ = message.from_user.id
