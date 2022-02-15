@@ -40,6 +40,29 @@ elif ask == 'n':
 async def prefix_set(client, message):
     
     set_pre = {}  # first we attempt to load previous dictionary, or make a blank one
+    lm = await message.reply_text(
+        text="Setting Up . . .",
+    )
+    user_id_ = message.from_user.id 
+    u_men = message.from_user.mention
+    pre_send = message.text.split(" ", maxsplit=1)
+    reply_to = message.reply_to_message
+    if len(pre_send) > 1:
+        txt = pre_send[1]
+    elif reply_to is not None:
+        txt = reply_to.text
+    else:
+        txt = ""
+    prefix_ = txt
+    set_pre[user_id_] = prefix_
+    save_dict(set_pre)
+
+    pre_text = await lm.edit_text(f"<b>Prefix Send By User :</b>\n\n<code>{txt}</code>", parse_mode="html", quote=True)
+    
+
+
+
+    '''
     await message.reply_text(
         text="**Send me New File Name Prefix!**",
         #reply_to_message_id=message.reply_to_message.message_id,
@@ -71,4 +94,4 @@ async def prefix_set(client, message):
             text="Sorry Unkil,\n5 Minutes Passed! I can't wait more. Send me Text Again to Set.",
         )
             #reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Go Back", callback_data="openSettings")]])
-
+     '''
