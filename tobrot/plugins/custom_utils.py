@@ -3,6 +3,7 @@ import string
 import shelve
 import dbm  # this import is necessary to handle the custom exception when shelve tries to load a missing file as "read"
 
+from tobrot import bot
 #from helpers.database.access_db import db
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 
@@ -45,7 +46,7 @@ async def prefix_set(client, message):
         parse_mode="markdown",
     )
     try:
-        ask_: Message = await client.listen(message.from_user.id)
+        ask_: Message = await bot.listen(message.from_user.id)
         if ask_.text and (ask_.text.startswith("/") is False):
             await ask_.delete(True)
             user_id_ = message.from_user.id
