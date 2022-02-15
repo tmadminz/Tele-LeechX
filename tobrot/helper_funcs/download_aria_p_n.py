@@ -258,11 +258,12 @@ async def call_apropriate_function(
                 f"Can't extract {os.path.basename(to_upload_file)}, Uploading the same file"
             )
 
-    prefix = set_pre.get(user_id_)
-    if prefix:
-        CUSTOM_FILE_NAME = prefix
-
     if to_upload_file:
+
+        prefix = set_pre.get(user_message.from_user.id)
+        if prefix:
+            CUSTOM_FILE_NAME = prefix
+
         if CUSTOM_FILE_NAME:
             if os.path.isfile(to_upload_file):
                 os.rename(to_upload_file,
