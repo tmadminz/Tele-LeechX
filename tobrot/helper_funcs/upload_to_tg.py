@@ -40,6 +40,7 @@ from tobrot.helper_funcs.copy_similar_file import copy_file
 from tobrot.helper_funcs.display_progress import humanbytes, Progress
 from tobrot.helper_funcs.help_Nekmo_ffmpeg import take_screen_shot
 from tobrot.helper_funcs.split_large_files import split_large_files
+from tobrot.plugins.custom_utils import *
 
 # stackoverflow🤐
 def getFolderSize(p):
@@ -62,12 +63,20 @@ async def upload_to_tg(
     yt_thumb=None,
 ):
     base_file_name = os.path.basename(local_file_name)
+
     caption_str = ""
     caption_str += f"<{CAP_STYLE}>"
     caption_str += base_file_name
     caption_str += f"</{CAP_STYLE}>"
+
+    caption = CAP_DICT.get(from_user) 
+    if caption: 
+        global CUSTOM_CAPTION 
+        CUSTOM_CAPTION = caption 
+
     if CUSTOM_CAPTION:
         caption_str += f"\n\n{CUSTOM_CAPTION}"
+
     if os.path.isdir(local_file_name):
         directory_contents = os.listdir(local_file_name)
         directory_contents.sort()
