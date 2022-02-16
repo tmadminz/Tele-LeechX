@@ -38,8 +38,7 @@ from tobrot.helper_funcs.download import download_tg
 
 from tobrot.helper_funcs.direct_link_generator import direct_link_generator
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
-
-from tobrot.plugins.custom_utils import prefix_set
+from tobrot.plugins.custom_utils import *
 
 sys.setrecursionlimit(10 ** 4)
 
@@ -259,8 +258,8 @@ async def call_apropriate_function(
             )
 
     if to_upload_file:
-
-        prefix = set_pre.get(user_message.from_user.id)
+        
+        prefix = PRE_DICT.get(user_message.from_user.id)
         if prefix:
             CUSTOM_FILE_NAME = prefix
 
