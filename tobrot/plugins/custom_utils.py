@@ -9,6 +9,7 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 
 # https://stackoverflow.com/questions/62173294/how-can-i-keep-save-the-user-input-in-dictionary
 
+PRE_DICT = {}
 
 def save_dict(dict_to_be_saved):  # your original function, parameter renamed to not shadow outer scope
     with shelve.open('shelve2.db', 'c') as s:  # Don't think you needed WriteBack, "c" flag used to create dictionary
