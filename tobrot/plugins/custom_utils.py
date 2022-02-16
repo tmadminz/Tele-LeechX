@@ -59,7 +59,7 @@ async def caption_set(client, message):
     cap_send = message.text.split(" ", maxsplit=1)
     reply_to = message.reply_to_message
     if len(cap_send) > 1:
-        txt = pre_send[1]
+        txt = cap_send[1]
     elif reply_to is not None:
         txt = reply_to.text
     else:
