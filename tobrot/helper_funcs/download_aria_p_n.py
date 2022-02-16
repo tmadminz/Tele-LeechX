@@ -261,6 +261,7 @@ async def call_apropriate_function(
         
         prefix = PRE_DICT.get(user_message.from_user.id)
         if prefix:
+            global CUSTOM_FILE_NAME 
             CUSTOM_FILE_NAME = prefix
 
         if CUSTOM_FILE_NAME:
