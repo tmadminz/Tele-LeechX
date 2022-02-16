@@ -70,9 +70,7 @@ async def upload_to_tg(
     caption_str += f"</{CAP_STYLE}>"
 
     caption = CAP_DICT.get(from_user, "") 
-    if caption != "": 
-        global CUSTOM_CAPTION 
-        CUSTOM_CAPTION = caption 
+    CUSTOM_CAPTION = caption 
 
     if CUSTOM_CAPTION != "":
         caption_str += f"\n\n{CUSTOM_CAPTION}"
