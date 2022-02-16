@@ -39,7 +39,7 @@ elif ask == 'n':
 
 async def prefix_set(client, message):
     
-    PRE_DICT = {}  # first we attempt to load previous dictionary, or make a blank one
+    #PRE_DICT = {}  # first we attempt to load previous dictionary, or make a blank one
     lm = await message.reply_text(
         text="Setting Up . . .",
     )
