@@ -81,8 +81,6 @@ async def aria_start():
     )
     return aria2
 
-PRE_DICT = {}
-
 def add_magnet(aria_instance, magnetic_link, c_file_name):
     options = None
     # if c_file_name is not None:
