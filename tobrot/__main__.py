@@ -57,7 +57,7 @@ from tobrot.plugins import *
 from tobrot.plugins.call_back_button_handler import button
 # the logging things
 from tobrot.plugins.torrent_search import searchhelp, sendMessage 
-from tobrot.plugins.custom_utils import prefix_set 
+from tobrot.plugins.custom_utils import prefix_set, caption_set
 from tobrot.helper_funcs.bot_commands import BotCommands
 from tobrot.plugins.choose_rclone_config import rclone_command_f
 from tobrot.plugins.custom_thumbnail import clear_thumb_nail, save_thumb_nail
@@ -95,6 +95,8 @@ botcmds = [
         (f'{BotCommands.YtdlCommand}','🧲 [Reply] YT-DL Links for Uploading...'),
         (f'{BotCommands.PytdlCommand}','🧧 [Reply] YT-DL Playlists Links for Uploading...'),
         (f'{BotCommands.MediaInfoCommand}','🆔️ [Reply] Get Telegram Files Media Info'),
+        (f'setpre','🔠 <Text> Save Custom Prefix for Uploads'),
+        (f'setcap','🔣 <Text> Save Custom Caption for Uploads'),
         (f'{BotCommands.HelpCommand}','🆘 Get Help, How to Use and What to Do. . .'),
         (f'{BotCommands.LogCommand}','🔀 Get the Bot Log [Owner Only]'),
         (f'{BotCommands.TsHelpCommand}','🌐 Get help for Torrent Search Module'),
@@ -375,6 +377,13 @@ if __name__ == "__main__":
         & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(prefixx_handler)
+    ##############################################################################
+    captionn_handler = MessageHandler(
+        caption_set,
+        filters=filters.command(["setcap", f"setcap@{bot.username}"])
+        & filters.chat(chats=AUTH_CHANNEL),
+    )
+    app.add_handler(captionn_handler)
     ##############################################################################
 
     logging.info(f"@{(app.get_me()).username} Has Started Running...🏃💨💨")
