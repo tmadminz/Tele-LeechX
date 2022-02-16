@@ -257,12 +257,12 @@ async def call_apropriate_function(
 
     if to_upload_file:
         
-        prefix = PRE_DICT.get(user_message.from_user.id)
-        if prefix:
+        prefix = PRE_DICT.get(user_message.from_user.id, "")
+        if prefix != "":
             global CUSTOM_FILE_NAME 
             CUSTOM_FILE_NAME = prefix
 
-        if CUSTOM_FILE_NAME:
+        if CUSTOM_FILE_NAME != "":
             if os.path.isfile(to_upload_file):
                 os.rename(to_upload_file,
                           f"{CUSTOM_FILE_NAME}{to_upload_file}")
