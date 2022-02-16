@@ -42,7 +42,6 @@ from tobrot.plugins.custom_utils import *
 
 sys.setrecursionlimit(10 ** 4)
 
-
 async def aria_start():
     aria2_daemon_start_cmd = []
     # start the daemon, aria2c command
@@ -82,6 +81,7 @@ async def aria_start():
     )
     return aria2
 
+PRE_DICT = {}
 
 def add_magnet(aria_instance, magnetic_link, c_file_name):
     options = None
