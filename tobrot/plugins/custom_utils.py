@@ -3,13 +3,12 @@ import string
 import shelve
 import dbm  # this import is necessary to handle the custom exception when shelve tries to load a missing file as "read"
 
-from tobrot import bot
-#from helpers.database.access_db import db
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 
 # https://stackoverflow.com/questions/62173294/how-can-i-keep-save-the-user-input-in-dictionary
 
 PRE_DICT = {}
+CAP_DICT = {}
 
 def save_dict(dict_to_be_saved):  # your original function, parameter renamed to not shadow outer scope
     with shelve.open('shelve2.db', 'c') as s:  # Don't think you needed WriteBack, "c" flag used to create dictionary
@@ -25,24 +24,12 @@ async def load_dict():  # loading dictionary
         await message.reply_text("Not Found !!")
         return {} #... and return an empty dictionary instead
 
-'''
-ask = input('Do you want to add a new word?(y/n): ') 
-if ask == 'y':
-    new_word = input('what is the new word?: ')
-    word_meaning = input('what does the word mean?: ')
-    words[new_word] = word_meaning
-    save_dict(words)
-elif ask == 'n':
-    print(words)  # You can see that the dictionary is preserved between runs
-    print("Oh well, nothing else to do here then.")
-'''
-
 
 async def prefix_set(client, message):
     
     #PRE_DICT = {}  # first we attempt to load previous dictionary, or make a blank one
     lm = await message.reply_text(
-        text="Setting Up . . .",
+        text="`Setting Up ...`",
     )
     user_id_ = message.from_user.id 
     u_men = message.from_user.mention
@@ -58,9 +45,30 @@ async def prefix_set(client, message):
     PRE_DICT[user_id_] = prefix_
     save_dict(PRE_DICT)
 
-    pre_text = await lm.edit_text(f"<b>Prefix Send By User :</b>\n\n<code>{txt}</code>", parse_mode="html")
+    pre_text = await lm.edit_text(f"⚡️<i><b>Custom Prefix Set Successfully</b></i> ⚡️ \n\n👤 <b>User :</b> {u_men}\n🆔 <b>User ID :</b> <code>{user_id_}</code>\n🗃 <b>Prefix :</b> <tg-spoiler><code>{txt}</code></tg-spoiler>", parse_mode="html")
     
 
+async def caption_set(client, message):
+    '''  /setcap command '''
+
+    lk = await message.reply_text(
+        text="`Setting Up ...`",
+    )
+    user_id_ = message.from_user.id 
+    u_men = message.from_user.mention
+    cap_send = message.text.split(" ", maxsplit=1)
+    reply_to = message.reply_to_message
+    if len(cap_send) > 1:
+        txt = pre_send[1]
+    elif reply_to is not None:
+        txt = reply_to.text
+    else:
+        txt = ""
+    caption_ = txt
+    CAP_DICT[user_id_] = caption_
+    save_dict(CAP_DICT)
+
+    cap_text = await lk.edit_text(f"⚡️<i><b>Custom Caption Set Successfully</b></i> ⚡️ \n\n👤 <b>User :</b> {u_men}\n🆔 <b>User ID :</b> <code>{user_id_}</code>\n🗃 <b>Caption :</b> <tg-spoiler><code>{txt}</code></tg-spoiler>", parse_mode="html")
 
 
     '''
