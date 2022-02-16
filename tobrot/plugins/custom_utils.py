@@ -39,7 +39,7 @@ elif ask == 'n':
 
 async def prefix_set(client, message):
     
-    set_pre = {}  # first we attempt to load previous dictionary, or make a blank one
+    PRE_DICT = {}  # first we attempt to load previous dictionary, or make a blank one
     lm = await message.reply_text(
         text="Setting Up . . .",
     )
@@ -54,8 +54,8 @@ async def prefix_set(client, message):
     else:
         txt = ""
     prefix_ = txt
-    set_pre[user_id_] = prefix_
-    save_dict(set_pre)
+    PRE_DICT[user_id_] = prefix_
+    save_dict(PRE_DICT)
 
     pre_text = await lm.edit_text(f"<b>Prefix Send By User :</b>\n\n<code>{txt}</code>", parse_mode="html")
     
