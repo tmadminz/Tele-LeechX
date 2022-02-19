@@ -106,6 +106,8 @@ def direct_link_generator(text_url: str):
         return appdrive_dl(text_url)
     elif 'linkvertise.com' in text_url:
         return linkvertise(text_url)
+    elif 'droplink.co' in text_url:
+        return droplink(text_url)
     else:
         raise DirectDownloadLinkException(f'No Direct link function found for {text_url}')
 
@@ -630,4 +632,23 @@ def linkvertise(url: str) -> str:
     data = client.post(url_submit, json=options).json()
     return data["data"]["target"]
 
+
+def droplink(url: str) -> str:
+    client = requests.Session()
+    res = client.get(url)
+    ref = re.findall("action[ ]{0,}=[ ]{0,}['|\"](.*?)['|\"]", res.text)[0]
+    h = {'referer': ref}
+    res = client.get(url, headers=h)
+    bs4 = BeautifulSoup(res.content, 'lxml')
+    inputs = bs4.find_all('input')
+    data = { input.get('name'): input.get('value') for input in inputs }
+    h = {
+        'content-type': 'application/x-www-form-urlencoded',
+        'x-requested-with': 'XMLHttpRequest'
+    }
+    p = urlparse(url)
+    final_url = f'{p.scheme}://{p.netloc}/links/go'
+    time.sleep(3.1)
+    res = client.post(final_url, data=data, headers=h).json()
+    return res
 
