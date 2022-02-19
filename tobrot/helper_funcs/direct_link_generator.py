@@ -26,7 +26,7 @@ from lk21.extractors.bypasser import Bypass
 from bs4 import BeautifulSoup
 from base64 import standard_b64encode
 
-from tobrot import UPTOBOX_TOKEN, LOGGER, EMAIL, PWSSD, CRYPT
+from tobrot import UPTOBOX_TOKEN, LOGGER, EMAIL, PWSSD, CRYPT, GDRIVE_FOLDER_ID
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
 
 def direct_link_generator(text_url: str):
