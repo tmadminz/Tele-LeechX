@@ -26,7 +26,7 @@ async def url_parser(client, message):
             text=f"`Url Parsing Initiated` \n\nUrl : {url}",
             disable_web_page_preview=True,
         )
-        trigger, bypassed_url = bypass_link(url)
+        trigger, bypassed_url = await bypass_link(url)
         if trigger is True:
             ok = await oo.edit_text(
                 text="`Url Parsing Stopped` \n\nCheck your Link First, if I can Parse it or Not !!",
