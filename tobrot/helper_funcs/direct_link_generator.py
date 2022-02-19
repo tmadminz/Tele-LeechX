@@ -108,6 +108,8 @@ def direct_link_generator(text_url: str):
         return linkvertise(text_url)
     elif 'droplink.co' in text_url:
         return droplink(text_url)
+    elif 'gofile.io' in text_url:
+        return gofile(text_url)
     else:
         raise DirectDownloadLinkException(f'No Direct link function found for {text_url}')
 
@@ -651,4 +653,29 @@ def droplink(url: str) -> str:
     time.sleep(3.1)
     res = client.post(final_url, data=data, headers=h).json()
     return res
+
+
+def gofile(url: str) -> str:
+    api_uri = 'https://api.gofile.io'
+    client = requests.Session()
+    res = client.get(api_uri+'/createAccount').json()
+    data = {
+        'contentId': url.split('/')[-1],
+        'token': res['data']['token'],
+        'websiteToken': 'websiteToken',
+        'cache': 'true'
+    }
+    res = client.get(api_uri+'/getContent', params=data).json()
+    content = []
+    for item in res['data']['contents'].values():
+        content.append(item)
+    return content["link"]
+    '''
+    return {
+        'accountToken': data['token'],
+        'files': content
+    }
+    '''
+
+
 
