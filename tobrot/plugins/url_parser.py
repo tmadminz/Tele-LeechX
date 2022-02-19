@@ -80,9 +80,9 @@ def bypass_link(text_url: str):
         or "racaty.net" in text_url:
             try:
                 url_string = direct_link_generator(text_url)
-                return False, url_string
             except DirectDownloadLinkException as e:
                 LOGGER.info(f'{text_url}: {e})
+            return False, url_string
     else:
         return True, None
 
