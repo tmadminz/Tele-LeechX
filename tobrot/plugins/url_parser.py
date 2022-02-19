@@ -23,18 +23,21 @@ async def url_parser(client, message):
         url = None
     if url is not None:
         oo = await op.edit_text(
-            text=f"`Url Parsing Initiated` \n\nUrl : {url}",
+            text=f"♻️`Url Parsing Initiating`♻️ \n\n🔰**Url** : `{url}`",
             disable_web_page_preview=True,
         )
         trigger, bypassed_url = await bypass_link(url)
         if trigger is True:
             ok = await oo.edit_text(
-                text="`Url Parsing Stopped` \n\nCheck your Link First, if I can Parse it or Not !!",
+                text="⛔`Url Parsing Stopped`⛔ \n\n__Check your Link First, if I can Parse it or Not !!__",
+                disable_web_page_preview=True,
             )
             return 
-        tell = await oo.edit_text(
-             text=f"`Url Parsing Success` \n\nUrl : {url} \nBypassed Url : {bypassed_url}",
-        )
+        else:
+            tell = await oo.edit_text(
+                 text=f"♻️`Url Parsing Initiating`♻️ \n\n🔰**Url** : `{url}` \n\n🔰**Bypassed Url : `{bypassed_url}`",
+                 disable_web_page_preview=True,
+            )
     else:
         oo = await op.edit_text(
             text="`Send Link along with /parser`",
@@ -80,9 +83,9 @@ async def bypass_link(text_url: str):
         or "racaty.net" in text_url:
             try:
                 url_string = direct_link_generator(text_url)
+                return False, url_string
             except DirectDownloadLinkException as e:
                 LOGGER.info(f'{text_url}: {e}')
-            return False, url_string
     else:
         return True, None
 
