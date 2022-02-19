@@ -114,6 +114,10 @@ def direct_link_generator(text_url: str):
         return ouo(text_url)
     elif 'ouo.press' in text_url:
         return ouo(text_url)
+    elif 'upindia.mobi' in text_url:
+        return upindia(text_url)
+    elif 'uploadfile.cc' in text_url:
+        return upindia(text_url)
     else:
         raise DirectDownloadLinkException(f'No Direct link function found for {text_url}')
 
@@ -744,3 +748,41 @@ def ouo(url: str) -> str:
         'bypassed_link': res.headers.get('Location')
     }
     '''
+
+def upindia(url: str) -> str:
+  REGEX = r'(http[s]*://(?:upindia|uploadfile|upload)\.(?:cc|mobi)+/\d{6}/\S{7})'
+  match = re.findall(REGEX, url)
+  if not match:
+    return "The Provided Link Do not Match with the Standard Format."
+  
+  session = requests.Session()
+  url = match[0]
+  LOGGER.debug(f"Matched URL: {url}")
+  file_id, file_code = url.split('/')[-2:]
+  LOGGER.debug(f"File Code: {file_code}, File Id: {file_id}")
+  url_parts = urllib.parse.urlparse(url)
+  req = session.get(url)
+  page_html = req.text
+  itemlink = re.findall(r'class="download_box_new[^"]*".*itemlink="([^">]+)"', page_html)
+  if not itemlink:
+    return "File Does Not Exist!"
+  
+  itemlink = itemlink[0]
+  itemlink_parsed = urllib.parse.parse_qs(itemlink)
+  file_key = itemlink_parsed['down_key'][0]
+  LOGGER.debug(f"file_key: {file_key}")
+  params = {
+    'file_id':file_id,
+    'file_code':file_code,
+    'file_key':file_key,
+    'serv':1
+  }
+  req_url = url_parts.scheme + '://' +  url_parts.netloc + "/download"
+  r = session.head(req_url, params=params)
+  dl_url = r.headers.get('location', None)
+  if dl_url is None:
+    return "This File cannot be Downloaded at this moment!"
+  LOGGER.debug(dl_url)
+  return dl_url
+
+
