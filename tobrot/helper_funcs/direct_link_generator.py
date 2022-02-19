@@ -16,6 +16,7 @@ import lk21
 import requests
 import cfscrape
 import time
+import base64
 
 from os import popen
 from random import choice
@@ -101,6 +102,10 @@ def direct_link_generator(text_url: str):
         return gplink(text_url)
     elif 'appdrive.in' in text_url:
         return appdrive_dl(text_url)
+    elif 'driveapp.in' in text_url:
+        return appdrive_dl(text_url)
+    elif 'linkvertise.com' in text_url:
+        return linkvertise(text_url)
     else:
         raise DirectDownloadLinkException(f'No Direct link function found for {text_url}')
 
@@ -589,5 +594,40 @@ def appdrive_dl(url: str) -> str:
         raise DirectDownloadLinkException(f"{info_parsed['error_message']}")
     return info_parsed["gdrive_link"]
 
+
+def linkvertise(url: str) -> str:
+    client = requests.Session()
+    headers = {
+        "User-Agent": "AppleTV6,2/11.1",
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+    }
+    client.headers.update(headers)
+    url = url.replace("%3D", " ").replace("&o=sharing", "").replace("?o=sharing", "").replace("dynamic?r=", "dynamic/?r=")
+    id_name = re.search(r"\/\d+\/[^\/]+", url)
+    if not id_name: return None
+    paths = [
+        "/captcha", 
+        "/countdown_impression?trafficOrigin=network", 
+        "/todo_impression?mobile=true&trafficOrigin=network"
+    ]
+    for path in paths:
+        url = f"https://publisher.linkvertise.com/api/v1/redirect/link{id_name[0]}{path}"
+        response = client.get(url).json()
+        if response["success"]: break
+    data = client.get(f"https://publisher.linkvertise.com/api/v1/redirect/link/static{id_name[0]}").json()
+    out = {
+        'timestamp':int(str(time.time_ns())[0:13]),
+        'random':"6548307", 
+        'link_id':data["data"]["link"]["id"]
+    }
+    options = {
+        'serial': base64.b64encode(json.dumps(out).encode()).decode()
+    }
+    data = client.get("https://publisher.linkvertise.com/api/v1/account").json()
+    user_token = data["user_token"] if "user_token" in data.keys() else None
+    url_submit = f"https://publisher.linkvertise.com/api/v1/redirect/link{id_name[0]}/target?X-Linkvertise-UT={user_token}"
+    data = client.post(url_submit, json=options).json()
+    return data["data"]["target"]
 
 
