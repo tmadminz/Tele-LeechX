@@ -5,7 +5,7 @@ from tobrot import LOGGER
 from tobrot.helper_funcs.direct_link_generator import direct_link_generator
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
 
-def url_parser(client, message):
+async def url_parser(client, message):
    
     op = await message.reply_text(
         text="`Generating . . .`",
@@ -42,7 +42,7 @@ def url_parser(client, message):
         return
 
 
-def bypass_link(text_url: str):
+async def bypass_link(text_url: str):
     
     if "zippyshare.com" in text_url \
         or "osdn.net" in text_url \
