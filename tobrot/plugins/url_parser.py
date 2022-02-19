@@ -81,7 +81,7 @@ def bypass_link(text_url: str):
             try:
                 url_string = direct_link_generator(text_url)
             except DirectDownloadLinkException as e:
-                LOGGER.info(f'{text_url}: {e})
+                LOGGER.info(f'{text_url}: {e}')
             return False, url_string
     else:
         return True, None
