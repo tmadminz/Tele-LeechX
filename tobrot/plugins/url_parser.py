@@ -5,7 +5,7 @@ from tobrot import LOGGER
 from tobrot.helper_funcs.direct_link_generator import direct_link_generator
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
 
-def url_parser(client, message)
+def url_parser(client, message):
    
     op = await message.reply_text(
         text="`Generating . . .`",
@@ -26,7 +26,12 @@ def url_parser(client, message)
             text=f"`Url Parsing Initiated` \n\nUrl : {url}",
             disable_web_page_preview=True,
         )
-        bypassed_url = bypass_link(url)
+        trigger, bypassed_url = bypass_link(url)
+        if trigger is True:
+            ok = await oo.edit_text(
+                text="`Url Parsing Stopped` \n\nCheck your Link First, if I can Parse it or Not !!",
+            )
+            return 
         tell = await oo.edit_text(
              text=f"`Url Parsing Success` \n\nUrl : {url} \nBypassed Url : {bypassed_url}",
         )
@@ -37,7 +42,7 @@ def url_parser(client, message)
         return
 
 
-def bypass_link(text_url: str)
+def bypass_link(text_url: str):
     
     if "zippyshare.com" in text_url \
         or "osdn.net" in text_url \
@@ -75,12 +80,10 @@ def bypass_link(text_url: str)
         or "racaty.net" in text_url:
             try:
                 url_string = direct_link_generator(text_url)
-                return url_string
+                return False, url_string
             except DirectDownloadLinkException as e:
                 LOGGER.info(f'{text_url}: {e})
     else:
-        ok = await oo.edit_text(
-             text="`Url Parsing Stopped` \n\nCheck your Link First, if I can Parse it or Not !!",
-        )
+        return True, None
 
 
