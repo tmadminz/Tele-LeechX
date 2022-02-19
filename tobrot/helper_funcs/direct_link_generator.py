@@ -20,15 +20,14 @@ import time
 from os import popen
 from random import choice
 from urllib.parse import urlparse
+from lxml import etree
 from js2py import EvalJs
 from lk21.extractors.bypasser import Bypass
 from bs4 import BeautifulSoup
 from base64 import standard_b64encode
 
-from tobrot import UPTOBOX_TOKEN, LOGGER, PHPSESSID, CRYPT
+from tobrot import UPTOBOX_TOKEN, LOGGER, EMAIL, PWSSD, CRYPT
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
-
-cookies = {"PHPSESSID": PHPSESSID, "crypt": CRYPT}
 
 def direct_link_generator(text_url: str):
     """ direct links generator """
@@ -96,10 +95,12 @@ def direct_link_generator(text_url: str):
         return solidfiles(text_url)
     elif 'krakenfiles.com' in text_url:
         return krakenfiles(text_url)
-    elif 'new.gdtot.top' in text_url:
+    elif 'new.gdtot.nl' in text_url:
         return gdtot(text_url)
     elif 'gplinks.co' in text_url:
         return gplink(text_url)
+    elif 'appdrive.in' in text_url:
+        return appdrive_dl(text_url)
     else:
         raise DirectDownloadLinkException(f'No Direct link function found for {text_url}')
 
@@ -462,38 +463,24 @@ def krakenfiles(page_link: str) -> str:
         raise DirectDownloadLinkException(
             f"Failed to acquire download URL from kraken for : {page_link}")
 
+
 def gdtot(url: str) -> str:
     """ Gdtot google drive link generator
-    By https://github.com/oxosec """
+    By https://github.com/xcscxr """
 
     if CRYPT is None:
-        raise DirectDownloadLinkException("ERROR: PHPSESSID and CRYPT variables not provided")
+        raise DirectDownloadLinkException("ERROR: CRYPT cookie not provided")
 
-    headers = {'upgrade-insecure-requests': '1',
-               'save-data': 'on',
-               'user-agent': 'Mozilla/5.0 (Linux; Android 10; Redmi 8A Dual) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.101 Mobile Safari/537.36',
-               'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-               'sec-fetch-site': 'same-origin',
-               'sec-fetch-mode': 'navigate',
-               'sec-fetch-dest': 'document',
-               'referer': '',
-               'prefetchAd_3621940': 'true',
-               'accept-language': 'en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7'}
-
-    r1 = requests.get(url, headers=headers, cookies=cookies).content
-    s1 = BeautifulSoup(r1, 'html.parser').find('button', id="down").get('onclick').split("'")[1]
-    headers['referer'] = url
-    s2 = BeautifulSoup(requests.get(s1, headers=headers, cookies=cookies).content, 'html.parser').find('meta').get('content').split('=',1)[1]
-    headers['referer'] = s1
-    s3 = BeautifulSoup(requests.get(s2, headers=headers, cookies=cookies).content, 'html.parser').find('div', align="center")
-    if s3 is not None:
-        return s3.find(
-            'a', class_="btn btn-outline-light btn-user font-weight-bold"
-        ).get('href')
-
-    s3 = BeautifulSoup(requests.get(s2, headers=headers, cookies=cookies).content, 'html.parser')
-    status = s3.find('h4').text
-    raise DirectDownloadLinkException(f"ERROR: {status}") 
+    with requests.Session() as client:
+        client.cookies.update({'crypt': CRYPT})
+        res = client.get(url)
+        res = client.get(f"https://new.gdtot.nl/dld?id={url.split('/')[-1]}")
+    matches = re.findall('gd=(.*?)&', res.text)
+    try:
+        decoded_id = b64decode(str(matches[0])).decode('utf-8')
+    except:
+        raise DirectDownloadLinkException("ERROR: Try in your broswer, mostly file not found!")
+    return f'https://drive.google.com/open?id={decoded_id}'
 
 
 def gplink(url: str) -> str:
@@ -529,6 +516,78 @@ def gplink(url: str) -> str:
     result = requests.post("%s/links/go"%(url.rsplit("/",1)[0]), headers=headers_2, cookies=cookies_2, data=dicts).json()
     return result['url']
 
+
+def appdrive_dl(url: str) -> str:
+    """ AppDrive link generator
+    By https://github.com/xcscxr , More Clean Look by https://github.com/DragonPower84 """
+    if EMAIL is None or PWSSD is None:
+        raise DirectDownloadLinkException("Appdrive Cred Is Not Given")
+    account = {'email': EMAIL, 'passwd': PWSSD}
+    client = requests.Session()
+    client.headers.update({
+        "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36"
+    })
+    data = {
+        'email': account['email'],
+        'password': account['passwd']
+    }
+    client.post(f'https://{urlparse(url).netloc}/login', data=data)
+    data = {
+        'root_drive': '',
+        'folder': GDRIVE_FOLDER_ID
+    }
+    client.post(f'https://{urlparse(url).netloc}/account', data=data)
+    res = client.get(url)
+    key = re.findall('"key",\s+"(.*?)"', res.text)[0]
+    ddl_btn = etree.HTML(res.content).xpath("//button[@id='drc']")
+    info = re.findall('>(.*?)<\/li>', res.text)
+    info_parsed = {}
+    for item in info:
+        kv = [s.strip() for s in item.split(':', maxsplit = 1)]
+        info_parsed[kv[0].lower()] = kv[1] 
+    info_parsed = info_parsed
+    info_parsed['error'] = False
+    info_parsed['link_type'] = 'login' # direct/login
+    headers = {
+        "Content-Type": f"multipart/form-data; boundary={'-'*4}_",
+    }
+    data = {
+        'type': 1,
+        'key': key,
+        'action': 'original'
+    }
+    if len(ddl_btn):
+        info_parsed['link_type'] = 'direct'
+        data['action'] = 'direct'
+    while data['type'] <= 3:
+        boundary=f'{"-"*6}_'
+        data_string = ''
+        for item in data:
+             data_string += f'{boundary}\r\n'
+             data_string += f'Content-Disposition: form-data; name="{item}"\r\n\r\n{data[item]}\r\n'
+        data_string += f'{boundary}--\r\n'
+        gen_payload = data_string
+        try:
+            response = client.post(url, data=gen_payload, headers=headers).json()
+            break
+        except: data['type'] += 1
+    if 'url' in response:
+        info_parsed['gdrive_link'] = response['url']
+    elif 'error' in response and response['error']:
+        info_parsed['error'] = True
+        info_parsed['error_message'] = response['message']
+    else:
+        info_parsed['error'] = True
+        info_parsed['error_message'] = 'Something went wrong :('
+    if info_parsed['error']: return info_parsed
+    if urlparse(url).netloc == 'driveapp.in' and not info_parsed['error']:
+        res = client.get(info_parsed['gdrive_link'])
+        drive_link = etree.HTML(res.content).xpath("//a[contains(@class,'btn')]/@href")[0]
+        info_parsed['gdrive_link'] = drive_link
+    info_parsed['src_url'] = url
+    if info_parsed['error']:
+        raise DirectDownloadLinkException(f"{info_parsed['error_message']}")
+    return info_parsed["gdrive_link"]
 
 
 
