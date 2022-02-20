@@ -27,7 +27,7 @@ from lk21.extractors.bypasser import Bypass
 from bs4 import BeautifulSoup
 from base64 import standard_b64encode
 
-from tobrot import UPTOBOX_TOKEN, LOGGER, EMAIL, PWSSD, CRYPT, PHPSESSID, GDRIVE_FOLDER_ID
+from tobrot import UPTOBOX_TOKEN, LOGGER, EMAIL, PWSSD, CRYPT, PHPSESSID, GDRIVE_FOLDER_ID, HUB_CRYPT
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
 
 def direct_link_generator(text_url: str):
@@ -118,6 +118,8 @@ def direct_link_generator(text_url: str):
         return upindia(text_url)
     elif 'uploadfile.cc' in text_url:
         return upindia(text_url)
+    elif 'hubdrive.in' in text_url:
+        return hubdrive(text_url)
     else:
         raise DirectDownloadLinkException(f'No Direct link function found for {text_url}')
 
@@ -693,7 +695,7 @@ def gofile(url: str) -> str:
     content = []
     for item in res['data']['contents'].values():
         content.append(item)
-    return content["link"]
+    return content['link']
     '''
     return {
         'accountToken': data['token'],
@@ -788,5 +790,39 @@ def upindia(url: str) -> str:
     return "This File cannot be Downloaded at this moment!"
   LOGGER.debug(dl_url)
   return dl_url
+
+
+def hubdrive(url: str) -> url:
+
+    if HUB_CRYPT is None:
+        raise DirectDownloadLinkException("HubDrive CRYPT Is Not Given")
+    client = requests.Session()
+    client.cookies.update({'crypt': HUB_CRYPT})
+    res = client.get(url)
+    info_parsed = {}
+    title = re.findall('>(.*?)<\/h4>', res.text)[0]
+    info_chunks = re.findall('>(.*?)<\/td>', res.text)
+    info_parsed['title'] = title
+    for i in range(0, len(info_chunks), 2):
+        info_parsed[info_chunks[i]] = info_chunks[i+1]
+    info_parsed = info_parsed 
+    info_parsed['error'] = False
+    up = urlparse(url)
+    req_url = f"{up.scheme}://{up.netloc}/ajax.php?ajax=download"
+    file_id = url.split('/')[-1]
+    data = { 'id': file_id }
+    headers = {
+        'x-requested-with': 'XMLHttpRequest'
+    }
+    try:
+        res = client.post(req_url, headers=headers, data=data).json()['file']
+    except: return {'error': True, 'src_url': url}
+    gd_id = re.findall('gd=(.*)', res, re.DOTALL)[0]
+    info_parsed['gdrive_url'] = f"https://drive.google.com/open?id={gd_id}"
+    info_parsed['src_url'] = url
+    if info_parsed['error']:
+        raise DirectDownloadLinkException(f"{info_parsed['error_message']}")
+    return info_parsed
+
 
 
