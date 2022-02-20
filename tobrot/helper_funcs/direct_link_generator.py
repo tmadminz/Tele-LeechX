@@ -564,7 +564,7 @@ def gplink(url: str) -> str:
     }
     time.sleep(10)
     result = requests.post("%s/links/go"%(url.rsplit("/",1)[0]), headers=headers_2, cookies=cookies_2, data=dicts).json()
-    return result['url']
+    return result
 
 
 def appdrive_dl(url: str) -> str:
@@ -637,7 +637,7 @@ def appdrive_dl(url: str) -> str:
     info_parsed['src_url'] = url
     if info_parsed['error']:
         raise DirectDownloadLinkException(f"{info_parsed['error_message']}")
-    return info_parsed["gdrive_link"]
+    return info_parsed
 
 
 def linkvertise(url: str):
@@ -720,45 +720,43 @@ def ouo(url: str) -> str:
     """ Ouo Bypasser generator
     By https://github.com/xcscxr """
 
-    try:
-        client = requests.Session()
-        tempurl = url.replace("ouo.press", "ouo.io")
-        p = urlparse(tempurl)
-        id = tempurl.split('/')[-1]
-        res = client.get(tempurl)
-        next_url = f"{p.scheme}://{p.hostname}/go/{id}"
-        url_base = 'https://www.google.com/recaptcha/'
-        post_data = "v={}&reason=q&c={}&k={}&co={}"
-        client = requests.Session()
-        client.headers.update({
-            'content-type': 'application/x-www-form-urlencoded'
-        })
-        matches = re.findall('([api2|enterprise]+)\/anchor\?(.*)', ANCHOR_URL)[0]
-        url_base += matches[0]+'/'
-        params = matches[1]
-        res = client.get(url_base+'anchor', params=params)
-        token = re.findall(r'"recaptcha-token" value="(.*?)"', res.text)[0]
-        params = dict(pair.split('=') for pair in params.split('&'))
-        post_data = post_data.format(params["v"], token, params["k"], params["co"])
-        res = client.post(url_base+'reload', params=f'k={params["k"]}', data=post_data)
-        answer = re.findall(r'"rresp","(.*?)"', res.text)[0]
-        ans = answer
+    client = requests.Session()
+    tempurl = url.replace("ouo.press", "ouo.io")
+    p = urlparse(tempurl)
+    id = tempurl.split('/')[-1]
+    res = client.get(tempurl)
+    next_url = f"{p.scheme}://{p.hostname}/go/{id}"
+    url_base = 'https://www.google.com/recaptcha/'
+    post_data = "v={}&reason=q&c={}&k={}&co={}"
+    client = requests.Session()
+    client.headers.update({
+        'content-type': 'application/x-www-form-urlencoded'
+    })
+    matches = re.findall('([api2|enterprise]+)\/anchor\?(.*)', ANCHOR_URL)[0]
+    url_base += matches[0]+'/'
+    params = matches[1]
+    res = client.get(url_base+'anchor', params=params)
+    token = re.findall(r'"recaptcha-token" value="(.*?)"', res.text)[0]
+    params = dict(pair.split('=') for pair in params.split('&'))
+    post_data = post_data.format(params["v"], token, params["k"], params["co"])
+    res = client.post(url_base+'reload', params=f'k={params["k"]}', data=post_data)
+    answer = re.findall(r'"rresp","(.*?)"', res.text)[0]
+    ans = answer
 
-        for _ in range(2):
-            if res.headers.get('Location'):
-                break
-            bs4 = BeautifulSoup(res.content, 'lxml')
-            inputs = bs4.form.findAll("input", {"name": re.compile(r"token$")})
-            data = { input.get('name'): input.get('value') for input in inputs }
-            #ans = RecaptchaV3(ANCHOR_URL)
-            data['x-token'] = ans
-            h = {
-                'content-type': 'application/x-www-form-urlencoded'
-            }
-            res = client.post(next_url, data=data, headers=h, allow_redirects=False)
-            next_url = f"{p.scheme}://{p.hostname}/xreallcygo/{id}"
-    except:
-        return ouo(url.replace("ouo.io", "ouo.press"))
+    for _ in range(2):
+        if res.headers.get('Location'):
+            break
+        bs4 = BeautifulSoup(res.content, 'lxml')
+        inputs = bs4.form.findAll("input", {"name": re.compile(r"token$")})
+        data = { input.get('name'): input.get('value') for input in inputs }
+        #ans = RecaptchaV3(ANCHOR_URL)
+        data['x-token'] = ans
+        h = {
+            'content-type': 'application/x-www-form-urlencoded'
+        }
+        res = client.post(next_url, data=data, headers=h, allow_redirects=False)
+        next_url = f"{p.scheme}://{p.hostname}/xreallcygo/{id}"
+
     return res.headers.get('Location')
 
     '''
@@ -934,9 +932,10 @@ def androidfilehost(url: str) -> str:
     fid = re.findall(r"\?fid=(.*)", link)[0]
     session = requests.Session()
     user_agent = useragent()
-    if user_agent is None:
+    if user_agent == "":
         raise DirectDownloadLinkException("`Error: Can't find Mirrors for the link`\n")
-        return "Error: Can't find Mirrors for the link"
+        error = "Error: Can't find Mirrors for the link"
+        return error
     headers = {"user-agent": user_agent}
     res = session.get(link, headers=headers, allow_redirects=True)
     headers = {
@@ -989,7 +988,7 @@ def useragent():
         user_agent = choice(useragents)
         return user_agent.text
     except IndexError:
-        return None
+        return ""
 
 
 def wetransfer(url: str) -> str:
@@ -1041,7 +1040,7 @@ def wetransfer(url: str) -> str:
     r = s.post(WETRANSFER_DOWNLOAD_URL.format(transfer_id=transfer_id),
                json=j)
     j = r.json()
-    return j.get('direct_link')
+    return j['direct_link']
 
 
 
