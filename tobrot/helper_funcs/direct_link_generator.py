@@ -716,17 +716,9 @@ def gofile(url: str):
         'files': content
     }
 
-def ouo(url: str) -> str:
-    """ Ouo Bypasser generator
-    By https://github.com/xcscxr """
+ANCHOR_URL = 'https://www.google.com/recaptcha/api2/anchor?ar=1&k=6Lcr1ncUAAAAAH3cghg6cOTPGARa8adOf-y9zv2x&co=aHR0cHM6Ly9vdW8uaW86NDQz&hl=en&v=1B_yv3CBEV10KtI2HJ6eEXhJ&size=invisible&cb=4xnsug1vufyr'
 
-    client = requests.Session()
-    tempurl = url.replace("ouo.press", "ouo.io")
-    p = urlparse(tempurl)
-    id = tempurl.split('/')[-1]
-    res = client.get(tempurl)
-    next_url = f"{p.scheme}://{p.hostname}/go/{id}"
-    ANCHOR_URL = 'https://www.google.com/recaptcha/api2/anchor?ar=1&k=6Lcr1ncUAAAAAH3cghg6cOTPGARa8adOf-y9zv2x&co=aHR0cHM6Ly9vdW8uaW86NDQz&hl=en&v=1B_yv3CBEV10KtI2HJ6eEXhJ&size=invisible&cb=4xnsug1vufyr'
+def RecaptchaV3(ANCHOR_URL):
     url_base = 'https://www.google.com/recaptcha/'
     post_data = "v={}&reason=q&c={}&k={}&co={}"
     client = requests.Session()
@@ -741,31 +733,39 @@ def ouo(url: str) -> str:
     params = dict(pair.split('=') for pair in params.split('&'))
     post_data = post_data.format(params["v"], token, params["k"], params["co"])
     res = client.post(url_base+'reload', params=f'k={params["k"]}', data=post_data)
-    answer = re.findall(r'"rresp","(.*?)"', res.text)[0]
-    ans = answer
+    answer = re.findall(r'"rresp","(.*?)"', res.text)[0]    
+    return answer
+
+
+def ouo(url: str) -> str:
+    """ Ouo Bypasser generator
+    By https://github.com/xcscxr """
+
+     client = requests.Session()
+    tempurl = url.replace("ouo.press", "ouo.io")
+    p = urlparse(tempurl)
+    id = tempurl.split('/')[-1]
+    res = client.get(tempurl)
+    next_url = f"{p.scheme}://{p.hostname}/go/{id}"
 
     for _ in range(2):
         if res.headers.get('Location'):
             break
         bs4 = BeautifulSoup(res.content, 'lxml')
-        inputs = bs4.form.findall("input", {"name": re.compile(r"token$")})
+        inputs = bs4.form.findAll("input", {"name": re.compile(r"token$")})
         data = { input.get('name'): input.get('value') for input in inputs }
-        #ans = RecaptchaV3(ANCHOR_URL)
+        ans = RecaptchaV3(ANCHOR_URL)
         data['x-token'] = ans
         h = {
             'content-type': 'application/x-www-form-urlencoded'
         }
         res = client.post(next_url, data=data, headers=h, allow_redirects=False)
         next_url = f"{p.scheme}://{p.hostname}/xreallcygo/{id}"
-
-    return res.headers.get('Location')
-
-    '''
     return {
         'original_link': url,
         'bypassed_link': res.headers.get('Location')
     }
-    '''
+
 
 def upindia(url: str) -> str:
   REGEX = r'(http[s]*://(?:upindia|uploadfile|upload)\.(?:cc|mobi)+/\d{6}/\S{7})'
@@ -1041,7 +1041,7 @@ def wetransfer(url: str):
     r = s.post(WETRANSFER_DOWNLOAD_URL.format(transfer_id=transfer_id),
                json=j)
     j = r.json()
-    return j['direct_link']
+    return j
 
 
 
