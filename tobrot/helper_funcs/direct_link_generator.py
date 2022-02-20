@@ -123,6 +123,14 @@ def direct_link_generator(text_url: str):
         return hubdrive(text_url)
     elif 'adf.ly' in text_url:
         return adfly(text_url)
+    elif 'https://sourceforge.net' in text_url:
+        return sourceforge(text_url)
+    elif 'https://master.dl.sourceforge.net' in text_url:
+        return sourceforge2(text_url)
+    elif "androiddatahost.com" in text_url:
+        return androidatahost(text_url)
+    elif "sfile.mobi" in text_url:
+        return sfile(text_url)
     else:
         raise DirectDownloadLinkException(f'No Direct link function found for {text_url}')
 
@@ -865,5 +873,54 @@ def adfly(url: str) -> url:
     if out['error']:
         raise DirectDownloadLinkException(f"Error in Adfly Link")
     return out
+
+
+def sourceforge(url: str) -> str:
+    """ SourceForge direct links generator
+    Based on https://github.com/REBEL75/REBELUSERBOT """
+    try:
+        link = re.findall(r"\bhttps?://sourceforge\.net\S+", url)[0]
+    except IndexError:
+        return "`No SourceForge links found`\n"
+    file_path = re.findall(r"files(.*)/download", link)[0]
+    project = re.findall(r"projects?/(.*?)/files", link)[0]
+    mirrors = (
+        f"https://sourceforge.net/settings/mirror_choices?"
+        f"projectname={project}&filename={file_path}"
+    )
+    page = BeautifulSoup(requests.get(mirrors).content, "html.parser")
+    info = page.find("ul", {"id": "mirrorList"}).findAll("li")
+    for mirror in info[1:]:
+        dl_url = f'https://{mirror["id"]}.dl.sourceforge.net/project/{project}/{file_path}?viasf=1'
+    return dl_url
+
+
+def sourceforge2(url: str) -> str:
+    """ Sourceforge Master.dl bypass """
+    return f"{url}" + "?viasf=1"
+
+
+def androidatahost(url: str) -> str:
+    """ Androiddatahost direct generator
+        Based on https://github.com/nekaru-storage/re-cerminbot """
+    try:
+        link = re.findall(r"\bhttps?://androiddatahost\.com\S+", url)[0]
+    except IndexError:
+        return "`No Androiddatahost links found`\n"
+    url3 = BeautifulSoup(requests.get(link).content, "html.parser")
+    fin = url3.find("div", {'download2'})
+    return fin.find('a')["href"]
+
+
+def sfile(url: str) -> str:
+    """ Sfile.mobi direct generator
+        Based on https://github.com/nekaru-storage/re-cerminbot """
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0.1; SM-G532G Build/MMB29T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.83 Mobile Safari/537.36'
+    }
+    url3 = BeautifulSoup(requests.get(url, headers=headers).content, "html.parser")
+    return url3.find('a', 'w3-button w3-blue')['href']
+
+
 
 
