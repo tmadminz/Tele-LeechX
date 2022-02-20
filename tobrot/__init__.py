@@ -132,6 +132,8 @@ EMAIL = os.environ.get("EMAIL", "")
 PWSSD = os.environ.get("PWSSD", "")
 GDRIVE_FOLDER_ID = os.environ.get("GDRIVE_FOLDER_ID", "")
 CRYPT = os.environ.get("CRYPT", "")
+PHPSESSID = os.environ.get("PHPSESSID", "")
+HUB_CRYPT = os.environ.get("HUB_CRYPT", "")
 CUSTOM_CAPTION = os.environ.get("CUSTOM_CAPTION", "")
 BOT_START_TIME = time.time()
 # dict to control uploading and downloading
