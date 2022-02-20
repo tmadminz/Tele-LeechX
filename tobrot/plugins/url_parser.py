@@ -80,6 +80,22 @@ async def bypass_link(text_url: str):
         or "new.gdtot.nl" in text_url  \
         or "gplinks.co" in text_url  \
         or "appdrive.in" in text_url  \
+        or "driveapp.in" in text_url  \
+        or "linkvertise.com" in text_url  \
+        or "droplink.co" in text_url  \
+        or "gofile.io" in text_url  \
+        or "ouo.io" in text_url  \
+        or "ouo.press" in text_url  \
+        or "upindia.mobi" in text_url  \
+        or "uploadfile.cc" in text_url  \
+        or "hubdrive.in" in text_url  \
+        or "adf.ly" in text_url  \
+        or "https://sourceforge.net" in text_url  \
+        or "https://master.dl.sourceforge.net" in text_url  \
+        or "androiddatahost.com" in text_url  \
+        or "androidfilehost.com" in text_url  \
+        or "sfile.mobi" in text_url  \
+        or "wetransfer.com" in text_url  \
         or "racaty.net" in text_url:
             try:
                 url_string = direct_link_generator(text_url)
