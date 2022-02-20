@@ -807,7 +807,7 @@ def upindia(url: str) -> str:
   return dl_url
 
 
-def hubdrive(url: str) -> url:
+def hubdrive(url: str) -> str:
 
     if HUB_CRYPT is None:
         raise DirectDownloadLinkException("HubDrive CRYPT Is Not Given")
@@ -840,7 +840,7 @@ def hubdrive(url: str) -> url:
     return info_parsed
 
 
-def adfly(url: str) -> url:
+def adfly(url: str) -> str:
 
     res = requests.get(url).text
     out = {'error': False, 'src_url': url}
