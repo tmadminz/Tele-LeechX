@@ -129,6 +129,8 @@ def direct_link_generator(text_url: str):
         return sourceforge2(text_url)
     elif "androiddatahost.com" in text_url:
         return androidatahost(text_url)
+    elif "androidfilehost.com" in text_url:
+        return androidfilehost(text_url)
     elif "sfile.mobi" in text_url:
         return sfile(text_url)
     else:
@@ -922,5 +924,65 @@ def sfile(url: str) -> str:
     return url3.find('a', 'w3-button w3-blue')['href']
 
 
+def androidfilehost(url: str) -> str:
+
+    try:
+        link = re.findall(r"\bhttps?://.*androidfilehost.*fid.*\S+", url)[0]
+    except IndexError:
+        raise DirectDownloadLinkException("`No AFH links found`\n")
+        return reply
+    fid = re.findall(r"\?fid=(.*)", link)[0]
+    session = requests.Session()
+    user_agent = useragent()
+    headers = {"user-agent": user_agent}
+    res = session.get(link, headers=headers, allow_redirects=True)
+    headers = {
+        "origin": "https://androidfilehost.com",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "en-US,en;q=0.9",
+        "user-agent": user_agent,
+        "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "x-mod-sbb-ctype": "xhr",
+        "accept": "*/*",
+        "referer": f"https://androidfilehost.com/?fid={fid}",
+        "authority": "androidfilehost.com",
+        "x-requested-with": "XMLHttpRequest",
+    }
+    data = {
+        "submit": "submit",
+        "action": "getdownloadmirrors",
+        "fid": f"{fid}"}
+    mirrors = None
+    reply = ""
+    error = "`Error: Can't find Mirrors for the link`\n"
+    try:
+        req = session.post(
+            "https://androidfilehost.com/libs/otf/mirrors.otf.php",
+            headers=headers,
+            data=data,
+            cookies=res.cookies,
+        )
+        mirrors = req.json()["MIRRORS"]
+    except (json.decoder.JSONDecodeError, TypeError):
+        reply += error
+    if not mirrors:
+        reply += error
+        return reply
+    for item in mirrors:
+        name = item["name"]
+        dl_url = item["url"]
+        #reply += f"[{name}]({dl_url}) "
+    return dl_url 
+ 
+def useragent():
+    useragents = BeautifulSoup(
+        requests.get(
+            "https://developers.whatismybrowser.com/"
+            "useragents/explore/operating_system_name/android/"
+        ).content,
+        "lxml",
+    ).findAll("td", {"class": "useragent"})
+    user_agent = choice(useragents)
+    return user_agent.text
 
 
