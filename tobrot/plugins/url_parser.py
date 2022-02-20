@@ -88,7 +88,6 @@ async def bypass_link(text_url: str):
         or "ouo.press" in text_url  \
         or "upindia.mobi" in text_url  \
         or "uploadfile.cc" in text_url  \
-        or "hubdrive.in" in text_url  \
         or "adf.ly" in text_url  \
         or "https://sourceforge.net" in text_url  \
         or "https://master.dl.sourceforge.net" in text_url  \
@@ -103,6 +102,13 @@ async def bypass_link(text_url: str):
                 return False, url_string
             except DirectDownloadLinkException as e:
                 LOGGER.info(f'{text_url}: {e}')
+    elif "hubdrive.in" in text_url:
+        try:
+            info_parsed = direct_link_generator(text_url)
+            url_string = "📨 **Name** : `{info_parsed['title']}`\n📁 **File Size** : `{info_parsed['File Size']}`\n📬 **File Owner** : `{info_parsed['File Owner']}`\n📮 **Error Type** : `{info_parsed['error']}`\n☁️ **GDrive URL** : `{info_parsed['gdrive_url']}`"
+            return False, url_string
+        except DirectDownloadLinkException as e:
+            LOGGER.info(f'{text_url}: {e}')
     else:
         return True, None
 
