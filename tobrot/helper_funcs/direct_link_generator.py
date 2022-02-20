@@ -21,6 +21,7 @@ import base64
 from os import popen
 from random import choice
 from urllib.parse import urlparse
+from urllib.parse import unquote
 from lxml import etree
 from js2py import EvalJs
 from lk21.extractors.bypasser import Bypass
@@ -120,6 +121,8 @@ def direct_link_generator(text_url: str):
         return upindia(text_url)
     elif 'hubdrive.in' in text_url:
         return hubdrive(text_url)
+    elif 'adf.ly' in text_url:
+        return adfly(text_url)
     else:
         raise DirectDownloadLinkException(f'No Direct link function found for {text_url}')
 
@@ -821,8 +824,46 @@ def hubdrive(url: str) -> url:
     info_parsed['gdrive_url'] = f"https://drive.google.com/open?id={gd_id}"
     info_parsed['src_url'] = url
     if info_parsed['error']:
-        raise DirectDownloadLinkException(f"{info_parsed['error_message']}")
+        raise DirectDownloadLinkException(f"Error in HubDrive Link")
     return info_parsed
 
+
+def adfly(url: str) -> url:
+
+    res = requests.get(url).text
+    out = {'error': False, 'src_url': url}
+    try:
+        ysmm = re.findall("ysmm\s+=\s+['|\"](.*?)['|\"]", res)[0]
+    except:
+        out['error'] = True
+        return out
+    a, b = '', ''
+    for i in range(0, len(code)):
+        if i % 2 == 0: a += code[i]
+        else: b = code[i] + b
+    code = ysmm
+    key = list(a + b)
+    i = 0
+    while i < len(key):
+        if key[i].isdigit():
+            for j in range(i+1,len(key)):
+                if key[j].isdigit():
+                    u = int(key[i]) ^ int(key[j])
+                    if u < 10: key[i] = str(u)
+                    i = j					
+                    break
+        i+=1
+    key = ''.join(key)
+    decrypted = b64decode(key)[16:-16]
+    url = decrypted.decode('utf-8')
+    #url = decrypt_url(ysmm)
+    if re.search(r'go\.php\?u\=', url):
+        url = b64decode(re.sub(r'(.*?)u=', '', url)).decode()
+    elif '&dest=' in url:
+        url = unquote(re.sub(r'(.*?)dest=', '', url))
+    out['bypassed_url'] = url
+    if out['error']:
+        raise DirectDownloadLinkException(f"Error in Adfly Link")
+    return out
 
 
