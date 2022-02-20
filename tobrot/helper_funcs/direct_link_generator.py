@@ -748,7 +748,7 @@ def ouo(url: str) -> str:
         if res.headers.get('Location'):
             break
         bs4 = BeautifulSoup(res.content, 'lxml')
-        inputs = bs4.form.findAll("input", {"name": re.compile(r"token$")})
+        inputs = bs4.form.findall("input", {"name": re.compile(r"token$")})
         data = { input.get('name'): input.get('value') for input in inputs }
         #ans = RecaptchaV3(ANCHOR_URL)
         data['x-token'] = ans
@@ -992,7 +992,7 @@ def useragent():
         return ""
 
 
-def wetransfer(url: str) -> str:
+def wetransfer(url: str):
     """ Based on https://github.com/Chason610/Flameshot1/blob/bd90f4c9d677f972a4d2435c00614d0fc1330c67/scripts/upload_services/transferwee.py
     Given a wetransfer.com download URL download return the downloadable URL.
     The URL should be of the form `https://we.tl/' or
