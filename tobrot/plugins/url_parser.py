@@ -96,6 +96,7 @@ async def bypass_link(text_url: str):
         or "androidfilehost.com" in text_url  \
         or "sfile.mobi" in text_url  \
         or "wetransfer.com" in text_url  \
+        or "we.tl" in text_url  \
         or "racaty.net" in text_url:
             try:
                 url_string = direct_link_generator(text_url)
