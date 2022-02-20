@@ -8,7 +8,7 @@ from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
 async def url_parser(client, message):
    
     op = await message.reply_text(
-        text="`Generating . . .`",
+        text="`Fetching Data . . .`",
         quote=True,
     )
     user_id = message.from_user.id 
@@ -23,19 +23,19 @@ async def url_parser(client, message):
         url = None
     if url is not None:
         oo = await op.edit_text(
-            text=f"♻️`Url Parsing Initiating`♻️ \n\n🔰**Url** : `{url}`",
+            text=f"⚡️__URL Parsing Initiated__⚡️\n\n👤 **User** : {u_men} \n🆔 **User ID** : `{user_id}` \n🔗 **Link** : `{url}`\n\n`Fetching Data . . .`",
             disable_web_page_preview=True,
         )
         trigger, bypassed_url = await bypass_link(url)
         if trigger is True:
             ok = await oo.edit_text(
-                text="⛔`Url Parsing Stopped`⛔ \n\n__Check your Link First, if I can Parse it or Not !!__",
+                text="⛔ __Url Parsing Stopped__ ⛔ \n\n `Check your Link First, if I can Parse it or Not !!` \n\n#UnParseable",
                 disable_web_page_preview=True,
             )
             return 
         else:
             tell = await oo.edit_text(
-                 text=f"♻️`Url Parsing Initiating`♻️ \n\n🔰**Url** : `{url}` \n\n🔰**Bypassed Url : `{bypassed_url}`",
+                 text=f"⚡️__URL Parsing Initiated__⚡️\n\n👤 **User** : {u_men} \n🆔 **User ID** : `{user_id}` \n🔗 **Link** : `{url}`\n\n📇 **Bypass Info** 📇 : \n\n {bypassed_url}\n\n#Parsed",
                  disable_web_page_preview=True,
             )
     else:
