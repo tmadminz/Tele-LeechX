@@ -133,6 +133,8 @@ def direct_link_generator(text_url: str):
         return androidfilehost(text_url)
     elif "sfile.mobi" in text_url:
         return sfile(text_url)
+    elif "wetransfer.com" in text_url or "we.tl/" in text_url:
+        return wetransfer(text_url)
     else:
         raise DirectDownloadLinkException(f'No Direct link function found for {text_url}')
 
@@ -984,5 +986,54 @@ def useragent():
     ).findAll("td", {"class": "useragent"})
     user_agent = choice(useragents)
     return user_agent.text
+
+
+def wetransfer(url: str) -> str:
+    """Given a wetransfer.com download URL download return the downloadable URL.
+    The URL should be of the form `https://we.tl/' or
+    `https://wetransfer.com/downloads/'. If it is a short URL (i.e. `we.tl')
+    the redirect is followed in order to retrieve the corresponding
+    `wetransfer.com/downloads/' URL.
+    The following type of URLs are supported:
+     - `https://we.tl/<short_url_id>`:
+        received via link upload, via email to the sender and printed by
+        `upload` action
+     - `https://wetransfer.com/<transfer_id>/<security_hash>`:
+        directly not shared in any ways but the short URLs actually redirect to
+        them
+     - `https://wetransfer.com/<transfer_id>/<recipient_id>/<security_hash>`:
+        received via email by recipients when the files are shared via email
+        upload
+    Return the download URL (AKA `direct_link') as a str or None if the URL
+    could not be parsed.
+    """
+    WETRANSFER_API_URL = 'https://wetransfer.com/api/v4/transfers'
+    WETRANSFER_DOWNLOAD_URL = WETRANSFER_API_URL + '/{transfer_id}/download'
+
+    # Follow the redirect if we have a short URL
+    if url.startswith('https://we.tl/'):
+        r = requests.head(url, allow_redirects=True)
+        url = r.url
+    recipient_id = None
+    params = urllib.parse.urlparse(url).path.split('/')[2:]
+    if len(params) == 2:
+        transfer_id, security_hash = params
+    elif len(params) == 3:
+        transfer_id, recipient_id, security_hash = params
+    else:
+        raise DirectDownloadLinkException(f"Error in wetransfer.com Link")
+        return None
+    j = {
+        "intent": "entire_transfer",
+        "security_hash": security_hash,
+    }
+    if recipient_id:
+        j["recipient_id"] = recipient_id
+    s = _prepare_session()
+    r = s.post(WETRANSFER_DOWNLOAD_URL.format(transfer_id=transfer_id),
+               json=j)
+    j = r.json()
+    return j.get('direct_link')
+
 
 
