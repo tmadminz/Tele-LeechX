@@ -2,7 +2,7 @@
 
 
 from tobrot import LOGGER
-from tobrot.helper_funcs.direct_link_generator import direct_link_generator
+from tobrot.helper_funcs.direct_link_generator import direct_link_generator, hubdrive
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
 
 async def url_parser(client, message):
@@ -104,7 +104,7 @@ async def bypass_link(text_url: str):
                 LOGGER.info(f'{text_url}: {e}')
     elif "hubdrive.in" in text_url:
         try:
-            info_parsed = direct_link_generator(text_url)
+            info_parsed = hubdrive(text_url)
             url_string = "📨 **Name** : `{info_parsed['title']}`\n📁 **File Size** : `{info_parsed['File Size']}`\n📬 **File Owner** : `{info_parsed['File Owner']}`\n📮 **Error Type** : `{info_parsed['error']}`\n☁️ **GDrive URL** : `{info_parsed['gdrive_url']}`"
             return False, url_string
         except DirectDownloadLinkException as e:
