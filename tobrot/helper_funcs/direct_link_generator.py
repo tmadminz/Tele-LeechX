@@ -640,7 +640,7 @@ def appdrive_dl(url: str) -> str:
     return info_parsed["gdrive_link"]
 
 
-def linkvertise(url: str) -> str:
+def linkvertise(url: str):
     client = requests.Session()
     headers = {
         "User-Agent": "AppleTV6,2/11.1",
@@ -673,7 +673,7 @@ def linkvertise(url: str) -> str:
     user_token = data["user_token"] if "user_token" in data.keys() else None
     url_submit = f"https://publisher.linkvertise.com/api/v1/redirect/link{id_name[0]}/target?X-Linkvertise-UT={user_token}"
     data = client.post(url_submit, json=options).json()
-    return data["data"]["target"]
+    return data
 
 
 def droplink(url: str) -> str:
@@ -696,7 +696,7 @@ def droplink(url: str) -> str:
     return res
 
 
-def gofile(url: str) -> str:
+def gofile(url: str):
     api_uri = 'https://api.gofile.io'
     client = requests.Session()
     res = client.get(api_uri+'/createAccount').json()
@@ -710,13 +710,11 @@ def gofile(url: str) -> str:
     content = []
     for item in res['data']['contents'].values():
         content.append(item)
-    return content['link']
-    '''
+    #return content
     return {
         'accountToken': data['token'],
         'files': content
     }
-    '''
 
 def ouo(url: str) -> str:
     """ Ouo Bypasser generator
@@ -760,7 +758,7 @@ def ouo(url: str) -> str:
             res = client.post(next_url, data=data, headers=h, allow_redirects=False)
             next_url = f"{p.scheme}://{p.hostname}/xreallcygo/{id}"
     except:
-        return ouo_bypass(url.replace("ouo.io", "ouo.press"))
+        return ouo(url.replace("ouo.io", "ouo.press"))
     return res.headers.get('Location')
 
     '''
@@ -886,8 +884,8 @@ def sourceforge(url: str) -> str:
         link = re.findall(r"\bhttps?://sourceforge\.net\S+", url)[0]
     except IndexError:
         return "`No SourceForge links found`\n"
-    file_path = re.findall(r"files(.*)/download", link)[0]
-    project = re.findall(r"projects?/(.*?)/files", link)[0]
+    file_path = re.findall(r"files(.*)/download", url)[0]
+    project = re.findall(r"projects?/(.*?)/files", url)[0]
     mirrors = (
         f"https://sourceforge.net/settings/mirror_choices?"
         f"projectname={project}&filename={file_path}"
@@ -936,6 +934,9 @@ def androidfilehost(url: str) -> str:
     fid = re.findall(r"\?fid=(.*)", link)[0]
     session = requests.Session()
     user_agent = useragent()
+    if user_agent is None:
+        raise DirectDownloadLinkException("`Error: Can't find Mirrors for the link`\n")
+        return "Error: Can't find Mirrors for the link"
     headers = {"user-agent": user_agent}
     res = session.get(link, headers=headers, allow_redirects=True)
     headers = {
@@ -977,19 +978,23 @@ def androidfilehost(url: str) -> str:
     return dl_url 
  
 def useragent():
-    useragents = BeautifulSoup(
-        requests.get(
-            "https://developers.whatismybrowser.com/"
-            "useragents/explore/operating_system_name/android/"
-        ).content,
-        "lxml",
-    ).findAll("td", {"class": "useragent"})
-    user_agent = choice(useragents)
-    return user_agent.text
+    try:
+        useragents = BeautifulSoup(
+            requests.get(
+                "https://developers.whatismybrowser.com/"
+                "useragents/explore/operating_system_name/android/"
+            ).content,
+            "lxml",
+        ).findAll("td", {"class": "useragent"})
+        user_agent = choice(useragents)
+        return user_agent.text
+    except IndexError:
+        return None
 
 
 def wetransfer(url: str) -> str:
-    """Given a wetransfer.com download URL download return the downloadable URL.
+    """ Based on https://github.com/Chason610/Flameshot1/blob/bd90f4c9d677f972a4d2435c00614d0fc1330c67/scripts/upload_services/transferwee.py
+    Given a wetransfer.com download URL download return the downloadable URL.
     The URL should be of the form `https://we.tl/' or
     `https://wetransfer.com/downloads/'. If it is a short URL (i.e. `we.tl')
     the redirect is followed in order to retrieve the corresponding
@@ -1029,7 +1034,10 @@ def wetransfer(url: str) -> str:
     }
     if recipient_id:
         j["recipient_id"] = recipient_id
-    s = _prepare_session()
+    s = requests.Session()
+    r = s.get('https://wetransfer.com/')
+    m = re.search('name="csrf-token" content="([^"]+)"', r.text)
+    s.headers.update({'X-CSRF-Token': m.group(1)})
     r = s.post(WETRANSFER_DOWNLOAD_URL.format(transfer_id=transfer_id),
                json=j)
     j = r.json()
