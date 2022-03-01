@@ -741,7 +741,7 @@ def ouo(url: str) -> str:
     """ Ouo Bypasser generator
     By https://github.com/xcscxr """
 
-     client = requests.Session()
+    client = requests.Session()
     tempurl = url.replace("ouo.press", "ouo.io")
     p = urlparse(tempurl)
     id = tempurl.split('/')[-1]
