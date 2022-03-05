@@ -30,6 +30,7 @@ from base64 import standard_b64encode
 
 from tobrot import UPTOBOX_TOKEN, LOGGER, EMAIL, PWSSD, CRYPT, PHPSESSID, GDRIVE_FOLDER_ID, HUB_CRYPT
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
+from tobrot.plugins.url_parser import is_appdrive_link
 
 def direct_link_generator(text_url: str):
     """ direct links generator """
@@ -101,7 +102,8 @@ def direct_link_generator(text_url: str):
         return gdtot(text_url)
     elif 'gplinks.co' in text_url:
         return gplink(text_url)
-    elif 'appdrive.in' in text_url:
+    elif is_appdrive_link(text_url):
+        flag = True
         return appdrive_dl(text_url)
     elif 'driveapp.in' in text_url:
         return appdrive_dl(text_url)
@@ -570,6 +572,7 @@ def gplink(url: str) -> str:
 def appdrive_dl(url: str) -> str:
     """ AppDrive link generator
     By https://github.com/xcscxr , More Clean Look by https://github.com/DragonPower84 """
+
     if EMAIL is None or PWSSD is None:
         raise DirectDownloadLinkException("Appdrive Cred Is Not Given")
     account = {'email': EMAIL, 'passwd': PWSSD}
@@ -637,7 +640,11 @@ def appdrive_dl(url: str) -> str:
     info_parsed['src_url'] = url
     if info_parsed['error']:
         raise DirectDownloadLinkException(f"{info_parsed['error_message']}")
-    return info_parsed
+    if flag == True:
+        INDEX_URL = f"https://infyplexultra.mysterydemon.workers.dev/0:/{info_parsed['name']}"
+        return INDEX_URL 
+    else:
+        return info_parsed
 
 
 def linkvertise(url: str):
