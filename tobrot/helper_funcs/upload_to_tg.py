@@ -63,17 +63,23 @@ async def upload_to_tg(
     yt_thumb=None,
 ):
     base_file_name = os.path.basename(local_file_name)
+    file_size = os.path.getsize(local_file_name)
 
     caption_str = ""
-    caption_str += f"<{CAP_STYLE}>"
-    caption_str += base_file_name
-    caption_str += f"</{CAP_STYLE}>"
+    DEF_CAPTION_MSG = f"<{CAP_STYLE}>"
+    DEF_CAPTION_MSG += base_file_name
+    DEF_CAPTION_MSG += f"</{CAP_STYLE}>"
 
     caption = CAP_DICT.get(from_user, "") 
     CUSTOM_CAPTION = caption 
 
     if CUSTOM_CAPTION != "":
-        caption_str += f"\n\n{CUSTOM_CAPTION}"
+        caption_str = CUSTOM_CAPTION.format(
+            filename = base_file_name,
+            size = humanbytes(file_size)
+        )
+    else:
+        caption_str = DEF_CAPTION_MSG
 
     if os.path.isdir(local_file_name):
         directory_contents = os.listdir(local_file_name)

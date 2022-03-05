@@ -5,16 +5,16 @@
 
 import asyncio
 import os
-import shlex
 
-from typing import Tuple
 from html_telegraph_poster import TelegraphPoster
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from tobrot import app, bot
+from tobrot import app, bot, UPDATES_CHANNEL 
 from tobrot.plugins import runcmd 
+from tobrot.helper_funcs.display_progress import humanbytes
 from tobrot.helper_funcs.bot_commands import BotCommands
+
 
 def post_to_telegraph(a_title: str, content: str) -> str:
     """ Create a Telegram Post using HTML Content """
@@ -29,22 +29,6 @@ def post_to_telegraph(a_title: str, content: str) -> str:
     )
     return post_page["url"]
 
-'''
-async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
-    """ run command in terminal """
-    args = shlex.split(cmd)
-    process = await asyncio.create_subprocess_exec(
-        *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
-    )
-    stdout, stderr = await process.communicate()
-    return (
-        stdout.decode("utf-8", "replace").strip(),
-        stderr.decode("utf-8", "replace").strip(),
-        process.returncode,
-        process.pid,
-    )
-'''
-
 def safe_filename(path_):
     if path_ is None:
         return
@@ -53,13 +37,13 @@ def safe_filename(path_):
         os.rename(path_, safename)
     return safename
 
-#@app.on_message(filters.command([BotCommands.MediaInfoCommand, f'{BotCommands.MediaInfoCommand}@{bot.username}']))
+
 async def mediainfo(client, message):
     reply = message.reply_to_message
     if not reply:
-        await message.reply_text("Reply to Media first")
+        await message.reply_text("`Reply to Telegram Media to Generate MediaInfo !!`", parse_mode="markdown")
         return
-    process = await message.reply_text("`Processing...`")
+    process = await message.reply_text("`Gᴇɴᴇʀᴀᴛɪɴɢ ...`")
     x_media = None
     available_media = (
         "audio",
@@ -86,16 +70,25 @@ async def mediainfo(client, message):
     if len(output_) != 0:
          out = output_[0]
     body_text = f"""
-<h2>JSON</h2>
-<pre>{x_media}</pre>
-<br>
 <h2>DETAILS</h2>
 <pre>{out or 'Not Supported'}</pre>
 """
-    title = f"FuZionX Mediainfo"
-    text_ = media_type.split(".")[-1].upper()
+    title = "FuZionX Mediainfo"
+    text_ = media_type.split(".")[-1]
     link = post_to_telegraph(title, body_text)
-    markup = InlineKeyboardMarkup([[InlineKeyboardButton(text=text_, url=link)]])
-    await process.edit_text("ℹ️ <code>MEDIA INFO</code>", reply_markup=markup)
+    textup = f"""
+ℹ️ <code>MEDIA INFO</code> ℹ
+┃
+┃• <b>File Name :</b> <code>{x_media['file_name']}</code>
+┃• <b>Mime Type :</b> <code>{x_media['mime_type']}</code>
+┃• <b>File Size :</b> <code>{humanbytes(x_media['file_size'])}</code>
+┃• <b>Date :</b> <code>{x_media['date']}</code>
+┃• <b>File ID :</b> <code>{x_media['file_id']}</code>
+┃• <b>Media Type :</b> <code>{text_}</code>
+┃
+┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹
+"""
+    markup = InlineKeyboardMarkup([[InlineKeyboardButton(text="Mᴇᴅɪᴀ Iɴғᴏ", url=link)]])
+    await process.edit_text(text=textup, reply_markup=markup)
 
 
