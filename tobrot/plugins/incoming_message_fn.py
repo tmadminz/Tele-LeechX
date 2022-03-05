@@ -57,20 +57,31 @@ async def incoming_message_f(client, message):
     user_command = message.command[0]
     g_id = message.from_user.id
     u_men = message.from_user.mention
-    credit = await message.reply_text(
-        f"<b><i>🛃 Working For 🛃:</i></b> {u_men}", parse_mode="html"
-    )
+    #credit = await message.reply_text(
+    #    f"<b><i>🛃 Working For 🛃:</i></b> {u_men}", parse_mode="html"
+    #)
     link_send = message.text.split(" ", maxsplit=1)
     reply_to = message.reply_to_message
+    cusfname = ""
     if len(link_send) > 1:
         link = link_send[1]
+        try:
+            cusfnam = link.split("|", maxsplit=1)
+            cusfname = cusfnam[1]
+        except:
+            pass
     elif reply_to is not None:
         link = reply_to.text
     else:
         link = "None"
-    link_text = await message.reply_text(f"<b>Link Send By User :</b>\n\n<code>{link}</code>", parse_mode="html", quote=True)
-    # get link from the incoming message
-    i_m_sefg = await message.reply_text("<code>Processing . . . 🔄</code>", quote=True)
+    if cusfname != "":
+        text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🔗 <b>Link</b> :  <a href"{link}">Click Here</a>\n🗳 <b>Custom Name</b> : <code>{cusfname}</code>"
+    else:
+        text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🔗 <b>Link</b> :  <a href"{link}">Click Here</a>"
+
+    link_text = await message.reply_text(text=text__, parse_mode="html", quote=True)
+    # get link from the incoming message & Custom Name
+    i_m_sefg = await message.reply_text("<code>Processing ... 🔄</code>", quote=True)
     rep_mess = message.reply_to_message
     is_file = False
     dl_url = ''
