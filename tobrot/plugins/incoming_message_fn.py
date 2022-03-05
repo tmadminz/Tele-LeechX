@@ -75,9 +75,9 @@ async def incoming_message_f(client, message):
     else:
         link = "None"
     if cusfname != "":
-        text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🔗 <b>Link</b> :  <a href"{link}">Click Here</a>\n🗳 <b>Custom Name</b> : <code>{cusfname}</code>"
+        text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🔗 <b>Link</b> :  <a href'{link}'>Click Here</a>\n🗳 <b>Custom Name</b> : <code>{cusfname}</code>"
     else:
-        text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🔗 <b>Link</b> :  <a href"{link}">Click Here</a>"
+        text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🔗 <b>Link</b> :  <a href'{link}'>Click Here</a>"
 
     link_text = await message.reply_text(text=text__, parse_mode="html", quote=True)
     # get link from the incoming message & Custom Name
