@@ -39,6 +39,7 @@ from tobrot.helper_funcs.download import download_tg
 from tobrot.helper_funcs.direct_link_generator import direct_link_generator
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
 from tobrot.plugins.custom_utils import *
+from tobrot.plugins.url_parser import is_appdrive_link
 
 sys.setrecursionlimit(10 ** 4)
 
@@ -161,8 +162,9 @@ def add_url(aria_instance, text_url, c_file_name):
         or "1fichier.com" in text_url  \
         or "solidfiles.com" in text_url  \
         or "krakenfiles.com" in text_url  \
-        or "new.gdtot.top" in text_url  \
+        or "new.gdtot.in" in text_url  \
         or "gplinks.co" in text_url  \
+        or is_appdrive_link(text_url) \
         or "racaty.net" in text_url:
             try:
                 urisitring = direct_link_generator(text_url)
