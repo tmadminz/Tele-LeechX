@@ -62,25 +62,32 @@ async def incoming_message_f(client, message):
     #)
     link_send = message.text.split(" ", maxsplit=1)
     reply_to = message.reply_to_message
-    cusfname = ""
     if len(link_send) > 1:
         link = link_send[1]
-        try:
-            cusfnam = link.split("|", maxsplit=1)
-            cusfname = cusfnam[1]
-        except:
-            pass
+        text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>"
     elif reply_to is not None:
         link = reply_to.text
+            if link.lower().startswith("magnet:"):
+                text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🧲 <b>Magnet Link</b> :  <code>{link}</code>"
+            else:
+                cusfname = None
+                try:
+                    cusfnam = link.text.split("|", maxsplit=1)
+                    link = cusfnam[0]
+                    cusfname = cusfnam[1]
+                except:
+                    pass
+                if cusfname is None:
+                    text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>"
+                else:
+                    text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>\n🗳 <b>Custom Name</b> : <code>{cusfname}</code>"
     else:
         link = "None"
-    if cusfname != "":
-        text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🔗 <b>Link</b> :  <a href'{link}'>Click Here</a>\n🗳 <b>Custom Name</b> : <code>{cusfname}</code>"
-    else:
-        text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🔗 <b>Link</b> :  <a href'{link}'>Click Here</a>"
-
+        text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🔗 <b>Link</b> : {link}"
+        
     link_text = await message.reply_text(text=text__, parse_mode="html", quote=True)
     # get link from the incoming message & Custom Name
+
     i_m_sefg = await message.reply_text("<code>Processing ... 🔄</code>", quote=True)
     rep_mess = message.reply_to_message
     is_file = False
