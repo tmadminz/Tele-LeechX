@@ -7,6 +7,7 @@ import logging
 import os
 import sys
 import traceback
+import datetime 
 
 from telegram import ParseMode
 
@@ -152,6 +153,10 @@ if __name__ == "__main__":
     if not os.path.isdir(DOWNLOAD_LOCATION):
         os.makedirs(DOWNLOAD_LOCATION)
 
+    utc_now = datetime.datetime.utcnow()
+    ist_now = utc_now + datetime.timedelta(minutes=30, hours=5)
+    ist = ist_now.strftime("<b>Date :</b> <code>%d/%m/%Y</code> \n<b>Time :</b> <code>%H:%M:%S (GMT+05:30)</code>")
+
     if os.path.isfile(".restartmsg"):
         with open(".restartmsg") as f:
             chat_id, msg_id = map(int, f)
@@ -159,7 +164,7 @@ if __name__ == "__main__":
         os.remove(".restartmsg")
     elif OWNER_ID:
         try:
-            text = "<b>Bot is Successfully Restarted By Heroku !!</b>"
+            text = "<b>Bot Restarted !!</b>\n\n <b>Host :</b> <code>Heroku</code>\n{ist}"
             bot.sendMessage(chat_id=OWNER_ID, text=text, parse_mode=ParseMode.HTML)
             if AUTH_CHANNEL:
                 for i in AUTH_CHANNEL:
