@@ -74,7 +74,13 @@ async def upload_to_tg(
     CUSTOM_CAPTION = caption 
 
     if CUSTOM_CAPTION != "":
-        caption_str = CUSTOM_CAPTION.format(
+        slit = CUSTOM_CAPTION.split("#")
+        CAP_ = slit[0]
+        if len(slit) > 1:
+            for rep in range(1, len(slit))
+                args = slit[rep].split(":")
+                CAP_ = CAP_.replace(args[0], args[1])
+        caption_str = CAP_.format(
             filename = base_file_name,
             size = humanbytes(file_size)
         )
