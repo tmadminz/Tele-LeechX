@@ -36,7 +36,7 @@ from tobrot.helper_funcs.extract_link_from_message import extract_link
 from tobrot.helper_funcs.upload_to_tg import upload_to_gdrive, upload_to_tg
 from tobrot.helper_funcs.download import download_tg
 
-from tobrot.helper_funcs.direct_link_generator import direct_link_generate
+from tobrot.helper_funcs.direct_link_generator import url_link_generate
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
 from tobrot.plugins.custom_utils import *
 from tobrot.plugins.url_parser import is_appdrive_link
@@ -167,7 +167,7 @@ def add_url(aria_instance, text_url, c_file_name):
         or is_appdrive_link(text_url) \
         or "racaty.net" in text_url:
             try:
-                urisitring = direct_link_generate(text_url)
+                urisitring = url_link_generate(text_url)
                 uris = [urisitring]
             except DirectDownloadLinkException as e:
                 LOGGER.info(f'{text_url}: {e}')
