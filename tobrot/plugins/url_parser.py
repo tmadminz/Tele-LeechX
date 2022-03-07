@@ -1,9 +1,10 @@
+# UTF-8
 # Copyright (c) 5MysterySD 2022
 
 import re
 
 from tobrot import LOGGER
-from tobrot.helper_funcs.direct_link_generator import *
+from tobrot.helper_funcs.direct_link_generator import direct_link_generator, gdtot, appdrive_dl, hubdrive 
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
 
 async def url_parser(client, message):
@@ -31,7 +32,7 @@ async def url_parser(client, message):
             trigger, bypassed_url = await bypass_link(url)
         except Exception as e:
             not_ok = await op.edit_text(
-                text=f"⚡️__URL Parsing Initiated__⚡️\n\n👤 **User** : {u_men} \n🆔 **User ID** : `{user_id}` \n🔗 **Link** : `{url}`\n\n⛔ `Error` ⛔ : \n {e} ",
+                text=f"⚡️__URL Parsing Initiated__⚡️\n\n👤 **User** : {u_men} \n🆔 **User ID** : `{user_id}` \n🔗 **Link** : `{url}`\n\n⛔ `Error` ⛔ : \n **{e}** \n\n#UnParsable ",
                 disable_web_page_preview=True,
             )
             return 
