@@ -4,7 +4,7 @@
 import re
 
 from tobrot import LOGGER
-from tobrot.helper_funcs.direct_link_generate import direct_link_generator, gdtot, appdrive_dl, hubdrive 
+from tobrot.helper_funcs.direct_link_generator import direct_link_generate, gdtot, appdrive_dl, hubdrive 
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
 
 async def url_parser(client, message):
