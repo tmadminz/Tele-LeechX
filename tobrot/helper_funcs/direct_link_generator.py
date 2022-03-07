@@ -32,7 +32,7 @@ from tobrot import UPTOBOX_TOKEN, LOGGER, EMAIL, PWSSD, CRYPT, PHPSESSID, GDRIVE
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
 from tobrot.plugins.url_parser import is_appdrive_link
 
-def direct_link_generate(text_url: str):
+def url_link_generate(text_url: str):
     """ direct links generator """
     if not text_url:
         raise DirectDownloadLinkException("`No links found!`")
