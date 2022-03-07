@@ -4,7 +4,7 @@
 import re
 
 from tobrot import LOGGER
-from tobrot.helper_funcs.direct_link_generator import direct_link_generate, gdtot, appdrive_dl, hubdrive 
+from tobrot.helper_funcs.direct_link_generator import url_link_generate, gdtot, appdrive_dl, hubdrive 
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
 
 async def url_parser(client, message):
@@ -105,7 +105,7 @@ async def bypass_link(text_url: str):
         or "we.tl" in text_url  \
         or "racaty.net" in text_url:
             try:
-                url_string = direct_link_generate(text_url)
+                url_string = url_link_generate(text_url)
                 return False, url_string
             except DirectDownloadLinkException as e:
                 LOGGER.info(f'{text_url}: {e}')
