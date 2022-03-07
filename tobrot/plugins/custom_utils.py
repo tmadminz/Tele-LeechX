@@ -67,8 +67,12 @@ async def caption_set(client, message):
     caption_ = txt
     CAP_DICT[user_id_] = caption_
     save_dict(CAP_DICT)
-
-    cap_text = await lk.edit_text(f"⚡️<i><b>Custom Caption Set Successfully</b></i> ⚡️ \n\n👤 <b>User :</b> {u_men}\n🆔 <b>User ID :</b> <code>{user_id_}</code>\n🗃 <b>Caption :</b> <tg-spoiler><code>{txt}</code></tg-spoiler>", parse_mode="html")
+    try:
+        txx = txt.split("#", maxsplit=1)
+        txt = txx[0]
+    except:
+        pass 
+    cap_text = await lk.edit_text(f"⚡️<i><b>Custom Caption Set Successfully</b></i> ⚡️ \n\n👤 <b>User :</b> {u_men}\n🆔 <b>User ID :</b> <code>{user_id_}</code>\n🗃 <b>Caption :</b>\n<tg-spoiler><code>{txt}</code></tg-spoiler>", parse_mode="html")
 
 
     '''
