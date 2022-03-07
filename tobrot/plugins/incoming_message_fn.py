@@ -67,20 +67,20 @@ async def incoming_message_f(client, message):
         text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>"
     elif reply_to is not None:
         link = reply_to.text
-            if link.lower().startswith("magnet:"):
-                text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🧲 <b>Magnet Link</b> :  <code>{link}</code>"
+        if link.lower().startswith("magnet:"):
+            text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🧲 <b>Magnet Link</b> :  <code>{link}</code>"
+        else:
+            cusfname = None
+            try:
+                cusfnam = link.text.split("|", maxsplit=1)
+                link = cusfnam[0]
+                cusfname = cusfnam[1]
+            except:
+                pass
+            if cusfname is None:
+                text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>"
             else:
-                cusfname = None
-                try:
-                    cusfnam = link.text.split("|", maxsplit=1)
-                    link = cusfnam[0]
-                    cusfname = cusfnam[1]
-                except:
-                    pass
-                if cusfname is None:
-                    text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>"
-                else:
-                    text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>\n🗳 <b>Custom Name</b> : <code>{cusfname}</code>"
+                text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>\n🗳 <b>Custom Name</b> : <code>{cusfname}</code>"
     else:
         link = "None"
         text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🔗 <b>Link</b> : {link}"
