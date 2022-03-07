@@ -43,13 +43,13 @@ from tobrot.UserDynaConfig import UserDynaConfig
 async def upload_as_doc(client, message):
     user_specific_config[message.from_user.id]=UserDynaConfig(message.from_user.id,True)
     u_men = message.from_user.mention
-    await message.reply_text(f"┏━━━━━━━━━━━━━━━━╻\n┣👤 𝐔𝐬𝐞𝐫 : {u_men} \n┃ (<code>{message.from_user.id}</code>)\n┃\n┣🏷𝐓𝐨𝐠𝐠𝐥𝐞 𝐂𝐡𝐚𝐧𝐠𝐞𝐝 : 📁<code>Document 📂</code>\n┃\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹")
+    await message.reply_text(f"┏━━🛠 𝗧𝗼𝗴𝗴𝗹𝗲 𝗦𝗲𝘁𝘁𝗶𝗻𝗴𝘀 :\n┣👤 𝐔𝐬𝐞𝐫 : {u_men} \n┣🆔️ 𝐈𝐃 : #ID<code>{message.from_user.id}</code>\n┃\n┣🏷 𝐓𝐨𝐠𝐠𝐥𝐞 : 📁<code>Document 📂</code>\n┃\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹")
 
 
 async def upload_as_video(client, message):
     user_specific_config[message.from_user.id]=UserDynaConfig(message.from_user.id,False)
     u_men = message.from_user.mention
-    await message.reply_text(f"┏━━━━━━━━━━━━━━━━╻\n┣👤 𝐔𝐬𝐞𝐫 : {u_men} \n┃ (<code>{message.from_user.id}</code>)\n┃\n┣🏷𝐓𝐨𝐠𝐠𝐥𝐞 𝐂𝐡𝐚𝐧𝐠𝐞𝐝 : <code>🎞 Video 🎞</code>\n┃\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹")
+    await message.reply_text(f"┏━━🛠 𝗧𝗼𝗴𝗴𝗹𝗲 𝗦𝗲𝘁𝘁𝗶𝗻𝗴𝘀 :\n┣👤 𝐔𝐬𝐞𝐫 : {u_men} \n┣🆔️ 𝐈𝐃 : #ID<code>{message.from_user.id}</code>\n┃\n┣🏷𝐓𝐨𝐠𝐠𝐥𝐞 : <code>🎞 Video 🎞</code>\n┃\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹")
  
 
 async def status_message_f(
@@ -57,7 +57,7 @@ async def status_message_f(
 ):  # weird code but 'This is the way' @gautamajay52
     aria_i_p = await aria_start()
     # Show All Downloads
-    to_edit = await message.reply("<code>🧭𝐆𝐞𝐭𝐭𝐢𝐧𝐠 𝐂𝐮𝐫𝐫𝐞𝐧𝐭 𝐒𝐭𝐚𝐭𝐮𝐬 . .</code>")
+    to_edit = await message.reply("🧭 𝐆𝐞𝐭𝐭𝐢𝐧𝐠 𝐂𝐮𝐫𝐫𝐞𝐧𝐭 𝐒𝐭𝐚𝐭𝐮𝐬 . .")
     chat_id = int(message.chat.id)
     mess_id = int(to_edit.message_id)
     async with _lock:
@@ -75,7 +75,7 @@ async def status_message_f(
         downloads = aria_i_p.get_downloads()
         msg = ""
         for file in downloads:
-            downloading_dir_name = "NA"
+            downloading_dir_name = "N/A"
             try:
                 downloading_dir_name = str(file.name)
             except:
@@ -123,7 +123,7 @@ async def status_message_f(
         umen = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
         mssg = f"\n❣𝙎𝙩𝙖𝙩𝙪𝙨 𝙍𝙚𝙦𝙪𝙚𝙨𝙩𝙚𝙙 𝘽𝙮 : {umen} (<code>{message.from_user.id}</code>)\n◆━━━━━━◆ ❃ ◆━━━━━━◆"
         if msg == "":
-            msg = f"\n┏━━━━━━━━━━━━━━━━╻\n┃\n┃ ⚠️ <b>No Active, Queued or Paused \n┃ Torrents / Direct Links ⚠️</b>\n┃\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹\n"
+            msg = f"\n┏━━━━━━━━━━━━━━━╻\n┃\n┃ ⚠️ <b>No Active, Queued or Paused \n┃ Torrents / Direct Links ⚠️</b>\n┃\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹\n"
             msg = mssg + "\n" + msg + "\n" + ms_g
             await to_edit.edit(msg)
             break
