@@ -105,7 +105,7 @@ async def bypass_link(text_url: str):
         or "we.tl" in text_url  \
         or "racaty.net" in text_url:
             try:
-                url_string = direct_link_generator(text_url)
+                url_string = direct_link_generate(text_url)
                 return False, url_string
             except DirectDownloadLinkException as e:
                 LOGGER.info(f'{text_url}: {e}')
