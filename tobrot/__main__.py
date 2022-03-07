@@ -155,7 +155,7 @@ if __name__ == "__main__":
 
     utc_now = datetime.datetime.utcnow()
     ist_now = utc_now + datetime.timedelta(minutes=30, hours=5)
-    ist = ist_now.strftime("<b>Date :</b> <code>%d/%m/%Y</code> \n<b>Time :</b> <code>%H:%M:%S (GMT+05:30)</code>")
+    ist = ist_now.strftime("<b>📆 𝘿𝙖𝙩𝙚 :</b> <code>%d/%m/%Y</code> \n<b>⏰ 𝙏𝙞𝙢𝙚 :</b> <code>%H:%M:%S (GMT+05:30)</code>")
 
     if os.path.isfile(".restartmsg"):
         with open(".restartmsg") as f:
@@ -164,7 +164,7 @@ if __name__ == "__main__":
         os.remove(".restartmsg")
     elif OWNER_ID:
         try:
-            text = "<b>Bot Restarted !!</b>\n\n <b>Host :</b> <code>Heroku</code>\n{ist}"
+            text = f"<b>Bᴏᴛ Rᴇsᴛᴀʀᴛᴇᴅ !!</b>\n\n <b>📊 𝙃𝙤𝙨𝙩 :</b> <code>Heroku</code>\n{ist}"
             bot.sendMessage(chat_id=OWNER_ID, text=text, parse_mode=ParseMode.HTML)
             if AUTH_CHANNEL:
                 for i in AUTH_CHANNEL:
