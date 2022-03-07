@@ -641,7 +641,8 @@ def appdrive_dl(url: str) -> str:
     if info_parsed['error']:
         raise DirectDownloadLinkException(f"{info_parsed['error_message']}")
     if flag == True:
-        INDEX_URL = f"https://infyplexultra.mysterydemon.workers.dev/0:/{info_parsed['name']}"
+        linkx = urllib.parse.quote(info_parsed['name'])
+        INDEX_URL = f"https://infyplexultra.mysterydemon.workers.dev/0:/{linkx}"
         return INDEX_URL 
     else:
         return info_parsed
