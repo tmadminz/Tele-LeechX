@@ -39,7 +39,7 @@ from tobrot.helper_funcs.download import download_tg
 from tobrot.helper_funcs.direct_link_generator import url_link_generate
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
 from tobrot.plugins.custom_utils import *
-from tobrot.plugins.url_parser import is_appdrive_link
+from tobrot.plugins import is_appdrive_link, is_gdtot_link, is_hubdrive_link 
 
 sys.setrecursionlimit(10 ** 4)
 
@@ -162,7 +162,6 @@ def add_url(aria_instance, text_url, c_file_name):
         or "1fichier.com" in text_url  \
         or "solidfiles.com" in text_url  \
         or "krakenfiles.com" in text_url  \
-        or "new.gdtot.in" in text_url  \
         or "gplinks.co" in text_url  \
         or is_appdrive_link(text_url) \
         or "racaty.net" in text_url:
@@ -171,6 +170,18 @@ def add_url(aria_instance, text_url, c_file_name):
                 uris = [urisitring]
             except DirectDownloadLinkException as e:
                 LOGGER.info(f'{text_url}: {e}')
+    elif "drive.google.com" in text_url:
+        return (
+            False,
+            "⛔ **FAILED** ⛔ \n" +
+            str(e) + " \n\n⌧ <i>Please do not send Drive links to Process. I can't Process Those !!</i>",
+        ) 
+    elif is_gdtot_link(text_url) or is_hubdrive_link(text_url):
+        return (
+            False,
+            "⛔ **FAILED** ⛔ \n" +
+            str(e) + " \n\n⌧ <i>Please Use /parser to Process the Links.</i>",
+        )
     else:
         uris = [text_url]
     # Add URL Into Queue
@@ -180,7 +191,7 @@ def add_url(aria_instance, text_url, c_file_name):
         return (
             False,
             "⛔ **FAILED** ⛔ \n" +
-            str(e) + " \n⌧ <i>Please do not send SLOW links to Process. Read /help</i>",
+            str(e) + " \n\n⌧ <i>Please do not send SLOW links to Process. Read /help</i>",
         )
     else:
         return True, "" + download.gid + ""
