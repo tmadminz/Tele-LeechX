@@ -30,7 +30,7 @@ from base64 import standard_b64encode
 
 from tobrot import UPTOBOX_TOKEN, LOGGER, EMAIL, PWSSD, CRYPT, PHPSESSID, GDRIVE_FOLDER_ID, HUB_CRYPT
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
-from tobrot.plugins.url_parser import is_appdrive_link
+from tobrot.plugins import is_appdrive_link
 
 def url_link_generate(text_url: str):
     """ direct links generator """
