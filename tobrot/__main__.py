@@ -137,7 +137,7 @@ async def start(client, message):
            quote=True
         )
     else:
-        await message.reply_text(f"**I Am is Alive and Working !** ✨", parse_mode="markdown")
+        await message.reply_text(f"**I Am Alive and Working, Send /help to Know How to Use Me !** ✨", parse_mode="markdown")
 
 
 def restart(client, message): 
@@ -165,7 +165,7 @@ if __name__ == "__main__":
         os.remove(".restartmsg")
     elif OWNER_ID:
         try:
-            text = f"<b>Bᴏᴛ Rᴇsᴛᴀʀᴛᴇᴅ !!</b>\n\n <b>📊 𝙃𝙤𝙨𝙩 :</b> <code>Heroku</code>\n{ist}"
+            text = f"<b>Bᴏᴛ Rᴇsᴛᴀʀᴛᴇᴅ !!</b>\n\n<b>📊 𝙃𝙤𝙨𝙩 :</b> <code>Heroku</code>\n{ist}"
             bot.sendMessage(chat_id=OWNER_ID, text=text, parse_mode=ParseMode.HTML)
             if AUTH_CHANNEL:
                 for i in AUTH_CHANNEL:
