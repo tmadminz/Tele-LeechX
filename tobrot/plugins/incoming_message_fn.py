@@ -70,14 +70,12 @@ async def incoming_message_f(client, message):
         if link.lower().startswith("magnet:"):
             text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🧲 <b>Magnet Link</b> :  <code>{link}</code>"
         else:
-            cusfname = None
-            try:
-                cusfnam = link.text.split("|", maxsplit=1)
+            cusfname = ""
+            cusfnam = link.text.split("|", maxsplit=1)
+            if len(cusfname) > 1:
                 link = cusfnam[0]
                 cusfname = cusfnam[1]
-            except:
-                pass
-            if cusfname is None:
+            if cusfname == "":
                 text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>"
             else:
                 text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>\n🗳 <b>Custom Name</b> : <code>{cusfname}</code>"
