@@ -173,14 +173,12 @@ def add_url(aria_instance, text_url, c_file_name):
     elif "drive.google.com" in text_url:
         return (
             False,
-            "⛔ **FAILED** ⛔ \n" +
-            str(e) + " \n\n⌧ <i>Please do not send Drive links to Process. I can't Process Those !!</i>",
+            "⛔ **FAILED** ⛔ \n\n⌧ <i>Please do not send Drive links to Process. I can't Process Those !!</i>",
         ) 
     elif is_gdtot_link(text_url) or is_hubdrive_link(text_url):
         return (
             False,
-            "⛔ **FAILED** ⛔ \n" +
-            str(e) + " \n\n⌧ <i>Please Use /parser to Process the Links.</i>",
+            "⛔ **FAILED** ⛔ \n\n⌧ <i>Please Use /parser to Process the Links.</i>",
         )
     else:
         uris = [text_url]
