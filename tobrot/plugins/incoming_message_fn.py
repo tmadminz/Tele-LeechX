@@ -57,31 +57,28 @@ async def incoming_message_f(client, message):
     user_command = message.command[0]
     g_id = message.from_user.id
     u_men = message.from_user.mention
-    #credit = await message.reply_text(
-    #    f"<b><i>🛃 Working For 🛃:</i></b> {u_men}", parse_mode="html"
-    #)
     link_send = message.text.split(" ", maxsplit=1)
     reply_to = message.reply_to_message
     if len(link_send) > 1:
         link = link_send[1]
-        text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>"
+        text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : #ID{g_id}\n🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>"
     elif reply_to is not None:
         link = reply_to.text
         if link.lower().startswith("magnet:"):
-            text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🧲 <b>Magnet Link</b> :  <code>{link}</code>"
+            text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : #ID{g_id}\n🧲 <b>Magnet Link</b> :  <code>{link}</code>"
         else:
             cusfname = ""
-            cusfnam = link.text.split("|", maxsplit=1)
+            cusfnam = link.split("|", maxsplit=1)
             if len(cusfname) > 1:
                 link = cusfnam[0]
                 cusfname = cusfnam[1]
             if cusfname == "":
-                text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>"
+                text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : #ID{g_id}\n🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>"
             else:
-                text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>\n🗳 <b>Custom Name</b> : <code>{cusfname}</code>"
+                text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : #ID{g_id}\n🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>\n🗳 <b>Custom Name</b> : <code>{cusfname}</code>"
     else:
-        link = "None"
-        text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : <code>{g_id}</code>\n🔗 <b>Link</b> : {link}"
+        link = "Empty"
+        text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : #ID{g_id}\n🔗 <b>Link</b> : {link}"
         
     link_text = await message.reply_text(text=text__, parse_mode="html", quote=True)
     # get link from the incoming message & Custom Name
