@@ -4,8 +4,8 @@
 import re
 
 from tobrot import LOGGER
-from tobrot.helper_funcs.direct_link_generator import *
-#from tobrot.helper_funcs.direct_link_generator import url_link_generate, gdtot, appdrive_dl, hubdrive 
+from tobrot.plugins import is_appdrive_link, is_gdtot_link, is_hubdrive_link 
+from tobrot.helper_funcs.direct_link_generator import url_link_generate, gdtot, appdrive_dl, hubdrive 
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
 
 async def url_parser(client, message):
@@ -136,18 +136,4 @@ async def bypass_link(text_url: str):
             LOGGER.info(f'{text_url}: {e}')
     else:
         return True, None
-
-
-def is_gdtot_link(url: str): 
-    url = re.match(r'https?://.+\.gdtot\.\S+', url) 
-    return bool(url)
-
-def is_hubdrive_link(url: str): 
-    url = re.match(r'https?://hubdrive\.\S+', url) 
-    return bool(url)
-
-def is_appdrive_link(url: str): 
-    url = re.match(r'https?://appdrive\.\S+', url) 
-    return bool(url)
-
 
