@@ -71,11 +71,15 @@ async def incoming_message_f(client, message):
             cusfnam = link.split("|", maxsplit=1)
             if len(cusfname) > 1:
                 link = cusfnam[0]
-                cusfname = cusfnam[1]
-            if cusfname == "":
-                text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : #ID{g_id}\n🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>"
-            else:
+                cusfname = cusfnam[1]  
+            LOGGER.info(cusfname)
+            if cusfname != "":
                 text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : #ID{g_id}\n🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>\n🗳 <b>Custom Name</b> : <code>{cusfname}</code>"
+            else:
+                if link.lower().startswith("http"):
+                    text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : #ID{g_id}\n🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>"
+                else:
+                    text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : #ID{g_id}\n🔗 <b>Link</b> :  <code>{link}</code>"
     else:
         link = "Empty"
         text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : #ID{g_id}\n🔗 <b>Link</b> : {link}"
