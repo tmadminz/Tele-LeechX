@@ -103,8 +103,8 @@ def url_link_generate(text_url: str):
     elif 'gplinks.co' in text_url:
         return gplink(text_url)
     elif is_appdrive_link(text_url):
-        flag = True
-        return appdrive_dl(text_url)
+        is_direct = True
+        return appdrive_dl(text_url, is_direct)
     elif 'driveapp.in' in text_url:
         return appdrive_dl(text_url)
     elif 'linkvertise.com' in text_url:
@@ -569,7 +569,7 @@ def gplink(url: str) -> str:
     return result
 
 
-def appdrive_dl(url: str) -> str:
+def appdrive_dl(url: str, is_direct) -> str:
     """ AppDrive link generator
     By https://github.com/xcscxr , More Clean Look by https://github.com/DragonPower84 """
 
@@ -640,7 +640,7 @@ def appdrive_dl(url: str) -> str:
     info_parsed['src_url'] = url
     if info_parsed['error']:
         raise DirectDownloadLinkException(f"{info_parsed['error_message']}")
-    if flag == True:
+    if is_direct:
         linkx = urllib.parse.quote(info_parsed['name'])
         INDEX_URL = f"https://infyplexultra.mysterydemon.workers.dev/0:/{linkx}"
         return INDEX_URL 
