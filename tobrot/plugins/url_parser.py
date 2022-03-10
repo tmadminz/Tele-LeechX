@@ -126,7 +126,8 @@ async def bypass_link(text_url: str):
             LOGGER.info(f'{text_url}: {e}')
     elif is_appdrive_link(text_url):
         try:
-            info_parsed = appdrive_dl(text_url)
+            is_direct = False
+            info_parsed = appdrive_dl(text_url, is_direct)
             url_string = f"📨 **Name** : `{info_parsed['name']}`\n💾 **Format** : `{info_parsed['format']}`📁 **File Size** : `{info_parsed['size']}`\n📮 **Error** : `{info_parsed['error']}`\n📎 **Link Type** : `{info_parsed['link_type']}`\n☁️ **GDrive URL** : `{info_parsed['gdrive_link']}`"
             return False, url_string
         except Exception as e:
