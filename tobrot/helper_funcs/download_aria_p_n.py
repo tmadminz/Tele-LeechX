@@ -175,7 +175,7 @@ def add_url(aria_instance, text_url, c_file_name):
             False,
             "⛔ **FAILED** ⛔ \n\n⌧ <i>Please do not send Drive links to Process. I can't Process Those !!</i>",
         )
-     elif "mega.nz" in text_url or "mega.co.nz" in text_url:
+    elif "mega.nz" in text_url or "mega.co.nz" in text_url:
         return (
             False,
             "⛔ **FAILED** ⛔ \n\n⌧ <i>Please do not send Mega links . I am yet not able to Process Those !!</i>",
