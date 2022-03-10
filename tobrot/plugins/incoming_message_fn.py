@@ -69,7 +69,7 @@ async def incoming_message_f(client, message):
         else:
             cusfname = ""
             cusfnam = link.split("|", maxsplit=1)
-            if len(cusfname) > 1:
+            if len(cusfnam) > 1:
                 link = cusfnam[0]
                 cusfname = cusfnam[1]  
             LOGGER.info(cusfname)
