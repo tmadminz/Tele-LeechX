@@ -60,7 +60,7 @@ async def bypass_link(text_url: str):
     if "zippyshare.com" in text_url \
         or "osdn.net" in text_url \
         or "mediafire.com" in text_url \
-        or "uptobox.com" in text_url \
+        or "https://uptobox.com" in text_url \
         or "cloud.mail.ru" in text_url \
         or "github.com" in text_url \
         or "yadi.sk" in text_url  \
@@ -104,6 +104,8 @@ async def bypass_link(text_url: str):
         or "sfile.mobi" in text_url  \
         or "wetransfer.com" in text_url  \
         or "we.tl" in text_url  \
+        or "corneey.com" in text_url \
+        or "sh.st" in text_url \
         or "racaty.net" in text_url:
             try:
                 url_string = url_link_generate(text_url)
