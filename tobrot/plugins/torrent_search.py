@@ -341,7 +341,8 @@ for command, value in torrents_dict.items():
 
 async def searchhelp(self, message):
     help_string = '''
-┏━ 𝗧𝗼𝗿𝗿𝗲𝗻𝘁 𝗦𝗲𝗮𝗿𝗰𝗵 𝗠𝗼𝗱𝘂𝗹𝗲 ━╻
+┏━ 𝗧𝗼𝗿𝗿𝗲𝗻𝘁 𝗦𝗲𝗮𝗿𝗰𝗵 𝗠𝗼𝗱𝘂𝗹𝗲 ━━╻
+┃
 ┃• /nyaasi <i>[search query]</i>
 ┃• /sukebei <i>[search query]</i>
 ┃• /1337x <i>[search query]</i>
