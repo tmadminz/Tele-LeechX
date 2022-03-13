@@ -15,6 +15,7 @@ import urllib.parse
 import lk21
 import requests
 import cfscrape
+import cloudscraper
 import time
 import base64
 
@@ -113,15 +114,13 @@ def url_link_generate(text_url: str):
         return droplink(text_url)
     elif 'gofile.io' in text_url:
         return gofile(text_url)
-    elif 'ouo.io' in text_url:
-        return ouo(text_url)
-    elif 'ouo.press' in text_url:
+    elif 'ouo.io' in text_url or 'ouo.press' in text_url:
         return ouo(text_url)
     elif 'upindia.mobi' in text_url:
         return upindia(text_url)
     elif 'uploadfile.cc' in text_url:
         return upindia(text_url)
-    elif 'hubdrive.in' in text_url:
+    elif 'hubdrive.cc' in text_url:
         return hubdrive(text_url)
     elif 'adf.ly' in text_url:
         return adfly(text_url)
@@ -137,6 +136,8 @@ def url_link_generate(text_url: str):
         return sfile(text_url)
     elif "wetransfer.com" in text_url or "we.tl/" in text_url:
         return wetransfer(text_url)
+    elif "corneey.com" in text_url or "sh.st" in text_url:
+        return shorte_st(text_url)
     else:
         raise DirectDownloadLinkException(f'No Direct link function found for {text_url}')
 
@@ -541,32 +542,22 @@ def gplink(url: str) -> str:
     check = re.findall(r'\bhttps?://.*gplink\S+', url)
     if not check:
         raise DirectDownloadLinkException("It's Not GPLinks")
-    resp = requests.head(url).headers
-    regex = re.findall(r"(?:AppSession|app_visitor|__cf_bm)\S+;", resp['set-cookie'])
-    join_ = " ".join(regex).replace("=", ": ", 3).replace(";", ",")
-    cookies = json.loads(re.sub(r"([a-zA-Z_0-9.%+/=-]+)", r'"\1"', '{%s __viCookieActive: true, __cfduid: dca0c83db7d849cdce8d82d043f5347bd1617421634}' % join_))
-    headers = {
-        "app_visitor": cookies["AppSession"],
-        "user-agent": "Mozilla/5.0 (Symbian/3; Series60/5.2 NokiaN8-00/012.002; Profile/MIDP-2.1 Configuration/CLDC-1.1 ) AppleWebKit/533.4 (KHTML, like Gecko) NokiaBrowser/7.3.0 Mobile Safari/533.4 3gpp-gba",
-        "upgrade-insecure-requests": "1",
-        "referer": resp["location"],
-    }
-    resp_2 = requests.get(url, cookies=cookies, headers=headers).content
-    soup = BeautifulSoup(resp_2, 'html.parser')
-    found = soup.find_all('input')
-    dicts = {find.get('name'): find.get('value') for find in found}
-    cookies_2 = {
-        "AppSession": cookies["AppSession"], 
-        "csrfToken": dicts["_csrfToken"],
-    }
-    headers_2 = {
-        "content-type": "application/x-www-form-urlencoded; charset=UTF-8", 
-        "accept": "application/json, text/javascript, */*; q=0.01", 
-        "x-requested-with": "XMLHttpRequest",
+    scraper = cloudscraper.create_scraper(allow_brotli=False)
+    res = scraper.get(url)
+    h = { "referer": res.url }
+    res = scraper.get(url, headers=h)
+    bs4 = BeautifulSoup(res.content, 'lxml')
+    inputs = bs4.find_all('input')
+    data = { input.get('name'): input.get('value') for input in inputs }
+    h = {
+        'content-type': 'application/x-www-form-urlencoded',
+        'x-requested-with': 'XMLHttpRequest'
     }
     time.sleep(10)
-    result = requests.post("%s/links/go"%(url.rsplit("/",1)[0]), headers=headers_2, cookies=cookies_2, data=dicts).json()
-    return result
+    p = urlparse(url)
+    final_url = f'{p.scheme}://{p.netloc}/links/go'
+    res = scraper.post(final_url, data=data, headers=h).json()
+    return res
 
 
 def appdrive_dl(url: str, is_direct) -> str:
@@ -1051,5 +1042,21 @@ def wetransfer(url: str):
     j = r.json()
     return j
 
+
+def shorte_st(url: str):    
+    client = requests.Session()
+    client.headers.update({'referer': url})
+    p = urlparse(url)
+    res = client.get(url)
+    sess_id = re.findall('''sessionId(?:\s+)?:(?:\s+)?['|"](.*?)['|"]''', res.text)[0]
+    final_url = f"{p.scheme}://{p.netloc}/shortest-url/end-adsession"
+    params = {
+        'adSessionId': sess_id,
+        'callback': '_'
+    }
+    time.sleep(5)
+    res = client.get(final_url, params=params)
+    dest_url = re.findall('"(.*?)"', res.text)[1].replace('\/','/')
+    return dest_url
 
 
