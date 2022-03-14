@@ -157,6 +157,9 @@ async def button(bot, update: CallbackQuery):
                 [
                     InlineKeyboardButton("⏪••", callback_data = "pre_1"),
                     InlineKeyboardButton("••⏩", callback_data = "nex_1")
+                ],
+                [
+                    InlineKeyboardButton("Close 🔐", callback_data = "close"),
                 ]
             ]
         await bot.edit_text(
@@ -182,6 +185,9 @@ async def button(bot, update: CallbackQuery):
                 [
                     InlineKeyboardButton("⏪••", callback_data = "openHelp_pg1"),
                     InlineKeyboardButton("••⏩", callback_data = "nex_2")
+                ],
+                [
+                    InlineKeyboardButton("Close 🔐", callback_data = "close"),
                 ]
             ]
         await bot.edit_text(
@@ -189,6 +195,35 @@ async def button(bot, update: CallbackQuery):
             reply_markup = button_markup,
             parse_mode = "html",
         )
-
+     elif cb_data == "nex_2":
+        button_markup = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(f"/{MEDIAINFO_CMD}", callback_data = "mediainfo"),
+                    InlineKeyboardButton(f"/{TSEARCH_COMMAND}", callback_data = "tshelp")
+                ],
+                [
+                    InlineKeyboardButton(f"/setpre", callback_data = "setpre"),
+                    InlineKeyboardButton(f"/setcap", callback_data = "setcap")
+                ],
+                [
+                    InlineKeyboardButton(f"/parser", callback_data = "parser")
+                ],
+                [
+                    InlineKeyboardButton(f"More Features", callback_data = "fea")
+                ],
+                [
+                    InlineKeyboardButton("⏪••", callback_data = "nex_1"),
+                    InlineKeyboardButton("••⏩", callback_data = "openHelp_pg1")
+                ],
+                [
+                    InlineKeyboardButton("Close 🔐", callback_data = "close"),
+                ]
+            ]
+        await bot.edit_text(
+            text = "<b>Choose the Desired Command Help :</b>",
+            reply_markup = button_markup,
+            parse_mode = "html",
+        )
 
 
