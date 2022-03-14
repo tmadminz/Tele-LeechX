@@ -164,8 +164,31 @@ async def button(bot, update: CallbackQuery):
             reply_markup = button_markup,
             parse_mode = "html",
         )
-
-
+     elif cb_data == "nex_1":
+        button_markup = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(f"/{CLEAR_THUMBNAIL}", callback_data = "clearthumb"),
+                    InlineKeyboardButton(f"/{RENAME_COMMAND}", callback_data = "rename")
+                ],
+                [
+                    InlineKeyboardButton(f"/{STATUS_COMMAND}", callback_data = "status"),
+                    InlineKeyboardButton(f"/{SPEEDTEST}", callback_data = "speedtest")
+                ],
+                [
+                    InlineKeyboardButton(f"/{YTDL_COMMAND}", callback_data = "ytdl"),
+                    InlineKeyboardButton(f"/{PYTDL_COMMAND}", callback_data = "pytdl")
+                ],
+                [
+                    InlineKeyboardButton("⏪••", callback_data = "openHelp_pg1"),
+                    InlineKeyboardButton("••⏩", callback_data = "nex_2")
+                ]
+            ]
+        await bot.edit_text(
+            text = "<b>Choose the Desired Command Help :</b>",
+            reply_markup = button_markup,
+            parse_mode = "html",
+        )
 
 
 
