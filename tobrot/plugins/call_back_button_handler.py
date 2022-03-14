@@ -112,7 +112,7 @@ async def button(bot, update: CallbackQuery):
                 "start.sh",
                 "tobrot",
                 "gautam",
-                "Torrentleech-Gdrive.txt",
+                "FuZionXLogs.txt",
                 "vendor",
                 "LeechBot.session",
                 "LeechBot.session-journal",
@@ -139,3 +139,33 @@ async def button(bot, update: CallbackQuery):
             update.id, text="Going to Cancel . . . 🔃", show_alert=False
         )
         await update.message.edit_text("<i>☢ Okay! ☢ \n\n ⌧ Don't Disturb Me !! </i>")
+    elif cb_data == "openHelp_pg1":
+        button_markup = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(f"/{LEECH_COMMAND}", callback_data = "leech"),
+                    InlineKeyboardButton(f"/{LEECH_UNZIP_COMMAND}", callback_data = "extract")
+                ],
+                [
+                    InlineKeyboardButton(f"/{LEECH_ZIP_COMMAND}", callback_data = "archive"),
+                    InlineKeyboardButton(f"/{TOGGLE_DOC}", callback_data = "toggledoc")
+                ],
+                [
+                    InlineKeyboardButton(f"/{TOGGLE_VID}", callback_data = "togglevid"),
+                    InlineKeyboardButton(f"/{SAVE_THUMBNAIL}", callback_data = "savethumb")
+                ],
+                [
+                    InlineKeyboardButton("⏪••", callback_data = "pre_1"),
+                    InlineKeyboardButton("••⏩", callback_data = "nex_1")
+                ]
+            ]
+        await bot.edit_text(
+            text = "<b>Choose the Desired Command Help :</b>",
+            reply_markup = button_markup,
+            parse_mode = "html",
+        )
+
+
+
+
+
