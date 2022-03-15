@@ -159,10 +159,10 @@ async def button(bot, update: CallbackQuery):
                     InlineKeyboardButton("••⏩", callback_data = "nex_1")
                 ],
                 [
-                    InlineKeyboardButton("Close 🔐", callback_data = "close"),
+                    InlineKeyboardButton("Close 🔐", callback_data = "close")
                 ]
             ]
-        await bot.edit_text(
+        await update.message.edit_text(
             text = "<b>Choose the Desired Command Help :</b>",
             reply_markup = button_markup,
             parse_mode = "html",
@@ -187,10 +187,10 @@ async def button(bot, update: CallbackQuery):
                     InlineKeyboardButton("••⏩", callback_data = "nex_2")
                 ],
                 [
-                    InlineKeyboardButton("Close 🔐", callback_data = "close"),
+                    InlineKeyboardButton("Close 🔐", callback_data = "close")
                 ]
             ]
-        await bot.edit_text(
+        await update.message.edit_text(
             text = "<b>Choose the Desired Command Help :</b>",
             reply_markup = button_markup,
             parse_mode = "html",
@@ -217,10 +217,10 @@ async def button(bot, update: CallbackQuery):
                     InlineKeyboardButton("••⏩", callback_data = "openHelp_pg1")
                 ],
                 [
-                    InlineKeyboardButton("Close 🔐", callback_data = "close"),
+                    InlineKeyboardButton("Close 🔐", callback_data = "close")
                 ]
             ]
-        await bot.edit_text(
+        await update.message.edit_text(
             text = "<b>Choose the Desired Command Help :</b>",
             reply_markup = button_markup,
             parse_mode = "html",
@@ -233,12 +233,43 @@ async def button(bot, update: CallbackQuery):
                     InlineKeyboardButton("Close 🔐", callback_data = "close")
                 ],
             ]
-        await bot.edit_text(
-            text = "",
+        stringg = """<u>Cᴏᴍᴍᴀɴᴅ Aʟᴍᴀɴɪᴄ :</u>
+
+• 𝐂𝐨𝐦𝐦𝐚𝐧𝐝 : /leech
+• 𝐓𝐲𝐩𝐞 : Magnet Link / Direct Link / Torrent File 
+• 𝐔𝐩𝐥𝐨𝐚𝐝 𝐓𝐲𝐩𝐞 : Media ( Default )
+• 𝐀𝐫𝐠𝐮𝐦𝐞𝐧𝐭 : <code>( Optional )</code>
+
+□ <b><u>Custom Name while Leech</u></b>
+<i>&gt; Use | for Custom Name
+&gt; Like </i><i>www.download.me/fx.txt</i> <i>| sample.txt
+&gt; Extension is Must</i>
+
+□ <b><u>Direct Links Supported : </u></b>
+<i>&gt; </i><i>zippyshare.com</i><i>, </i><i>letsupload.io</i><i>, </i><i>hxfile.co</i><i>, </i><i>anonfiles.com</i><i>, </i><i>bayfiles.com</i><i>, antfiles, </i><i>fembed.com</i><i>, </i><i>fembed.net</i><i>, </i><i>femax20.com</i><i>, </i><i>layarkacaxxi.icu</i><i>, </i><i>fcdn.stream</i><i>, </i><i>sbplay.org</i><i>, </i><i>naniplay.com</i><i>, </i><i>naniplay.nanime.in</i><i>, </i><i>naniplay.nanime.biz</i><i>, </i><i>sbembed.com</i><i>, </i><i>streamtape.com</i><i>, </i><i>streamsb.net</i><i>, </i><i>feurl.com</i><i>, </i><i>pixeldrain.com</i><i>, </i><i>racaty.net</i><i>, </i><i>1fichier.com</i><i>, </i><i>solidfiles.com</i><i>, </i><i>gplinks.co</i><i>, </i><i>appdrive.in</i> <b><i>( Other Available in </i></b><b><i>/parser</i></b> <b><i>)</i>
+</b>
+• 𝐔𝐬𝐚𝐠𝐞:
+□ <b>Send Direct Link Along with Command :</b>
+/leech(BotName) <code>{link}</code>
+
+□ <b><u>Reply to a Direct Download Link / Torrent File / Magnet Link :</u></b>
+<code>{type} | &lt;Custom Name&gt;</code>
+/leech(BotName) <i>[Reply]</i>"""
+
+        await update.message.edit_text(
+            text = stringg,
             reply_markup = button_call,
             disable_web_page_preview = True, 
             parse_mode = "html",
         )
+    elif cb_data == "close":
+        await update.message.delete()
+        try:
+            await update.message.reply_to_message.delete()
+        except:
+            pass
+
+    '''
     elif cb_data == "":
         button_call = InlineKeyboardMarkup(
             [
@@ -253,4 +284,4 @@ async def button(bot, update: CallbackQuery):
             disable_web_page_preview = True, 
             parse_mode = "html",
         )
-
+    '''
