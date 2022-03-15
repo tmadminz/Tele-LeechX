@@ -165,7 +165,7 @@ async def button(bot, update: CallbackQuery):
         await update.message.edit_text(
             text = "<b>Choose the Desired Command Help :</b>",
             reply_markup = button_markup,
-            parse_mode = "html",
+            parse_mode = "html"
         )
      elif cb_data == "nex_1":
         button_markup = InlineKeyboardMarkup(
@@ -193,7 +193,7 @@ async def button(bot, update: CallbackQuery):
         await update.message.edit_text(
             text = "<b>Choose the Desired Command Help :</b>",
             reply_markup = button_markup,
-            parse_mode = "html",
+            parse_mode = "html"
         )
      elif cb_data == "nex_2":
         button_markup = InlineKeyboardMarkup(
@@ -223,7 +223,7 @@ async def button(bot, update: CallbackQuery):
         await update.message.edit_text(
             text = "<b>Choose the Desired Command Help :</b>",
             reply_markup = button_markup,
-            parse_mode = "html",
+            parse_mode = "html"
         )
     elif cb_data == "leech":
         button_call = InlineKeyboardMarkup(
@@ -260,7 +260,7 @@ async def button(bot, update: CallbackQuery):
             text = stringg,
             reply_markup = button_call,
             disable_web_page_preview = True, 
-            parse_mode = "html",
+            parse_mode = "html"
         )
     elif cb_data == "close":
         await update.message.delete()
@@ -282,6 +282,6 @@ async def button(bot, update: CallbackQuery):
             text = "",
             reply_markup = button_call,
             disable_web_page_preview = True, 
-            parse_mode = "html",
+            parse_mode = "html"
         )
     '''
