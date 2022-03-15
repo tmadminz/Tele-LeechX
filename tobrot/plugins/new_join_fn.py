@@ -31,7 +31,7 @@ async def help_message_f(client, message):
     reply_markup = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton("🆘️ Open Help 🆘️", callback_data = "openHelp")
+                InlineKeyboardButton("🆘️ Open Help 🆘️", callback_data = "openHelp_pg1")
             ]
         ]
     await message.reply_text(
