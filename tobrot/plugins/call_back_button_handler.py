@@ -225,5 +225,32 @@ async def button(bot, update: CallbackQuery):
             reply_markup = button_markup,
             parse_mode = "html",
         )
-
+    elif cb_data == "leech":
+        button_call = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton("↩ Back", callback_data = "openHelp_pg1"),
+                    InlineKeyboardButton("Close 🔐", callback_data = "close")
+                ],
+            ]
+        await bot.edit_text(
+            text = "",
+            reply_markup = button_call,
+            disable_web_page_preview = True, 
+            parse_mode = "html",
+        )
+    elif cb_data == "":
+        button_call = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton("↩ Back", callback_data = ""),
+                    InlineKeyboardButton("Close 🔐", callback_data = "close")
+                ],
+            ]
+        await bot.edit_text(
+            text = "",
+            reply_markup = button_call,
+            disable_web_page_preview = True, 
+            parse_mode = "html",
+        )
 
