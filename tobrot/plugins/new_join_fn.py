@@ -34,6 +34,7 @@ async def help_message_f(client, message):
                 InlineKeyboardButton("🆘️ Open Help 🆘️", callback_data = "openHelp_pg1")
             ]
         ]
+    )
     await message.reply_text(
         text = f"""┏━ 🆘 <b>HELP MODULE</b> 🆘 ━━━╻
 ┃
@@ -42,9 +43,9 @@ async def help_message_f(client, message):
 ┃• <i>Access Every Feature That Bot Offers in Better Way </i>
 ┃• <i>Go through Commands to Get Help</i>
 ┃
-┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹"""
+┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹""",
         reply_markup = reply_markup,
         parse_mode = "html",
-        disable_web_page_preview=True,
+        disable_web_page_preview=True
     )
 
