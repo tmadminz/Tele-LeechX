@@ -8,6 +8,7 @@ feedparser
 hachoir
 html-telegraph-poster
 hurry.filesize
+imdbpy
 js2py
 lk21
 lxml
