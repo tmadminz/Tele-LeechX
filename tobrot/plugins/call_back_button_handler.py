@@ -7,7 +7,8 @@ import os
 import shutil
 
 from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton 
-from tobrot import AUTH_CHANNEL, MAX_MESSAGE_LENGTH, LOGGER, gDict
+from tobrot import *
+#from tobrot import AUTH_CHANNEL, MAX_MESSAGE_LENGTH, LOGGER, gDict
 from tobrot.helper_funcs.admin_check import AdminCheck
 from tobrot.helper_funcs.download_aria_p_n import aria_start
 from tobrot.helper_funcs.youtube_dl_button import youtube_dl_call_back
