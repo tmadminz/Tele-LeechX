@@ -197,7 +197,7 @@ async def button(bot, update: CallbackQuery):
             reply_markup = button_markup,
             parse_mode = "html"
         )
-     elif cb_data == "nex_2":
+    elif cb_data == "nex_2":
         button_markup = InlineKeyboardMarkup(
             [
                 [
