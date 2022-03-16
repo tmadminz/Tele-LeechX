@@ -162,12 +162,13 @@ async def button(bot, update: CallbackQuery):
                     InlineKeyboardButton("Close 🔐", callback_data = "close")
                 ]
             ]
+        )
         await update.message.edit_text(
             text = "<b>Choose the Desired Command Help :</b>",
             reply_markup = button_markup,
             parse_mode = "html"
         )
-     elif cb_data == "nex_1":
+    elif cb_data == "nex_1":
         button_markup = InlineKeyboardMarkup(
             [
                 [
@@ -190,6 +191,7 @@ async def button(bot, update: CallbackQuery):
                     InlineKeyboardButton("Close 🔐", callback_data = "close")
                 ]
             ]
+        )
         await update.message.edit_text(
             text = "<b>Choose the Desired Command Help :</b>",
             reply_markup = button_markup,
@@ -220,6 +222,7 @@ async def button(bot, update: CallbackQuery):
                     InlineKeyboardButton("Close 🔐", callback_data = "close")
                 ]
             ]
+        )
         await update.message.edit_text(
             text = "<b>Choose the Desired Command Help :</b>",
             reply_markup = button_markup,
@@ -233,6 +236,7 @@ async def button(bot, update: CallbackQuery):
                     InlineKeyboardButton("Close 🔐", callback_data = "close")
                 ],
             ]
+        )
         stringg = """<u>Cᴏᴍᴍᴀɴᴅ Aʟᴍᴀɴɪᴄ :</u>
 
 • 𝐂𝐨𝐦𝐦𝐚𝐧𝐝 : /leech
@@ -278,6 +282,7 @@ async def button(bot, update: CallbackQuery):
                     InlineKeyboardButton("Close 🔐", callback_data = "close")
                 ],
             ]
+        )
         await bot.edit_text(
             text = "",
             reply_markup = button_call,
