@@ -135,6 +135,8 @@ CRYPT = os.environ.get("CRYPT", "")
 PHPSESSID = os.environ.get("PHPSESSID", "")
 HUB_CRYPT = os.environ.get("HUB_CRYPT", "")
 CUSTOM_CAPTION = os.environ.get("CUSTOM_CAPTION", "")
+MAX_LIST_ELM = os.environ.get("MAX_LIST_ELM", None)
+IMDB_TEMPLATE = os.environ.get("IMDB_TEMPLATE", "<b>Query: {query}</b> \n‌‌‌‌IMDb Data:\n\n🏷 Title: <a href={url}>{title}</a>\n🎭 Genres: {genres}\n📆 Year: <a href={url}/releaseinfo>{year}</a>\n🌟 Rating: <a href={url}/ratings>{rating}</a> / 10")
 BOT_START_TIME = time.time()
 # dict to control uploading and downloading
 gDict = defaultdict(lambda: [])

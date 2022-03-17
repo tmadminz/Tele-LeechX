@@ -58,6 +58,7 @@ from tobrot.helper_funcs.direct_link_generator import url_link_generate
 from tobrot.plugins import *
 from tobrot.plugins.call_back_button_handler import button
 # the logging things
+from tobrot.plugins.imdb import imdb_search, imdb_callback 
 from tobrot.plugins.torrent_search import searchhelp, sendMessage 
 from tobrot.plugins.custom_utils import prefix_set, caption_set
 from tobrot.plugins.url_parser import url_parser
@@ -101,12 +102,12 @@ botcmds = [
         (f'setpre','🔠 <Text> Save Custom Prefix for Uploads'),
         (f'setcap','🔣 <Text> Save Custom Caption for Uploads'),
         (f'parser','🧮 <url> Get Bypassed Link After Parsing !!'),
+        (f'imdb','🎬 <name> Get IMDb Details About It !!'),
         (f'{BotCommands.HelpCommand}','🆘 Get Help, How to Use and What to Do. . .'),
         (f'{BotCommands.LogCommand}','🔀 Get the Bot Log [Owner Only]'),
         (f'{BotCommands.TsHelpCommand}','🌐 Get help for Torrent Search Module'),
     ]
 
-#@Client.on_message(filters.command(['start', f'start@{bot.username}']))
 async def start(client, message):
     """/start command"""
     buttons = [
@@ -128,7 +129,6 @@ async def start(client, message):
 ┃
 ┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹
 '''
-    #await message.reply(start_string, reply_markup=reply_markup)
     if message.chat.type == 'private':
         await message.reply_text(
            start_string,
@@ -399,6 +399,13 @@ if __name__ == "__main__":
         & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(url_parse_handler)
+    ##############################################################################
+    imdb_handler = MessageHandler(
+        imdb_search,
+        filters=filters.command(["imdb", f"imdb@{bot.username}"])
+        & filters.chat(chats=AUTH_CHANNEL),
+    )
+    app.add_handler(imdb_handler)
     ##############################################################################
 
     logging.info(f"@{(app.get_me()).username} Has Started Running...🏃💨💨")
