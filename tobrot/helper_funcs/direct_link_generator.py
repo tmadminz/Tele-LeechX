@@ -448,7 +448,6 @@ def fichier(link: str) -> str:
       else:
         raise DirectDownloadLinkException("ERROR: Error trying to generate Direct Link from 1fichier!")
 
-
 def solidfiles(url: str) -> str:
     """ Solidfiles direct links generator
     Based on https://github.com/Xonshiz/SolidFiles-Downloader
@@ -535,30 +534,34 @@ def gdtot(url: str) -> str:
     status = s3.find('h4').text
     raise DirectDownloadLinkException(f"ERROR: {status}") 
 
+def gplink(url):
 
-def gplink(url: str) -> str:
-    """ GPLinks link generator
-    By https://github.com/oxosec """
     check = re.findall(r'\bhttps?://.*gplink\S+', url)
     if not check:
         raise DirectDownloadLinkException("It's Not GPLinks")
+
     scraper = cloudscraper.create_scraper(allow_brotli=False)
     res = scraper.get(url)
+    
     h = { "referer": res.url }
     res = scraper.get(url, headers=h)
+    
     bs4 = BeautifulSoup(res.content, 'lxml')
     inputs = bs4.find_all('input')
     data = { input.get('name'): input.get('value') for input in inputs }
+
     h = {
         'content-type': 'application/x-www-form-urlencoded',
         'x-requested-with': 'XMLHttpRequest'
     }
-    time.sleep(10)
+    
+    time.sleep(10) # !important
+    
     p = urlparse(url)
     final_url = f'{p.scheme}://{p.netloc}/links/go'
     res = scraper.post(final_url, data=data, headers=h).json()
-    return res
 
+    return res
 
 def appdrive_dl(url: str, is_direct) -> str:
     """ AppDrive link generator
@@ -675,25 +678,30 @@ def linkvertise(url: str):
     return data
 
 
-def droplink(url: str) -> str:
+def droplink(url):
     client = requests.Session()
     res = client.get(url)
+
     ref = re.findall("action[ ]{0,}=[ ]{0,}['|\"](.*?)['|\"]", res.text)[0]
+
     h = {'referer': ref}
     res = client.get(url, headers=h)
+
     bs4 = BeautifulSoup(res.content, 'lxml')
     inputs = bs4.find_all('input')
     data = { input.get('name'): input.get('value') for input in inputs }
+
     h = {
         'content-type': 'application/x-www-form-urlencoded',
         'x-requested-with': 'XMLHttpRequest'
     }
     p = urlparse(url)
     final_url = f'{p.scheme}://{p.netloc}/links/go'
+
     time.sleep(3.1)
     res = client.post(final_url, data=data, headers=h).json()
-    return res
 
+    return res
 
 def gofile(url: str):
     api_uri = 'https://api.gofile.io'
