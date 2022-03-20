@@ -18,6 +18,8 @@ if [[ -n $CONFIG_ENV_URL ]]; then
 	wget -q $CONFIG_ENV_URL -O /app/config.env
 fi
 
+if [ -f .env ] ; then  set -o allexport; source .env; set +o allexport ; fi
+
 
 
 echo "Starting Your Bot... ♻️♻️"
