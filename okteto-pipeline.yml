@@ -1,0 +1,3 @@
+deploy: 
+  - okteto build -t Dockerfile 
+  - okteto bash run.sh
