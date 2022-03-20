@@ -4,11 +4,9 @@ services:
     build: .
     env_file:
       - .env
-
-
-   # environment:
-   #   API_ID: $API_ID  # defaults to None
-   #   API_HASH: $API_HASH  # defaults to None
-   #   AUTH_CHANNEL: $AUTH_CHANNEL  # defaults to None
-   #   TG_BOT_TOKEN: $TG_BOT_TOKEN  # defaults to None
-   #   OWNER_ID: $OWNER_ID #default
+    environment:
+      API_ID: $API_ID  # defaults to None
+      API_HASH: $API_HASH  # defaults to None
+      AUTH_CHANNEL: $AUTH_CHANNEL  # defaults to None
+      TG_BOT_TOKEN: $TG_BOT_TOKEN  # defaults to None
+      OWNER_ID: $OWNER_ID #default
