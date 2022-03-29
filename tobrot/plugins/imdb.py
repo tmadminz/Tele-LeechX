@@ -26,7 +26,7 @@ async def imdb_search(client, message):
             btn = [
                 [
                     InlineKeyboardButton(
-                        text=f"{movie.get('title')} - tt{movieid}",
+                        text=f"{movie.get('title')} ({movie.get('year')}) - tt{movieid}",
                         callback_data=f"imdb#{movieid}#{user_id_}",
                     )
                 ]
@@ -175,8 +175,10 @@ async def imdb_callback(bot, quer_y: CallbackQuery):
             ]
         ]
     message = quer_y.message.reply_to_message or quer_y.message
-    template = IMDB_TEMPLATE.get(from_user, DEF_IMDB_TEMPLATE)
-    if imdb:
+    template = IMDB_TEMPLATE.get(from_user, "")
+    if template == "":
+        template = DEF_IMDB_TEMPLATE
+    if imdb and template != "":
         caption = template.format(
             query = imdb['title'],
             title = imdb['title'],
