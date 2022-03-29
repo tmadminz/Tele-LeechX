@@ -1,33 +1,15 @@
 
 import string
-import shelve
-import dbm  # this import is necessary to handle the custom exception when shelve tries to load a missing file as "read"
-
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 
 # https://stackoverflow.com/questions/62173294/how-can-i-keep-save-the-user-input-in-dictionary
 
 PRE_DICT = {}
 CAP_DICT = {}
-
-def save_dict(dict_to_be_saved):  # your original function, parameter renamed to not shadow outer scope
-    with shelve.open('shelve2.db', 'c') as s:  # Don't think you needed WriteBack, "c" flag used to create dictionary
-        s['Dict'] = dict_to_be_saved # just as you had it
-
-
-async def load_dict():  # loading dictionary
-    try:  # file might not exist when we try to open it
-        with shelve.open('shelve2.db', 'r') as s:  # the "r" flag used to only read the dictionary
-            my_saved_dict = s['Dict']  # load and assign to a variable
-            return my_saved_dict  # give the contents of the dictionary back to the program
-    except dbm.error:  # if the file is not there to load, this error happens, so we suppress it...
-        await message.reply_text("Not Found !!")
-        return {} #... and return an empty dictionary instead
-
+IMDB_TEMPLATE = {}
 
 async def prefix_set(client, message):
-    
-    #PRE_DICT = {}  # first we attempt to load previous dictionary, or make a blank one
+    '''  /setpre command '''
     lm = await message.reply_text(
         text="`Setting Up ...`",
     )
@@ -43,9 +25,8 @@ async def prefix_set(client, message):
         txt = ""
     prefix_ = txt
     PRE_DICT[user_id_] = prefix_
-    save_dict(PRE_DICT)
 
-    pre_text = await lm.edit_text(f"⚡️<i><b>Custom Prefix Set Successfully</b></i> ⚡️ \n\n👤 <b>User :</b> {u_men}\n🆔 <b>User ID :</b> <code>{user_id_}</code>\n🗃 <b>Prefix :</b> <tg-spoiler><code>{txt}</code></tg-spoiler>", parse_mode="html")
+    pre_text = await lm.edit_text(f"⚡️<i><b>Custom Prefix Set Successfully</b></i> ⚡️ \n\n👤 <b>User :</b> {u_men}\n🆔 <b>User ID :</b> <code>{user_id_}</code>\n🗃 <b>Prefix :</b> <spoiler><code>{txt}</code></spoiler>", parse_mode="html")
     
 
 async def caption_set(client, message):
@@ -66,13 +47,36 @@ async def caption_set(client, message):
         txt = ""
     caption_ = txt
     CAP_DICT[user_id_] = caption_
-    save_dict(CAP_DICT)
     try:
         txx = txt.split("#", maxsplit=1)
         txt = txx[0]
     except:
         pass 
     cap_text = await lk.edit_text(f"⚡️<i><b>Custom Caption Set Successfully</b></i> ⚡️ \n\n👤 <b>User :</b> {u_men}\n🆔 <b>User ID :</b> <code>{user_id_}</code>\n🗃 <b>Caption :</b>\n<tg-spoiler><code>{txt}</code></tg-spoiler>", parse_mode="html")
+
+
+async def template_set(client, message):
+    '''  /set_template command '''
+    lm = await message.reply_text(
+        text="`Checking Input ...`",
+    )
+    user_id_ = message.from_user.id 
+    u_men = message.from_user.mention
+    tem_send = message.text.split(" ", maxsplit=1)
+    reply_to = message.reply_to_message
+    if len(tem_send) > 1:
+        txt = tem_send[1]
+    elif reply_to is not None:
+        txt = reply_to.text
+    else:
+        txt = ""
+    if txt == "":
+        tel = await message.reply_text("`Send Custom TEMPLATE for your Usage`")
+        return 
+    template_ = txt
+    IMDB_TEMPLATE[user_id_] = template_
+    
+    tem_text = await lm.edit_text(f"⚡️<i><b>Custom Template Set Successfully</b></i> ⚡️ \n\n👤 <b>User :</b> {u_men}\n🆔 <b>User ID :</b> <code>{user_id_}</code>\n🗃 <b>IMDB Template :</b> \n<code>{txt}</code>", parse_mode="html")
 
 
     '''
