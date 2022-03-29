@@ -80,9 +80,9 @@ async def incoming_message_f(client, message):
                 link = cusfnam[0]
                 cusfname = cusfnam[1]  
             LOGGER.info(cusfname)
-            if cusfname != "" and link.lower().startswith("http"):
-                text__ += f"🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>\n🗳 <b>Custom Name</b> :<code>{cusfname}</code>"
-            elif cusfname != "":
+            #if cusfname != "" and link.lower().startswith("http"):
+                #text__ += f"🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>\n🗳 <b>Custom Name</b> :<code>{cusfname}</code>"
+            if cusfname != "":
                 text__ += f"🔗 <b>Link</b> :  <code>{link}</code>\n🗳 <b>Custom Name</b> :<code>{cusfname}</code>"
             else:
                 if link.lower().startswith("http"):
@@ -91,7 +91,7 @@ async def incoming_message_f(client, message):
                     text__ += f"🔗 <b>Link</b> :  <code>{link}</code>"
     else:
         link = "N/A"
-        text__ += f"🔗 <b>Link</b> : {link}"
+        text__ += f"🔗 <b>Link</b> : <code>{link}</code>"
         
     link_text = await message.reply_text(text=text__, parse_mode="html", quote=True, disable_web_page_preview=True)
     # get link from the incoming message & Custom Name
