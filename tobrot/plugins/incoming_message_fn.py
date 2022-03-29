@@ -95,7 +95,8 @@ async def incoming_message_f(client, message):
         
     link_text = await message.reply_text(text=text__, parse_mode="html", quote=True, disable_web_page_preview=True)
     # get link from the incoming message & Custom Name
-    logs_msg = await message.forward(LOG_CHANNEL)
+     #TODO NEXT UPDATE
+    #logs_msg = await message.forward(LOG_CHANNEL)
     #trace_msg = await logs_msg.reply_text(f"#Leech: Download Started!")
 
     i_m_sefg = await message.reply_text("<code>Processing ... 🔄</code>", quote=True)
