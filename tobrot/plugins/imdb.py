@@ -3,7 +3,8 @@
 import re
 from imdb import IMDb
 
-from tobrot import app, MAX_LIST_ELM, IMDB_TEMPLATE,  LOGGER
+from tobrot import app, MAX_LIST_ELM, DEF_IMDB_TEMPLATE,  LOGGER
+from tobrot.plugins.custom_utils import *
 from pyrogram import Client, filters 
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery 
 from pyrogram.errors.exceptions.bad_request_400 import MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty
@@ -23,11 +24,12 @@ async def imdb_search(client, message):
         if not movies:
             await k.delete()
             return await message.reply("`No results Found`")
+        user_id_ = message.from_user.id
         btn = [
             [
                 InlineKeyboardButton(
                     text=f"{movie.get('title')} ({movie.get('year')})",
-                    callback_data=f"imdb#{movie.movieID}",
+                    callback_data=f"imdb#{movie.movieID}#{user_id_}",
                 )
             ]
             for movie in movies
@@ -147,19 +149,20 @@ def list_to_hash(k):
 
 @app.on_callback_query(filters.regex('^imdb'))
 async def imdb_callback(bot, quer_y: CallbackQuery):
-    i, movie = quer_y.data.split('#')
+    i, movie, from_user = quer_y.data.split('#')
     imdb = await get_poster(query=movie, id=True)
     btn = [
             [
                 InlineKeyboardButton(
-                    text=f"{imdb.get('title')}",
+                    text=f"⚡𝘊𝘭𝘪𝘤𝘬 𝘏𝘦𝘳𝘦⚡",
                     url=imdb['url'],
                 )
             ]
         ]
     message = quer_y.message.reply_to_message or quer_y.message
+    template = IMDB_TEMPLATE.get(from_user, DEF_IMDB_TEMPLATE)
     if imdb:
-        caption = IMDB_TEMPLATE.format(
+        caption = template.format(
             query = imdb['title'],
             title = imdb['title'],
             votes = imdb['votes'],
