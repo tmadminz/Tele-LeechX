@@ -83,7 +83,10 @@ async def upload_to_tg(
         if len(slit) > 1:
             for rep in range(1, len(slit)):
                 args = slit[rep].split(":")
-                caption_str = caption_str.replace(args[0], args[1])
+                if len(args) == 3:
+                    caption_str = caption_str.replace(args[0], args[1], int(args[2]))
+                else:
+                    caption_str = caption_str.replace(args[0], args[1])
     else:
         caption_str = DEF_CAPTION_MSG
 
