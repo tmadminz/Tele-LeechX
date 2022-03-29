@@ -15,7 +15,10 @@ async def imdb_search(client, message):
     if ' ' in message.text:
         k = await message.reply('<code>Searching IMDB ...</code>', parse_mode="html")
         r, title = message.text.split(None, 1)
-        movies = await get_poster(title, bulk=True)
+        if title.lower().startswith("tt"):
+            movies = title.replace("tt", "")
+        else:
+            movies = await get_poster(title, bulk=True)
         LOGGER.info(movies)
         if not movies:
             await k.delete()
@@ -23,7 +26,7 @@ async def imdb_search(client, message):
         btn = [
             [
                 InlineKeyboardButton(
-                    text=f"{movie.get('title')} - ({movie.get('year')})",
+                    text=f"{movie.get('title')} ({movie.get('year')})",
                     callback_data=f"imdb#{movie.movieID}",
                 )
             ]
@@ -31,7 +34,7 @@ async def imdb_search(client, message):
         ]
         await k.edit('**Here What I found on IMDb.com**', reply_markup=InlineKeyboardMarkup(btn))
     else:
-        await message.reply('Give me a Movie / Series Name along with /imdb')
+        await message.reply('`Send Movie / Series Name along with /imdb`')
 
 
 async def get_poster(query, bulk=False, id=False, file=None):
@@ -95,9 +98,9 @@ async def get_poster(query, bulk=False, id=False, file=None):
         "imdb_id": f"tt{movie.get('imdbID')}",
         "cast": list_to_str(movie.get("cast")),
         "runtime": list_to_str(movie.get("runtimes")),
-        "countries": list_to_str(movie.get("countries")),
+        "countries": list_to_hash(movie.get("countries")),
         "certificates": list_to_str(movie.get("certificates")),
-        "languages": list_to_str(movie.get("languages")),
+        "languages": list_to_hash(movie.get("languages")),
         "director": list_to_str(movie.get("director")),
         "writer":list_to_str(movie.get("writer")),
         "producer":list_to_str(movie.get("producer")),
@@ -107,7 +110,7 @@ async def get_poster(query, bulk=False, id=False, file=None):
         "distributors": list_to_str(movie.get("distributors")),
         'release_date': date,
         'year': movie.get('year'),
-        'genres': list_to_str(movie.get("genres")),
+        'genres': list_to_hash(movie.get("genres")),
         'poster': movie.get('full-size cover url'),
         'plot': plot,
         'rating': str(movie.get("rating")),
@@ -121,9 +124,26 @@ def list_to_str(k):
         return str(k[0])
     elif MAX_LIST_ELM:
         k = k[:int(MAX_LIST_ELM)]
-        return ' '.join(f'{elem}, ' for elem in k)
+        return ' '.join(f'{elem},' for elem in k)
     else:
-        return ' '.join(f'{elem}, ' for elem in k)
+        return ' '.join(f'{elem},' for elem in k)
+
+def list_to_hash(k):
+    if not k:
+        return "N/A"
+    elif len(k) == 1:
+        return str(k[0])
+    elif MAX_LIST_ELM:
+        k = k[:int(MAX_LIST_ELM)]
+        for elem in k:
+            elem = elem.replace(" ", "_")
+            listing += f'#{elem}, '
+        return listing
+    else:
+        for elem in k:
+            elem = elem.replace(" ", "_")
+            listing += f'#{elem}, '
+        return listing
 
 @app.on_callback_query(filters.regex('^imdb'))
 async def imdb_callback(bot, quer_y: CallbackQuery):
