@@ -17,24 +17,38 @@ async def imdb_search(client, message):
         k = await message.reply('<code>Searching IMDB ...</code>', parse_mode="html")
         r, title = message.text.split(None, 1)
         if title.lower().startswith("tt"):
-            movies = title.replace("tt", "")
+            movieid = title.replace("tt", "")
+            movie = imdb.get_movie(movieid)
+            if not movie:
+                await k.delete()
+                return await message.reply("`No Results Found`")
+            btn = [
+                [
+                    InlineKeyboardButton(
+                        text=f"{movie.get('title')} - tt{movieid}",
+                        callback_data=f"imdb#{movieid}#{user_id_}",
+                    )
+                ]
+            ]
+            await k.edit('**Here What I found on IMDb.com**', reply_markup=InlineKeyboardMarkup(btn))
+            return
         else:
             movies = await get_poster(title, bulk=True)
-        LOGGER.info(movies)
-        if not movies:
-            await k.delete()
-            return await message.reply("`No results Found`")
-        user_id_ = message.from_user.id
-        btn = [
-            [
-                InlineKeyboardButton(
-                    text=f"{movie.get('title')} ({movie.get('year')})",
-                    callback_data=f"imdb#{movie.movieID}#{user_id_}",
-                )
+            LOGGER.info(movies)
+            if not movies:
+                await k.delete()
+                return await message.reply("`No results Found`")
+            user_id_ = message.from_user.id
+            btn = [
+                [
+                    InlineKeyboardButton(
+                        text=f"{movie.get('title')} ({movie.get('year')})",
+                        callback_data=f"imdb#{movie.movieID}#{user_id_}",
+                    )
+                ]
+                for movie in movies
             ]
-            for movie in movies
-        ]
-        await k.edit('**Here What I found on IMDb.com**', reply_markup=InlineKeyboardMarkup(btn))
+            await k.edit('**Here What I found on IMDb.com**', reply_markup=InlineKeyboardMarkup(btn))
     else:
         await message.reply('`Send Movie / Series Name along with /imdb`')
 
@@ -131,6 +145,7 @@ def list_to_str(k):
         return ' '.join(f'{elem},' for elem in k)
 
 def list_to_hash(k):
+    listing = ""
     if not k:
         return "N/A"
     elif len(k) == 1:
@@ -154,7 +169,7 @@ async def imdb_callback(bot, quer_y: CallbackQuery):
     btn = [
             [
                 InlineKeyboardButton(
-                    text=f"⚡𝘊𝘭𝘪𝘤𝘬 𝘏𝘦𝘳𝘦⚡",
+                    text=f"⚡ 𝘊𝘭𝘪𝘤𝘬 𝘏𝘦𝘳𝘦 ⚡",
                     url=imdb['url'],
                 )
             ]
