@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# (c) Shrimadhav U K | gautamajay52 | MaxxRider
+# (c) Shrimadhav U K | gautamajay52 | MaxxRider | 5MysterySD 
 
 import asyncio
 import logging
@@ -22,7 +22,8 @@ from tobrot import (
     GPYTDL_COMMAND,
     PYTDL_COMMAND,
     STATUS_COMMAND,
-    UPDATES_CHANNEL
+    UPDATES_CHANNEL,
+    LOG_CHANNEL
 )
 from tobrot import bot
 from tobrot.helper_funcs.admin_check import AdminCheck
@@ -59,13 +60,19 @@ async def incoming_message_f(client, message):
     u_men = message.from_user.mention
     link_send = message.text.split(" ", maxsplit=1)
     reply_to = message.reply_to_message
+    text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : #ID{g_id}\n"
     if len(link_send) > 1:
         link = link_send[1]
-        text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : #ID{g_id}\n🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>"
+        if link.lower().startswith("magnet:"):
+            text__ += f"🧲 <b>Magnet Link</b> :  <code>{link}</code>"
+        elif link.lower().startswith("http"):
+            text__ += f"🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>"
+        else:
+            text__ += f"🔗 <b>Link</b> :  <code>{link}</code>"
     elif reply_to is not None:
         link = reply_to.text
         if link.lower().startswith("magnet:"):
-            text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : #ID{g_id}\n🧲 <b>Magnet Link</b> :  <code>{link}</code>"
+            text__ += f"🧲 <b>Magnet Link</b> :  <code>{link}</code>"
         else:
             cusfname = ""
             cusfnam = link.split("|", maxsplit=1)
@@ -73,19 +80,23 @@ async def incoming_message_f(client, message):
                 link = cusfnam[0]
                 cusfname = cusfnam[1]  
             LOGGER.info(cusfname)
-            if cusfname != "":
-                text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : #ID{g_id}\n🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>\n🗳 <b>Custom Name</b> : <code>{cusfname}</code>"
+            if cusfname != "" and link.lower().startswith("http"):
+                text__ += f"🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>\n🗳 <b>Custom Name</b> :<code>{cusfname}</code>"
+            elif cusfname != "":
+                text__ += f"🔗 <b>Link</b> :  <code>{link}</code>\n🗳 <b>Custom Name</b> :<code>{cusfname}</code>"
             else:
                 if link.lower().startswith("http"):
-                    text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : #ID{g_id}\n🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>"
+                    text__ += f"🔗 <b>Link</b> :  <a href='{link}'>Click Here</a>"
                 else:
-                    text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : #ID{g_id}\n🔗 <b>Link</b> :  <code>{link}</code>"
+                    text__ += f"🔗 <b>Link</b> :  <code>{link}</code>"
     else:
-        link = "Empty"
-        text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : #ID{g_id}\n🔗 <b>Link</b> : {link}"
+        link = "N/A"
+        text__ += f"🔗 <b>Link</b> : {link}"
         
-    link_text = await message.reply_text(text=text__, parse_mode="html", quote=True)
+    link_text = await message.reply_text(text=text__, parse_mode="html", quote=True, disable_web_page_preview=True)
     # get link from the incoming message & Custom Name
+    logs_msg = await message.forward(LOG_CHANNEL)
+    #trace_msg = await logs_msg.reply_text(f"#Leech: Download Started!")
 
     i_m_sefg = await message.reply_text("<code>Processing ... 🔄</code>", quote=True)
     rep_mess = message.reply_to_message
