@@ -60,7 +60,7 @@ from tobrot.plugins.call_back_button_handler import button
 # the logging things
 from tobrot.plugins.imdb import imdb_search, imdb_callback 
 from tobrot.plugins.torrent_search import searchhelp, sendMessage 
-from tobrot.plugins.custom_utils import prefix_set, caption_set
+from tobrot.plugins.custom_utils import prefix_set, caption_set, template_set
 from tobrot.plugins.url_parser import url_parser
 from tobrot.helper_funcs.bot_commands import BotCommands
 from tobrot.plugins.choose_rclone_config import rclone_command_f
@@ -101,8 +101,9 @@ botcmds = [
         (f'{BotCommands.MediaInfoCommand}','🆔️ [Reply] Get Telegram Files Media Info'),
         (f'setpre','🔠 <Text> Save Custom Prefix for Uploads'),
         (f'setcap','🔣 <Text> Save Custom Caption for Uploads'),
-        (f'parser','🧮 <url> Get Bypassed Link After Parsing !!'),
-        (f'imdb','🎬 <name> Get IMDb Details About It !!'),
+        (f'parser','🧮 <URL> Get Bypassed Link After Parsing !!'),
+        (f'imdb','🎬 [Title] Get IMDb Details About It !!'),
+        (f'set_template','📋 [HTML] Set IMDb Custom Template for Usage!!'),
         (f'{BotCommands.HelpCommand}','🆘 Get Help, How to Use and What to Do. . .'),
         (f'{BotCommands.LogCommand}','🔀 Get the Bot Log [Owner Only]'),
         (f'{BotCommands.TsHelpCommand}','🌐 Get help for Torrent Search Module'),
@@ -406,6 +407,13 @@ if __name__ == "__main__":
         & filters.chat(chats=AUTH_CHANNEL),
     )
     app.add_handler(imdb_handler)
+    ##############################################################################
+    template_handler = MessageHandler(
+        template_set,
+        filters=filters.command(["set_template", f"set_template@{bot.username}"])
+        & filters.chat(chats=AUTH_CHANNEL),
+    )
+    app.add_handler(template_handler)
     ##############################################################################
 
     logging.info(f"@{(app.get_me()).username} Has Started Running...🏃💨💨")
