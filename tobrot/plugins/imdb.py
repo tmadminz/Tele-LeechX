@@ -16,6 +16,7 @@ async def imdb_search(client, message):
     if ' ' in message.text:
         k = await message.reply('<code>Searching IMDB ...</code>', parse_mode="html")
         r, title = message.text.split(None, 1)
+        user_id_ = message.from_user.id
         if title.lower().startswith("tt"):
             movieid = title.replace("tt", "")
             movie = imdb.get_movie(movieid)
@@ -38,7 +39,6 @@ async def imdb_search(client, message):
             if not movies:
                 await k.delete()
                 return await message.reply("`No results Found`")
-            user_id_ = message.from_user.id
             btn = [
                 [
                     InlineKeyboardButton(
