@@ -71,7 +71,7 @@ async def template_set(client, message):
     else:
         txt = ""
     if txt == "":
-        tel = await message.reply_text("`Send Custom TEMPLATE for your Usage`")
+        tel = await lm.edit_text("`Send Custom TEMPLATE for your Usage`")
         return 
     template_ = txt
     IMDB_TEMPLATE[user_id_] = template_
