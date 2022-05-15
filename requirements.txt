@@ -17,7 +17,7 @@ messages
 natsort
 Pillow
 psutil
-pyrogram
+pyrogram==1.4
 python-dotenv
 pyprog
 python-telegram-bot
