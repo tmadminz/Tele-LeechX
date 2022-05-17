@@ -15,8 +15,8 @@ import telegram.ext as tg
 
 from pyrogram import Client
 
-if os.path.exists("TorrentLeech-Gdrive.txt"):
-    with open("Torrentleech-Gdrive.txt", "r+") as f_d:
+if os.path.exists("FuZionXLogs.txt"):
+    with open("FuZionXLogs.txt", "r+") as f_d:
         f_d.truncate(0)
 
 # the logging things
@@ -102,12 +102,7 @@ GLEECH_UNZIP_COMMAND = os.environ.get("GLEECH_UNZIP_COMMAND", "gleechunzip")
 GLEECH_ZIP_COMMAND = os.environ.get("GLEECH_ZIP_COMMAND", "gleechzip")
 YTDL_COMMAND = os.environ.get("YTDL_COMMAND", "ytdl")
 GYTDL_COMMAND = os.environ.get("GYTDL_COMMAND", "gytdl")
-RCLONE_CONFIG = os.environ.get("RCLONE_CONFIG", "[FXTorrentz]
-type = drive
-scope = drive
-token = {"access_token":"ya29.A0ARrdaM-sS0ANhGU9uZECv8nAHJG7PxdjBtUWq-k6ASi3CZnH5vGyRpvqS6A5xYS06ZORz_tGbHdmbGBXehwiFdJULovL6Tr7WQYtuq9nqR7lFfeuxvFTVfglNg2iIX11rWr8lPfGu7zseW_0RYFlDwxMhg8N","token_type":"Bearer","refresh_token":"1//0gM7qdpR8ThDECgYIARAAGBASNwF-L9IrLkycmo7chcGlHBFxTrGXE6BGbjZ5H_AicSh2MDdPGyZSOYYoB5PkSzuALJ7QVu1MY1Q","expiry":"2022-05-17T15:59:05.49394242Z"}
-team_drive = 0AARBvkBdvULMUk9PVA
-root_folder_id = ")
+RCLONE_CONFIG = os.environ.get("RCLONE_CONFIG", "")
 DESTINATION_FOLDER = os.environ.get("DESTINATION_FOLDER", "FuZionXBot")
 INDEX_LINK = os.environ.get("INDEX_LINK", "https://covid.demonn.workers.dev/0:/FuZionXBot")
 TELEGRAM_LEECH_COMMAND = os.environ.get("TELEGRAM_LEECH_COMMAND", "tleech")
