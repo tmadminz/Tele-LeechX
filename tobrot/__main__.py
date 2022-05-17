@@ -116,7 +116,7 @@ async def start(client, message):
                 InlineKeyboardButton('🚦 Channel 🚦', url='https://t.me/FuZionX'),
             ],
             [
-                InlineKeyboardButton('🛃 Torrent Group 🛃', url='https://t.me/FuZionXTorrentQuater'),
+                InlineKeyboardButton('🛃 Torrent Group 🛃', url='https://t.me/FXTorrentz'),
             ]
             ]
     reply_markup=InlineKeyboardMarkup(buttons)
@@ -166,8 +166,8 @@ if __name__ == "__main__":
         os.remove(".restartmsg")
     elif OWNER_ID:
         try:
-            text = f"<b>Bᴏᴛ Rᴇsᴛᴀʀᴛᴇᴅ !!</b>\n\n<b>📊 𝙃𝙤𝙨𝙩 :</b> <code>Heroku</code>\n{ist}"
-            bot.sendMessage(chat_id=OWNER_ID, text=text, parse_mode=ParseMode.HTML)
+            text = f"<b>Bᴏᴛ Rᴇsᴛᴀʀᴛᴇᴅ !!</b>\n\n<b>📊 𝙃𝙤𝙨𝙩 :</b> <code>Okteto</code>\n{ist}"
+            #bot.sendMessage(chat_id=OWNER_ID, text=text, parse_mode=ParseMode.HTML)
             if AUTH_CHANNEL:
                 for i in AUTH_CHANNEL:
                     bot.sendMessage(chat_id=i, text=text, parse_mode=ParseMode.HTML)
@@ -176,9 +176,6 @@ if __name__ == "__main__":
 
     bot.set_my_commands(botcmds)
 
-    #LOG_GROUP = -1001280533370 
-    #dispatcher.bot.sendMessage(f'{LOG_GROUP}', f"<b>Bot is Successfully Restarted By Heroku !!</b>", parse_mode=ParseMode.HTML)
-
     # Starting The Bot
     app.start()
     ##############################################################################
@@ -186,7 +183,7 @@ if __name__ == "__main__":
         incoming_message_f,
         filters=filters.command(
             [
-                f"{LEECH_COMMAND}", f"{LEECH_COMMAND}@{bot.username}",
+                LEECH_COMMAND, f"{LEECH_COMMAND}@{bot.username}",
                 LEECH_ZIP_COMMAND, f"{LEECH_ZIP_COMMAND}@{bot.username}",
                 LEECH_UNZIP_COMMAND, f"{LEECH_UNZIP_COMMAND}@{bot.username}",
                 GLEECH_COMMAND,

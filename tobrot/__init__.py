@@ -54,14 +54,14 @@ for imp in ["TG_BOT_TOKEN", "APP_ID", "API_HASH", "OWNER_ID", "AUTH_CHANNEL"]:
 '''
 
 # The Telegram API things
-TG_BOT_TOKEN = os.environ.get("TG_BOT_TOKEN", "")
-APP_ID = os.environ.get("APP_ID", "")
-API_HASH = os.environ.get("API_HASH", "")
+TG_BOT_TOKEN = os.environ.get("TG_BOT_TOKEN", "5139162631:AAHGWHHbnbu7k5jOjXW-axcNuJcSRpBktr4")
+APP_ID = os.environ.get("APP_ID", "6878048")
+API_HASH = os.environ.get("API_HASH", "3833ae3a7415af46df46a83a3ba2c432")
 OWNER_ID = int(os.environ.get("OWNER_ID", "1242011540"))
 
 # Get these values from my.telegram.org
 # to store the channel ID who are authorized to use the bot
-AUTH_CHANNEL = [int(x) for x in os.environ.get("AUTH_CHANNEL", "").split()]
+AUTH_CHANNEL = [int(x) for x in os.environ.get("AUTH_CHANNEL", "-1001270496331 -1001508663868").split()]
 
 # Cuz most ppl dunno AUTH_CHANNEL also works as SUDO
 SUDO_USERS = [int(sudos) if (' ' not in os.environ.get('SUDO_USERS', '')) else int(sudos) for sudos in os.environ.get('SUDO_USERS', '').split()]
@@ -130,12 +130,12 @@ MEDIAINFO_CMD = os.environ.get("MEDIAINFO_CMD", "mediainfo")
 UPDATES_CHANNEL = os.environ.get("UPDATES_CHANNEL", "@FuZionX")
 CAP_STYLE = os.environ.get("CAP_STYLE", "code")
 UPTOBOX_TOKEN = os.environ.get("UPTOBOX_TOKEN", "")
-EMAIL = os.environ.get("EMAIL", "")
-PWSSD = os.environ.get("PWSSD", "")
-GDRIVE_FOLDER_ID = os.environ.get("GDRIVE_FOLDER_ID", "")
-CRYPT = os.environ.get("CRYPT", "")
-PHPSESSID = os.environ.get("PHPSESSID", "")
-HUB_CRYPT = os.environ.get("HUB_CRYPT", "")
+EMAIL = os.environ.get("EMAIL", "mysterysd.sd@gmail.com")
+PWSSD = os.environ.get("PWSSD", "S#D#97531")
+GDRIVE_FOLDER_ID = os.environ.get("GDRIVE_FOLDER_ID", "0AARBvkBdvULMUk9PVA")
+CRYPT = os.environ.get("CRYPT", "S3htTzl3aDdHUWdJWDhLZVV2MlpSVGlkZ0RVYU0xc29oQlNKSENGakRaOD0%3D")
+PHPSESSID = os.environ.get("PHPSESSID", "dslvec02r5mo3co40vsq6154eh")
+HUB_CRYPT = os.environ.get("HUB_CRYPT", "dVAwSkpDU0FWVnNYV3hSZU40RkhrRU53RzVmdjVBbFd3RThPeFllMmhSND0%3D")
 CUSTOM_CAPTION = os.environ.get("CUSTOM_CAPTION", "")
 MAX_LIST_ELM = os.environ.get("MAX_LIST_ELM", None)
 DEF_IMDB_TEMPLATE = os.environ.get("IMDB_TEMPLATE", """<i><b>⚡𝐓𝐢𝐭𝐥𝐞: </b> {title}
@@ -147,8 +147,11 @@ DEF_IMDB_TEMPLATE = os.environ.get("IMDB_TEMPLATE", """<i><b>⚡𝐓𝐢𝐭𝐥
 <b>⚡𝐋𝐚𝐧𝐠𝐮𝐚𝐠𝐞:  </b>{languages}
 <b>⚡𝐂𝐨𝐮𝐧𝐭𝐫𝐲: </b> {countries}
 <b>⚡𝐒𝐮𝐛𝐭𝐢𝐭𝐥𝐞𝐬: </b>
+
 <b>⚡𝐒𝐭𝐨𝐫𝐲 𝐋𝐢𝐧𝐞: </b><code>{plot}</code>
+
 ⚡️𝐉𝐨𝐢𝐧 𝐍𝐨𝐰 :  @FuZionX </i>
+
 ⚡️✅ 𝑪𝒍𝒊𝒄𝒌 𝑫𝒐𝒘𝒏 𝒂𝒏𝒅 𝑺𝒕𝒂𝒓𝒕 𝒕𝒉𝒆 𝑩𝒐𝒕 𝒕𝒐 𝑮𝒆𝒕 𝒕𝒉𝒆 𝑭𝒊𝒍𝒆 ✅ !! ⬇️ ⬇️""")
 LOG_CHANNEL = os.environ.get("LOG_CHANNEL", "")
 BOT_START_TIME = time.time()
