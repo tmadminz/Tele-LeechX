@@ -154,9 +154,8 @@ class CloneHelper:
                     _idno = _idno + 1
             button_markup = pyrogram.InlineKeyboardMarkup(button)
             msg = await self.lsg.edit_text(
-                f"📨 **Name** : `{self.name}`\n\n📚 **Type** : __{_up}__\n\n🗃 **Total Files** : `Calculating ..` 🔄\n📊 **Total Size** : `Calculating ..` 🔄\n\n👤 Req By: {self.u_men} ( #ID{self.u_id} )",
+                f"📨 **Name** : `{self.name}`\n\n📚 **Type** : __{_up}__\n\n🗃 **Total Files** : `Calculating ..` 🛃\n📊 **Total Size** : `Calculating ..` 🛃\n\n👤 Req By: {self.u_men} ( #ID{self.u_id} )",
                 reply_markup=button_markup,
-                parse_mode="markdown",
             )
             g_cmd = [
                 "rclone",
@@ -175,13 +174,12 @@ class CloneHelper:
             await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
             g_autam = g_autam.replace("Total objects:", "🗃 **Total Files** :").replace("Total size:", "📊 **Total Size** :")
             await msg.edit_text(
-                f"📨 **Name** : `{self.name}`\n\n📚 **Type** : __{_up}__\n\n{g_autam}\n\n👤 Req By: {self.u_men} ( #ID{self.u_id} )",
+                f"📨 **Name** : `{self.name}`\n\n📚 **Type** : __{_up}__\n\n{g_autam}\n👤 Req By: {self.u_men} ( #ID{self.u_id} )",
                 reply_markup=button_markup,
-                parse_mode="markdown",
             )
 
     async def gcl(self):
-        self.lsg = await self.mess.reply_text(f"`🔄 Cloning GDrive Link ...`")
+        self.lsg = await self.mess.reply_text(f"`🚦 Cloning GDrive Link ...`")
         destination = f"{DESTINATION_FOLDER}"
         idd = "{" f"{self.g_id}" "}"
         cmd = [
