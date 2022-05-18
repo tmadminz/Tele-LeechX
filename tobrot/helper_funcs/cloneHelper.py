@@ -3,6 +3,7 @@
 # -*- coding: utf-8 -*-
 # (c) gautamajay52
 # (c) MaxxRider
+# (c) 5MysterySD 
 
 import asyncio
 import logging
@@ -50,7 +51,6 @@ class CloneHelper:
     def get_id(self):
         mes = self.mess
         reply_to = mes.reply_to_message
-        LOGGER.info(txt)
         mystery = mes.text.split(" ", maxsplit=1)
         if mystery > 1:
             txt = mystery[1]
