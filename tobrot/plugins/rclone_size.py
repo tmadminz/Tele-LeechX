@@ -8,12 +8,14 @@ import re
 import subprocess
 
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from tobrot import DESTINATION_FOLDER, EDIT_SLEEP_TIME_OUT, LOGGER, RCLONE_CONFIG
+from tobrot import DESTINATION_FOLDER, EDIT_SLEEP_TIME_OUT, LOGGER, RCLONE_CONFIG, UPDATES_CHANNEL 
 
 
 async def check_size_g(client, message):
+    user_id_ = message.from_user.id 
+    u_men = message.from_user.mention
     # await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
-    del_it = await message.reply_text("🔊 Checking size...wait!!!")
+    del_it = await message.reply_text("`💾 Checking Cloud Size... Please Wait !!!`")
     if not os.path.exists("rclone.conf"):
         with open("rclone.conf", "w+", newline="\n", encoding="utf-8") as fole:
             fole.write(f"{RCLONE_CONFIG}")
@@ -34,7 +36,8 @@ async def check_size_g(client, message):
     gautam = gau.decode("utf-8")
     LOGGER.info(gautam)
     await asyncio.sleep(5)
-    await message.reply_text(f"🔊CloudInfo:\n\n{gautam}")
+    gautam = gautam.replace("Total objects:", "┣🗄 **Total Files** :").replace("Total size:", "┣🗂 **Total Size** :")
+    await message.reply_text(f"┏━━━━ ☁ __GDriveInfo__ ☁ ━━━━━━╻\n┃\n┣👤 **User** : {u_men}\n┣🆔 **User ID** : #ID{user_id}\n┣🧾 **Folder Name** : {DESTINATION_FOLDER}\n{gautam}\n┃\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL} ♦️━╹\n\n#CloudSize")
     await del_it.delete()
 
 
