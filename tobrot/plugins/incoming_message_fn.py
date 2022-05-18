@@ -284,7 +284,7 @@ async def g_clonee(client, message):
     """ /gclone command """
     g_id = message.from_user.id
     _link = message.text.split(" ", maxsplit=1)
-    if message.reply_to_message is not None or _link[1] is not None:
+    if message.reply_to_message is not None or len(_link) > 1:
         LOGGER.info(message.reply_to_message.text)
         gclone = CloneHelper(message)
         gclone.config()
