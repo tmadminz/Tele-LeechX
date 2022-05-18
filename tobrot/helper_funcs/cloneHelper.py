@@ -136,6 +136,7 @@ class CloneHelper:
             )
             if INDEX_LINK:
                 _idno = 1
+                INDEX_LINK = INDEX_LINK.split(" ")
                 for indexes in INDEX_LINK:
                     if _flag == "--files-only":
                         indexurl = f"{indexes}/{self.name}"
