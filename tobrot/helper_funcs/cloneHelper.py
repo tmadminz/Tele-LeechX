@@ -136,8 +136,8 @@ class CloneHelper:
             )
             if INDEX_LINK:
                 _idno = 1
-                INDEX_LINK = INDEX_LINK.split(" ")
-                for indexes in INDEX_LINK:
+                INDEXS = INDEX_LINK.split(" ")
+                for indexes in INDEXS:
                     if _flag == "--files-only":
                         indexurl = f"{indexes}/{self.name}"
                     else:
@@ -175,8 +175,8 @@ class CloneHelper:
             LOGGER.info(am.decode("utf-8"))
             await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
             await msg.edit_text(
-                f"{_up} Cloned successfully in your Cloud <a href='tg://user?id={self.u_id}'>😊</a>\
-                \n☁️ Info:\n{g_autam}\n\n**Req By**: {self.u_men}",
+                f"♻️ Cloned successfully in your GDrive ♻️ <a href='tg://user?id={self.u_id}'>😊</a>\
+                \n📨 Name : {self.name}\n🗂 Type : {_up}\n☁️ Info :\n{g_autam}\n\nReq By: {self.u_men}",
                 reply_markup=button_markup,
                 parse_mode="html",
             )
