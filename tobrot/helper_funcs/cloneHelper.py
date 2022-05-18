@@ -52,7 +52,7 @@ class CloneHelper:
         mes = self.mess
         reply_to = mes.reply_to_message
         mystery = mes.text.split(" ", maxsplit=1)
-        if mystery > 1:
+        if len(mystery) > 1:
             txt = mystery[1]
         else:
             txt = reply_to.text 
