@@ -11,6 +11,7 @@ import aria2p
 import requests
 from tobrot import (
     DOWNLOAD_LOCATION,
+    CLONE_COMMAND_G,
     GLEECH_COMMAND,
     GLEECH_UNZIP_COMMAND,
     GLEECH_ZIP_COMMAND,
@@ -282,7 +283,8 @@ async def g_yt_playlist(client, message):
 async def g_clonee(client, message):
     """ /gclone command """
     g_id = message.from_user.id
-    if message.reply_to_message is not None:
+    _link = message.text.split(" ", maxsplit=1)
+    if message.reply_to_message is not None or _link[1] is not None:
         LOGGER.info(message.reply_to_message.text)
         gclone = CloneHelper(message)
         gclone.config()
@@ -293,7 +295,11 @@ async def g_clonee(client, message):
         await gclone.link_gen_size()
     else:
         await message.reply_text(
-            "You should reply to a message, which format should be [ID of Gdrive file/folder Name of the file/folder]\nOr read Github for detailled information"
+            f"""**Send GDrive Link Along with Command :**
+/{CLONE_COMMAND_G}(BotName) `Link`
+
+**Reply to a GDrive Link :**
+/{CLONE_COMMAND_G}(BotName) to Link"""
         )
 
 
