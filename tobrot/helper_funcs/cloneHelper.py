@@ -22,7 +22,8 @@ from tobrot import (
     TG_MAX_FILE_SIZE,
     UPLOAD_AS_DOC,
 )
-
+from re import search
+from urllib.parse import parse_qs, urlparse
 
 class CloneHelper:
     def __init__(self, mess):
@@ -34,6 +35,7 @@ class CloneHelper:
         self.lsg = ""
         self.filee = ""
         self.u_id = self.mess.from_user.id
+        self.u_men = self.mess.from_user.mention
         self.dname = ""
 
     def config(self):
@@ -47,19 +49,35 @@ class CloneHelper:
 
     def get_id(self):
         mes = self.mess
-        txt = mes.reply_to_message.text
+        reply_to = mes.reply_to_message
         LOGGER.info(txt)
-        mess = txt.split(" ", maxsplit=1)
+        mystery = mes.text.split(" ", maxsplit=1)
+        if mystery > 1:
+            txt = mystery[1]
+        else:
+            txt = reply_to.text 
+        mess = txt.split("|", maxsplit=1)
         if len(mess) == 2:
-            self.g_id = mess[0]
+            self.g_id = self.getIdFromUrl(mess[0])
             LOGGER.info(self.g_id)
             self.name = mess[1]
             LOGGER.info(self.name)
         else:
-            self.g_id = mess[0]
+            self.g_id = self.getIdFromUrl(mess[0])
             LOGGER.info(self.g_id)
             self.name = ""
         return self.g_id, self.name
+
+   @staticmethod
+   def getIdFromUrl(link: str):
+        if "folders" in link or "file" in link:
+            regex = r"https:\/\/drive\.google\.com\/(?:drive(.*?)\/folders\/|file(.*?)?\/d\/)([-\w]+)"
+            res = search(regex,link)
+            if res is None:
+                LOGGER.info("G-Drive ID not found.")
+            return res.group(3)
+        parsed = urlparse(link)
+        return parse_qs(parsed.query)['id'][0]
 
     async def link_gen_size(self):
         if self.name is not None:
@@ -112,24 +130,27 @@ class CloneHelper:
             button.append(
                 [
                     pyrogram.InlineKeyboardButton(
-                        text="🔮 CLOUD LINK", url=f"{gau_link}"
+                        text="☁️ GDrive Link ☁️", url=f"{gau_link}"
                     )
                 ]
             )
             if INDEX_LINK:
-                if _flag == "--files-only":
-                    indexurl = f"{INDEX_LINK}/{self.name}"
-                else:
-                    indexurl = f"{INDEX_LINK}/{self.name}/"
-                tam_link = requests.utils.requote_uri(indexurl)
-                LOGGER.info(tam_link)
-                button.append(
-                    [
-                        pyrogram.InlineKeyboardButton(
-                            text="💡 𝐈𝐧𝐝𝐞𝐱 𝐋𝐢𝐧𝐤", url=f"{tam_link}"
-                        )
-                    ]
-                )
+                _idno = 1
+                for indexes in INDEX_LINK:
+                    if _flag == "--files-only":
+                        indexurl = f"{indexes}/{self.name}"
+                    else:
+                        indexurl = f"{indexes}/{self.name}/"
+                    tam_link = requests.utils.requote_uri(indexurl)
+                    LOGGER.info(tam_link)
+                    button.append(
+                        [
+                            pyrogram.InlineKeyboardButton(
+                                text=f"⚡️ Index Link #{_idno}⚡️", url=f"{tam_link}"
+                            )
+                        ]
+                    )
+                    _idno = _idno + 1
             button_markup = pyrogram.InlineKeyboardMarkup(button)
             msg = await self.lsg.edit_text(
                 f"🐈: {_up} Cloned successfully in your Cloud <a href='tg://user?id={self.u_id}'>😊</a>\
@@ -153,8 +174,8 @@ class CloneHelper:
             LOGGER.info(am.decode("utf-8"))
             await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
             await msg.edit_text(
-                f"🐈: {_up} Cloned successfully in your Cloud <a href='tg://user?id={self.u_id}'>😊</a>\
-                \n📀 Info:\n{g_autam}",
+                f"{_up} Cloned successfully in your Cloud <a href='tg://user?id={self.u_id}'>😊</a>\
+                \n☁️ Info:\n{g_autam}\n\n**Req By**: {self.u_men}",
                 reply_markup=button_markup,
                 parse_mode="html",
             )
