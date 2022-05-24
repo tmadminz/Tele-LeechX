@@ -23,6 +23,8 @@ from tobrot import (
     TG_MAX_FILE_SIZE,
     UPLOAD_AS_DOC,
 )
+from tobrot.plugins import is_appdrive_link, is_gdtot_link
+from tobrot.helper_funcs.direct_link_generator import gdtot, appdrive_dl
 from re import search
 from urllib.parse import parse_qs, urlparse
 
@@ -57,13 +59,25 @@ class CloneHelper:
         else:
             txt = reply_to.text 
         mess = txt.split("|", maxsplit=1)
+        LOGGER.info(txt)
+        if is_gdtot_link(mess[0]):
+            process = await mes.reply_text(f"**Processing GDToT Link** : `{mess[0]}`")
+            message = gdtot(mess[0])
+            await process.edit_text(f"**GDToT Link** : `{mess[0]}`\n**GDrive Link** : `{message}`")
+        elif is_appdrive_link(mess[0]):
+            process = await mes.reply_text(f"**Processing AppDrive Link** : `{mess[0]}`")
+            info_parsed = appdrive_dl(mess[0], is_direct=False)
+            message = info_parsed['gdrive_link']
+            await process.edit_text(f"**AppDrive Link** : `{mess[0]}`\n**GDrive Link** : `{message}`")
+        else:
+            message = mess[0]
         if len(mess) == 2:
-            self.g_id = self.getIdFromUrl(mess[0])
+            self.g_id = self.getIdFromUrl(message)
             LOGGER.info(self.g_id)
             self.name = mess[1]
             LOGGER.info(self.name)
         else:
-            self.g_id = self.getIdFromUrl(mess[0])
+            self.g_id = self.getIdFromUrl(message)
             LOGGER.info(self.g_id)
             self.name = ""
         return self.g_id, self.name
