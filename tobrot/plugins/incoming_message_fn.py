@@ -6,8 +6,6 @@ import asyncio
 import logging
 import os
 import time
-from tobrot.plugins import is_appdrive_link, is_gdtot_link
-from tobrot.helper_funcs.direct_link_generator import gdtot, appdrive_dl
 from pathlib import Path
 import aria2p
 import requests
@@ -295,21 +293,6 @@ async def g_clonee(client, message):
         linky = None
 
     if linky is not None:
-        try:
-            nw_link = linky.split("|", maxsplit=1)
-            linky = nw_link[0]
-        except IndexError:
-            pass
-        LOGGER.info(linky)
-        if is_gdtot_link(linky):
-            process = await message.reply_text(f"**Processing GDToT Link** : `{linky}`")
-            message = gdtot(linky)
-            await process.edit_text(f"**GDToT Link** : `{linky}`\n**GDrive Link** : `{message}`")
-        if is_appdrive_link(linky):
-            process = await message.reply_text(f"**Processing AppDrive Link** : `{linky}`")
-            info_parsed = appdrive_dl(linky, is_direct=False)
-            message = info_parsed['gdrive_link']
-            await process.edit_text(f"**AppDrive Link** : `{linky}`\n**GDrive Link** : `{message}`")
         gclone = CloneHelper(message)
         gclone.config()
         a, h = gclone.get_id()
