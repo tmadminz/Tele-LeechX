@@ -295,7 +295,7 @@ async def g_clonee(client, message):
     if linky is not None:
         gclone = CloneHelper(message)
         gclone.config()
-        a, h = gclone.get_id()
+        a, h = await gclone.get_id()
         LOGGER.info(a)
         LOGGER.info(h)
         await gclone.gcl()
