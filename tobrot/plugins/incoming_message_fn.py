@@ -284,8 +284,15 @@ async def g_clonee(client, message):
     """ /gclone command """
     g_id = message.from_user.id
     _link = message.text.split(" ", maxsplit=1)
-    if message.reply_to_message is not None or len(_link) > 1:
-        LOGGER.info(message.reply_to_message.text)
+    reply_to = message.reply_to_message
+    if len(_link) > 1:
+        linky = _link[1]
+    elif reply_to is not None:
+        linky = reply_to.text 
+    else:
+        linky = None
+    if linky is not None:
+        LOGGER.info(linky)
         gclone = CloneHelper(message)
         gclone.config()
         a, h = gclone.get_id()
@@ -299,7 +306,10 @@ async def g_clonee(client, message):
 /{CLONE_COMMAND_G}(BotName) `Link`
 
 **Reply to a GDrive Link :**
-/{CLONE_COMMAND_G}(BotName) to Link"""
+/{CLONE_COMMAND_G}(BotName) to Link
+
+**SUPPORTED SITES :**
+__Google Drive Link__"""
         )
 
 
