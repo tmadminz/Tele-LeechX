@@ -302,14 +302,14 @@ async def g_clonee(client, message):
             pass
         LOGGER.info(linky)
         if is_gdtot_link(linky):
-            await message.reply_text(f"**Processing GDToT Link** : `{linky}`")
+            process = await message.reply_text(f"**Processing GDToT Link** : `{linky}`")
             message = gdtot(linky)
-            await message.edit_text(f"**GDToT Link** : `{linky}`\n**GDrive Link** : `{message}`")
+            await process.edit_text(f"**GDToT Link** : `{linky}`\n**GDrive Link** : `{message}`")
         if is_appdrive_link(linky):
-            await message.reply_text(f"**Processing AppDrive Link** : `{linky}`")
+            process = await message.reply_text(f"**Processing AppDrive Link** : `{linky}`")
             info_parsed = appdrive_dl(linky, is_direct=False)
             message = info_parsed['gdrive_link']
-            await message.edit_text(f"**AppDrive Link** : `{linky}`\n**GDrive Link** : `{message}`")
+            await process.edit_text(f"**AppDrive Link** : `{linky}`\n**GDrive Link** : `{message}`")
         gclone = CloneHelper(message)
         gclone.config()
         a, h = gclone.get_id()
