@@ -50,7 +50,7 @@ class CloneHelper:
                 con = file.read()
                 self.dname = re.findall("\[(.*)\]", con)[0]
 
-    def get_id(self):
+    async def get_id(self):
         mes = self.mess
         reply_to = mes.reply_to_message
         mystery = mes.text.split(" ", maxsplit=1)
