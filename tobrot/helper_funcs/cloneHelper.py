@@ -193,7 +193,7 @@ class CloneHelper:
             )
 
     async def gcl(self):
-        self.lsg = await self.mess.reply_text(f"`🚦 Cloning GDrive Link ...`")
+        self.lsg = await self.mess.reply_text(f"`♻️ Cloning GDrive Link`")
         destination = f"{DESTINATION_FOLDER}"
         idd = "{" f"{self.g_id}" "}"
         cmd = [
@@ -218,9 +218,18 @@ class CloneHelper:
         LOGGER.info(err)
         LOGGER.info(self.out.decode())
 
-        if self.name == "":
-            reg_f = "INFO(.*)(:)(.*)(:) (Copied)"
-            file_n = re.findall(reg_f, err)
-            LOGGER.info(file_n[0][2].strip())
-            self.name = file_n[0][2].strip()
-            self.filee = self.name
+        try:
+            if self.name == "":
+                reg_f = "INFO(.*)(:)(.*)(:) (Copied)"
+                file_n = re.findall(reg_f, err)
+                self.name = file_n[0][2].strip()
+                LOGGER.info(file_n[0][2].strip())
+                self.filee = self.name
+        except IndexError:
+            await asyncio.sleep(3)
+            await self.lsg.delete()
+            await gcl(self)
+        except Exception as err:
+            LOGGER.info(err)
+            await self.lsg.edit_text(f"‼️ **ERROR** ‼️\n\n`{err}`")
+            
