@@ -84,10 +84,10 @@ async def incoming_message_f(client, message):
                 text__ += f"📂 <b>Media Type</b> :  🎶 <code>Audio</code> 🎶 "
             else:
                 text__ += ""
-        link = reply_to.text
-        elif link.lower().startswith("magnet:"):
-            text__ += f"🧲 <b>Magnet Link</b> :  <code>{link}</code>"
+        elif reply_to.text.lower().startswith("magnet:"):
+            text__ += f"🧲 <b>Magnet Link</b> :  <code>{reply_to.text}</code>"
         else:
+            link = reply_to.text
             cusfname = ""
             cusfnam = link.split("|", maxsplit=1)
             if len(cusfnam) > 1:
