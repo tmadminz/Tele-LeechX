@@ -105,7 +105,7 @@ def url_link_generate(text_url: str):
         return gdtot(text_url)
     elif 'gplinks.co' in text_url:
         return gplink(text_url)
-    elif is_appdrive_link(text_url) or any(x in link for x in drive_list):
+    elif is_appdrive_link(text_url) or any(x in text_url for x in drive_list):
         is_direct = True
         return appdrive_dl(text_url, is_direct)
     elif 'linkvertise.com' in text_url:
