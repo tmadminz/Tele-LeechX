@@ -8,6 +8,8 @@ from tobrot.plugins import is_appdrive_link, is_gdtot_link, is_hubdrive_link
 from tobrot.helper_funcs.direct_link_generator import url_link_generate, gdtot, appdrive_dl, hubdrive 
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
 
+drive_list = ['driveapp.in, 'gdflix.pro', 'drivelinks.in', 'drivesharer.in', 'driveflix.in', 'drivebit.in', 'drivehub.in', 'driveace.in']
+
 async def url_parser(client, message):
    
     op = await message.reply_text(
@@ -50,7 +52,7 @@ async def url_parser(client, message):
             )
     else:
         oo = await op.edit_text(
-            text="**Send Link Along with Command :**\n/parser(BotName) `{link}`\n\n **Reply to a Link :**\n/parser(BotName) to Link",
+            text="**Send Link Along with Command :**\n/parser(BotName) `{link}`\n\n **Reply to a Link :**\n/parser(BotName) to Link \n\n**SUPPORTED SITES**\n__Coming Soon__",
         )
         return
 
@@ -122,21 +124,25 @@ async def bypass_link(text_url: str):
     elif is_gdtot_link(text_url):
         try:
             info_parsed = gdtot(text_url)
-            url_string = f"☁️ **GDrive URL** : `{info_parsed}`"
+            url_string = f"📨 **Name** : `{info_parsed['title']}` \n📁 **File Size** : `{info_parsed['size']}` \n📆 **Date** : `{info_parsed['date']}` \n☁️ **GDrive URL** : `{info_parsed['gdrive_link']}`"
             return False, url_string
         except DirectDownloadLinkException as e:
             LOGGER.info(f'{text_url}: {e}')
-    elif is_appdrive_link(text_url):
+    elif is_appdrive_link(text_url) or any(x in link for x in drive_list):
         try:
             is_direct = False
             info_parsed = appdrive_dl(text_url, is_direct)
-            url_string = f"📨 **Name** : `{info_parsed['name']}`\n💾 **Format** : `{info_parsed['format']}`\n📁 **File Size** : `{info_parsed['size']}`\n📮 **Error** : `{info_parsed['error']}`\n📎 **Link Type** : `{info_parsed['link_type']}`\n☁️ **GDrive URL** : `{info_parsed['gdrive_link']}`"
+            if {info_parsed['error']}:
+                url_string = f"⛔ `Parsing Error` ⛔ : \n {info_parsed['error_message']}"
+            else:
+                url_string = f"📨 **Name** : `{info_parsed['name']}`\n💾 **Format** : `{info_parsed['format']}`\n📁 **File Size** : `{info_parsed['size']}`\n📎 **Link Type** : `{info_parsed['link_type']}`\n☁️ **GDrive URL** : `{info_parsed['gdrive_link']}`"
             return False, url_string
         except Exception as e:
             url_string = f"⛔ `Internal Error` ⛔ : \n {e}"
             return False, url_string 
-        except DirectDownloadLinkException as e:
-            LOGGER.info(f'{text_url}: {e}')
+        except DirectDownloadLinkException as er:
+            LOGGER.info(f'{text_url}: {er}')
+            return False, er
     else:
         return True, None
 
