@@ -29,11 +29,11 @@ from lk21.extractors.bypasser import Bypass
 from bs4 import BeautifulSoup
 from base64 import standard_b64encode
 
-from tobrot import UPTOBOX_TOKEN, LOGGER, EMAIL, PWSSD, CRYPT, GDRIVE_FOLDER_ID, HUB_CRYPT, DRIVEFIRE_CRYPT, KATDRIVE_CRYPT
+from tobrot import UPTOBOX_TOKEN, LOGGER, EMAIL, PWSSD, CRYPT, GDRIVE_FOLDER_ID, HUB_CRYPT, DRIVEFIRE_CRYPT, KATDRIVE_CRYPT, KOLOP_CRYPT
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
 from tobrot.plugins import is_appdrive_link, is_gdtot_link 
 
-drive_list = ['driveapp.in, 'gdflix.pro', 'drivelinks.in', 'drivesharer.in', 'driveflix.in', 'drivebit.in']
+drive_list = ['driveapp.in, 'gdflix.pro', 'drivelinks.in', 'drivesharer.in', 'driveflix.in', 'drivebit.in', 'drivehub.in', 'driveace.in']
 
 def url_link_generate(text_url: str):
     """ direct links generator """
@@ -122,6 +122,12 @@ def url_link_generate(text_url: str):
         return upindia(text_url)
     elif 'hubdrive.cc' in text_url:
         return hubdrive(text_url)
+    elif "mdisk.me" in text_url:
+        return mdisk(text_url)
+    elif "drivefire.co" in text_url:
+        return drivefire_dl(text_url)
+    elif "kolop.icu" in text_url:
+        return kolop_dl(text_url)
     elif 'adf.ly' in text_url:
         return adfly(text_url)
     elif 'https://sourceforge.net' in text_url:
@@ -134,10 +140,6 @@ def url_link_generate(text_url: str):
         return androidfilehost(text_url)
     elif "sfile.mobi" in text_url:
         return sfile(text_url)
-    elif "mdisk.me" in text_url:
-        return mdisk(text_url)
-    elif "drivefire" in text_url:
-        return drivefire_dl(text_url)
     elif "wetransfer.com" in text_url or "we.tl" in text_url:
         return wetransfer(text_url)
     elif "corneey.com" in text_url or "sh.st" in text_url:
@@ -1182,6 +1184,44 @@ def katdrive_dl(url):
     for i in range(0, len(info_chunks), 2):
         info_parsed[info_chunks[i]] = info_chunks[i+1]
     
+    info_parsed['error'] = False
+    
+    up = urlparse(url)
+    req_url = f"{up.scheme}://{up.netloc}/ajax.php?ajax=download"
+    
+    file_id = url.split('/')[-1]
+    data = { 'id': file_id }
+    headers = {
+        'x-requested-with': 'XMLHttpRequest'
+    }
+    
+    try:
+        res = client.post(req_url, headers=headers, data=data).json()['file']
+    except: return {'error': True, 'src_url': url}
+    
+    gd_id = re.findall('gd=(.*)', res, re.DOTALL)[0]
+    
+    info_parsed['gdrive_url'] = f"https://drive.google.com/open?id={gd_id}"
+    info_parsed['src_url'] = url
+
+    return info_parsed
+
+
+def kolop_dl(url):
+
+    if KOLOP_CRYPT is None:
+        raise DirectDownloadLinkException("Kolop CRYPT Is Not Given")
+
+    client = requests.Session()
+    client.cookies.update({'crypt': KOLOP_CRYPT})
+    
+    res = client.get(url)
+    info_parsed = {}
+    title = re.findall('>(.*?)<\/h4>', res.text)[0]
+    info_chunks = re.findall('>(.*?)<\/td>', res.text)
+    info_parsed['title'] = title
+    for i in range(0, len(info_chunks), 2):
+        info_parsed[info_chunks[i]] = info_chunks[i+1]
     info_parsed['error'] = False
     
     up = urlparse(url)
