@@ -85,7 +85,7 @@ async def incoming_message_f(client, message):
             else:
                 text__ += ""
         link = reply_to.text
-        if link.lower().startswith("magnet:"):
+        elif link.lower().startswith("magnet:"):
             text__ += f"🧲 <b>Magnet Link</b> :  <code>{link}</code>"
         else:
             cusfname = ""
