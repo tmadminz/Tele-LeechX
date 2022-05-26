@@ -131,7 +131,7 @@ async def bypass_link(text_url: str):
             return False, url_string
         except DirectDownloadLinkException as e:
             LOGGER.info(f'{text_url}: {e}')
-    elif is_appdrive_link(text_url) or any(x in link for x in drive_list):
+    elif is_appdrive_link(text_url) or any(x in text_url for x in drive_list):
         try:
             is_direct = False
             info_parsed = appdrive_dl(text_url, is_direct)
