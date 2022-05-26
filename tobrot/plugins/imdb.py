@@ -149,7 +149,7 @@ def list_to_hash(k):
     if not k:
         return "N/A"
     elif len(k) == 1:
-        return str(k[0])
+        return str("#"+k[0].replace(" ", "_"))
     elif MAX_LIST_ELM:
         k = k[:int(MAX_LIST_ELM)]
         for elem in k:
@@ -176,6 +176,9 @@ async def imdb_callback(bot, quer_y: CallbackQuery):
         ]
     message = quer_y.message.reply_to_message or quer_y.message
     template = IMDB_TEMPLATE.get(from_user, "")
+    LOGGER.info(IMDB_TEMPLATE)
+    LOGGER.info(from_user)
+    LOGGER.info(template)
     if template == "":
         template = DEF_IMDB_TEMPLATE
     if imdb and template != "":
