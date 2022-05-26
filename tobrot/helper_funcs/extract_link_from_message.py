@@ -7,6 +7,7 @@ import logging
 import aiohttp
 from pyrogram.types import MessageEntity
 from tobrot import TG_OFFENSIVE_API, LOGGER
+from tobrot.helper_funcs.direct_link_generator import url_link_generate
 
 
 def extract_url_from_entity(entities: MessageEntity, text: str):
@@ -45,7 +46,10 @@ async def extract_link(message, type_o_request):
                 custom_file_name = url_parts[1]
                 youtube_dl_username = url_parts[2]
                 youtube_dl_password = url_parts[3]
-
+        elif "mdisk.me" in message.text.lower():
+            info_parsed = url_link_generate(message.text)
+            url = info_parsed['download']
+            custom_file_name = info_parsed['filename']
         elif message.entities is not None:
             url = extract_url_from_entity(message.entities, message.text)
 
