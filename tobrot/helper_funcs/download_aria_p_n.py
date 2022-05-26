@@ -26,6 +26,7 @@ from tobrot import (
     LOGGER,
     UPDATES_CHANNEL, 
     MAX_TIME_TO_WAIT_FOR_TORRENTS_TO_START,
+    CLONE_COMMAND_G
 )
 from tobrot.helper_funcs.create_compressed_archive import (
     create_archive,
@@ -128,6 +129,7 @@ def add_torrent(aria_instance, torrent_file_path):
 
 def add_url(aria_instance, text_url, c_file_name):
     options = None
+    uris = None
     # if c_file_name is not None:
     #     options = {
     #         "dir": c_file_name
@@ -135,12 +137,12 @@ def add_url(aria_instance, text_url, c_file_name):
     if "zippyshare.com" in text_url \
         or "osdn.net" in text_url \
         or "mediafire.com" in text_url \
-        or "uptobox.com" in text_url \
+        or "https://uptobox.com" in text_url \
         or "cloud.mail.ru" in text_url \
         or "github.com" in text_url \
         or "yadi.sk" in text_url  \
         or "hxfile.co" in text_url  \
-        or "anonfiles.com" in text_url  \
+        or "https://anonfiles.com" in text_url  \
         or "letsupload.io" in text_url  \
         or "fembed.net" in text_url  \
         or "fembed.com" in text_url  \
@@ -158,12 +160,11 @@ def add_url(aria_instance, text_url, c_file_name):
         or "pixeldrain.com" in text_url  \
         or "antfiles.com" in text_url  \
         or "streamtape.com" in text_url  \
-        or "bayfiles.com" in text_url  \
+        or "https://bayfiles.com" in text_url  \
         or "1fichier.com" in text_url  \
         or "solidfiles.com" in text_url  \
         or "krakenfiles.com" in text_url  \
         or "gplinks.co" in text_url  \
-        or is_appdrive_link(text_url) \
         or "racaty.net" in text_url:
             try:
                 urisitring = url_link_generate(text_url)
@@ -173,14 +174,14 @@ def add_url(aria_instance, text_url, c_file_name):
     elif "drive.google.com" in text_url:
         return (
             False,
-            "⛔ **FAILED** ⛔ \n\n⌧ <i>Please do not send Drive links to Process. I can't Process Those !!</i>",
+            "⛔ **FAILED** ⛔ \n\n⌧ <i>Please do not send Drive links to Process with this Command. Use /{CLONE_COMMAND_G} for Cloning the Link, then Use the Index Link !!</i>",
         )
     elif "mega.nz" in text_url or "mega.co.nz" in text_url:
         return (
             False,
             "⛔ **FAILED** ⛔ \n\n⌧ <i>Please do not send Mega links . I am yet not able to Process Those !!</i>",
         )
-    elif is_gdtot_link(text_url) or is_hubdrive_link(text_url):
+    elif is_gdtot_link(text_url) or is_hubdrive_link(text_url) or is_appdrive_link(text_url):
         return (
             False,
             "⛔ **FAILED** ⛔ \n\n⌧ <i>Please Use /parser to Process the Links.</i>",
@@ -194,7 +195,7 @@ def add_url(aria_instance, text_url, c_file_name):
         return (
             False,
             "⛔ **FAILED** ⛔ \n" +
-            str(e) + " \n\n⌧ <i>Please do not send SLOW links to Process. Read /help</i>",
+            str(e) + " \n\n⌧ <i>Please do not send Slow links to Process.</i>",
         )
     else:
         return True, "" + download.gid + ""
