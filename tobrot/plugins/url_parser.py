@@ -8,7 +8,7 @@ from tobrot.plugins import is_appdrive_link, is_gdtot_link, is_hubdrive_link
 from tobrot.helper_funcs.direct_link_generator import url_link_generate, gdtot, appdrive_dl, hubdrive 
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
 
-drive_list = ['driveapp.in, 'gdflix.pro', 'drivelinks.in', 'drivesharer.in', 'driveflix.in', 'drivebit.in', 'drivehub.in', 'driveace.in']
+drive_list = ['driveapp.in', 'gdflix.pro', 'drivelinks.in', 'drivesharer.in', 'driveflix.in', 'drivebit.in', 'drivehub.in', 'driveace.in']
 
 async def url_parser(client, message):
    
@@ -90,7 +90,10 @@ async def bypass_link(text_url: str):
         or "solidfiles.com" in text_url  \
         or "krakenfiles.com" in text_url  \
         or "gplinks.co" in text_url  \
-        or "driveapp.in" in text_url  \
+        or "kolop.icu" in text_url  \
+        or "katdrive.net" in text_url  \
+        or "drivefire.co" in text_url  \
+        or "mdisk.me" in text_url  \
         or "linkvertise.com" in text_url  \
         or "droplink.co" in text_url  \
         or "gofile.io" in text_url  \
