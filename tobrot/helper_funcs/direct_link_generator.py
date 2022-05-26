@@ -29,9 +29,11 @@ from lk21.extractors.bypasser import Bypass
 from bs4 import BeautifulSoup
 from base64 import standard_b64encode
 
-from tobrot import UPTOBOX_TOKEN, LOGGER, EMAIL, PWSSD, CRYPT, PHPSESSID, GDRIVE_FOLDER_ID, HUB_CRYPT
+from tobrot import UPTOBOX_TOKEN, LOGGER, EMAIL, PWSSD, CRYPT, GDRIVE_FOLDER_ID, HUB_CRYPT, DRIVEFIRE_CRYPT, KATDRIVE_CRYPT
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
-from tobrot.plugins import is_appdrive_link
+from tobrot.plugins import is_appdrive_link, is_gdtot_link 
+
+drive_list = ['driveapp.in, 'gdflix.pro', 'drivelinks.in', 'drivesharer.in', 'driveflix.in', 'drivebit.in']
 
 def url_link_generate(text_url: str):
     """ direct links generator """
@@ -99,15 +101,13 @@ def url_link_generate(text_url: str):
         return solidfiles(text_url)
     elif 'krakenfiles.com' in text_url:
         return krakenfiles(text_url)
-    elif 'new.gdtot.nl' in text_url:
+    elif is_gdtot_link(text_url):
         return gdtot(text_url)
     elif 'gplinks.co' in text_url:
         return gplink(text_url)
-    elif is_appdrive_link(text_url):
+    elif is_appdrive_link(text_url) or any(x in link for x in drive_list):
         is_direct = True
         return appdrive_dl(text_url, is_direct)
-    elif 'driveapp.in' in text_url:
-        return appdrive_dl(text_url)
     elif 'linkvertise.com' in text_url:
         return linkvertise(text_url)
     elif 'droplink.co' in text_url:
@@ -134,7 +134,11 @@ def url_link_generate(text_url: str):
         return androidfilehost(text_url)
     elif "sfile.mobi" in text_url:
         return sfile(text_url)
-    elif "wetransfer.com" in text_url or "we.tl/" in text_url:
+    elif "mdisk.me" in text_url:
+        return mdisk(text_url)
+    elif "drivefire" in text_url:
+        return drivefire_dl(text_url)
+    elif "wetransfer.com" in text_url or "we.tl" in text_url:
         return wetransfer(text_url)
     elif "corneey.com" in text_url or "sh.st" in text_url:
         return shorte_st(text_url)
@@ -499,40 +503,55 @@ def krakenfiles(page_link: str) -> str:
         raise DirectDownloadLinkException(
             f"Failed to acquire download URL from kraken for : {page_link}")
 
-cookies = {"PHPSESSID": PHPSESSID, "crypt": CRYPT}
 
 def gdtot(url: str) -> str:
     """ Gdtot google drive link generator
-    By https://github.com/xcscxr """
+    By https://github.com/majnurangeela/BypassBot/blob/main/gdtot.py """
 
     if CRYPT is None:
-        raise DirectDownloadLinkException("ERROR: PHPSESSID and CRYPT variables not provided")
+        raise DirectDownloadLinkException("ERROR: CRYPT variable not provided")
 
-    headers = {'upgrade-insecure-requests': '1',
-               'save-data': 'on',
-               'user-agent': 'Mozilla/5.0 (Linux; Android 10; Redmi 8A Dual) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.101 Mobile Safari/537.36',
-               'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-               'sec-fetch-site': 'same-origin',
-               'sec-fetch-mode': 'navigate',
-               'sec-fetch-dest': 'document',
-               'referer': '',
-               'prefetchAd_3621940': 'true',
-               'accept-language': 'en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7'}
+    client = requests.Session()
+    client.cookies.update({ 'crypt': CRYPT })
+    res = client.get(url)
+    title = re.findall(">(.*?)<\/h5>", res.text)[0]
+    info = re.findall('<td\salign="right">(.*?)<\/td>', res.text)
+    info = {
+        'error': True,
+        'message': 'Link Invalid.',
+        'title': title,
+        'size': info[0],
+        'date': info[1]
+    }
+    new_gdtot = requests.get("https://new.gdtot.org/").url
 
-    r1 = requests.get(url, headers=headers, cookies=cookies).content
-    s1 = BeautifulSoup(r1, 'html.parser').find('button', id="down").get('onclick').split("'")[1]
-    headers['referer'] = url
-    s2 = BeautifulSoup(requests.get(s1, headers=headers, cookies=cookies).content, 'html.parser').find('meta').get('content').split('=',1)[1]
-    headers['referer'] = s1
-    s3 = BeautifulSoup(requests.get(s2, headers=headers, cookies=cookies).content, 'html.parser').find('div', align="center")
-    if s3 is not None:
-        return s3.find(
-            'a', class_="btn btn-outline-light btn-user font-weight-bold"
-        ).get('href')
+    info['src_url'] = url
+    res = client.get(f"{new_gdtot}dld?id={url.split('/')[-1]}")
+    try:
+        url = re.findall('URL=(.*?)"', res.text)[0]
+        print(url)
+    except:
+        info['message'] = 'The requested URL could not be retrieved.',
+        return info
 
-    s3 = BeautifulSoup(requests.get(s2, headers=headers, cookies=cookies).content, 'html.parser')
-    status = s3.find('h4').text
-    raise DirectDownloadLinkException(f"ERROR: {status}") 
+    params = parse_qs(urlparse(url).query)
+
+    if 'msgx' in params:
+        info['message'] = params['msgx'][0]
+    if 'gd' not in params or not params['gd'] or params['gd'][0] == 'false':
+        return info
+
+    try:
+        decoded_id = base64.b64decode(str(params['gd'][0])).decode('utf-8')
+        gdrive_url = f'https://drive.google.com/open?id={decoded_id}'
+        info['message'] = 'Success.'
+    except:
+        info['error'] = True
+        return info
+
+    info['gdrive_link'] = gdrive_url
+    return info
+
 
 def gplink(url):
 
@@ -631,12 +650,20 @@ def appdrive_dl(url: str, is_direct) -> str:
         res = client.get(info_parsed['gdrive_link'])
         drive_link = etree.HTML(res.content).xpath("//a[contains(@class,'btn')]/@href")[0]
         info_parsed['gdrive_link'] = drive_link
+    if urlparse(url).netloc == 'drivesharer.in' and not info_parsed['error']:
+        res = client.get(info_parsed['gdrive_link'])
+        drive_link = etree.HTML(res.content).xpath("//a[contains(@class,'btn btn-primary')]/@href")[0]
+        info_parsed['gdrive_link'] = drive_link
+    if urlparse(url).netloc == 'drivebit.in' and not info_parsed['error']:
+        res = client.get(info_parsed['gdrive_link'])
+        drive_link = etree.HTML(res.content).xpath("//a[contains(@class,'btn btn-primary')]/@href")[0]
+        info_parsed['gdrive_link'] = drive_link
     info_parsed['src_url'] = url
-    if info_parsed['error']:
-        raise DirectDownloadLinkException(f"{info_parsed['error_message']}")
+    #if info_parsed['error']:
+        #raise DirectDownloadLinkException(f"{info_parsed['error_message']}")
     if is_direct:
         linkx = urllib.parse.quote(info_parsed['name'])
-        INDEX_URL = f"https://infyplexultra.mysterydemon.workers.dev/0:/{linkx}"
+        INDEX_URL = f"https://covid.demonn.workers.dev/0:/FuZionXBot/{linkx}"
         return INDEX_URL 
     else:
         return info_parsed
@@ -1041,14 +1068,23 @@ def wetransfer(url: str):
     }
     if recipient_id:
         j["recipient_id"] = recipient_id
-    s = requests.Session()
+    s = ression()
     r = s.get('https://wetransfer.com/')
     m = re.search('name="csrf-token" content="([^"]+)"', r.text)
-    s.headers.update({'X-CSRF-Token': m.group(1)})
+    s.headers.update(
+        {
+            "x-csrf-token": m.group(1),
+            "x-requested-with": "XMLHttpRequest",
+        }
+    )
     r = s.post(WETRANSFER_DOWNLOAD_URL.format(transfer_id=transfer_id),
                json=j)
     j = r.json()
-    return j
+    try:
+        if "direct_link" in j:
+            return j["direct_link"]
+    except:
+        raise DirectDownloadLinkException("ERROR: Error while trying to generate Direct Link from WeTransfer!") 
 
 
 def shorte_st(url: str):    
@@ -1067,4 +1103,103 @@ def shorte_st(url: str):
     dest_url = re.findall('"(.*?)"', res.text)[1].replace('\/','/')
     return dest_url
 
+def mdisk(url: str) -> str:
+    """MDisk DDL link generator"""
 
+    try:
+        fxl = url.split("/")
+        urlx = fxl[-1]
+        scraper = create_scraper(interpreter="nodejs", allow_brotli=False)
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.125 Safari/537.36"
+        }
+        apix = f"http://x.egraph.workers.dev/?param={urlx}"
+        try:
+            response = scraper.get(apix, headers=headers)
+            query = response.json()
+        except:
+            raise DirectDownloadLinkException("ERROR: Error while trying to generate Direct Link from MDisk!")
+        LOGGER.info(query)
+        uhh = query 
+        text = uhh["download"]
+        return text
+    except:
+        raise DirectDownloadLinkException("ERROR: Error while trying to generate Direct Link from MDisk!") 
+
+
+def drivefire_dl(url: str):
+
+    if DRIVEFIRE_CRYPT is None:
+        raise DirectDownloadLinkException("DriveFire CRYPT Is Not Given")
+
+    client = requests.Session()
+    client.cookies.update({'crypt': DRIVEFIRE_CRYPT})
+    
+    res = client.get(url)
+
+    info_parsed = {}
+    title = re.findall('>(.*?)<\/h4>', res.text)[0]
+    info_chunks = re.findall('>(.*?)<\/td>', res.text)
+    info_parsed['title'] = title
+    for i in range(0, len(info_chunks), 2):
+        info_parsed[info_chunks[i]] = info_chunks[i+1]
+    
+    info_parsed['error'] = False
+    
+    up = urlparse(url)
+    req_url = f"{up.scheme}://{up.netloc}/ajax.php?ajax=download"
+    
+    file_id = url.split('/')[-1]
+    data = { 'id': file_id }
+    headers = {
+        'x-requested-with': 'XMLHttpRequest'
+    }
+    
+    try:
+        res = client.post(req_url, headers=headers, data=data).json()['file']
+    except: return {'error': True, 'src_url': url}
+    
+    decoded_id = res.rsplit('/', 1)[-1]
+    info_parsed = f"https://drive.google.com/file/d/{decoded_id}"
+
+    return info_parsed
+
+
+def katdrive_dl(url):
+
+    if KATDRIVE_CRYPT is None:
+        raise DirectDownloadLinkException("KatDrive CRYPT Is Not Given")
+
+    client = requests.Session()
+    client.cookies.update({'crypt': KATDRIVE_CRYPT})
+    
+    res = client.get(url)
+
+    info_parsed = {}
+    title = re.findall('>(.*?)<\/h4>', res.text)[0]
+    info_chunks = re.findall('>(.*?)<\/td>', res.text)
+    info_parsed['title'] = title
+    for i in range(0, len(info_chunks), 2):
+        info_parsed[info_chunks[i]] = info_chunks[i+1]
+    
+    info_parsed['error'] = False
+    
+    up = urlparse(url)
+    req_url = f"{up.scheme}://{up.netloc}/ajax.php?ajax=download"
+    
+    file_id = url.split('/')[-1]
+    data = { 'id': file_id }
+    headers = {
+        'x-requested-with': 'XMLHttpRequest'
+    }
+    
+    try:
+        res = client.post(req_url, headers=headers, data=data).json()['file']
+    except: return {'error': True, 'src_url': url}
+    
+    gd_id = re.findall('gd=(.*)', res, re.DOTALL)[0]
+    
+    info_parsed['gdrive_url'] = f"https://drive.google.com/open?id={gd_id}"
+    info_parsed['src_url'] = url
+
+    return info_parsed
