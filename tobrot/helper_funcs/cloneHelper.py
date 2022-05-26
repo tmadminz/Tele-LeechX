@@ -24,7 +24,7 @@ from tobrot import (
     UPLOAD_AS_DOC,
 )
 from tobrot.plugins import is_appdrive_link, is_gdtot_link
-from tobrot.helper_funcs.direct_link_generator import gdtot, appdrive_dl
+from tobrot.helper_funcs.direct_link_generator import gdtot, appdrive_dl, url_link_generate
 from re import search
 from urllib.parse import parse_qs, urlparse
 
@@ -76,6 +76,16 @@ class CloneHelper:
             info_parsed = url_link_generate(mess[0])
             message = info_parsed['gdrive_url']
             await process.edit_text(f"{def_text}**📎 Kolop Link** : `{mess[0]}`\n**☁️ GDrive Link** : `{message}`")
+        elif "hubdrive.cc" in mess[0]:
+            process = await mes.reply_text(f"{def_text}**📎 HubDrive Link** : `{mess[0]}`\n\n `Generating . . .`")
+            info_parsed = url_link_generate(mess[0])
+            message = info_parsed['gdrive_url']
+            await process.edit_text(f"{def_text}**📎 HubDrive Link** : `{mess[0]}`\n**☁️ GDrive Link** : `{message}`")
+        elif "drivelinks.in" in mess[0]:
+            process = await mes.reply_text(f"{def_text}**📎 DriveLinks Link** : `{mess[0]}`\n\n `Generating . . .`")
+            info_parsed = appdrive_dl(mess[0], is_direct=False)
+            message = info_parsed['gdrive_link']
+            await process.edit_text(f"{def_text}**📎 DriveLinks Link** : `{mess[0]}`\n**☁️ GDrive Link** : `{message}`")
         elif "drive.google.com" in mess[0]:
             await mes.reply_text(f"{def_text}**☁️ GDrive Link** : `{mess[0]}`")
             message = mess[0]
