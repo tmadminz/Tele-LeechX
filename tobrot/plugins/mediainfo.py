@@ -5,6 +5,7 @@
 
 import asyncio
 import os
+import datetime
 
 from html_telegraph_poster import TelegraphPoster
 from pyrogram import filters
@@ -82,7 +83,7 @@ async def mediainfo(client, message):
 ┃• <b>File Name :</b> <code>{x_media['file_name']}</code>
 ┃• <b>Mime Type :</b> <code>{x_media['mime_type']}</code>
 ┃• <b>File Size :</b> <code>{humanbytes(x_media['file_size'])}</code>
-┃• <b>Date :</b> <code>{x_media['date']}</code>
+┃• <b>Date :</b> <code>{datetime.datetime.utcfromtimestamp(x_media['date']).strftime('%I:%M:%S %p %d %B, %Y')}</code>
 ┃• <b>File ID :</b> <code>{x_media['file_id']}</code>
 ┃• <b>Media Type :</b> <code>{text_}</code>
 ┃
