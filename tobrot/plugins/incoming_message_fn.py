@@ -82,7 +82,7 @@ async def incoming_message_f(client, message):
                 text__ += f"📂 <b>Media Type</b> :  🎥 <code>Video</code> 🎥"
             elif reply_to.audio:
                 text__ += f"📂 <b>Media Type</b> :  🎶 <code>Audio</code> 🎶 "
-            else
+            else:
                 text__ += ""
         link = reply_to.text
         if link.lower().startswith("magnet:"):
