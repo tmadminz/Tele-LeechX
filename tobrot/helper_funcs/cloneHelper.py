@@ -60,17 +60,28 @@ class CloneHelper:
             txt = reply_to.text 
         mess = txt.split("|", maxsplit=1)
         LOGGER.info(txt)
+        def_text = f"__⚡️Clone Initiated⚡️__\n\n👤 **User** : {self.u_men} ( #ID{self.u_id} )\n"
         if is_gdtot_link(mess[0]):
-            process = await mes.reply_text(f"**Processing GDToT Link** : `{mess[0]}`")
-            message = gdtot(mess[0])
-            await process.edit_text(f"**GDToT Link** : `{mess[0]}`\n**GDrive Link** : `{message}`")
+            process = await mes.reply_text(f"{def_text}**📎 GDToT Link** : `{mess[0]}`\n\n `Generating . . .`")
+            info_parsed = gdtot(mess[0])
+            message = info_parsed['gdrive_link']
+            await process.edit_text(f"{def_text}**📎GDToT Link** : `{mess[0]}`\n**☁️ GDrive Link** : `{message}`")
         elif is_appdrive_link(mess[0]):
-            process = await mes.reply_text(f"**Processing AppDrive Link** : `{mess[0]}`")
+            process = await mes.reply_text(f"{def_text}**📎 AppDrive Link** : `{mess[0]}`\n\n `Generating . . .`")
             info_parsed = appdrive_dl(mess[0], is_direct=False)
             message = info_parsed['gdrive_link']
-            await process.edit_text(f"**AppDrive Link** : `{mess[0]}`\n**GDrive Link** : `{message}`")
-        else:
+            await process.edit_text(f"{def_text}**📎 AppDrive Link** : `{mess[0]}`\n**☁️ GDrive Link** : `{message}`")
+        elif "kolop.icu" in mess[0]:
+            process = await mes.reply_text(f"{def_text}**📎 Kolop Link** : `{mess[0]}`\n\n `Generating . . .`")
+            info_parsed = url_link_generate(mess[0])
+            message = info_parsed['gdrive_url']
+            await process.edit_text(f"{def_text}**📎 Kolop Link** : `{mess[0]}`\n**☁️ GDrive Link** : `{message}`")
+        elif "drive.google.com" in mess[0]:
+            await mes.reply_text(f"{def_text}**☁️ GDrive Link** : `{mess[0]}`")
             message = mess[0]
+        else:
+            await mes.reply_text(f"**Unsupported Link** : `{mess[0]}`")
+            return
         if len(mess) == 2:
             self.g_id = self.getIdFromUrl(message)
             LOGGER.info(self.g_id)
