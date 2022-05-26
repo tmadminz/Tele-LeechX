@@ -2,8 +2,10 @@
 # Copyright (c) 5MysterySD 2022
 
 import re
+import datetime 
 
 from tobrot import LOGGER
+from tobrot.helper_funcs.display_progress import humanbytes, TimeFormatter
 from tobrot.plugins import is_appdrive_link, is_gdtot_link, is_hubdrive_link 
 from tobrot.helper_funcs.direct_link_generator import url_link_generate, gdtot, appdrive_dl, hubdrive 
 from tobrot.helper_funcs.exceptions import DirectDownloadLinkException
@@ -94,7 +96,6 @@ async def bypass_link(text_url: str):
         or "drivefire.co" in text_url  \
         or "drivebuzz.icu" in text_url  \
         or "gadrive.vip" in text_url  \
-        or "mdisk.me" in text_url  \
         or "linkvertise.com" in text_url  \
         or "droplink.co" in text_url  \
         or "gofile.io" in text_url  \
@@ -136,7 +137,7 @@ async def bypass_link(text_url: str):
         try:
             is_direct = False
             info_parsed = appdrive_dl(text_url, is_direct)
-            if {info_parsed['error']} == True:
+            if info_parsed['error'] == True:
                 url_string = f"⛔ **Parsing Error** ⛔ : \n `{info_parsed['error_message']}`"
             else:
                 url_string = f"📨 **Name** : `{info_parsed['name']}`\n💾 **Format** : `{info_parsed['format']}`\n📁 **File Size** : `{info_parsed['size']}`\n📎 **Link Type** : `{info_parsed['link_type']}`\n☁️ **GDrive URL** : `{info_parsed['gdrive_link']}`"
@@ -150,7 +151,7 @@ async def bypass_link(text_url: str):
     elif "kolop.icu" in text_url:
         try:
             info_parsed = url_link_generate(text_url)
-            if {info_parsed['error']} == True:
+            if info_parsed['error'] == True:
                 url_string = f"⛔ **Parsing Error** ⛔ : \n `{info_parsed['error_message']}`"
             else:
                 url_string = f"📨 **Name** : `{info_parsed['title']}`\n📁 **File Size** : `{info_parsed['File Size']}`\n🧾 **Mime Type** : `{info_parsed['File Type']}`\n💳 **File Owner** : `{info_parsed['File Owner']}`\n☁️ **GDrive URL** : `{info_parsed['gdrive_url']}`"
@@ -161,6 +162,14 @@ async def bypass_link(text_url: str):
         except DirectDownloadLinkException as er:
             LOGGER.info(f'{text_url}: {er}')
             return False, er
+    elif "mdisk.me" in text_url:
+        try:
+            info_parsed = url_link_generate(text_url)
+            org_date = datetime.datetime.utcfromtimestamp(int("info_parsed['ts']")/1000).strftime('%I:%M:%S %p %d %B, %Y')
+            url_string = f"📨 **Name** : `{info_parsed['filename']}` \n📁 **File Size** : `{humanbytes(info_parsed['size'])}` \n🎞 **Duration** : `{TimeFormatter(info_parsed['duration'])}` \n💾 **Resolution** : `{info_parsed['width']} × {info_parsed['height']}` \n📆 **Upload On** : `{org_date}` \n💳 **File Uploader** : [{info_parsed['display_name']}](tg://user?id={info_parsed['from']}) \n📎 **Download URL** : `{info_parsed['download']}`"
+            return False, url_string
+        except DirectDownloadLinkException as er:
+            LOGGER.info(f'{text_url}: {er}')
     else:
         return True, None
 
