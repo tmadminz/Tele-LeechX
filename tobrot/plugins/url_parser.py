@@ -165,8 +165,7 @@ async def bypass_link(text_url: str):
     elif "mdisk.me" in text_url:
         try:
             info_parsed = url_link_generate(text_url)
-            org_date = datetime.datetime.utcfromtimestamp(int("info_parsed['ts']")/1000).strftime('%I:%M:%S %p %d %B, %Y')
-            url_string = f"📨 **Name** : `{info_parsed['filename']}` \n📁 **File Size** : `{humanbytes(info_parsed['size'])}` \n🎞 **Duration** : `{TimeFormatter(info_parsed['duration'])}` \n💾 **Resolution** : `{info_parsed['width']} × {info_parsed['height']}` \n📆 **Upload On** : `{org_date}` \n💳 **File Uploader** : [{info_parsed['display_name']}](tg://user?id={info_parsed['from']}) \n📎 **Download URL** : `{info_parsed['download']}`"
+            url_string = f"📨 **Name** : `{info_parsed['filename']}` \n📁 **File Size** : `{humanbytes(info_parsed['size'])}` \n🎞 **Duration** : `{TimeFormatter(info_parsed['duration'])}` \n💾 **Resolution** : `{info_parsed['width']} × {info_parsed['height']}` \n📆 **Upload On** : `{datetime.datetime.utcfromtimestamp(int("info_parsed['ts']")/1000).strftime('%I:%M:%S %p %d %B, %Y')}` \n💳 **File Uploader** : [{info_parsed['display_name']}](tg://user?id={info_parsed['from']}) \n📎 **Download URL** : `{info_parsed['download']}`"
             return False, url_string
         except DirectDownloadLinkException as er:
             LOGGER.info(f'{text_url}: {er}')
