@@ -21,8 +21,7 @@ import base64
 
 from os import popen
 from random import choice
-from urllib.parse import urlparse
-from urllib.parse import unquote
+from urllib.parse import urlparse, unquote, parse_qs
 from lxml import etree
 from js2py import EvalJs
 from lk21.extractors.bypasser import Bypass
