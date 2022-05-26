@@ -135,7 +135,7 @@ async def bypass_link(text_url: str):
         try:
             is_direct = False
             info_parsed = appdrive_dl(text_url, is_direct)
-            if {info_parsed['error']}:
+            if {info_parsed['error']} == True:
                 url_string = f"⛔ `Parsing Error` ⛔ : \n {info_parsed['error_message']}"
             else:
                 url_string = f"📨 **Name** : `{info_parsed['name']}`\n💾 **Format** : `{info_parsed['format']}`\n📁 **File Size** : `{info_parsed['size']}`\n📎 **Link Type** : `{info_parsed['link_type']}`\n☁️ **GDrive URL** : `{info_parsed['gdrive_link']}`"
