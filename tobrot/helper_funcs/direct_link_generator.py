@@ -1116,7 +1116,7 @@ def mdisk(url: str) -> str:
     try:
         fxl = url.split("/")
         urlx = fxl[-1]
-        scraper = create_scraper(interpreter="nodejs", allow_brotli=False)
+        scraper = cfscrape.create_scraper(interpreter="nodejs", allow_brotli=False)
         headers = {
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.125 Safari/537.36"
         }
@@ -1127,9 +1127,7 @@ def mdisk(url: str) -> str:
         except:
             raise DirectDownloadLinkException("ERROR: Error while trying to generate Direct Link from MDisk!")
         LOGGER.info(query)
-        uhh = query 
-        text = uhh["download"]
-        return text
+        return query
     except:
         raise DirectDownloadLinkException("ERROR: Error while trying to generate Direct Link from MDisk!") 
 
