@@ -35,7 +35,7 @@ async def url_parser(client, message):
             trigger, bypassed_url = await bypass_link(url)
         except Exception as e:
             not_ok = await op.edit_text(
-                text=f"⚡️__URL Parsing Initiated__⚡️\n\n👤 **User** : {u_men} \n🆔 **User ID** : `{user_id}` \n🔗 **Link** : `{url}`\n\n⛔ `Error` ⛔ : \n **{e}** \n\n#UnParsable ",
+                text=f"⚡️__URL Parsing Initiated__⚡️\n\n👤 **User** : {u_men} \n🆔 **User ID** : `{user_id}` \n🔗 **Link** : `{url}`\n\n⛔ **Error** ⛔ : \n `{e}` \n\n#UnParsable ",
                 disable_web_page_preview=True,
             )
             return 
@@ -90,9 +90,10 @@ async def bypass_link(text_url: str):
         or "solidfiles.com" in text_url  \
         or "krakenfiles.com" in text_url  \
         or "gplinks.co" in text_url  \
-        or "kolop.icu" in text_url  \
         or "katdrive.net" in text_url  \
         or "drivefire.co" in text_url  \
+        or "drivebuzz.icu" in text_url  \
+        or "gadrive.vip" in text_url  \
         or "mdisk.me" in text_url  \
         or "linkvertise.com" in text_url  \
         or "droplink.co" in text_url  \
@@ -136,12 +137,26 @@ async def bypass_link(text_url: str):
             is_direct = False
             info_parsed = appdrive_dl(text_url, is_direct)
             if {info_parsed['error']} == True:
-                url_string = f"⛔ `Parsing Error` ⛔ : \n {info_parsed['error_message']}"
+                url_string = f"⛔ **Parsing Error** ⛔ : \n `{info_parsed['error_message']}`"
             else:
                 url_string = f"📨 **Name** : `{info_parsed['name']}`\n💾 **Format** : `{info_parsed['format']}`\n📁 **File Size** : `{info_parsed['size']}`\n📎 **Link Type** : `{info_parsed['link_type']}`\n☁️ **GDrive URL** : `{info_parsed['gdrive_link']}`"
             return False, url_string
         except Exception as e:
-            url_string = f"⛔ `Internal Error` ⛔ : \n {e}"
+            url_string = f"⛔ **Internal Error** ⛔ : \n `{e}`"
+            return False, url_string 
+        except DirectDownloadLinkException as er:
+            LOGGER.info(f'{text_url}: {er}')
+            return False, er
+    elif "kolop.icu" in text_url:
+        try:
+            info_parsed = url_link_generate(text_url)
+            if {info_parsed['error']} == True:
+                url_string = f"⛔ **Parsing Error** ⛔ : \n `{info_parsed['error_message']}`"
+            else:
+                url_string = f"📨 **Name** : `{info_parsed['title']}`\n📁 **File Size** : `{info_parsed['File Size']}`\n🧾 **Mime Type** : `{info_parsed['File Type']}`\n💳 **File Owner** : `{info_parsed['File Owner']}`\n☁️ **GDrive URL** : `{info_parsed['gdrive_url']}`"
+            return False, url_string
+        except Exception as e:
+            url_string = f"⛔ **Internal Error** ⛔ : \n `{e}`"
             return False, url_string 
         except DirectDownloadLinkException as er:
             LOGGER.info(f'{text_url}: {er}')
