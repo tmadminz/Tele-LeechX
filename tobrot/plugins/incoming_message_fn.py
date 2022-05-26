@@ -71,6 +71,19 @@ async def incoming_message_f(client, message):
         else:
             text__ += f"🔗 <b>Link</b> :  <code>{link}</code>"
     elif reply_to is not None:
+        if reply_to.media:
+            if reply_to.document:
+                filename = [reply_to.document][0].file_name
+                if str(filename).lower().endswith(".torrent"):
+                    text__ += f"📂 <b>Media Type</b> : ☢️ <code>Torrent File</code> ☢️"
+                else:
+                    text__ += f"📂 <b>Media Type</b> : 🗃 <code>Document</code> 🗃"
+            elif reply_to.video:
+                text__ += f"📂 <b>Media Type</b> :  🎥 <code>Video</code> 🎥"
+            elif reply_to.audio:
+                text__ += f"📂 <b>Media Type</b> :  🎶 <code>Audio</code> 🎶 "
+            else
+                text__ += ""
         link = reply_to.text
         if link.lower().startswith("magnet:"):
             text__ += f"🧲 <b>Magnet Link</b> :  <code>{link}</code>"
