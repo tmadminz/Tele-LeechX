@@ -20,4 +20,9 @@ jobs:
           stack: "container"
           region: "eu"
         env:
-          HD_CONFIG_ENV_URL: ${{secrets.CONFIG_ENV_URL}}
+          APP_ID: ${{secrets.APP_ID}}
+          API_HASH: ${{secrets.API_HASH}}
+          TG_BOT_TOKEN: ${{secrets.TG_BOT_TOKEN}}
+          AUTH_CHANNEL: ${{secrets.AUTH_CHANNEL}}
+          OWNER_ID: ${{secrets.OWNER_ID}}
+          EDIT_SLEEP_TIME_OUT: ${{secrets.EDIT_SLEEP_TIME_OUT}}
