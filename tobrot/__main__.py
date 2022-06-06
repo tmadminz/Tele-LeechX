@@ -372,8 +372,7 @@ if __name__ == "__main__":
     ##############################################################################
     start_handler = MessageHandler(
         start,
-        filters=filters.command(["start", f"start@{bot.username}"])
-        & filters.chat(chats=AUTH_CHANNEL),
+        filters=filters.command(["start", f"start@{bot.username}"]),
     )
     app.add_handler(start_handler)
     ##############################################################################
