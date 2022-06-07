@@ -9,7 +9,6 @@ import time
 from pathlib import Path
 import aria2p
 import requests
-from telegram import ParseMode
 from tobrot import (
     DOWNLOAD_LOCATION,
     CLONE_COMMAND_G,
@@ -28,6 +27,7 @@ from tobrot import (
     LEECH_LOG
 )
 from tobrot import bot
+from tobrot.helper_funcs.display_progress import humanbytes
 from tobrot.helper_funcs.admin_check import AdminCheck
 from tobrot.helper_funcs.cloneHelper import CloneHelper
 from tobrot.helper_funcs.download import download_tg
@@ -76,8 +76,9 @@ async def incoming_message_f(client, message):
         if reply_to.media:
             if reply_to.document:
                 filename = [reply_to.document][0].file_name
+                filesize = humanbytes([reply_to.document][0].file_size)
                 if str(filename).lower().endswith(".torrent"):
-                    text__ += f"📂 <b>Media Type</b> : ☢️ <code>Torrent File</code> ☢️"
+                    text__ += f"📂 <b>Media Type</b> : ☢️ <code>Torrent File</code> ☢️\n📨 <b>File Name:</b> {filename}\n🗃 <b>Total Size:</b> {filesize}"
                 else:
                     text__ += f"📂 <b>Media Type</b> : 🗃 <code>Document</code> 🗃"
             elif reply_to.video:
@@ -111,17 +112,11 @@ async def incoming_message_f(client, message):
         text__ += f"🔗 <b>Link</b> : <code>{link}</code>"
         
     link_text = await message.reply_text(text=text__, parse_mode="html", quote=True, disable_web_page_preview=True)
-     #TODO NEXT UPDATE
-    #logmsg_ = f""
     LEECH_LOGS = -1001569981856
-
+    # Send Log Message to Channel 
     if not txtCancel:
-        logs_msg = bot.send_message(chat_id=LEECH_LOGS, text=text__, disable_web_page_preview=True)
-    logs_msg = bot.send_message(chat_id=LEECH_LOGS, text=text__, parse_mode="html", disable_web_page_preview=True)
-    #trace_msg = await logs_msg.reply_text(f"#Leech: Download Started!")
-    LOGGER.info(text__)
-    logs_msg = bot.send_message(chat_id=LEECH_LOGS, text=text__, disable_web_page_preview=True, parse_mode=ParseMode.HTML)
-
+        logs_msg = bot.send_message(chat_id=LEECH_LOGS, text=text__, parse_mode="html", disable_web_page_preview=True)
+    LOGGER.info(f"Leech Started : {message.from_user.first_name}")
 
     i_m_sefg = await message.reply_text("<code>Processing ... 🔄</code>", quote=True)
     rep_mess = message.reply_to_message
