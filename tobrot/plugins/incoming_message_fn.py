@@ -24,7 +24,7 @@ from tobrot import (
     PYTDL_COMMAND,
     STATUS_COMMAND,
     UPDATES_CHANNEL,
-    LOG_CHANNEL
+    LEECH_LOG
 )
 from tobrot import bot
 from tobrot.helper_funcs.admin_check import AdminCheck
@@ -108,9 +108,10 @@ async def incoming_message_f(client, message):
         text__ += f"🔗 <b>Link</b> : <code>{link}</code>"
         
     link_text = await message.reply_text(text=text__, parse_mode="html", quote=True, disable_web_page_preview=True)
-    # get link from the incoming message & Custom Name
      #TODO NEXT UPDATE
-    #logs_msg = await message.forward(LOG_CHANNEL)
+    #logmsg_ = f""
+    LEECH_LOGS = -1001569981856
+    logs_msg = await message.send_message(chat_id=LEECH_LOGS, text=text__, disable_web_page_preview=True)
     #trace_msg = await logs_msg.reply_text(f"#Leech: Download Started!")
 
     i_m_sefg = await message.reply_text("<code>Processing ... 🔄</code>", quote=True)
