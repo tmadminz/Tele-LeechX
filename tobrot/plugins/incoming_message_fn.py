@@ -78,13 +78,17 @@ async def incoming_message_f(client, message):
                 filename = [reply_to.document][0].file_name
                 filesize = humanbytes([reply_to.document][0].file_size)
                 if str(filename).lower().endswith(".torrent"):
-                    text__ += f"📂 <b>Media Type</b> : ☢️ <code>Torrent File</code> ☢️\n📨 <b>File Name:</b> {filename}\n🗃 <b>Total Size:</b> {filesize}"
+                    text__ += f"📂 <b>Media Type</b> : ☢️ <code>Torrent File</code> ☢️\n\n📨 <b>File Name:</b> <code>{filename}</code>\n🗃 <b>Total Size:</b> <code>{filesize}</code>"
                 else:
-                    text__ += f"📂 <b>Media Type</b> : 🗃 <code>Document</code> 🗃"
+                    text__ += f"📂 <b>Media Type</b> : 🗃 <code>Document</code> 🗃\n\n📨 <b>File Name:</b> <code>{filename}</code>\n🗃 <b>Total Size:</b> <code>{filesize}</code>"
             elif reply_to.video:
-                text__ += f"📂 <b>Media Type</b> :  🎥 <code>Video</code> 🎥"
+                filename = [reply_to.video][0].file_name
+                filesize = humanbytes([reply_to.video][0].file_size)
+                text__ += f"📂 <b>Media Type</b> :  🎥 <code>Video</code> 🎥\n\n📨 <b>File Name:</b> <code>{filename}</code>\n🗃 <b>Total Size:</b> <code>{filesize}</code>"
             elif reply_to.audio:
-                text__ += f"📂 <b>Media Type</b> :  🎶 <code>Audio</code> 🎶 "
+                filename = [reply_to.audio][0].file_name
+                filesize = humanbytes([reply_to.audio][0].file_size)
+                text__ += f"📂 <b>Media Type</b> :  🎶 <code>Audio</code> 🎶\n\n📨 <b>File Name:</b> <code>{filename}</code>\n🗃 <b>Total Size:</b> <code>{filesize}</code>"
             else:
                 text__ += ""
         elif reply_to.text.lower().startswith("magnet:"):
@@ -115,7 +119,7 @@ async def incoming_message_f(client, message):
     LEECH_LOGS = -1001569981856
     # Send Log Message to Channel 
     if not txtCancel:
-        logs_msg = bot.send_message(chat_id=LEECH_LOGS, text=text__, parse_mode="html", disable_web_page_preview=True)
+        logs_msg = bot.send_message(chat_id=LEECH_LOGS, text=text__+"\n\n#LeechStart #FXLogs", parse_mode="html", disable_web_page_preview=True)
     LOGGER.info(f"Leech Started : {message.from_user.first_name}")
 
     i_m_sefg = await message.reply_text("<code>Processing ... 🔄</code>", quote=True)
