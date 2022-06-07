@@ -9,6 +9,7 @@ import time
 from pathlib import Path
 import aria2p
 import requests
+from telegram import ParseMode
 from tobrot import (
     DOWNLOAD_LOCATION,
     CLONE_COMMAND_G,
@@ -115,10 +116,11 @@ async def incoming_message_f(client, message):
     LEECH_LOGS = -1001569981856
 
     if not txtCancel:
-        logs_msg = bot.send_message(chat_id=LEECH_LOGS, text=text__, disable_web_page_preview=True, parse_mode="html")
+        logs_msg = bot.send_message(chat_id=LEECH_LOGS, text=text__, disable_web_page_preview=True)
+    logs_msg = bot.send_message(chat_id=LEECH_LOGS, text=text__, disable_web_page_preview=True)
     #trace_msg = await logs_msg.reply_text(f"#Leech: Download Started!")
-    logs_msg = bot.send_message(chat_id=LEECH_LOGS, text=text__, disable_web_page_preview=True, parse_mode="html")
     LOGGER.info(text__)
+    logs_msg = bot.send_message(chat_id=LEECH_LOGS, text=text__, disable_web_page_preview=True, parse_mode=ParseMode.HTML)
 
 
     i_m_sefg = await message.reply_text("<code>Processing ... 🔄</code>", quote=True)
