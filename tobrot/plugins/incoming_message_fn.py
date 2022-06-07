@@ -61,6 +61,7 @@ async def incoming_message_f(client, message):
     u_men = message.from_user.mention
     link_send = message.text.split(" ", maxsplit=1)
     reply_to = message.reply_to_message
+    txtCancel = False
     text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : #ID{g_id}\n"
     if len(link_send) > 1:
         link = link_send[1]
@@ -104,6 +105,7 @@ async def incoming_message_f(client, message):
                 else:
                     text__ += f"🔗 <b>Link</b> :  <code>{link}</code>"
     else:
+        txtCancel = True
         link = "N/A"
         text__ += f"🔗 <b>Link</b> : <code>{link}</code>"
         
@@ -112,7 +114,7 @@ async def incoming_message_f(client, message):
     #logmsg_ = f""
     LEECH_LOGS = -1001569981856
 
-    if link != "N/A":
+    if not txtCancel:
         logs_msg = bot.send_message(chat_id=LEECH_LOGS, text=text__, disable_web_page_preview=True, parse_mode="html")
     #trace_msg = await logs_msg.reply_text(f"#Leech: Download Started!")
 
