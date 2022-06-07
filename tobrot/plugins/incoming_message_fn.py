@@ -120,7 +120,7 @@ async def incoming_message_f(client, message):
     LEECH_LOGS = -1001569981856
     # Send Log Message to Channel 
     if not txtCancel:
-        logs_msg = bot.send_message(chat_id=LEECH_LOGS, text=text__+"\nLink : {link_text.link}\n\n#LeechStart #FXLogs", parse_mode="html", disable_web_page_preview=True)
+        logs_msg = bot.send_message(chat_id=LEECH_LOGS, text=text__+f"\nLink : {link_text.link}\n\n#LeechStart #FXLogs", parse_mode="html", disable_web_page_preview=True)
     LOGGER.info(f"Leech Started : {message.from_user.first_name}")
 
     i_m_sefg = await message.reply_text("<code>Processing ... 🔄</code>", quote=True)
