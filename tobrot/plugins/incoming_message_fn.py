@@ -111,7 +111,9 @@ async def incoming_message_f(client, message):
      #TODO NEXT UPDATE
     #logmsg_ = f""
     LEECH_LOGS = -1001569981856
-    logs_msg = bot.send_message(chat_id=LEECH_LOGS, text=text__, disable_web_page_preview=True, parse_mode="html")
+
+    if link != "N/A":
+        logs_msg = bot.send_message(chat_id=LEECH_LOGS, text=text__, disable_web_page_preview=True, parse_mode="html")
     #trace_msg = await logs_msg.reply_text(f"#Leech: Download Started!")
 
     i_m_sefg = await message.reply_text("<code>Processing ... 🔄</code>", quote=True)
