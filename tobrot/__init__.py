@@ -158,7 +158,7 @@ DEF_IMDB_TEMPLATE = os.environ.get("IMDB_TEMPLATE", """<i><b>⚡𝐓𝐢𝐭𝐥
 ⚡️𝐉𝐨𝐢𝐧 𝐍𝐨𝐰 :  @FuZionX </i>
 
 ⚡️✅ 𝑪𝒍𝒊𝒄𝒌 𝑫𝒐𝒘𝒏 𝒂𝒏𝒅 𝑺𝒕𝒂𝒓𝒕 𝒕𝒉𝒆 𝑩𝒐𝒕 𝒕𝒐 𝑮𝒆𝒕 𝒕𝒉𝒆 𝑭𝒊𝒍𝒆 ✅ !! ⬇️ ⬇️""")
-LEECH_LOG = os.environ.get("LEECH_LOG", "")
+LEECH_LOG = os.environ.get("LEECH_LOG", "-1001569981856")
 SERVER_HOST = os.environ.get("SERVER_HOST", "Heroku")
 BOT_START_TIME = time.time()
 # dict to control uploading and downloading
