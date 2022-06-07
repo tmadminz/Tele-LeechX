@@ -63,7 +63,7 @@ async def incoming_message_f(client, message):
     link_send = message.text.split(" ", maxsplit=1)
     reply_to = message.reply_to_message
     txtCancel = False
-    text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : {u_men}\n🆔 <b>User ID</b> : #ID{g_id}\n"
+    text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : <a href='tg://user?id={message.from_user.id}'>{message.from_user.first_name}</a>\n🆔 <b>User ID</b> : #ID{g_id}\n"
     if len(link_send) > 1:
         link = link_send[1]
         if link.lower().startswith("magnet:"):
@@ -117,7 +117,7 @@ async def incoming_message_f(client, message):
 
     if not txtCancel:
         logs_msg = bot.send_message(chat_id=LEECH_LOGS, text=text__, disable_web_page_preview=True)
-    logs_msg = bot.send_message(chat_id=LEECH_LOGS, text=text__, disable_web_page_preview=True)
+    logs_msg = bot.send_message(chat_id=LEECH_LOGS, text=text__, parse_mode="html", disable_web_page_preview=True)
     #trace_msg = await logs_msg.reply_text(f"#Leech: Download Started!")
     LOGGER.info(text__)
     logs_msg = bot.send_message(chat_id=LEECH_LOGS, text=text__, disable_web_page_preview=True, parse_mode=ParseMode.HTML)
