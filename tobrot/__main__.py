@@ -51,7 +51,8 @@ from tobrot import (
     SPEEDTEST,
     TSEARCH_COMMAND,
     MEDIAINFO_CMD,
-    UPDATES_CHANNEL 
+    UPDATES_CHANNEL,
+    SERVER_HOST
 )
 from tobrot.helper_funcs.download import down_load_media_f
 from tobrot.helper_funcs.direct_link_generator import url_link_generate
@@ -113,22 +114,20 @@ async def start(client, message):
     """/start command"""
     buttons = [
             [
-                InlineKeyboardButton('🚦 Channel 🚦', url='https://t.me/FuZionX'),
-            ],
-            [
-                InlineKeyboardButton('🛃 Torrent Group 🛃', url='https://t.me/FXTorrentz'),
+                InlineKeyboardButton('🚦 Bot Stats 🚦', url='https://t.me/FXTorrentz/28'),
+                InlineKeyboardButton('🛃 FX Group 🛃', url='https://t.me/FXTorrentz'),
             ]
             ]
     reply_markup=InlineKeyboardMarkup(buttons)
     u_men = message.from_user.mention 
     start_string = f'''
-┏ Hey, {u_men}
+┏ <i>Dear {u_men}</i>,
 ┃
-┣<b>Lets Get Started . . .</b>
-┣<i>This bot can Leech direct / Torrent / Magnet Links !!
-┣Many More, Get It by /help Command.</i>
+┃ <i>If You Want To Use Me, You Have To Join @FXTorrentz</i>
 ┃
-┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹
+┣ <b>NOTE:</b> <code>All The Uploaded Leeched Contents By You Will Be Sent Here In Your Private Chat From Now.</code>
+┃
+┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️
 '''
     if message.chat.type == 'private':
         await message.reply_text(
@@ -166,7 +165,7 @@ if __name__ == "__main__":
         os.remove(".restartmsg")
     elif OWNER_ID:
         try:
-            text = f"<b>Bᴏᴛ Rᴇsᴛᴀʀᴛᴇᴅ !!</b>\n\n<b>📊 𝙃𝙤𝙨𝙩 :</b> <code>Heroku</code>\n{ist}"
+            text = f"<b>Bᴏᴛ Rᴇsᴛᴀʀᴛᴇᴅ !!</b>\n\n<b>📊 𝙃𝙤𝙨𝙩 :</b> <code>{SERVER_HOST}</code>\n{ist}\n\n<b>ℹ️ 𝙑𝙚𝙧𝙨𝙞𝙤𝙣 :</b> <code>3.2.4</code>"
             #bot.sendMessage(chat_id=OWNER_ID, text=text, parse_mode=ParseMode.HTML)
             if AUTH_CHANNEL:
                 for i in AUTH_CHANNEL:
