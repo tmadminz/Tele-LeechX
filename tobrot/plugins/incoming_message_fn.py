@@ -78,17 +78,17 @@ async def incoming_message_f(client, message):
                 filename = [reply_to.document][0].file_name
                 filesize = humanbytes([reply_to.document][0].file_size)
                 if str(filename).lower().endswith(".torrent"):
-                    text__ += f"📂 <b>Media Type</b> : ☢️ <code>Torrent File</code> ☢️\n\n📨 <b>File Name:</b> <code>{filename}</code>\n🗃 <b>Total Size:</b> <code>{filesize}</code>"
+                    text__ += f"📂 <b>Media Type</b> : ☢️ <code>Torrent File</code> ☢️\n📨 <b>File Name:</b> <code>{filename}</code>\n🗃 <b>Total Size:</b> <code>{filesize}</code>"
                 else:
-                    text__ += f"📂 <b>Media Type</b> : 🗃 <code>Document</code> 🗃\n\n📨 <b>File Name:</b> <code>{filename}</code>\n🗃 <b>Total Size:</b> <code>{filesize}</code>"
+                    text__ += f"📂 <b>Media Type</b> : 🗃 <code>Document</code> 🗃\n📨 <b>File Name:</b> <code>{filename}</code>\n🗃 <b>Total Size:</b> <code>{filesize}</code>"
             elif reply_to.video:
                 filename = [reply_to.video][0].file_name
                 filesize = humanbytes([reply_to.video][0].file_size)
-                text__ += f"📂 <b>Media Type</b> :  🎥 <code>Video</code> 🎥\n\n📨 <b>File Name:</b> <code>{filename}</code>\n🗃 <b>Total Size:</b> <code>{filesize}</code>"
+                text__ += f"📂 <b>Media Type</b> :  🎥 <code>Video</code> 🎥\n📨 <b>File Name:</b> <code>{filename}</code>\n🗃 <b>Total Size:</b> <code>{filesize}</code>"
             elif reply_to.audio:
                 filename = [reply_to.audio][0].file_name
                 filesize = humanbytes([reply_to.audio][0].file_size)
-                text__ += f"📂 <b>Media Type</b> :  🎶 <code>Audio</code> 🎶\n\n📨 <b>File Name:</b> <code>{filename}</code>\n🗃 <b>Total Size:</b> <code>{filesize}</code>"
+                text__ += f"📂 <b>Media Type</b> :  🎶 <code>Audio</code> 🎶\n📨 <b>File Name:</b> <code>{filename}</code>\n🗃 <b>Total Size:</b> <code>{filesize}</code>"
             else:
                 text__ += ""
         elif reply_to.text.lower().startswith("magnet:"):
@@ -117,7 +117,7 @@ async def incoming_message_f(client, message):
         
     link_text = await message.reply_text(text=text__, parse_mode="html", quote=True, disable_web_page_preview=True)
     # Send Log Message to Channel 
-    endText = f"\n📬 <b>Source :</b> {message.link}\n\n#LeechStart #FXLogs"
+    endText = f"\n📬 <b>Source :</b> <a href='{message.link}'>Click Here</a>\n\n#LeechStart #FXLogs"
     if not txtCancel:
         logs_msg = bot.send_message(chat_id=LEECH_LOG, text=text__+endText, parse_mode="html", disable_web_page_preview=True)
     LOGGER.info(f"Leech Started : {message.from_user.first_name}")
