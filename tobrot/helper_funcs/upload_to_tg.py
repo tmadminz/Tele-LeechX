@@ -481,10 +481,9 @@ async def upload_single_file(
                         try:
                             bot.send_video(
                                 chat_id=message.from_user.id, 
-                                document=local_file_name,
+                                video=local_file_name,
                                 thumb=thumb,
                                 caption=caption_str,
-                                parse_mode="html",
                             )
                         except Exception as err:
                             LOGGER.error(f"Failed To Send Document in User PM:\n{err}")
@@ -544,10 +543,9 @@ async def upload_single_file(
                         try:
                             bot.send_audio(
                                 chat_id=message.from_user.id, 
-                                document=local_file_name,
+                                audio=local_file_name,
                                 thumb=thumb,
                                 caption=caption_str,
-                                parse_mode="html",
                             )
                         except Exception as err:
                             LOGGER.error(f"Failed To Send Document in User PM:\n{err}")
@@ -596,7 +594,6 @@ async def upload_single_file(
                                 document=local_file_name,
                                 thumb=thumb,
                                 caption=caption_str,
-                                parse_mode="html",
                             )
                         except Exception as err:
                             LOGGER.error(f"Failed To Send Document in User PM:\n{err}")
