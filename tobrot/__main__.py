@@ -94,11 +94,12 @@ botcmds = [
         (f'{BotCommands.ToggleVidCommand}','🎞 Toggle to Streamable Upload '),
         (f'{BotCommands.SaveCommand}','🖼 Save Thumbnail For Uploads'),
         (f'{BotCommands.ClearCommand}','🕹 Clear Thumbnail '),
-        (f'{BotCommands.RenameCommand}','♻️ [Reply] Rename Telegram File '),
+        (f'{BotCommands.RenameCommand}','📧 [Reply] Rename Telegram File '),
         (f'{BotCommands.StatusCommand}','🖲 Show Bot stats and concurrent Downloads'),
         (f'{BotCommands.SpeedCommand}','📡 Get Current Server Speed of Your Bot'),
         (f'{BotCommands.YtdlCommand}','🧲 [Reply] YT-DL Links for Uploading...'),
         (f'{BotCommands.PytdlCommand}','🧧 [Reply] YT-DL Playlists Links for Uploading...'),
+        (f'gclone','♻️ [G-Drive] Clone Different Supported Sites !!'),
         (f'{BotCommands.MediaInfoCommand}','🆔️ [Reply] Get Telegram Files Media Info'),
         (f'setpre','🔠 <Text> Save Custom Prefix for Uploads'),
         (f'setcap','🔣 <Text> Save Custom Caption for Uploads'),
@@ -115,7 +116,7 @@ async def start(client, message):
     buttons = [
             [
                 InlineKeyboardButton('🚦 Bot Stats 🚦', url='https://t.me/FXTorrentz/28'),
-                InlineKeyboardButton('🛃 FX Group 🛃', url='https://t.me/FXTorrentz'),
+                InlineKeyboardButton('🛃 FX Group 🛃', url='https://t.me/+BgIhdNizM61jOGNl'),
             ]
             ]
     reply_markup=InlineKeyboardMarkup(buttons)
