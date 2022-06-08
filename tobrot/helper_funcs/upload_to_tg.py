@@ -35,6 +35,7 @@ from tobrot import (
     CUSTOM_CAPTION,
     gDict,
     user_specific_config,
+    bot
 )
 from tobrot.helper_funcs.copy_similar_file import copy_file
 from tobrot.helper_funcs.display_progress import humanbytes, Progress
@@ -319,7 +320,9 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id):
         await del_it.delete()
 
 
-
+VIDEO_SUFFIXES = ("MKV", "MP4", "MOV", "WMV", "3GP", "MPG", "WEBM", "AVI", "FLV", "M4V", "GIF")
+AUDIO_SUFFIXES = ("MP3", "M4A", "M4B", "FLAC", "WAV", "AIF", "OGG", "AAC", "DTS", "MID", "AMR", "MKA")
+IMAGE_SUFFIXES = ("JPG", "JPX", "PNG", "WEBP", "CR2", "TIF", "BMP", "JXR", "PSD", "ICO", "HEIC", "JPEG")
 
 
 async def upload_single_file(
@@ -385,7 +388,7 @@ async def upload_single_file(
                     "<b>🔰Status : <i>Starting Uploading...📤</i></b>\n\n🗃<b> File Name</b>: <code>{}</code>".format(os.path.basename(local_file_name))
                 )
                 prog = Progress(from_user, client, message_for_progress_display)
-            if local_file_name.upper().endswith(("MKV", "MP4", "WEBM", "FLV", "3GP", "AVI", "MOV", "OGG", "WMV", "M4V", "TS", "MPG", "MTS", "M2TS")):
+            if local_file_name.upper().endswith(VIDEO_SUFFIXES):
                 duration = 0
                 try:
                     metadata = extractMetadata(createParser(local_file_name))
@@ -475,7 +478,7 @@ async def upload_single_file(
                     )
                 if thumb is not None:
                     os.remove(thumb)
-            elif local_file_name.upper().endswith(("MP3", "M4A", "M4B", "FLAC", "WAV")):
+            elif local_file_name.upper().endswith(AUDIO_SUFFIXES):
                 metadata = extractMetadata(createParser(local_file_name))
                 duration = 0
                 title = ""
@@ -563,6 +566,23 @@ async def upload_single_file(
                             start_time,
                         ),
                     )
+                    BOT_PM = True
+                    if BOT_PM:
+                        try:
+                            bot.send_document(chat_id=message.from_user.id, 
+                                document=local_file_name,
+                                thumb=thumb,
+                                caption=caption_str,
+                                parse_mode="html",
+                                disable_notification=True,
+                                progress=prog.progress_for_pyrogram,
+                                progress_args=(
+                                    f"◆━━━━━━◆ ❃ ◆━━━━━━◆\n\n┏━━━━━━━━━━━━━━━━╻\n┣⚡️ 𝐅𝐢𝐥𝐞𝐧𝐚𝐦𝐞 : `{os.path.basename(local_file_name)}`",                                    
+                                    start_time,
+                                ),
+                            )
+                        except Exception as err:
+                            LOGGER.error(f"Failed To Send Document in PM:\n{err}")
                 if thumb is not None:
                     os.remove(thumb)
 
