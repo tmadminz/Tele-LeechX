@@ -388,6 +388,7 @@ async def upload_single_file(
                     "<b>🔰Status : <i>Starting Uploading...📤</i></b>\n\n🗃<b> File Name</b>: <code>{}</code>".format(os.path.basename(local_file_name))
                 )
                 prog = Progress(from_user, client, message_for_progress_display)
+            BOT_PM = True
             if local_file_name.upper().endswith(VIDEO_SUFFIXES):
                 duration = 0
                 try:
@@ -476,6 +477,17 @@ async def upload_single_file(
                             start_time,
                         ),
                     )
+                    if BOT_PM:
+                        try:
+                            bot.send_video(
+                                chat_id=message.from_user.id, 
+                                document=local_file_name,
+                                thumb=thumb,
+                                caption=caption_str,
+                                parse_mode="html",
+                            )
+                        except Exception as err:
+                            LOGGER.error(f"Failed To Send Document in User PM:\n{err}")
                 if thumb is not None:
                     os.remove(thumb)
             elif local_file_name.upper().endswith(AUDIO_SUFFIXES):
@@ -528,6 +540,17 @@ async def upload_single_file(
                             start_time,
                         ),
                     )
+                    if BOT_PM:
+                        try:
+                            bot.send_audio(
+                                chat_id=message.from_user.id, 
+                                document=local_file_name,
+                                thumb=thumb,
+                                caption=caption_str,
+                                parse_mode="html",
+                            )
+                        except Exception as err:
+                            LOGGER.error(f"Failed To Send Document in User PM:\n{err}")
                 if thumb is not None:
                     os.remove(thumb)
             else:
@@ -566,23 +589,17 @@ async def upload_single_file(
                             start_time,
                         ),
                     )
-                    BOT_PM = True
                     if BOT_PM:
                         try:
-                            bot.send_document(chat_id=message.from_user.id, 
+                            bot.send_document(
+                                chat_id=message.from_user.id, 
                                 document=local_file_name,
                                 thumb=thumb,
                                 caption=caption_str,
                                 parse_mode="html",
-                                disable_notification=True,
-                                progress=prog.progress_for_pyrogram,
-                                progress_args=(
-                                    f"◆━━━━━━◆ ❃ ◆━━━━━━◆\n\n┏━━━━━━━━━━━━━━━━╻\n┣⚡️ 𝐅𝐢𝐥𝐞𝐧𝐚𝐦𝐞 : `{os.path.basename(local_file_name)}`",                                    
-                                    start_time,
-                                ),
                             )
                         except Exception as err:
-                            LOGGER.error(f"Failed To Send Document in PM:\n{err}")
+                            LOGGER.error(f"Failed To Send Document in User PM:\n{err}")
                 if thumb is not None:
                     os.remove(thumb)
 
