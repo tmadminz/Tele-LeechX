@@ -328,6 +328,7 @@ IMAGE_SUFFIXES = ("JPG", "JPX", "PNG", "WEBP", "CR2", "TIF", "BMP", "JXR", "PSD"
 async def upload_single_file(
     message, local_file_name, caption_str, from_user, client, edit_media, yt_thumb
 ):
+    base_file_name = os.path.basename(local_file_name)
     await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
     local_file_name = str(Path(local_file_name).resolve())
     sent_message = None
@@ -481,12 +482,23 @@ async def upload_single_file(
                         try:
                             bot.send_video(
                                 chat_id=message.from_user.id, 
-                                video=sent_message.file_id,
+                                video=sent_message.video.file_id,
                                 thumb=thumb,
                                 caption=caption_str,
                             )
                         except Exception as err:
-                            LOGGER.error(f"Failed To Send Document in User PM:\n{err}")
+                            LOGGER.error(f"Failed To Send Video in User PM:\n{err}")
+                    if LEECH_LOG:
+                        try:
+                            for i in LEECH_LOG:
+                            bot.send_video(
+                                chat_id=i, 
+                                document=sent_message.video.file_id,
+                                thumb=thumb,
+                                caption=f"<code>{base_file_name}</code>",
+                            )
+                        except Exception as err:
+                            LOGGER.error(f"Failed To Send Video in User PM:\n{err}")
                 if thumb is not None:
                     os.remove(thumb)
             elif local_file_name.upper().endswith(AUDIO_SUFFIXES):
@@ -543,12 +555,23 @@ async def upload_single_file(
                         try:
                             bot.send_audio(
                                 chat_id=message.from_user.id, 
-                                audio=sent_message.file_id,
+                                audio=sent_message.audio.file_id,
                                 thumb=thumb,
                                 caption=caption_str,
                             )
                         except Exception as err:
-                            LOGGER.error(f"Failed To Send Document in User PM:\n{err}")
+                            LOGGER.error(f"Failed To Send Audio in User PM:\n{err}")
+                    if LEECH_LOG:
+                        try:
+                            for i in LEECH_LOG:
+                            bot.send_audio(
+                                chat_id=i, 
+                                document=sent_message.audio.file_id,
+                                thumb=thumb,
+                                caption=f"<code>{base_file_name}</code>",
+                            )
+                        except Exception as err:
+                            LOGGER.error(f"Failed To Send Audio in User PM:\n{err}")
                 if thumb is not None:
                     os.remove(thumb)
             else:
@@ -591,9 +614,20 @@ async def upload_single_file(
                         try:
                             bot.send_document(
                                 chat_id=message.from_user.id, 
-                                document=sent_message.file_id,
+                                document=sent_message.document.file_id,
                                 thumb=thumb,
                                 caption=caption_str,
+                            )
+                        except Exception as err:
+                            LOGGER.error(f"Failed To Send Document in User PM:\n{err}")
+                    if LEECH_LOG:
+                        try:
+                            for i in LEECH_LOG:
+                            bot.send_document(
+                                chat_id=i, 
+                                document=sent_message.document.file_id,
+                                thumb=thumb,
+                                caption=f"<code>{base_file_name}</code>",
                             )
                         except Exception as err:
                             LOGGER.error(f"Failed To Send Document in User PM:\n{err}")
