@@ -36,7 +36,10 @@ from tobrot import (
     gDict,
     user_specific_config,
     bot,
-    LEECH_LOG
+    LEECH_LOG,
+    EXCEP_CHATS,
+    EX_LEECH_LOG,
+    BOT_PM
 )
 from tobrot.helper_funcs.copy_similar_file import copy_file
 from tobrot.helper_funcs.display_progress import humanbytes, Progress
@@ -325,7 +328,6 @@ VIDEO_SUFFIXES = ("MKV", "MP4", "MOV", "WMV", "3GP", "MPG", "WEBM", "AVI", "FLV"
 AUDIO_SUFFIXES = ("MP3", "M4A", "M4B", "FLAC", "WAV", "AIF", "OGG", "AAC", "DTS", "MID", "AMR", "MKA")
 IMAGE_SUFFIXES = ("JPG", "JPX", "PNG", "WEBP", "CR2", "TIF", "BMP", "JXR", "PSD", "ICO", "HEIC", "JPEG")
 
-
 async def upload_single_file(
     message, local_file_name, caption_str, from_user, client, edit_media, yt_thumb
 ):
@@ -360,18 +362,56 @@ async def upload_single_file(
                 "<b>🔰Status : <i>Starting Uploading...📤</i></b>\n\n🗃<b> File Name</b>: <code>{}</code>".format(os.path.basename(local_file_name))
             )
             prog = Progress(from_user, client, message_for_progress_display)
-        sent_message = await message.reply_document(
-            document=local_file_name,
-            thumb=thumb,
-            caption=caption_str,
-            parse_mode="html",
-            disable_notification=True,
-            progress=prog.progress_for_pyrogram,
-            progress_args=(
-                f"◆━━━━━━◆ ❃ ◆━━━━━━◆\n\n┏━━━━━━━━━━━━━━━━╻\n┣⚡️ 𝐅𝐢𝐥𝐞𝐧𝐚𝐦𝐞 : `{os.path.basename(local_file_name)}`",
-                start_time,
-            ),
-        )
+        if message.chat.id in EXCEP_CHATS:
+            sent_message = await message.reply_document(
+                document=local_file_name,
+                thumb=thumb,
+                caption=caption_str,
+                parse_mode="html",
+                disable_notification=True,
+                progress=prog.progress_for_pyrogram,
+                progress_args=(
+                    f"◆━━━━━━◆ ❃ ◆━━━━━━◆\n\n┏━━━━━━━━━━━━━━━━╻\n┣⚡️ 𝐅𝐢𝐥𝐞𝐧𝐚𝐦𝐞 : `{os.path.basename(local_file_name)}`",
+                    start_time,
+                ),
+            )
+        else:
+            sent_msgs = await bot.send_document(
+                chat_id=LEECH_LOG,
+                document=local_file_name,
+                thumb=thumb,
+                caption=f"<code>{base_file_name}</code>\n\n♨️ 𝕌𝕡𝕝𝕠𝕒𝕕𝕖𝕕 𝔹𝕪 @FXTorrentz ♨️",
+                parse_mode="html",
+                disable_notification=True,
+                progress=prog.progress_for_pyrogram,
+                progress_args=(
+                    f"◆━━━━━━◆ ❃ ◆━━━━━━◆\n\n┏━━━━━━━━━━━━━━━━╻\n┣⚡️ 𝐅𝐢𝐥𝐞𝐧𝐚𝐦𝐞 : `{os.path.basename(local_file_name)}`",
+                    start_time,
+                ),
+            )
+            if BOT_PM:
+                try:
+                  bot.send_document(
+                      chat_id=from_user, 
+                      document=sent_msgs.document.file_id,
+                      thumb=thumb,
+                      caption=caption_str,
+                      parse_mode="html"
+                  )
+                except Exception as err:
+                   LOGGER.error(f"Failed To Send Document in User PM:\n{err}")
+            if EX_LEECH_LOG:
+                try:
+                    for i in EX_LEECH_LOG:
+                        bot.send_document(
+                            chat_id=i, 
+                            document=sent_msgs.document.file_id,
+                            thumb=thumb,
+                            caption=f"<code>{base_file_name}</code>\n\n♨️ 𝕌𝕡𝕝𝕠𝕒𝕕𝕖𝕕 𝔹𝕪 @FXTorrentz ♨️",
+                            parse_mode="html"
+                        )
+                except Exception as err:
+                    LOGGER.error(f"Failed To Send Document in Channel:\n{err}")
         if message.message_id != message_for_progress_display.message_id:
             try:
                 await message_for_progress_display.delete()
@@ -390,7 +430,6 @@ async def upload_single_file(
                     "<b>🔰Status : <i>Starting Uploading...📤</i></b>\n\n🗃<b> File Name</b>: <code>{}</code>".format(os.path.basename(local_file_name))
                 )
                 prog = Progress(from_user, client, message_for_progress_display)
-            BOT_PM = True
             if local_file_name.upper().endswith(VIDEO_SUFFIXES):
                 duration = 0
                 try:
@@ -599,39 +638,56 @@ async def upload_single_file(
                         )
                     )
                 else:
-                    sent_message = await message.reply_document(
-                        document=local_file_name,
-                        thumb=thumb,
-                        caption=caption_str,
-                        parse_mode="html",
-                        disable_notification=True,
-                        progress=prog.progress_for_pyrogram,
-                        progress_args=(
-                            f"<b>🔰Status : <i>Starting Uploading...📤</i></b>\n\n🗃<b> File Name</b>: `{os.path.basename(local_file_name)}`",
-                            start_time,
-                        ),
-                    )
-                    if BOT_PM:
-                        try:
-                            bot.send_document(
-                                chat_id=from_user, 
-                                document=sent_message.document.file_id,
-                                thumb=thumb,
-                                caption=caption_str,
-                            )
-                        except Exception as err:
-                            LOGGER.error(f"Failed To Send Document in User PM:\n{err}")
-                    if LEECH_LOG:
-                        try:
-                            for i in LEECH_LOG:
+                    if message.chat.id in EXCEP_CHATS:
+                        sent_message = await message.reply_document(
+                            document=local_file_name,
+                            thumb=thumb,
+                            caption=caption_str,
+                            parse_mode="html",
+                            disable_notification=True,
+                            progress=prog.progress_for_pyrogram,
+                            progress_args=(
+                                f"<b>🔰Status : <i>Starting Uploading...📤</i></b>\n\n🗃<b> File Name</b>: `{os.path.basename(local_file_name)}`",
+                                start_time,
+                            ),
+                        )
+                    else:
+                        sent_msg = await bot.send_document(
+                            chat_id=LEECH_LOG,
+                            document=local_file_name,
+                            thumb=thumb,
+                            caption=f"<code>{base_file_name}</code>\n\n♨️ 𝕌𝕡𝕝𝕠𝕒𝕕𝕖𝕕 𝔹𝕪 @FXTorrentz ♨️",
+                            parse_mode="html",
+                            disable_notification=True,
+                            progress=prog.progress_for_pyrogram,
+                            progress_args=(
+                                f"<b>🔰Status : <i>Starting Uploading...📤</i></b>\n\n🗃<b> File Name</b>: `{os.path.basename(local_file_name)}`",
+                                start_time,
+                            ),
+                        )
+                        if BOT_PM:
+                            try:
                                 bot.send_document(
-                                    chat_id=i, 
-                                    document=sent_message.document.file_id,
+                                    chat_id=from_user, 
+                                    document=sent_msg.document.file_id,
                                     thumb=thumb,
-                                    caption=f"<code>{base_file_name}</code>",
+                                    caption=caption_str,
+                                    parse_mode="html"
                                 )
-                        except Exception as err:
-                            LOGGER.error(f"Failed To Send Document in User PM:\n{err}")
+                            except Exception as err:
+                                LOGGER.error(f"Failed To Send Document in User PM:\n{err}")
+                        if EX_LEECH_LOG:
+                            try:
+                                for i in EX_LEECH_LOG:
+                                    bot.send_document(
+                                        chat_id=i, 
+                                        document=sent_msg.document.file_id,
+                                        thumb=thumb,
+                                        caption=f"<code>{base_file_name}</code>\n\n♨️ 𝕌𝕡𝕝𝕠𝕒𝕕𝕖𝕕 𝔹𝕪 @FXTorrentz ♨️",
+                                        parse_mode="html"
+                                    )
+                            except Exception as err:
+                                LOGGER.error(f"Failed To Send Document in Channel:\n{err}")
                 if thumb is not None:
                     os.remove(thumb)
 
