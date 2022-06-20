@@ -481,7 +481,7 @@ async def upload_single_file(
                         try:
                             bot.send_video(
                                 chat_id=message.from_user.id, 
-                                video=local_file_name,
+                                video=sent_message.file_id,
                                 thumb=thumb,
                                 caption=caption_str,
                             )
@@ -543,7 +543,7 @@ async def upload_single_file(
                         try:
                             bot.send_audio(
                                 chat_id=message.from_user.id, 
-                                audio=local_file_name,
+                                audio=sent_message.file_id,
                                 thumb=thumb,
                                 caption=caption_str,
                             )
@@ -591,7 +591,7 @@ async def upload_single_file(
                         try:
                             bot.send_document(
                                 chat_id=message.from_user.id, 
-                                document=local_file_name,
+                                document=sent_message.file_id,
                                 thumb=thumb,
                                 caption=caption_str,
                             )
