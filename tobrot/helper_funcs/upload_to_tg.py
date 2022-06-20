@@ -35,7 +35,8 @@ from tobrot import (
     CUSTOM_CAPTION,
     gDict,
     user_specific_config,
-    bot
+    bot,
+    LEECH_LOG
 )
 from tobrot.helper_funcs.copy_similar_file import copy_file
 from tobrot.helper_funcs.display_progress import humanbytes, Progress
@@ -481,7 +482,7 @@ async def upload_single_file(
                     if BOT_PM:
                         try:
                             bot.send_video(
-                                chat_id=message.from_user.id, 
+                                chat_id=from_user, 
                                 video=sent_message.video.file_id,
                                 thumb=thumb,
                                 caption=caption_str,
@@ -554,7 +555,7 @@ async def upload_single_file(
                     if BOT_PM:
                         try:
                             bot.send_audio(
-                                chat_id=message.from_user.id, 
+                                chat_id=from_user, 
                                 audio=sent_message.audio.file_id,
                                 thumb=thumb,
                                 caption=caption_str,
@@ -613,7 +614,7 @@ async def upload_single_file(
                     if BOT_PM:
                         try:
                             bot.send_document(
-                                chat_id=message.from_user.id, 
+                                chat_id=from_user, 
                                 document=sent_message.document.file_id,
                                 thumb=thumb,
                                 caption=caption_str,
