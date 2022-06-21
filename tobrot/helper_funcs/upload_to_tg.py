@@ -362,7 +362,7 @@ async def upload_single_file(
                 "<b>🔰Status : <i>Starting Uploading...📤</i></b>\n\n🗃<b> File Name</b>: <code>{}</code>".format(os.path.basename(local_file_name))
             )
             prog = Progress(from_user, client, message_for_progress_display)
-        if message.chat.id in EXCEP_CHATS:
+        if str(message.chat.id) in str(EXCEP_CHATS):
             sent_message = await message.reply_document(
                 document=local_file_name,
                 thumb=thumb,
@@ -448,7 +448,7 @@ async def upload_single_file(
                     )
                 else:
                     if not yt_thumb:
-                        LOGGER.info("Taking Screenshot..")
+                        LOGGER.info("📸 Taking Screenshot..")
                         thumb_image_path = await take_screen_shot(
                             local_file_name,
                             os.path.dirname(os.path.abspath(local_file_name)),
@@ -502,43 +502,66 @@ async def upload_single_file(
                         # quote=True,
                     )
                 else:
-                    sent_message = await message.reply_video(
-                        video=local_file_name,
-                        caption=caption_str,
-                        parse_mode="html",
-                        duration=duration,
-                        width=width,
-                        height=height,
-                        thumb=thumb,
-                        supports_streaming=True,
-                        disable_notification=True,
-                        progress=prog.progress_for_pyrogram,
-                        progress_args=(
-                            f"<b>🔰Status : <i>Starting Uploading...📤</i></b>\n\n🗃<b> File Name</b>: `{os.path.basename(local_file_name)}`",
-                            start_time,
-                        ),
-                    )
-                    if BOT_PM:
-                        try:
-                            bot.send_video(
-                                chat_id=from_user, 
-                                video=sent_message.video.file_id,
-                                thumb=thumb,
-                                caption=caption_str,
-                            )
-                        except Exception as err:
-                            LOGGER.error(f"Failed To Send Video in User PM:\n{err}")
-                    if LEECH_LOG:
-                        try:
-                            for i in LEECH_LOG:
+                    if str(message.chat.id) in str(EXCEP_CHATS):
+                        sent_message = await message.reply_video(
+                            video=local_file_name,
+                            caption=caption_str,
+                            parse_mode="html",
+                            duration=duration,
+                            width=width,
+                            height=height,
+                            thumb=thumb,
+                            supports_streaming=True,
+                            disable_notification=True,
+                            progress=prog.progress_for_pyrogram,
+                            progress_args=(
+                                f"<b>🔰Status : <i>Starting Uploading...📤</i></b>\n\n🗃<b> File Name</b>: `{os.path.basename(local_file_name)}`",
+                                start_time,
+                            ),
+                         )
+                    else:
+                        sent_msg = await message.reply_video(
+                            chat_id=LEECH_LOG,
+                            video=local_file_name,
+                            caption=f"<code>{base_file_name}</code>\n\n♨️ 𝕌𝕡𝕝𝕠𝕒𝕕𝕖𝕕 𝔹𝕪 @FXTorrentz ♨️",
+                            parse_mode="html",
+                            duration=duration,
+                            width=width,
+                            height=height,
+                            thumb=thumb,
+                            supports_streaming=True,
+                            disable_notification=True,
+                            progress=prog.progress_for_pyrogram,
+                            progress_args=(
+                                f"<b>🔰Status : <i>Starting Uploading...📤</i></b>\n\n🗃<b> File Name</b>: `{os.path.basename(local_file_name)}`",
+                                start_time,
+                            ),
+                         )
+                        if BOT_PM:
+                            try:
                                 bot.send_video(
-                                    chat_id=i, 
-                                    document=sent_message.video.file_id,
+                                    chat_id=from_user, 
+                                    video=sent_msg.video.file_id,
                                     thumb=thumb,
-                                    caption=f"<code>{base_file_name}</code>",
+                                    supports_streaming=True,
+                                    caption=caption_str,
+                                    parse_mode="html"
                                 )
-                        except Exception as err:
-                            LOGGER.error(f"Failed To Send Video in User PM:\n{err}")
+                            except Exception as err:
+                                LOGGER.error(f"Failed To Send Video in User PM:\n{err}")
+                        if EX_LEECH_LOG:
+                            try:
+                                for i in EX_LEECH_LOG:
+                                    bot.send_video(
+                                        chat_id=i, 
+                                        video=sent_msg.video.file_id,
+                                        thumb=thumb,
+                                        supports_streaming=True,
+                                        caption=f"<code>{base_file_name}</code>\n\n♨️ 𝕌𝕡𝕝𝕠𝕒𝕕𝕖𝕕 𝔹𝕪 @FXTorrentz ♨️",
+                                        parse_mode="html"
+                                    )
+                            except Exception as err:
+                                LOGGER.error(f"Failed To Send Video in Channel:\n{err}")
                 if thumb is not None:
                     os.remove(thumb)
             elif local_file_name.upper().endswith(AUDIO_SUFFIXES):
@@ -638,7 +661,7 @@ async def upload_single_file(
                         )
                     )
                 else:
-                    if message.chat.id in EXCEP_CHATS:
+                    if str(message.chat.id) in str(EXCEP_CHATS):
                         sent_message = await message.reply_document(
                             document=local_file_name,
                             thumb=thumb,
