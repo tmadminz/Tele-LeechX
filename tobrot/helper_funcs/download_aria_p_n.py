@@ -313,28 +313,25 @@ async def call_apropriate_function(
                 return True, None
             try:
                 message_to_send = ""
+                mention_req_user = f"┏ 🗃 𝙇𝙚𝙚𝙘𝙝 𝘾𝙤𝙢𝙥𝙡𝙚𝙩𝙚 !! 🗃\n┃\n┣ 𝐔𝐬𝐞𝐫 : {u_men} \n┣🆔️ 𝐈𝐃 : #ID{user_id}\n┃\n"
+                message_credits = f"┃\n┃ #FXUploads\n┃\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️"
                 for key_f_res_se in final_response:
                     local_file_name = key_f_res_se
                     message_id = final_response[key_f_res_se]
                     channel_id = str(sent_message_to_update_tg_p.chat.id)[4:]
                     private_link = f"https://t.me/c/{channel_id}/{message_id}"
-                    message_to_send += "┣ ⇒ <a href='"
-                    message_to_send += private_link
-                    message_to_send += "'>"
-                    message_to_send += local_file_name
-                    message_to_send += "</a>"
-                    message_to_send += "\n"
+                    message_to_send += f"┣ ⇒ <a href='{private_link}'>{local_file_name}</a>\n"
+                    if len(mention_req_user.encode('utf-8') + message_to_send.encode('utf-8') + message_credits.encode('utf-8')) > 4000:
+                        time.sleep(1.5)
+                        await user_message.reply_text(
+                            text=mention_req_user + message_to_send + message_credits, quote=True, disable_web_page_preview=True
+                        )
+                        message_to_send = ""
                 if message_to_send != "":
-                    mention_req_user = (
-                        f"┏ 🗃 𝙇𝙚𝙚𝙘𝙝 𝘾𝙤𝙢𝙥𝙡𝙚𝙩𝙚 !! 🗃\n┃\n┣ 𝐔𝐬𝐞𝐫 : {u_men} \n┣🆔️ 𝐈𝐃 : #ID{user_id}\n┃\n"
+                    time.sleep(1.5)
+                    await user_message.reply_text(
+                        text=mention_req_user + message_to_send + message_credits, quote=True, disable_web_page_preview=True
                     )
-                    message_to_send = mention_req_user + message_to_send
-                    message_to_send += f"┃\n┃ #FXUploads\n┃\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️"
-                else:
-                    message_to_send = "⛔ <b>FAILED</b> ⛔\n ☎️ Can't Upload Files. "
-                await user_message.reply_text(
-                    text=message_to_send, quote=True, disable_web_page_preview=True
-                )
             except Exception as go:
                 LOGGER.error(go)
     return True, None
