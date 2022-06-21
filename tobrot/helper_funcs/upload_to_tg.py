@@ -520,7 +520,7 @@ async def upload_single_file(
                             ),
                          )
                     else:
-                        sent_msg = await message.reply_video(
+                        sent_msg = await message.sent_video(
                             chat_id=LEECH_LOG,
                             video=local_file_name,
                             caption=f"<code>{base_file_name}</code>\n\n♨️ 𝕌𝕡𝕝𝕠𝕒𝕕𝕖𝕕 𝔹𝕪 @FXTorrentz ♨️",
