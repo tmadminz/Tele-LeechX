@@ -383,11 +383,6 @@ async def upload_single_file(
                 caption=f"<code>{base_file_name}</code>\n\n♨️ 𝕌𝕡𝕝𝕠𝕒𝕕𝕖𝕕 𝔹𝕪 @FXTorrentz ♨️",
                 parse_mode="html",
                 disable_notification=True,
-                progress=prog.progress_for_pyrogram,
-                progress_args=(
-                    f"◆━━━━━━◆ ❃ ◆━━━━━━◆\n\n┏━━━━━━━━━━━━━━━━╻\n┣⚡️ 𝐅𝐢𝐥𝐞𝐧𝐚𝐦𝐞 : `{os.path.basename(local_file_name)}`",
-                    start_time,
-                ),
             )
             if BOT_PM:
                 try:
