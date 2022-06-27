@@ -1,5 +1,4 @@
-FROM ubuntu:20.04
-
+FROM anasty17/mltb:heroku
 
 RUN mkdir ./app
 RUN chmod 777 ./app
