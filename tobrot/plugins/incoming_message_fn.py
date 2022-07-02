@@ -24,7 +24,9 @@ from tobrot import (
     PYTDL_COMMAND,
     STATUS_COMMAND,
     UPDATES_CHANNEL,
-    LEECH_LOG
+    LEECH_LOG,
+    BOT_PM,
+    EXCEP_CHATS
 )
 from tobrot import bot
 from tobrot.helper_funcs.display_progress import humanbytes
@@ -63,6 +65,29 @@ async def incoming_message_f(client, message):
     link_send = message.text.split(" ", maxsplit=1)
     reply_to = message.reply_to_message
     txtCancel = False
+    
+    ##Forsubscribe Soon  . .
+
+    if BOT_PM and message.chat.type != 'private' and message.chat.id not in EXCEP_CHATS:
+        try:
+            msg1 = f'Added your Requested link to Download\n'
+            send = await message.sent_message(message.from_user.id, text=msg1)
+            send.delete()
+        except Exception as e:
+            LOGGER.warning(e)
+            uname = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
+            button_markup = InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton("⚡️ Click Here to Start Me ⚡️", url=f"http://t.me/{bot.username}"),
+                    ]
+                ]
+            )
+            startwarn = f"Dear {uname},\n\n<b>I found that you haven't Started me in PM (Private Chat) yet.</b>\n\n" \
+                        f"From Now on, Links and Leeched Files in PM and Log Channel Only !!"
+            message = await message.reply_text(text=startwarn, parse_mode="html", quote=True, reply_markup=button_markup)
+            return
+
     text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : <a href='tg://user?id={message.from_user.id}'>{message.from_user.first_name}</a>\n🆔 <b>User ID</b> : #ID{g_id}\n"
     if len(link_send) > 1:
         link = link_send[1]
