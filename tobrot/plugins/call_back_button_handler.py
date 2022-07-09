@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# (c) Shrimadhav U K | gautamajay52 | MaxxRider
+# (c) Shrimadhav U K | gautamajay52 | MaxxRider | 5MysterySD | Other Contributors 
+#
+# Copyright 2022 - TeamTele-LeechX
+# 
+# This is Part of < https://github.com/5MysterySD/Tele-LeechX >
+# All Right Reserved
+
 
 import logging
 import os
 import shutil
 
-from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton 
+from pyrogram.types import enums, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton 
 from tobrot import *
 #from tobrot import AUTH_CHANNEL, MAX_MESSAGE_LENGTH, LOGGER, gDict
 from tobrot.helper_funcs.admin_check import AdminCheck
@@ -167,7 +173,7 @@ async def button(bot, update: CallbackQuery):
         await update.message.edit_text(
             text = "<b>Choose the Desired Command Help :</b>",
             reply_markup = button_markup,
-            parse_mode = "html"
+            parse_mode=enums.ParseMode.HTML
         )
     elif cb_data == "nex_1":
         button_markup = InlineKeyboardMarkup(
@@ -196,7 +202,7 @@ async def button(bot, update: CallbackQuery):
         await update.message.edit_text(
             text = "<b>Choose the Desired Command Help :</b>",
             reply_markup = button_markup,
-            parse_mode = "html"
+            parse_mode=enums.ParseMode.HTML
         )
     elif cb_data == "nex_2":
         button_markup = InlineKeyboardMarkup(
@@ -227,7 +233,7 @@ async def button(bot, update: CallbackQuery):
         await update.message.edit_text(
             text = "<b>Choose the Desired Command Help :</b>",
             reply_markup = button_markup,
-            parse_mode = "html"
+            parse_mode=enums.ParseMode.HTML
         )
     elif cb_data == "leech":
         button_call = InlineKeyboardMarkup(
@@ -265,7 +271,7 @@ async def button(bot, update: CallbackQuery):
             text = stringg,
             reply_markup = button_call,
             disable_web_page_preview = True, 
-            parse_mode = "html"
+            parse_mode=enums.ParseMode.HTML
         )
     elif cb_data == "close":
         await update.message.delete()
@@ -288,6 +294,6 @@ async def button(bot, update: CallbackQuery):
             text = "",
             reply_markup = button_call,
             disable_web_page_preview = True, 
-            parse_mode = "html"
+            parse_mode=enums.ParseMode.HTML
         )
     '''
