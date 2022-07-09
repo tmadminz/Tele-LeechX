@@ -120,11 +120,26 @@ async def upload_to_tg(
                 yt_thumb,
             )
     else:
-        if os.path.getsize(local_file_name) > TG_PRM_FILE_SIZE and from_user in PRM_USERS:
-            LOGGER.info("User Type : Premium")
-            async with userBot:
-                
-        elif os.path.getsize(local_file_name) > TG_MAX_FILE_SIZE and from_user not in PRM_USERS:
+        if os.path.getsize(local_file_name) > TG_PRM_FILE_SIZE and str(from_user) in str(PRM_USERS):
+            LOGGER.info(f"User Type : Premium ({from_user})")
+            sizze = os.path.getsize(local_file_name)
+            sent_msg = await upload_single_file(
+                message,
+                local_file_name,
+                caption_str,
+                from_user,
+                client,
+                edit_media,
+                yt_thumb,
+                prm_atv=True
+            )
+            if sent_msg is not None:
+                dict_contatining_uploaded_files[
+                    os.path.basename(local_file_name)
+                ] = sent_message.message_id
+            else:
+                return
+        elif os.path.getsize(local_file_name) > TG_MAX_FILE_SIZE and str(from_user) not in str(PRM_USERS):
             LOGGER.info("User Type : Non Premium")
             i_m_s_g = await message.reply_text(
                 "<b><i>📑Telegram doesn't Support Uploading this File.</i></b>\n"
@@ -163,6 +178,7 @@ async def upload_to_tg(
                 client,
                 edit_media,
                 yt_thumb,
+                prm_atv=False
             )
             if sent_message is not None:
                 dict_contatining_uploaded_files[
@@ -333,7 +349,7 @@ AUDIO_SUFFIXES = ("MP3", "M4A", "M4B", "FLAC", "WAV", "AIF", "OGG", "AAC", "DTS"
 IMAGE_SUFFIXES = ("JPG", "JPX", "PNG", "WEBP", "CR2", "TIF", "BMP", "JXR", "PSD", "ICO", "HEIC", "JPEG")
 
 async def upload_single_file(
-    message, local_file_name, caption_str, from_user, client, edit_media, yt_thumb
+    message, local_file_name, caption_str, from_user, client, edit_media, yt_thumb, prm_atv=False
 ):
     base_file_name = os.path.basename(local_file_name)
     await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
@@ -366,7 +382,7 @@ async def upload_single_file(
                 "<b>🔰Status : <i>Starting Uploading...📤</i></b>\n\n🗃<b> File Name</b>: <code>{}</code>".format(os.path.basename(local_file_name))
             )
             prog = Progress(from_user, client, message_for_progress_display)
-        if str(message.chat.id) in str(EXCEP_CHATS):
+        if str(message.chat.id) in str(EXCEP_CHATS) and prm_atv == False:
             sent_message = await message.reply_document(
                 document=local_file_name,
                 thumb=thumb,
@@ -378,6 +394,20 @@ async def upload_single_file(
                     f"◆━━━━━━◆ ❃ ◆━━━━━━◆\n\n┏━━━━━━━━━━━━━━━━╻\n┣⚡️ 𝐅𝐢𝐥𝐞𝐧𝐚𝐦𝐞 : `{os.path.basename(local_file_name)}`",
                     start_time,
                 ),
+            )
+        elif str(message.chat.id) in str(EXCEP_CHATS) and prm_atv == True:
+            sent_message = await message.userBot.send_document(
+                chat_id="me",
+                document=local_file_name,
+                thumb=thumb,
+                caption=caption_str,
+                parse_mode="html",
+                disable_notification=True,
+                #progress=prog.progress_for_pyrogram,
+                #progress_args=(
+                #    f"◆━━━━━━◆ ❃ ◆━━━━━━◆\n\n┏━━━━━━━━━━━━━━━━╻\n┣⚡️ 𝐅𝐢𝐥𝐞𝐧𝐚𝐦𝐞 : `{os.path.basename(local_file_name)}`",
+                #    start_time,
+                #),
             )
         else:
             sent_msgs = await bot.send_document(
