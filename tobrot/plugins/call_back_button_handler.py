@@ -12,7 +12,8 @@ import logging
 import os
 import shutil
 
-from pyrogram.types import enums, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton 
+from pyrogram import enums
+from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton 
 from tobrot import *
 #from tobrot import AUTH_CHANNEL, MAX_MESSAGE_LENGTH, LOGGER, gDict
 from tobrot.helper_funcs.admin_check import AdminCheck
