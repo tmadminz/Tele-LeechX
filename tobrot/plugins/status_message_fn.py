@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# (c) Shrimadhav U K | gautamajay52
+# (c) Shrimadhav U K | gautamajay52 | 5MysterySD | Other Contributors 
+#
+# Copyright 2022 - TeamTele-LeechX
+# 
+# This is Part of < https://github.com/5MysterySD/Tele-LeechX >
+# All Right Reserved
+
 
 import asyncio
 import io
@@ -10,12 +16,12 @@ import shutil
 import sys
 import time
 import traceback
-
 import psutil
 import math
-from pyrogram.errors import FloodWait, MessageIdInvalid, MessageNotModified
-from tobrot.helper_funcs.admin_check import AdminCheck
 
+from pyrogram.errors import FloodWait, MessageIdInvalid, MessageNotModified
+from pyrogram.types import enums
+from tobrot.helper_funcs.admin_check import AdminCheck
 from tobrot import (
     AUTH_CHANNEL,
     BOT_START_TIME,
@@ -30,26 +36,22 @@ from tobrot import (
     UPDATES_CHANNEL,
     CANCEL_COMMAND_G
     )
-
-
 # the logging things
 from tobrot.helper_funcs.display_progress import TimeFormatter, humanbytes
-from tobrot.helper_funcs.download_aria_p_n import (aria_start,
-                                                   call_apropriate_function)
+from tobrot.helper_funcs.download_aria_p_n import aria_start, call_apropriate_function
 from tobrot.helper_funcs.upload_to_tg import upload_to_tg
 from tobrot.UserDynaConfig import UserDynaConfig
-
 
 async def upload_as_doc(client, message):
     user_specific_config[message.from_user.id]=UserDynaConfig(message.from_user.id,True)
     u_men = message.from_user.mention
-    await message.reply_text(f"┏━━🛠 𝗧𝗼𝗴𝗴𝗹𝗲 𝗦𝗲𝘁𝘁𝗶𝗻𝗴𝘀 :\n┣👤 𝐔𝐬𝐞𝐫 : {u_men} \n┣🆔️ 𝐈𝐃 : #ID{message.from_user.id}\n┃\n┣🏷 𝐓𝐨𝐠𝐠𝐥𝐞 : 📁<code>Document 📂</code>\n┃\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹")
+    await message.reply_text(f"┏━━ 🛠  𝗧𝗼𝗴𝗴𝗹𝗲 𝗦𝗲𝘁𝘁𝗶𝗻𝗴𝘀 :\n┣👤 𝐔𝐬𝐞𝐫 : {u_men} \n┣🆔️ 𝐈𝐃 : #ID{message.from_user.id}\n┃\n┣🏷 𝐓𝐨𝐠𝐠𝐥𝐞 : 📁<code>Document 📂</code>\n┃\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹")
 
 
 async def upload_as_video(client, message):
     user_specific_config[message.from_user.id]=UserDynaConfig(message.from_user.id,False)
     u_men = message.from_user.mention
-    await message.reply_text(f"┏━━🛠 𝗧𝗼𝗴𝗴𝗹𝗲 𝗦𝗲𝘁𝘁𝗶𝗻𝗴𝘀 :\n┣👤 𝐔𝐬𝐞𝐫 : {u_men} \n┣🆔️ 𝐈𝐃 : #ID{message.from_user.id}\n┃\n┣🏷𝐓𝐨𝐠𝐠𝐥𝐞 : <code>🎞 Video 🎞</code>\n┃\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹")
+    await message.reply_text(f"┏━━ 🛠  𝗧𝗼𝗴𝗴𝗹𝗲 𝗦𝗲𝘁𝘁𝗶𝗻𝗴𝘀 :\n┣👤 𝐔𝐬𝐞𝐫 : {u_men} \n┣🆔️ 𝐈𝐃 : #ID{message.from_user.id}\n┃\n┣🏷𝐓𝐨𝐠𝐠𝐥𝐞 : <code>🎞 Video 🎞</code>\n┃\n┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹")
  
 
 async def status_message_f(
@@ -59,7 +61,7 @@ async def status_message_f(
     # Show All Downloads
     to_edit = await message.reply("🧭 𝐆𝐞𝐭𝐭𝐢𝐧𝐠 𝐂𝐮𝐫𝐫𝐞𝐧𝐭 𝐒𝐭𝐚𝐭𝐮𝐬 . .")
     chat_id = int(message.chat.id)
-    mess_id = int(to_edit.message_id)
+    mess_id = int(to_edit.id)
     async with _lock:
         if len(gid_dict[chat_id]) == 0:
             gid_dict[chat_id].append(mess_id)
@@ -139,7 +141,7 @@ async def status_message_f(
         else:
             if msg != prev_mess:
                 try:
-                    await to_edit.edit(msg, parse_mode="html")
+                    await to_edit.edit(msg, parse_mode=enums.ParseMode.HTML)
                 except MessageIdInvalid as df:
                     break
                 except MessageNotModified as ep:
@@ -147,7 +149,7 @@ async def status_message_f(
                     await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
                 except FloodWait as e:
                     LOGGER.info(e)
-                    time.sleep(e.x)
+                    time.sleep(e.value)
                 await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
                 prev_mess = msg
 
@@ -184,9 +186,9 @@ async def exec_message_f(client, message):
     link = message.text.split(' ', maxsplit=1)[1]
     work_in = await message.reply_text("`Generating ...`")
 
-    reply_to_id = message.message_id
+    reply_to_id = message.id
     if message.reply_to_message:
-        reply_to_id = message.reply_to_message.message_id
+        reply_to_id = message.reply_to_message.id
 
     start_time = time.time() + PROCESS_RUN_TIME
     process = await asyncio.create_subprocess_shell(
@@ -217,7 +219,7 @@ async def exec_message_f(client, message):
             )
         await message.delete()
     else:
-        await message.reply_text(OUTPUT, disable_web_page_preview=True, parse_mode="html", quote=True)
+        await message.reply_text(OUTPUT, disable_web_page_preview=True, parse_mode=enums.ParseMode.HTML, quote=True)
 
 
 async def upload_document_f(client, message):
@@ -237,9 +239,9 @@ async def eval_message_f(client, message):
         status_message = await message.reply_text("Processing ...")
         cmd = message.text.split(" ", maxsplit=1)[1]
 
-        reply_to_id = message.message_id
+        reply_to_id = message.id
         if message.reply_to_message:
-            reply_to_id = message.reply_to_message.message_id
+            reply_to_id = message.reply_to_message.id
 
         old_stderr = sys.stderr
         old_stdout = sys.stdout
