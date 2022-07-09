@@ -1,17 +1,24 @@
-import logging
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# (c) 5MysterySD 
+#
+# Copyright 2022 - TeamTele-LeechX
+# 
+# This is Part of < https://github.com/5MysterySD/Tele-LeechX >
+# All Right Reserved
 
+import logging
 import pyrogram
 from tobrot import *
 
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-
+from pyrogram.types import enums, InlineKeyboardMarkup, InlineKeyboardButton
 
 async def new_join_f(client, message):
     chat_type = message.chat.type
-    if chat_type != "private":
+    if chat_type != enums.ChatType.PRIVATE:
         await message.reply_text(
             f"""<b>🙋🏻‍♂️ Hello dear!\n\n This Is A Leech Bot .This Chat Is Not Supposed To Use Me</b>\n\n<b>Current CHAT ID: <code>{message.chat.id}</code>""",
-            parse_mode="html",
+            parse_mode=enums.ParseMode.HTML,
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
@@ -45,7 +52,7 @@ async def help_message_f(client, message):
 ┃
 ┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️━╹""",
         reply_markup = reply_markup,
-        parse_mode = "html",
+        parse_mode = enums.ParseMode.HTML,
         disable_web_page_preview=True
     )
 
