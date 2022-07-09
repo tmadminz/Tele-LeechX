@@ -21,7 +21,7 @@ from pathlib import Path
 import pyrogram.types as pyrogram
 import requests
 
-from pyrogram.types import enums
+from pyrogram import enums
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from hurry.filesize import size
