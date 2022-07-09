@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# (c) Shrimadhav U K | gautamajay52 | MaxxRider | 5MysterySD 
+# (c) Shrimadhav U K | gautamajay52 | MaxxRider | 5MysterySD | Other Contributors 
+#
+# Copyright 2022 - TeamTele-LeechX
+# 
+# This is Part of < https://github.com/5MysterySD/Tele-LeechX >
+# All Right Reserved
+
 
 import asyncio
 import logging
@@ -42,7 +48,7 @@ from tobrot.helper_funcs.extract_link_from_message import extract_link
 from tobrot.helper_funcs.upload_to_tg import upload_to_tg
 from tobrot.helper_funcs.youtube_dl_extractor import extract_youtube_dl_formats
 from tobrot.helper_funcs.ytplaylist import yt_playlist_downg
-
+from pyrogram.types import enums
 
 async def incoming_purge_message_f(client, message):
     """/purge command"""
@@ -85,7 +91,7 @@ async def incoming_message_f(client, message):
             )
             startwarn = f"Dear {uname},\n\n<b>I found that you haven't Started me in PM (Private Chat) yet.</b>\n\n" \
                         f"From Now on, Links and Leeched Files in PM and Log Channel Only !!"
-            message = await message.reply_text(text=startwarn, parse_mode="html", quote=True, reply_markup=button_markup)
+            message = await message.reply_text(text=startwarn, parse_mode=enums.ParseMode.HTML, quote=True, reply_markup=button_markup)
             return
 
     text__ = f"<i>⚡️Leech Initiated⚡️</i>\n\n👤 <b>User</b> : <a href='tg://user?id={message.from_user.id}'>{message.from_user.first_name}</a>\n🆔 <b>User ID</b> : #ID{g_id}\n"
@@ -140,11 +146,11 @@ async def incoming_message_f(client, message):
         link = "N/A"
         text__ += f"🔗 <b>Link</b> : <code>{link}</code>"
         
-    link_text = await message.reply_text(text=text__, parse_mode="html", quote=True, disable_web_page_preview=True)
+    link_text = await message.reply_text(text=text__, parse_mode=enums.ParseMode.HTML, quote=True, disable_web_page_preview=True)
     # Send Log Message to Channel 
     endText = f"\n📬 <b>Source :</b> <a href='{message.link}'>Click Here</a>\n\n#LeechStart #FXLogs"
     if not txtCancel:
-        logs_msg = bot.send_message(chat_id=LEECH_LOG, text=text__+endText, parse_mode="html", disable_web_page_preview=True)
+        logs_msg = bot.send_message(chat_id=LEECH_LOG, text=text__+endText, parse_mode=enums.ParseMode.HTML, disable_web_page_preview=True)
     LOGGER.info(f"Leech Started : {message.from_user.first_name}")
 
     i_m_sefg = await message.reply_text("<code>Processing ... 🔄</code>", quote=True)
@@ -242,7 +248,7 @@ async def incoming_youtube_dl_f(client, message):
     current_user_id = message.from_user.id
     u_men = message.from_user.mention
     credit = await message.reply_text(
-        f"<b><i>🛃 Working For 🛃:</i></b> {u_men}", parse_mode="html"
+        f"<b><i>🛃 Working For 🛃:</i></b> {u_men}", parse_mode=enums.ParseMode.HTML
     )
     i_m_sefg = await message.reply_text("<code>Prrocessing...🔃</code>", quote=True)
     # LOGGER.info(message)
@@ -317,7 +323,7 @@ async def g_yt_playlist(client, message):
         u_men = message.from_user.mention
         i_m_sefg = await message.reply_text(
             f"<b>Ok Fine 🐈 {u_men} Bro!!:\n Your Request has been ADDED</b>\n\n <code> Please wait until Upload</code>",
-            parse_mode="html",
+            parse_mode=enums.ParseMode.HTML
         )
         await yt_playlist_downg(message, i_m_sefg, client, is_cloud)
 
