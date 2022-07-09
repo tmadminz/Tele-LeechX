@@ -629,7 +629,7 @@ async def upload_single_file(
                             media=local_file_name,
                             thumb=thumb,
                             caption=caption_str,
-                            parse_mode=enums.ParseMode.HTML
+                            parse_mode=enums.ParseMode.HTML,
                             duration=duration,
                             performer=artist,
                             title=title,
