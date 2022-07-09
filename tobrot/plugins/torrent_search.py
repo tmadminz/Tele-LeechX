@@ -1,3 +1,12 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# (c) 5MysterySD | Other Contributors 
+# Total Code Kanged from MLTB by Anasty17 
+# Copyright 2022 - TeamTele-LeechX
+# 
+# This is Part of < https://github.com/5MysterySD/Tele-LeechX >
+# All Right Reserved
+
 import os
 import time
 import html
@@ -16,7 +25,7 @@ from urllib.parse import quote as urlencode, urlsplit
 
 from pyrogram import Client, filters, emoji
 from pyrogram.parser import html as pyrogram_html
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import enums, InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.handlers import MessageHandler, CallbackQueryHandler
 
 from tobrot import app, dispatcher, bot, LOGGER 
@@ -29,8 +38,8 @@ search_info = {False: dict(), True: dict()}
 def sendMessage(text: str, bot, update: Update):
     try:
         return bot.send_message(update.message.chat_id,
-                            reply_to_message_id=update.message.message_id,
-                            text=text, allow_sending_without_reply=True,  parse_mode='HTMl')
+                            reply_to_message_id=update.message.id,
+                            text=text, allow_sending_without_reply=True,  parse_mode=enums.ParseMode.HTML)
     except Exception as e:
         LOGGER.error(str(e))
 
@@ -116,7 +125,7 @@ async def init_search(client, message, query, sukebei):
         reply = await message.reply_text(result, reply_markup=InlineKeyboardMarkup([
             buttons 
         ]))
-        message_info[(reply.chat.id, reply.message_id)] = message.from_user.id, ttl, query, 1, pages, sukebei
+        message_info[(reply.chat.id, reply.id)] = message.from_user.id, ttl, query, 1, pages, sukebei
 
 @app.on_callback_query(callback_data('nyaa_nop'))
 async def nyaa_nop(client, callback_query):
@@ -126,7 +135,7 @@ callback_lock = asyncio.Lock()
 @app.on_callback_query(callback_data(['nyaa_back', 'nyaa_next']))
 async def nyaa_callback(client, callback_query):
     message = callback_query.message
-    message_identifier = (message.chat.id, message.message_id)
+    message_identifier = (message.chat.id, message.id)
     data = callback_query.data
     async with callback_lock:
         if message_identifier in ignore:
@@ -236,7 +245,7 @@ class TorrentSearch:
         await self.message.edit(
             result,
             reply_markup=InlineKeyboardMarkup([inline]),
-            parse_mode="markdown",
+            parse_mode=enums.ParseMode.MARKDOWN,
         )
 
     async def find(self, client, message):
@@ -356,7 +365,7 @@ async def searchhelp(self, message):
 ┃
 ┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 @FuZionX♦️━╹
 '''
-    await message.reply(help_string, parse_mode="HTML")
+    await message.reply(help_string, parse_mode=enums.ParseMode.HTML)
     #sendMessage(help_string, context.bot, update)
     
     #& CustomFilters.mirror_owner_filter Not Used 😉
