@@ -23,5 +23,5 @@ if [ -f .env ] ; then  set -o allexport; source .env; set +o allexport ; fi
 
 
 echo "Starting Your Bot... ♻️♻️"
-python3 -m tobrot
+python3 update.py && python3 -m tobrot
 
