@@ -1,6 +1,14 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# (c) 5MysterySD
+#
+# Copyright 2022 - TeamTele-LeechX
+# 
+# This is Part of < https://github.com/5MysterySD/Tele-LeechX >
+# All Right Reserved
 
 import string
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import enums, Message, InlineKeyboardMarkup, InlineKeyboardButton
 
 # https://stackoverflow.com/questions/62173294/how-can-i-keep-save-the-user-input-in-dictionary
 
@@ -26,7 +34,7 @@ async def prefix_set(client, message):
     prefix_ = txt
     PRE_DICT[user_id_] = prefix_
 
-    pre_text = await lm.edit_text(f"⚡️<i><b>Custom Prefix Set Successfully</b></i> ⚡️ \n\n👤 <b>User :</b> {u_men}\n🆔 <b>User ID :</b> <code>{user_id_}</code>\n🗃 <b>Prefix :</b> <spoiler><code>{txt}</code></spoiler>", parse_mode="html")
+    pre_text = await lm.edit_text(f"⚡️<i><b>Custom Prefix Set Successfully</b></i> ⚡️ \n\n👤 <b>User :</b> {u_men}\n🆔 <b>User ID :</b> <code>{user_id_}</code>\n🗃 <b>Prefix :</b> <spoiler><code>{txt}</code></spoiler>", parse_mode=enums.ParseMode.HTML)
     
 
 async def caption_set(client, message):
@@ -52,7 +60,7 @@ async def caption_set(client, message):
         txt = txx[0]
     except:
         pass 
-    cap_text = await lk.edit_text(f"⚡️<i><b>Custom Caption Set Successfully</b></i> ⚡️ \n\n👤 <b>User :</b> {u_men}\n🆔 <b>User ID :</b> <code>{user_id_}</code>\n🗃 <b>Caption :</b>\n<tg-spoiler><code>{txt}</code></tg-spoiler>", parse_mode="html")
+    cap_text = await lk.edit_text(f"⚡️<i><b>Custom Caption Set Successfully</b></i> ⚡️ \n\n👤 <b>User :</b> {u_men}\n🆔 <b>User ID :</b> <code>{user_id_}</code>\n🗃 <b>Caption :</b>\n<tg-spoiler><code>{txt}</code></tg-spoiler>", parse_mode=enums.ParseMode.HTML)
 
 
 async def template_set(client, message):
@@ -77,14 +85,14 @@ async def template_set(client, message):
         template_ = txt
         IMDB_TEMPLATE[user_id_] = template_
     
-        await lm.edit_text(f"⚡️<i><b>Custom Template Set Successfully</b></i> ⚡️ \n\n👤 <b>User :</b> {u_men}\n🆔 <b>User ID :</b> <code>{user_id_}</code>\n🗃 <b>IMDB Template :</b> \n<code>{txt}</code>", parse_mode="html")
+        await lm.edit_text(f"⚡️<i><b>Custom Template Set Successfully</b></i> ⚡️ \n\n👤 <b>User :</b> {u_men}\n🆔 <b>User ID :</b> <code>{user_id_}</code>\n🗃 <b>IMDB Template :</b> \n<code>{txt}</code>", parse_mode=enums.ParseMode.HTML)
 
 
     '''
     await message.reply_text(
         text="**Send me New File Name Prefix!**",
         #reply_to_message_id=message.reply_to_message.message_id,
-        parse_mode="markdown",
+        parse_mode=enums.ParseMode.MARKDOWN,
     )
     try:
         ask_: Message = await bot.listen(message.from_user.id)
