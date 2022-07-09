@@ -7,7 +7,7 @@
 # This is Part of < https://github.com/5MysterySD/Tele-LeechX >
 # All Right Reserved
 
-from pyrogram.types import enums
+from pyrogram import enums
 
 async def AdminCheck(client, chat_id, user_id):
     chat = await client.get_chat(chat_id)
