@@ -209,7 +209,8 @@ multi_rclone_init()
 
 # Pyrogram Client Intialization >>>>>>>>>>>
 app = Client("LeechBot", bot_token=TG_BOT_TOKEN, api_id=APP_ID, api_hash=API_HASH, workers=343)
-userBot = Client("Tele-UserBot", session_string=STRING_SESSION)
+if STRING_SESSION:
+    userBot = Client("Tele-UserBot", session_string=STRING_SESSION)
 
 updater = tg.Updater(token=TG_BOT_TOKEN)
 bot = updater.bot
