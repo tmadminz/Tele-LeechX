@@ -19,7 +19,7 @@ if os.path.exists("FuZionXLogs.txt"):
     with open("FuZionXLogs.txt", "r+") as f_d:
         f_d.truncate(0)
 
-# the logging things
+# the logging things >>>>>>>>>>>
 logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s - %(levelname)s - %(message)s [%(filename)s:%(lineno)d]",
@@ -53,27 +53,26 @@ for imp in ["TG_BOT_TOKEN", "APP_ID", "API_HASH", "OWNER_ID", "AUTH_CHANNEL"]:
         exit()
 '''
 
-# The Telegram API things
+# The Telegram API things >>>>>>>>>>>
 TG_BOT_TOKEN = os.environ.get("TG_BOT_TOKEN", "5139162631:AAHGWHHbnbu7k5jOjXW-axcNuJcSRpBktr4")
 APP_ID = os.environ.get("APP_ID", "6878048")
 API_HASH = os.environ.get("API_HASH", "3833ae3a7415af46df46a83a3ba2c432")
 OWNER_ID = int(os.environ.get("OWNER_ID", "1242011540"))
 
-# Get these values from my.telegram.org
-# to store the channel ID who are authorized to use the bot
+# Authorised Chat Functions >>>>>>>>>>>
 AUTH_CHANNEL = [int(x) for x in os.environ.get("AUTH_CHANNEL", "-1001270496331 -1001508663868").split()]
-
-# Cuz most ppl dunno AUTH_CHANNEL also works as SUDO
 SUDO_USERS = [int(sudos) if (' ' not in os.environ.get('SUDO_USERS', '')) else int(sudos) for sudos in os.environ.get('SUDO_USERS', '').split()]
-
-# the download location, where the HTTP Server runs
+AUTH_CHANNEL.append(OWNER_ID)
+AUTH_CHANNEL += SUDO_USERS
+# Download Directory >>>>>>>>>>>
 DOWNLOAD_LOCATION = "./DOWNLOADS"
+
 # Telegram maximum file upload size
 MAX_FILE_SIZE = 50000000
 TG_MAX_FILE_SIZE = 2097152000
+TG_PRM_FILE_SIZE = 4194304000
 FREE_USER_MAX_FILE_SIZE = 50000000
-AUTH_CHANNEL.append(OWNER_ID)
-AUTH_CHANNEL += SUDO_USERS
+
 # chunk size that should be used with requests
 CHUNK_SIZE = int(os.environ.get("CHUNK_SIZE", "128"))
 # default thumbnail to be used in the videos
@@ -82,26 +81,32 @@ DEF_THUMB_NAIL_VID_S = os.environ.get("DEF_THUMB_NAIL_VID_S", "https://telegra.p
 MAX_MESSAGE_LENGTH = 4096
 # set timeout for subprocess
 PROCESS_MAX_TIMEOUT = 3600
-#
+# Internal Requirements >>>>>>>>>>>
 SP_LIT_ALGO_RITH_M = os.environ.get("SP_LIT_ALGO_RITH_M", "hjs")
 ARIA_TWO_STARTED_PORT = int(os.environ.get("ARIA_TWO_STARTED_PORT", "6800"))
 EDIT_SLEEP_TIME_OUT = int(os.environ.get("EDIT_SLEEP_TIME_OUT", "10"))
 MAX_TIME_TO_WAIT_FOR_TORRENTS_TO_START = int(os.environ.get("MAX_TIME_TO_WAIT_FOR_TORRENTS_TO_START", 600))
 MAX_TG_SPLIT_FILE_SIZE = int(os.environ.get("MAX_TG_SPLIT_FILE_SIZE", "1072864000"))
+
 # add config vars for the display progress
 FINISHED_PROGRESS_STR = os.environ.get("FINISHED_PROGRESS_STR", "■")
 UN_FINISHED_PROGRESS_STR = os.environ.get("UN_FINISHED_PROGRESS_STR", "□")
+
 # add offensive API
 TG_OFFENSIVE_API = os.environ.get("TG_OFFENSIVE_API", None)
 CUSTOM_FILE_NAME = os.environ.get("CUSTOM_FILE_NAME", "")
+
+#Bot Command [Leech]  >>>>>>>>>>>
 LEECH_COMMAND = os.environ.get("LEECH_COMMAND", "leech")
 LEECH_UNZIP_COMMAND = os.environ.get("LEECH_UNZIP_COMMAND", "extract")
 LEECH_ZIP_COMMAND = os.environ.get("LEECH_ZIP_COMMAND", "archive")
 GLEECH_COMMAND = os.environ.get("GLEECH_COMMAND", "gleech")
 GLEECH_UNZIP_COMMAND = os.environ.get("GLEECH_UNZIP_COMMAND", "gleechunzip")
 GLEECH_ZIP_COMMAND = os.environ.get("GLEECH_ZIP_COMMAND", "gleechzip")
+#Bot Command [ytdl] >>>>>>>>>>>
 YTDL_COMMAND = os.environ.get("YTDL_COMMAND", "ytdl")
 GYTDL_COMMAND = os.environ.get("GYTDL_COMMAND", "gytdl")
+#Bot Command [RClone]  >>>>>>>>>>>
 RCLONE_CONFIG = os.environ.get("RCLONE_CONFIG", "")
 DESTINATION_FOLDER = os.environ.get("DESTINATION_FOLDER", "FuZionXBot")
 INDEX_LINK = os.environ.get("INDEX_LINK", "https://covid.demonn.workers.dev/0:/FuZionXBot https://infyplexultra.mysterydemon.workers.dev/0:/FuZionXBot")
@@ -129,6 +134,7 @@ TSEARCH_COMMAND = os.environ.get("TSEARCH_COMMAND", "tshelp")
 MEDIAINFO_CMD = os.environ.get("MEDIAINFO_CMD", "mediainfo")
 UPDATES_CHANNEL = os.environ.get("UPDATES_CHANNEL", "@FuZionX")
 CAP_STYLE = os.environ.get("CAP_STYLE", "code")
+#Bot Command [Token Utils]  >>>>>>>>>>>
 UPTOBOX_TOKEN = os.environ.get("UPTOBOX_TOKEN", "")
 EMAIL = os.environ.get("EMAIL", "mysterysd.sd@gmail.com")
 PWSSD = os.environ.get("PWSSD", "S#D#97531")
@@ -141,6 +147,8 @@ KATDRIVE_CRYPT = os.environ.get("KATDRIVE_CRYPT", "WlFKUldtYWJzNmJlWkEvajRscmVrS
 KOLOP_CRYPT = os.environ.get("KOLOP_CRYPT", "WlFKUldtYWJzNmJlWkEvajRscmVrSjhJRm8yNXdDZklqYXpxd1AxQ0Zwcz0%3D")
 DRIVEBUZZ_CRYPT = os.environ.get("DRIVEBUZZ_CRYPT", "dVAwSkpDU0FWVnNYV3hSZU40RkhrRU53RzVmdjVBbFd3RThPeFllMmhSND0%3D")
 GADRIVE_CRYPT = os.environ.get("GADRIVE_CRYPT", "dVAwSkpDU0FWVnNYV3hSZU40RkhrRU53RzVmdjVBbFd3RThPeFllMmhSND0%3D")
+STRING_SESSION = os.environ.get("STRING_SESSION", "")
+#Bot Command [IMDB]  >>>>>>>>>>>
 CUSTOM_CAPTION = os.environ.get("CUSTOM_CAPTION", "")
 MAX_LIST_ELM = os.environ.get("MAX_LIST_ELM", None)
 DEF_IMDB_TEMPLATE = os.environ.get("IMDB_TEMPLATE", """<i><b>⚡𝐓𝐢𝐭𝐥𝐞: </b> {title}
@@ -158,11 +166,13 @@ DEF_IMDB_TEMPLATE = os.environ.get("IMDB_TEMPLATE", """<i><b>⚡𝐓𝐢𝐭𝐥
 ⚡️𝐉𝐨𝐢𝐧 𝐍𝐨𝐰 :  @FuZionX </i>
 
 ⚡️✅ 𝑪𝒍𝒊𝒄𝒌 𝑫𝒐𝒘𝒏 𝒂𝒏𝒅 𝑺𝒕𝒂𝒓𝒕 𝒕𝒉𝒆 𝑩𝒐𝒕 𝒕𝒐 𝑮𝒆𝒕 𝒕𝒉𝒆 𝑭𝒊𝒍𝒆 ✅ !! ⬇️ ⬇️""")
+#Bot Command [Bot PM & Log Channel]  >>>>>>>>>>>
 LEECH_LOG = os.environ.get("LEECH_LOG", "-1001569981856")
 EX_LEECH_LOG = os.environ.get("EX_LEECH_LOG", "")
 EXCEP_CHATS = os.environ.get("EXCEP_CHATS", "")
 BOT_PM = os.environ.get("BOT_PM", "True")
 SERVER_HOST = os.environ.get("SERVER_HOST", "Heroku")
+
 BOT_START_TIME = time.time()
 # dict to control uploading and downloading
 gDict = defaultdict(lambda: [])
@@ -195,13 +205,12 @@ def multi_rclone_init():
                 fole.write(f.read())
         LOGGER.info("rclone.conf backuped to rclone_bak.conf!")
 
-
 multi_rclone_init()
 
+# Pyrogram Client Intialization >>>>>>>>>>>
 app = Client("LeechBot", bot_token=TG_BOT_TOKEN, api_id=APP_ID, api_hash=API_HASH, workers=343)
+userBot = Client("Tele-UserBot", session_string=STRING_SESSION)
 
 updater = tg.Updater(token=TG_BOT_TOKEN)
 bot = updater.bot
 dispatcher = updater.dispatcher
-
-
