@@ -15,9 +15,7 @@ import sys
 import traceback
 import datetime 
 
-from telegram import ParseMode
-
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import enums, InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram import Client, filters, idle
 from pyrogram.raw import functions, types
 from pyrogram.handlers import CallbackQueryHandler, MessageHandler
@@ -140,18 +138,18 @@ async def start(client, message):
         await message.reply_text(
            start_string,
            reply_markup=reply_markup,
-           parse_mode="html",
+           parse_mode=enums.ParseMode.HTML,
            quote=True
         )
     else:
-        await message.reply_text(f"**I Am Alive and Working, Send /help to Know How to Use Me !** ✨", parse_mode="markdown")
+        await message.reply_text(f"**I Am Alive and Working, Send /help to Know How to Use Me !** ✨", parse_mode=enums.ParseMode.MARKDOWN)
 
 
 def restart(client, message): 
     restart_message = sendMessage("Restarting, Please wait!", message.tobrot, client)
     with open(".restartmsg", "w") as f: 
         f.truncate(0)       
-        f.write(f"{restart_message.chat.id}\n{restart_message.message_id}\n") 
+        f.write(f"{restart_message.chat.id}\n{restart_message.id}\n") 
     clean_all()
     os.execl(executable, executable, "-m", "bot")
 
@@ -173,10 +171,10 @@ if __name__ == "__main__":
     elif OWNER_ID:
         try:
             text = f"<b>Bᴏᴛ Rᴇsᴛᴀʀᴛᴇᴅ !!</b>\n\n<b>📊 𝙃𝙤𝙨𝙩 :</b> <code>{SERVER_HOST}</code>\n{ist}\n\n<b>ℹ️ 𝙑𝙚𝙧𝙨𝙞𝙤𝙣 :</b> <code>3.2.4</code>"
-            #bot.sendMessage(chat_id=OWNER_ID, text=text, parse_mode=ParseMode.HTML)
+            #bot.sendMessage(chat_id=OWNER_ID, text=text, parse_mode=enums.ParseMode.HTML)
             if AUTH_CHANNEL:
                 for i in AUTH_CHANNEL:
-                    bot.sendMessage(chat_id=i, text=text, parse_mode=ParseMode.HTML)
+                    bot.sendMessage(chat_id=i, text=text, parse_mode=enums.ParseMode.HTML)
         except Exception as e:
             LOGGER.warning(e)
 
@@ -418,8 +416,7 @@ if __name__ == "__main__":
     app.add_handler(template_handler)
     ##############################################################################
 
-    logging.info("
-        $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\   
+    logging.info('''        $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\   
         \______|\______|\______|\______|\______|\______|\______|\______|\______|\______|\______|\______|  
 
         $$$$$$$$\        $$\                   $$\                                    $$\       $$\   $$\ 
@@ -432,7 +429,7 @@ if __name__ == "__main__":
            \__| \_______|\__| \_______|        \________|\_______| \_______| \_______|\__|  \__|\__|  \__|
 
         $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\ $$$$$$\   
-        \______|\______|\______|\______|\______|\______|\______|\______|\______|\______|\______|\______|"
+        \______|\______|\______|\______|\______|\______|\______|\______|\______|\______|\______|\______|'''
         )
     logging.info(f"@{(app.get_me()).username} Has Started Running...🏃💨💨")
 
