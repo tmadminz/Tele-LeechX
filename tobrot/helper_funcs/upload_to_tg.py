@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# (c) Shrimadhav U K | gautamajay52 | 5MysterySD 
+# (c) Shrimadhav U K | gautamajay52 | MaxxRider | 5MysterySD | Other Contributors 
+#
+# Copyright 2022 - TeamTele-LeechX
+# 
+# This is Part of < https://github.com/5MysterySD/Tele-LeechX >
+# All Right Reserved
+
 
 import asyncio
 import logging
@@ -14,6 +20,8 @@ from pathlib import Path
 
 import pyrogram.types as pyrogram
 import requests
+
+from pyrogram.types import enums
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from hurry.filesize import size
@@ -106,7 +114,7 @@ async def upload_to_tg(
             new_m_esg = await message.reply_text(
                 f"<b><i>🛠 Extracting : </i></b> <code>{len(directory_contents)}</code> <b>File(s) <a href='tg://user?id={from_user}'></a></b>",
                 quote=True
-                # reply_to_message_id=message.message_id
+                # reply_to_message_id=message.id
             )
         for single_file in directory_contents:
             # recursion: will this FAIL somewhere?
@@ -136,7 +144,7 @@ async def upload_to_tg(
             if sent_msg is not None:
                 dict_contatining_uploaded_files[
                     os.path.basename(local_file_name)
-                ] = sent_message.message_id
+                ] = sent_message.id
             else:
                 return
         elif os.path.getsize(local_file_name) > TG_MAX_FILE_SIZE and str(from_user) not in str(PRM_USERS):
@@ -183,7 +191,7 @@ async def upload_to_tg(
             if sent_message is not None:
                 dict_contatining_uploaded_files[
                     os.path.basename(local_file_name)
-                ] = sent_message.message_id
+                ] = sent_message.id
             else:
                 return
     # await message.delete()
@@ -387,7 +395,7 @@ async def upload_single_file(
                 document=local_file_name,
                 thumb=thumb,
                 caption=caption_str,
-                parse_mode="html",
+                parse_mode=enums.ParseMode.HTML,
                 disable_notification=True,
                 progress=prog.progress_for_pyrogram,
                 progress_args=(
@@ -401,7 +409,7 @@ async def upload_single_file(
                 document=local_file_name,
                 thumb=thumb,
                 caption=caption_str,
-                parse_mode="html",
+                parse_mode=enums.ParseMode.HTML,
                 disable_notification=True,
                 #progress=prog.progress_for_pyrogram,
                 #progress_args=(
@@ -415,7 +423,7 @@ async def upload_single_file(
                 document=local_file_name,
                 thumb=thumb,
                 caption=f"<code>{base_file_name}</code>\n\n♨️ 𝕌𝕡𝕝𝕠𝕒𝕕𝕖𝕕 𝔹𝕪 @FXTorrentz ♨️",
-                parse_mode="html",
+                parse_mode=enums.ParseMode.HTML,
                 disable_notification=True,
             )
             if BOT_PM:
@@ -425,7 +433,7 @@ async def upload_single_file(
                       document=sent_msgs.document.file_id,
                       thumb=thumb,
                       caption=caption_str,
-                      parse_mode="html"
+                      parse_mode=enums.ParseMode.HTML
                   )
                 except Exception as err:
                    LOGGER.error(f"Failed To Send Document in User PM:\n{err}")
@@ -437,15 +445,15 @@ async def upload_single_file(
                             document=sent_msgs.document.file_id,
                             thumb=thumb,
                             caption=f"<code>{base_file_name}</code>\n\n♨️ 𝕌𝕡𝕝𝕠𝕒𝕕𝕖𝕕 𝔹𝕪 @FXTorrentz ♨️",
-                            parse_mode="html"
+                            parse_mode=enums.ParseMode.HTML
                         )
                 except Exception as err:
                     LOGGER.error(f"Failed To Send Document in Channel:\n{err}")
-        if message.message_id != message_for_progress_display.message_id:
+        if message.id != message_for_progress_display.id:
             try:
                 await message_for_progress_display.delete()
             except FloodWait as gf:
-                time.sleep(gf.x)
+                time.sleep(gf.value)
             except Exception as rr:
                 LOGGER.warning(str(rr))
         os.remove(local_file_name)
@@ -522,7 +530,7 @@ async def upload_single_file(
                             media=local_file_name,
                             thumb=thumb,
                             caption=caption_str,
-                            parse_mode="html",
+                            parse_mode=enums.ParseMode.HTML,
                             width=width,
                             height=height,
                             duration=duration,
@@ -535,7 +543,7 @@ async def upload_single_file(
                         sent_message = await message.reply_video(
                             video=local_file_name,
                             caption=caption_str,
-                            parse_mode="html",
+                            parse_mode=enums.ParseMode.HTML,
                             duration=duration,
                             width=width,
                             height=height,
@@ -553,7 +561,7 @@ async def upload_single_file(
                             chat_id=LEECH_LOG,
                             video=local_file_name,
                             caption=f"<code>{base_file_name}</code>\n\n♨️ 𝕌𝕡𝕝𝕠𝕒𝕕𝕖𝕕 𝔹𝕪 @FXTorrentz ♨️",
-                            parse_mode="html",
+                            parse_mode=enums.ParseMode.HTML,
                             duration=duration,
                             width=width,
                             height=height,
@@ -574,7 +582,7 @@ async def upload_single_file(
                                     thumb=thumb,
                                     supports_streaming=True,
                                     caption=caption_str,
-                                    parse_mode="html"
+                                    parse_mode=enums.ParseMode.HTML
                                 )
                             except Exception as err:
                                 LOGGER.error(f"Failed To Send Video in User PM:\n{err}")
@@ -587,7 +595,7 @@ async def upload_single_file(
                                         thumb=thumb,
                                         supports_streaming=True,
                                         caption=f"<code>{base_file_name}</code>\n\n♨️ 𝕌𝕡𝕝𝕠𝕒𝕕𝕖𝕕 𝔹𝕪 @FXTorrentz ♨️",
-                                        parse_mode="html"
+                                        parse_mode=enums.ParseMode.HTML
                                     )
                             except Exception as err:
                                 LOGGER.error(f"Failed To Send Video in Channel:\n{err}")
@@ -621,7 +629,7 @@ async def upload_single_file(
                             media=local_file_name,
                             thumb=thumb,
                             caption=caption_str,
-                            parse_mode="html",
+                            parse_mode=enums.ParseMode.HTML
                             duration=duration,
                             performer=artist,
                             title=title,
@@ -631,7 +639,7 @@ async def upload_single_file(
                     sent_message = await message.reply_audio(
                         audio=local_file_name,
                         caption=caption_str,
-                        parse_mode="html",
+                        parse_mode=enums.ParseMode.HTML,
                         duration=duration,
                         performer=artist,
                         title=title,
@@ -686,7 +694,7 @@ async def upload_single_file(
                             media=local_file_name,
                             thumb=thumb,
                             caption=caption_str,
-                            parse_mode="html",
+                            parse_mode=enums.ParseMode.HTML
                         )
                     )
                 else:
@@ -695,7 +703,7 @@ async def upload_single_file(
                             document=local_file_name,
                             thumb=thumb,
                             caption=caption_str,
-                            parse_mode="html",
+                            parse_mode=enums.ParseMode.HTML,
                             disable_notification=True,
                             progress=prog.progress_for_pyrogram,
                             progress_args=(
@@ -709,7 +717,7 @@ async def upload_single_file(
                             document=local_file_name,
                             thumb=thumb,
                             caption=f"<code>{base_file_name}</code>\n\n♨️ 𝕌𝕡𝕝𝕠𝕒𝕕𝕖𝕕 𝔹𝕪 @FXTorrentz ♨️",
-                            parse_mode="html",
+                            parse_mode=enums.ParseMode.HTML,
                             disable_notification=True,
                             progress=prog.progress_for_pyrogram,
                             progress_args=(
@@ -724,7 +732,7 @@ async def upload_single_file(
                                     document=sent_msg.document.file_id,
                                     thumb=thumb,
                                     caption=caption_str,
-                                    parse_mode="html"
+                                    parse_mode=enums.ParseMode.HTML
                                 )
                             except Exception as err:
                                 LOGGER.error(f"Failed To Send Document in User PM:\n{err}")
@@ -736,7 +744,7 @@ async def upload_single_file(
                                         document=sent_msg.document.file_id,
                                         thumb=thumb,
                                         caption=f"<code>{base_file_name}</code>\n\n♨️ 𝕌𝕡𝕝𝕠𝕒𝕕𝕖𝕕 𝔹𝕪 @FXTorrentz ♨️",
-                                        parse_mode="html"
+                                        parse_mode=enums.ParseMode.HTML
                                     )
                             except Exception as err:
                                 LOGGER.error(f"Failed To Send Document in Channel:\n{err}")
@@ -747,17 +755,17 @@ async def upload_single_file(
             LOGGER.info(oY)
         except FloodWait as g:
             LOGGER.info(g)
-            time.sleep(g.x)
+            time.sleep(g.value)
         except Exception as e:
             LOGGER.info(e)
             await message_for_progress_display.edit_text("**FAILED**\n" + str(e))
         else:
-            if message.message_id != message_for_progress_display.message_id:
+            if message.id != message_for_progress_display.id:
                 try:
                     if sent_message is not None:
                         await message_for_progress_display.delete()
                 except FloodWait as gf:
-                    time.sleep(gf.x)
+                    time.sleep(gf.value)
                 except Exception as rr:
                     LOGGER.warning(str(rr))
                     await asyncio.sleep(5)
