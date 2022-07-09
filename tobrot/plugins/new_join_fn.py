@@ -11,7 +11,8 @@ import logging
 import pyrogram
 from tobrot import *
 
-from pyrogram.types import enums, InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram import enums
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 async def new_join_f(client, message):
     chat_type = message.chat.type
