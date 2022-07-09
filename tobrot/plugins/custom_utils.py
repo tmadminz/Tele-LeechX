@@ -8,7 +8,8 @@
 # All Right Reserved
 
 import string
-from pyrogram.types import enums, Message, InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram import enums
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 
 # https://stackoverflow.com/questions/62173294/how-can-i-keep-save-the-user-input-in-dictionary
 
