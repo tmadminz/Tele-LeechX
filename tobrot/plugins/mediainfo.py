@@ -1,7 +1,13 @@
-# Suggested by - @MysterySD (https://github.com/code-rgb/USERGE-X/issues/9)
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# (c) @MysterySD (https://github.com/code-rgb/USERGE-X/issues/9)
 # Copyright (C) 2020 BY - GitHub.com/code-rgb [TG - @deleteduser420]
 # Taken From Slam-mirrorbot, I thereby Take No Extra Credit on Code !!
-# All rights reserved.
+#
+# Copyright 2022 - TeamTele-LeechX
+# 
+# This is Part of < https://github.com/5MysterySD/Tele-LeechX >
+# All Right Reserved
 
 import asyncio
 import os
@@ -9,7 +15,7 @@ import datetime
 
 from html_telegraph_poster import TelegraphPoster
 from pyrogram import filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.types import enums, InlineKeyboardButton, InlineKeyboardMarkup
 
 from tobrot import app, bot, UPDATES_CHANNEL 
 from tobrot.plugins import runcmd 
@@ -42,7 +48,7 @@ def safe_filename(path_):
 async def mediainfo(client, message):
     reply = message.reply_to_message
     if not reply:
-        await message.reply_text("`Reply to Telegram Media to Generate MediaInfo !!`", parse_mode="markdown")
+        await message.reply_text("`Reply to Telegram Media to Generate MediaInfo !!`", parse_mode=enums.ParseMode.MARKDOWN)
         return
     process = await message.reply_text("`Gᴇɴᴇʀᴀᴛɪɴɢ ...`")
     x_media = None
