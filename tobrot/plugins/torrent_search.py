@@ -23,9 +23,9 @@ from telegram import ParseMode
 
 from urllib.parse import quote as urlencode, urlsplit
 
-from pyrogram import Client, filters, emoji
+from pyrogram import Client, filters, emoji, enums
 from pyrogram.parser import html as pyrogram_html
-from pyrogram.types import enums, InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.handlers import MessageHandler, CallbackQueryHandler
 
 from tobrot import app, dispatcher, bot, LOGGER 
