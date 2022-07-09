@@ -20,7 +20,7 @@ import psutil
 import math
 
 from pyrogram.errors import FloodWait, MessageIdInvalid, MessageNotModified
-from pyrogram.types import enums
+from pyrogram import enums
 from tobrot.helper_funcs.admin_check import AdminCheck
 from tobrot import (
     AUTH_CHANNEL,
