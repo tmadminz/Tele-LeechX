@@ -15,7 +15,8 @@ import sys
 import traceback
 import datetime 
 
-from pyrogram.types import enums, InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram import enums
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram import Client, filters, idle
 from pyrogram.raw import functions, types
 from pyrogram.handlers import CallbackQueryHandler, MessageHandler
