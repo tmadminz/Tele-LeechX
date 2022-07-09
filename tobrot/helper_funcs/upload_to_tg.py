@@ -57,7 +57,6 @@ def getFolderSize(p):
         ]
     )
 
-
 async def upload_to_tg(
     message,
     local_file_name,
