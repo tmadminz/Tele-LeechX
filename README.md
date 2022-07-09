@@ -1,5 +1,5 @@
 ![FUZION LEECH](https://telegra.ph/file/213b587eee775e34ca221.jpg)
-# FuZionX Leech Bot 
+# Tele-LeechX Bot 
 ![GitHub Repo Stars](https://img.shields.io/github/stars/5MysterySD/Tele-LeechX?color=blue&style=plastic)
 ![GitHub Forks](https://img.shields.io/github/forks/5MysterySD/Tele-LeechX?color=green&style=plastic)
 ![GitHub Contributors](https://img.shields.io/github/contributors/5MysterySD/Tele-LeechX?style=plastic)
@@ -12,17 +12,17 @@
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/5MysterySD/Tele-LeechX?style=plastic)
 [![Bot Support](https://img.shields.io/badge/Tele_LeechX-Support%20Group-blue)](https://t.me/FuZionXLeech)
 
-**A Powerful Telegram Leech Bot** Modded by `MysterySD` to directly Leech to Telegram, with Multi Direct Links Support for Enhanced Leeching.
+**A Powerful Pyrogram Based Telegram Leech Bot** Modded by `MysterySD` to directly Leech to Telegram, with Multi Direct Links Support for Enhanced Leeching.
 
-# Demo Group
-<a href="https://t.me/FuZionXLeech"><img src="https://img.shields.io/badge/FuZion Leech Bot-2cb6e0?style=for-the-badge&logo=telegram&logoColor=white"></a>
+## Demo Group
+<a href="https://t.me/FXTorrentz"><img src="https://img.shields.io/badge/FuZion Leech Bot-2cb6e0?style=for-the-badge&logo=telegram&logoColor=white"></a>
 
 
-# Features Supported :-
+## Features Supported :-
 <details>
     <summary><b>Click Here For Description</b></summary>
 
-## From Original Repo :
+### From Original Repo :
 - Google Drive link cloning using gclone.(wip)
 - Telegram File mirrorring to cloud along with its unzipping, unrar and untar
 - Drive/Teamdrive support/All other cloud services rclone.org supports
@@ -39,7 +39,7 @@
 - Changing rclone destination config on fly (By using `/rlcone` in private mode)
 
 
-## From Different Repos :
+### From Different Repos :
 - Aria2 configs In Root
 - Small FIX for Gclone
 - Added Dynamic Config 
@@ -48,7 +48,7 @@
 - Added direct rclone.conf url in vars
 
 
-## New In Repo :
+### New In Repo :
 - Dual Commands Usage (Both With / Without Bot Username)
 - Auto Commands Set To BotFather in Telegram 
 - New Torrent Search Support 
@@ -79,10 +79,10 @@ NTFS, RPM, SquashFS, UDF, VHD, XAR, Z.
 </details>
 
 
-# Variable Description :-
+## Variable Description :-
 
 
-## Mandatory Variables :-
+### Mandatory Variables :-
 <details>
     <summary><b>Click Here For Description</b></summary>
 
@@ -100,7 +100,7 @@ NTFS, RPM, SquashFS, UDF, VHD, XAR, Z.
 </details>
 
 
-## Optional Configuration Variables :-
+### Optional Configuration Variables :-
 
 <details>
     <summary><b>Click Here For Description</b></summary>
@@ -170,7 +170,7 @@ NTFS, RPM, SquashFS, UDF, VHD, XAR, Z.
 </details>
 
 
-# RClone Guide 
+## RClone Guide 
 
 <details>
     <summary><b>Click Here For Description</b></summary>
@@ -195,12 +195,12 @@ client_secret =
 </details>
 
 
-# Deploying on Heroku
+## Deploying on Heroku
 - Deploying on Heroku Indirectly `Supported`, Please Don't Abuse it or Share this Repo like Anything !!
 
 <p><a href="https://github.com/5MysterySD/Tele-LeechX/blob/master/heroku-deploy.md"> <img src="https://img.shields.io/badge/Deployment%20Guide-blueviolet?style=for-the-badge&logo=heroku" width="200""/></a></p>
 
-# Deploying on Okteto 
+## Deploying on Okteto 
 
 [![Develop on Okteto](https://okteto.com/develop-okteto.svg)](https://cloud.okteto.com/deploy?repository=https://github.com/5MysterySD/Tele-LeechX&vars=[{"name":"API_ID","value":""},{"name":"API_HASH","value":""},{"name":"TG_BOT_TOKEN","value":""},{"name":"OWNER_ID","value":""},{"name":"AUTH_CHANNEL","value":""}])
 
