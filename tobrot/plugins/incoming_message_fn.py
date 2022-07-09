@@ -74,7 +74,7 @@ async def incoming_message_f(client, message):
     
     ##Forsubscribe Soon  . .
 
-    if BOT_PM and message.chat.type != 'private' and message.chat.id not in EXCEP_CHATS:
+    if BOT_PM and message.chat.type != enums.ChatType.PRIVATE and str(message.chat.id) not in str(EXCEP_CHATS):
         try:
             msg1 = f'Added your Requested link to Download\n'
             send = await message.sent_message(message.from_user.id, text=msg1)
