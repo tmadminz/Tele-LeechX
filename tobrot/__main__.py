@@ -135,7 +135,7 @@ async def start(client, message):
 ┃
 ┗━♦️ℙ𝕠𝕨𝕖𝕣𝕖𝕕 𝔹𝕪 {UPDATES_CHANNEL}♦️
 '''
-    if message.chat.type == 'private':
+    if message.chat.type == enums.ChatType.PRIVATE:
         await message.reply_text(
            start_string,
            reply_markup=reply_markup,
