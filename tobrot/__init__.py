@@ -172,6 +172,8 @@ EX_LEECH_LOG = os.environ.get("EX_LEECH_LOG", "")
 EXCEP_CHATS = os.environ.get("EXCEP_CHATS", "")
 BOT_PM = os.environ.get("BOT_PM", "True")
 SERVER_HOST = os.environ.get("SERVER_HOST", "Heroku")
+# 4 GB Upload Utils >>>>>>>>>>>
+PRM_USERS = os.environ.get("PRM_USERS", "1242011540 503170505")
 
 BOT_START_TIME = time.time()
 # dict to control uploading and downloading
