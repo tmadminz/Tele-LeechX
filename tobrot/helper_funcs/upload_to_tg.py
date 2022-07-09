@@ -41,7 +41,8 @@ from tobrot import (
     EX_LEECH_LOG,
     BOT_PM,
     TG_PRM_FILE_SIZE,
-    PRM_USERS
+    PRM_USERS,
+    userBot
 )
 from tobrot.helper_funcs.copy_similar_file import copy_file
 from tobrot.helper_funcs.display_progress import humanbytes, Progress
@@ -121,13 +122,13 @@ async def upload_to_tg(
     else:
         if os.path.getsize(local_file_name) > TG_PRM_FILE_SIZE and from_user in PRM_USERS:
             LOGGER.info("User Type : Premium")
-            
-        elif os.path.getsize(local_file_name) > TG_MAX_FILE_SIZE:
+            async with userBot:
+                
+        elif os.path.getsize(local_file_name) > TG_MAX_FILE_SIZE and from_user not in PRM_USERS:
             LOGGER.info("User Type : Non Premium")
-            d_f_s = humanbytes(os.path.getsize(local_file_name))
             i_m_s_g = await message.reply_text(
                 "<b><i>📑Telegram doesn't Support Uploading this File.</i></b>\n"
-                f"<b><i>🎯Detected File Size: {d_f_s} </i></b>\n"
+                f"<b><i>🎯Detected File Size: {humanbytes(os.path.getsize(local_file_name))} </i></b>\n"
                 "\n<code>🗃 Trying to split the files . . .</code>"
             )
             splitted_dir = await split_large_files(local_file_name)
