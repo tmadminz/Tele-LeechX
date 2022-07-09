@@ -1,4 +1,11 @@
-# (c) 5MysterySD 
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# (c) 5MysterySD | Other Contributors 
+#
+# Copyright 2022 - TeamTele-LeechX
+# 
+# This is Part of < https://github.com/5MysterySD/Tele-LeechX >
+# All Right Reserved
 
 import re
 from imdb import IMDb
@@ -6,7 +13,7 @@ from imdb import IMDb
 from tobrot import app, MAX_LIST_ELM, DEF_IMDB_TEMPLATE,  LOGGER
 from tobrot.plugins.custom_utils import *
 from pyrogram import Client, filters 
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery 
+from pyrogram.types import enums, InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery 
 from pyrogram.errors.exceptions.bad_request_400 import MediaEmpty, PhotoInvalidDimensions, WebpageMediaEmpty
 # Callback Data
 
@@ -14,7 +21,7 @@ imdb = IMDb()
 
 async def imdb_search(client, message):
     if ' ' in message.text:
-        k = await message.reply('<code>Searching IMDB ...</code>', parse_mode="html")
+        k = await message.reply('<code>Searching IMDB ...</code>', parse_mode=enums.ParseMode.HTML)
         r, title = message.text.split(None, 1)
         user_id_ = message.from_user.id
         if title.lower().startswith("tt"):
@@ -135,19 +142,19 @@ async def get_poster(query, bulk=False, id=False, file=None):
 
 def list_to_str(k):
     if not k:
-        return "N/A"
+        return ""
     elif len(k) == 1:
         return str(k[0])
     elif MAX_LIST_ELM:
         k = k[:int(MAX_LIST_ELM)]
-        return ' '.join(f'{elem},' for elem in k)
+        return ' '.join(f'{elem},' for elem in k)[:-1]
     else:
-        return ' '.join(f'{elem},' for elem in k)
+        return ' '.join(f'{elem},' for elem in k)[:-1]
 
 def list_to_hash(k):
     listing = ""
     if not k:
-        return "N/A"
+        return ""
     elif len(k) == 1:
         return str("#"+k[0].replace(" ", "_"))
     elif MAX_LIST_ELM:
@@ -155,12 +162,12 @@ def list_to_hash(k):
         for elem in k:
             elem = elem.replace(" ", "_")
             listing += f'#{elem}, '
-        return listing
+        return listing[:-1]
     else:
         for elem in k:
             elem = elem.replace(" ", "_")
             listing += f'#{elem}, '
-        return listing
+        return listing[:-1]
 
 @app.on_callback_query(filters.regex('^imdb'))
 async def imdb_callback(bot, quer_y: CallbackQuery):
