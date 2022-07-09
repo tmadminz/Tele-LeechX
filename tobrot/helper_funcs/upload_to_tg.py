@@ -39,7 +39,9 @@ from tobrot import (
     LEECH_LOG,
     EXCEP_CHATS,
     EX_LEECH_LOG,
-    BOT_PM
+    BOT_PM,
+    TG_PRM_FILE_SIZE,
+    PRM_USERS
 )
 from tobrot.helper_funcs.copy_similar_file import copy_file
 from tobrot.helper_funcs.display_progress import humanbytes, Progress
@@ -97,7 +99,6 @@ async def upload_to_tg(
     if os.path.isdir(local_file_name):
         directory_contents = os.listdir(local_file_name)
         directory_contents.sort()
-        # number_of_files = len(directory_contents)
         LOGGER.info(directory_contents)
         new_m_esg = message
         if not message.photo:
@@ -118,8 +119,11 @@ async def upload_to_tg(
                 yt_thumb,
             )
     else:
-        if os.path.getsize(local_file_name) > TG_MAX_FILE_SIZE:
-            LOGGER.info("TODO")
+        if os.path.getsize(local_file_name) > TG_PRM_FILE_SIZE and from_user in PRM_USERS:
+            LOGGER.info("User Type : Premium")
+            
+        elif os.path.getsize(local_file_name) > TG_MAX_FILE_SIZE:
+            LOGGER.info("User Type : Non Premium")
             d_f_s = humanbytes(os.path.getsize(local_file_name))
             i_m_s_g = await message.reply_text(
                 "<b><i>📑Telegram doesn't Support Uploading this File.</i></b>\n"
