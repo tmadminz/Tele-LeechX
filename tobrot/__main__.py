@@ -22,7 +22,7 @@ from pyrogram import Client, filters, idle
 from pyrogram.raw import functions, types
 from pyrogram.handlers import CallbackQueryHandler, MessageHandler
 
-from tobrot import app, bot, dispatcher 
+from tobrot import app, bot, dispatcher, userBot
 from tobrot import (
     OWNER_ID,
     AUTH_CHANNEL,
@@ -186,6 +186,7 @@ if __name__ == "__main__":
     bot.set_my_commands(botcmds)
 
     # Starting The Bot
+    userBot.start()
     app.start()
     ##############################################################################
     incoming_message_handler = MessageHandler(
@@ -437,7 +438,9 @@ if __name__ == "__main__":
         \______|\______|\______|\______|\______|\______|\______|\______|\______|\______|\______|\______|'''
         )
     logging.info(f"@{(app.get_me()).username} Has Started Running...🏃💨💨")
+    logging.info(f"User : {(userBot.get_me()).first_name} Has Started Revolving...♾️⚡️")
 
     idle()
     
     app.stop()
+    userBot.stop()
