@@ -408,10 +408,10 @@ async def upload_single_file(
                     start_time,
                 ),
             )
-        if str(message.chat.id) in str(EXCEP_CHATS) and prm_atv:
+        elif str(message.chat.id) in str(EXCEP_CHATS) and prm_atv:
             with userBot:
                 LOGGER.info("UserBot Upload : Started")
-                prm_file = await userBot.send_document(
+                sent_message = await userBot.send_document(
                     chat_id=int(PRM_LOG),
                     document=local_file_name,
                     thumb=thumb,
@@ -425,7 +425,7 @@ async def upload_single_file(
                     ),
                 )
                 LOGGER.info("UserBot Upload : Completed")
-            prm_id = prm_file.id
+            prm_id = sent_message.id
             sent_msg = await bot.forward_messages(
                 chat_id=message.chat.id,
                 from_chat_id=int(PRM_LOG),
@@ -433,7 +433,7 @@ async def upload_single_file(
             )
             
         else:
-            sent_msgs = await bot.send_document(
+            sent_message = await bot.send_document(
                 chat_id=LEECH_LOG,
                 document=local_file_name,
                 thumb=thumb,
@@ -445,7 +445,7 @@ async def upload_single_file(
                 try:
                   bot.send_document(
                       chat_id=from_user, 
-                      document=sent_msgs.document.file_id,
+                      document=sent_message.document.file_id,
                       thumb=thumb,
                       caption=caption_str,
                       parse_mode=enums.ParseMode.HTML
@@ -457,7 +457,7 @@ async def upload_single_file(
                     for i in EX_LEECH_LOG:
                         bot.send_document(
                             chat_id=i, 
-                            document=sent_msgs.document.file_id,
+                            document=sent_message.document.file_id,
                             thumb=thumb,
                             caption=f"<code>{base_file_name}</code>\n\n♨️ 𝕌𝕡𝕝𝕠𝕒𝕕𝕖𝕕 𝔹𝕪 @FXTorrentz ♨️",
                             parse_mode=enums.ParseMode.HTML
@@ -572,7 +572,7 @@ async def upload_single_file(
                             ),
                          )
                     else:
-                        sent_msg = await message.sent_video(
+                        sent_message = await message.sent_video(
                             chat_id=LEECH_LOG,
                             video=local_file_name,
                             caption=f"<code>{base_file_name}</code>\n\n♨️ 𝕌𝕡𝕝𝕠𝕒𝕕𝕖𝕕 𝔹𝕪 @FXTorrentz ♨️",
@@ -593,7 +593,7 @@ async def upload_single_file(
                             try:
                                 bot.send_video(
                                     chat_id=from_user, 
-                                    video=sent_msg.video.file_id,
+                                    video=sent_message.video.file_id,
                                     thumb=thumb,
                                     supports_streaming=True,
                                     caption=caption_str,
@@ -606,7 +606,7 @@ async def upload_single_file(
                                 for i in EX_LEECH_LOG:
                                     bot.send_video(
                                         chat_id=i, 
-                                        video=sent_msg.video.file_id,
+                                        video=sent_message.video.file_id,
                                         thumb=thumb,
                                         supports_streaming=True,
                                         caption=f"<code>{base_file_name}</code>\n\n♨️ 𝕌𝕡𝕝𝕠𝕒𝕕𝕖𝕕 𝔹𝕪 @FXTorrentz ♨️",
@@ -727,7 +727,7 @@ async def upload_single_file(
                             ),
                         )
                     else:
-                        sent_msg = await bot.send_document(
+                        sent_message = await bot.send_document(
                             chat_id=LEECH_LOG,
                             document=local_file_name,
                             thumb=thumb,
@@ -744,7 +744,7 @@ async def upload_single_file(
                             try:
                                 bot.send_document(
                                     chat_id=from_user, 
-                                    document=sent_msg.document.file_id,
+                                    document=sent_message.document.file_id,
                                     thumb=thumb,
                                     caption=caption_str,
                                     parse_mode=enums.ParseMode.HTML
@@ -756,7 +756,7 @@ async def upload_single_file(
                                 for i in EX_LEECH_LOG:
                                     bot.send_document(
                                         chat_id=i, 
-                                        document=sent_msg.document.file_id,
+                                        document=sent_message.document.file_id,
                                         thumb=thumb,
                                         caption=f"<code>{base_file_name}</code>\n\n♨️ 𝕌𝕡𝕝𝕠𝕒𝕕𝕖𝕕 𝔹𝕪 @FXTorrentz ♨️",
                                         parse_mode=enums.ParseMode.HTML
