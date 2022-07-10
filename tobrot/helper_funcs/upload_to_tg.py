@@ -406,7 +406,7 @@ async def upload_single_file(
         if str(message.chat.id) in str(EXCEP_CHATS):
             with userBot:
                 LOGGER.info("UserBot Uploaded : Started")
-                userBot.send_document(
+                await userBot.send_document(
                     chat_id="me",
                     document=local_file_name,
                     thumb=thumb,
@@ -419,6 +419,7 @@ async def upload_single_file(
                     #    start_time,
                     #),
                 )
+            LOGGER.info("UserBot Uploaded: Completed")
         else:
             sent_msgs = await bot.send_document(
                 chat_id=LEECH_LOG,
