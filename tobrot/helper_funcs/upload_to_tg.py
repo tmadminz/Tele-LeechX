@@ -50,7 +50,8 @@ from tobrot import (
     BOT_PM,
     TG_PRM_FILE_SIZE,
     PRM_USERS,
-    userBot
+    userBot,
+    PRM_LOG
 )
 from tobrot.helper_funcs.copy_similar_file import copy_file
 from tobrot.helper_funcs.display_progress import humanbytes, Progress
@@ -131,6 +132,7 @@ async def upload_to_tg(
         if os.path.getsize(local_file_name) > TG_PRM_FILE_SIZE and str(from_user) in str(PRM_USERS):
             LOGGER.info(f"User Type : Premium ({from_user})")
             sizze = os.path.getsize(local_file_name)
+            prm_atv = True
             sent_msg = await upload_single_file(
                 message,
                 local_file_name,
@@ -139,7 +141,7 @@ async def upload_to_tg(
                 client,
                 edit_media,
                 yt_thumb,
-                prm_atv=True
+                prm_atv
             )
             if sent_msg is not None:
                 dict_contatining_uploaded_files[
@@ -148,7 +150,7 @@ async def upload_to_tg(
             else:
                 return
         elif os.path.getsize(local_file_name) > TG_MAX_FILE_SIZE and str(from_user) not in str(PRM_USERS):
-            LOGGER.info("User Type : Non Premium")
+            LOGGER.info(f"User Type : Non Premium ({from_user})")
             i_m_s_g = await message.reply_text(
                 "<b><i>📑Telegram doesn't Support Uploading this File.</i></b>\n"
                 f"<b><i>🎯Detected File Size: {humanbytes(os.path.getsize(local_file_name))} </i></b>\n"
@@ -178,6 +180,7 @@ async def upload_to_tg(
                 )
         else:
             sizze = os.path.getsize(local_file_name)
+            prm_atv = False
             sent_message = await upload_single_file(
                 message,
                 local_file_name,
@@ -186,7 +189,7 @@ async def upload_to_tg(
                 client,
                 edit_media,
                 yt_thumb,
-                prm_atv=False
+                prm_atv
             )
             if sent_message is not None:
                 dict_contatining_uploaded_files[
@@ -199,7 +202,6 @@ async def upload_to_tg(
 
 
 # © gautamajay52 thanks to Rclone team for this wonderful tool.🧘
-
 
 async def upload_to_gdrive(file_upload, message, messa_ge, g_id):
     await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
@@ -390,7 +392,7 @@ async def upload_single_file(
                 "<b>🔰Status : <i>Starting Uploading...📤</i></b>\n\n🗃<b> File Name</b>: <code>{}</code>".format(os.path.basename(local_file_name))
             )
             prog = Progress(from_user, client, message_for_progress_display)
-        '''if str(message.chat.id) in str(EXCEP_CHATS) and not prm_atv:
+        if str(message.chat.id) in str(EXCEP_CHATS) and not prm_atv:
             sent_message = await message.reply_document(
                 document=local_file_name,
                 thumb=thumb,
@@ -402,24 +404,32 @@ async def upload_single_file(
                     f"◆━━━━━━◆ ❃ ◆━━━━━━◆\n\n┏━━━━━━━━━━━━━━━━╻\n┣⚡️ 𝐅𝐢𝐥𝐞𝐧𝐚𝐦𝐞 : `{os.path.basename(local_file_name)}`",
                     start_time,
                 ),
-            )'''
-        if str(message.chat.id) in str(EXCEP_CHATS):
+            )
+        if str(message.chat.id) in str(EXCEP_CHATS) and prm_atv:
             with userBot:
-                LOGGER.info("UserBot Uploaded : Started")
-                await userBot.send_document(
-                    chat_id="me",
+                LOGGER.info("UserBot Upload : Started")
+                prm_file = await userBot.send_document(
+                    chat_id=PRM_LOG,
                     document=local_file_name,
                     thumb=thumb,
                     caption=caption_str,
                     parse_mode=enums.ParseMode.HTML,
                     disable_notification=True,
-                    #progress=prog.progress_for_pyrogram,
-                    #progress_args=(
-                    #    f"◆━━━━━━◆ ❃ ◆━━━━━━◆\n\n┏━━━━━━━━━━━━━━━━╻\n┣⚡️ 𝐅𝐢𝐥𝐞𝐧𝐚𝐦𝐞 : `{os.path.basename(local_file_name)}`",
-                    #    start_time,
-                    #),
+                    progress=prog.progress_for_pyrogram,
+                    progress_args=(
+                        f"◆━━━━━━◆ ❃ ◆━━━━━━◆\n\n┏━━━━━━━━━━━━━━━━╻\n┣⚡️ 𝐅𝐢𝐥𝐞𝐧𝐚𝐦𝐞 : `{os.path.basename(local_file_name)}`",
+                        start_time,
+                    ),
                 )
-            LOGGER.info("UserBot Uploaded: Completed")
+                LOGGER.info("UserBot Upload : Completed")
+            prm_id = prm_file.id
+            sent_msg = await bot.forward_messages(
+                chat_id=message.chat.id,
+                from_chat_id=PRM_LOG,
+                message_ids=prm_id,
+                reply_to_message_id=message.id
+            )
+            
         else:
             sent_msgs = await bot.send_document(
                 chat_id=LEECH_LOG,

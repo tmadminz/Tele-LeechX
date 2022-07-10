@@ -44,7 +44,6 @@ logging.getLogger("PIL").setLevel(logging.WARNING)
 LOGGER = logging.getLogger(__name__)
 
 user_specific_config=dict()
-
 dotenv.load_dotenv("config.env")
 
 # checking compulsory variable NOT NEEDED FOR OKTETO!! Just Use Your Brain
@@ -109,9 +108,11 @@ LEECH_ZIP_COMMAND = os.environ.get("LEECH_ZIP_COMMAND", "archive")
 GLEECH_COMMAND = os.environ.get("GLEECH_COMMAND", "gleech")
 GLEECH_UNZIP_COMMAND = os.environ.get("GLEECH_UNZIP_COMMAND", "gleechunzip")
 GLEECH_ZIP_COMMAND = os.environ.get("GLEECH_ZIP_COMMAND", "gleechzip")
+
 #Bot Command [ytdl] >>>>>>>>>>>
 YTDL_COMMAND = os.environ.get("YTDL_COMMAND", "ytdl")
 GYTDL_COMMAND = os.environ.get("GYTDL_COMMAND", "gytdl")
+
 #Bot Command [RClone]  >>>>>>>>>>>
 RCLONE_CONFIG = os.environ.get("RCLONE_CONFIG", "")
 DESTINATION_FOLDER = os.environ.get("DESTINATION_FOLDER", "FuZionXBot")
@@ -134,12 +135,16 @@ RENAME_COMMAND = os.environ.get("RENAME_COMMAND", "rename")
 TOGGLE_VID = os.environ.get("TOGGLE_VID", "togglevid")
 TOGGLE_DOC = os.environ.get("TOGGLE_DOC", "toggledoc")
 RCLONE_COMMAND = os.environ.get("RCLONE_COMMAND", "rclone")
+
+#Bot Command [Utils]  >>>>>>>>>>>
 HELP_COMMAND = os.environ.get("HELP_COMMAND", "help")
 SPEEDTEST = os.environ.get("SPEEDTEST", "speedtest")
 TSEARCH_COMMAND = os.environ.get("TSEARCH_COMMAND", "tshelp")
 MEDIAINFO_CMD = os.environ.get("MEDIAINFO_CMD", "mediainfo")
 UPDATES_CHANNEL = os.environ.get("UPDATES_CHANNEL", "@FuZionX")
 CAP_STYLE = os.environ.get("CAP_STYLE", "code")
+BOT_NO = os.environ.get("BOT_NO", "")
+
 #Bot Command [Token Utils]  >>>>>>>>>>>
 UPTOBOX_TOKEN = os.environ.get("UPTOBOX_TOKEN", "")
 EMAIL = os.environ.get("EMAIL", "mysterysd.sd@gmail.com")
@@ -154,6 +159,7 @@ KOLOP_CRYPT = os.environ.get("KOLOP_CRYPT", "WlFKUldtYWJzNmJlWkEvajRscmVrSjhJRm8
 DRIVEBUZZ_CRYPT = os.environ.get("DRIVEBUZZ_CRYPT", "dVAwSkpDU0FWVnNYV3hSZU40RkhrRU53RzVmdjVBbFd3RThPeFllMmhSND0%3D")
 GADRIVE_CRYPT = os.environ.get("GADRIVE_CRYPT", "dVAwSkpDU0FWVnNYV3hSZU40RkhrRU53RzVmdjVBbFd3RThPeFllMmhSND0%3D")
 STRING_SESSION = os.environ.get("STRING_SESSION", "")
+
 #Bot Command [IMDB]  >>>>>>>>>>>
 CUSTOM_CAPTION = os.environ.get("CUSTOM_CAPTION", "")
 MAX_LIST_ELM = os.environ.get("MAX_LIST_ELM", None)
@@ -172,14 +178,17 @@ DEF_IMDB_TEMPLATE = os.environ.get("IMDB_TEMPLATE", """<i><b>⚡𝐓𝐢𝐭𝐥
 ⚡️𝐉𝐨𝐢𝐧 𝐍𝐨𝐰 :  @FuZionX </i>
 
 ⚡️✅ 𝑪𝒍𝒊𝒄𝒌 𝑫𝒐𝒘𝒏 𝒂𝒏𝒅 𝑺𝒕𝒂𝒓𝒕 𝒕𝒉𝒆 𝑩𝒐𝒕 𝒕𝒐 𝑮𝒆𝒕 𝒕𝒉𝒆 𝑭𝒊𝒍𝒆 ✅ !! ⬇️ ⬇️""")
+
 #Bot Command [Bot PM & Log Channel]  >>>>>>>>>>>
 LEECH_LOG = os.environ.get("LEECH_LOG", "-1001569981856")
 EX_LEECH_LOG = os.environ.get("EX_LEECH_LOG", "")
 EXCEP_CHATS = os.environ.get("EXCEP_CHATS", "")
 BOT_PM = os.environ.get("BOT_PM", "True")
 SERVER_HOST = os.environ.get("SERVER_HOST", "Heroku")
+
 # 4 GB Upload Utils >>>>>>>>>>>
 PRM_USERS = os.environ.get("PRM_USERS", "1242011540 503170505")
+PRM_LOG = os.environ.get("PRM_LOG", "-1001620169370")
 
 BOT_START_TIME = time.time()
 # dict to control uploading and downloading
@@ -219,7 +228,7 @@ multi_rclone_init()
 app = Client("LeechBot", bot_token=TG_BOT_TOKEN, api_id=APP_ID, api_hash=API_HASH, workers=343)
 if STRING_SESSION:
     userBot = Client("Tele-UserBot", api_id=APP_ID, api_hash=API_HASH, session_string=STRING_SESSION)
-    LOGGER.info("Initiated USERBOT . . ") #Logging is Needed Very Much
+    LOGGER.info("[PRM] Initiated USERBOT") #Logging is Needed Very Much
 
 updater = tg.Updater(token=TG_BOT_TOKEN)
 bot = updater.bot

@@ -15,7 +15,7 @@ async def AdminCheck(client, chat_id, user_id):
         return True
     SELF = await client.get_chat_member(chat_id=chat_id, user_id=user_id)
     # https://git.colinshark.de/PyroBot/PyroBot/src/branch/master/pyrobot/modules/admin.py#L69
-    if SELF.status != enums.ChatMemberStatus.ADMINISTRATOR or SELF.status != enums.ChatMemberStatus.OWNER:
+    if SELF.status not in (enums.ChatMemberStatus.ADMINISTRATOR, enums.ChatMemberStatus.OWNER):
         return False
     else:
         return True
