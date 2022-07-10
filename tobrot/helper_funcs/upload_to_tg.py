@@ -390,7 +390,7 @@ async def upload_single_file(
                 "<b>🔰Status : <i>Starting Uploading...📤</i></b>\n\n🗃<b> File Name</b>: <code>{}</code>".format(os.path.basename(local_file_name))
             )
             prog = Progress(from_user, client, message_for_progress_display)
-        if str(message.chat.id) in str(EXCEP_CHATS) and prm_atv == False:
+        if str(message.chat.id) in str(EXCEP_CHATS) and not prm_atv:
             sent_message = await message.reply_document(
                 document=local_file_name,
                 thumb=thumb,
@@ -403,7 +403,7 @@ async def upload_single_file(
                     start_time,
                 ),
             )
-        elif str(message.chat.id) in str(EXCEP_CHATS) and prm_atv == True:
+        elif str(message.chat.id) in str(EXCEP_CHATS) and prm_atv:
             with userBot:
                 LOGGER.info("UserBot Uploaded : Started")
                 userBot.send_document(
