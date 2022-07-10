@@ -426,10 +426,13 @@ async def upload_single_file(
                 )
                 LOGGER.info("UserBot Upload : Completed")
             prm_id = sent_message.id
-            sent_msg = await bot.forward_messages(
+            sent_msg = await bot.copy_message(
                 chat_id=message.chat.id,
                 from_chat_id=int(PRM_LOG),
-                message_ids=prm_id
+                message_id=prm_id,
+                caption=caption_str,
+                parse_mode=enums.ParseMode.HTML,
+                reply_to_message_id=message.id
             )
             
         else:
