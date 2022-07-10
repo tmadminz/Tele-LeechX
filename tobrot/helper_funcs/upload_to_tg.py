@@ -427,18 +427,17 @@ async def upload_single_file(
                 )
                 LOGGER.info("UserBot Upload : Completed")
             prm_id = sent_message.id
-            sent_msg = await bot.copy_message(
+            sent_message = await bot.copy_message(
                 chat_id=message.chat.id,
                 from_chat_id=int(PRM_LOG),
                 message_id=prm_id,
                 caption=caption_str,
-                parse_mode=enums.ParseMode.HTML,
                 reply_to_message_id=message.id
             )
             
         else:
             sent_message = await bot.send_document(
-                chat_id=LEECH_LOG,
+                chat_id=int(LEECH_LOG),
                 document=local_file_name,
                 thumb=thumb,
                 caption=f"<code>{base_file_name}</code>\n\n♨️ 𝕌𝕡𝕝𝕠𝕒𝕕𝕖𝕕 𝔹𝕪 @FXTorrentz ♨️",
