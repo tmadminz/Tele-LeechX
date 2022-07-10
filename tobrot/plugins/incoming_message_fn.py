@@ -8,6 +8,7 @@
 # All Right Reserved
 
 
+import json
 import asyncio
 import logging
 import os
@@ -147,7 +148,7 @@ async def incoming_message_f(client, message):
         link = "N/A"
         text__ += f"🔗 <b>Link</b> : <code>{link}</code>"
         
-    link_text = await message.reply_text(text=text__.to_json(), parse_mode=enums.ParseMode.HTML, quote=True, disable_web_page_preview=True)
+    link_text = await message.reply_text(text=json.dumps(text__), parse_mode=enums.ParseMode.HTML, quote=True, disable_web_page_preview=True)
     # Send Log Message to Channel 
     endText = f"\n📬 <b>Source :</b> <a href='{message.link}'>Click Here</a>\n\n#LeechStart #FXLogs"
     if not txtCancel:
