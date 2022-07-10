@@ -359,7 +359,7 @@ AUDIO_SUFFIXES = ("MP3", "M4A", "M4B", "FLAC", "WAV", "AIF", "OGG", "AAC", "DTS"
 IMAGE_SUFFIXES = ("JPG", "JPX", "PNG", "WEBP", "CR2", "TIF", "BMP", "JXR", "PSD", "ICO", "HEIC", "JPEG")
 
 async def upload_single_file(
-    message, local_file_name, caption_str, from_user, client, edit_media, yt_thumb, prm_atv
+    message, local_file_name, caption_str, from_user, client, edit_media, yt_thumb, prm_atv: bool
 ):
     base_file_name = os.path.basename(local_file_name)
     await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
@@ -393,7 +393,7 @@ async def upload_single_file(
             )
             prog = Progress(from_user, client, message_for_progress_display)
         LOGGER.info(prm_atv)
-        if str(message.chat.id) in str(EXCEP_CHATS) and prm_atv == False:
+        if str(message.chat.id) in str(EXCEP_CHATS) and prm_atv == "False":
             sent_message = await message.reply_document(
                 document=local_file_name,
                 thumb=thumb,
@@ -406,7 +406,7 @@ async def upload_single_file(
                     start_time,
                 ),
             )
-        if str(message.chat.id) in str(EXCEP_CHATS) and prm_atv == True:
+        if str(message.chat.id) in str(EXCEP_CHATS) and prm_atv == "True":
             with userBot:
                 LOGGER.info("UserBot Upload : Started")
                 prm_file = await userBot.send_document(
