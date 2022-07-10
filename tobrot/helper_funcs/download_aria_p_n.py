@@ -174,7 +174,7 @@ def add_url(aria_instance, text_url, c_file_name):
     elif "drive.google.com" in text_url:
         return (
             False,
-            "⛔ **FAILED** ⛔ \n\n⌧ <i>Please do not send Drive links to Process with this Command. Use /{CLONE_COMMAND_G} for Cloning the Link, then Use the Index Link !!</i>",
+            f"⛔ **FAILED** ⛔ \n\n⌧ <i>Please do not send Drive links to Process with this Command. Use /{CLONE_COMMAND_G} for Cloning the Link, then Use the Index Link !!</i>",
         )
     elif "mega.nz" in text_url or "mega.co.nz" in text_url:
         return (
