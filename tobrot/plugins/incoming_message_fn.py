@@ -75,6 +75,7 @@ async def incoming_message_f(client, message):
     ##Forsubscribe Soon  . .
 
     if BOT_PM and message.chat.type != enums.ChatType.PRIVATE and str(message.chat.id) not in str(EXCEP_CHATS):
+        LOGGER.info("ForceSubscribe Start")
         try:
             msg1 = f'Added your Requested link to Download\n'
             send = await message.sent_message(message.from_user.id, text=msg1)
@@ -146,7 +147,7 @@ async def incoming_message_f(client, message):
         link = "N/A"
         text__ += f"🔗 <b>Link</b> : <code>{link}</code>"
         
-    link_text = await message.reply_text(text=text__, parse_mode=enums.ParseMode.HTML, quote=True, disable_web_page_preview=True)
+    link_text = await message.reply_text(text=text__.to_json(), parse_mode=enums.ParseMode.HTML, quote=True, disable_web_page_preview=True)
     # Send Log Message to Channel 
     endText = f"\n📬 <b>Source :</b> <a href='{message.link}'>Click Here</a>\n\n#LeechStart #FXLogs"
     if not txtCancel:
