@@ -174,8 +174,11 @@ if __name__ == "__main__":
             text = f"<b>Bᴏᴛ Rᴇsᴛᴀʀᴛᴇᴅ !!</b>\n\n<b>📊 𝙃𝙤𝙨𝙩 :</b> <code>{SERVER_HOST}</code>\n{ist}\n\n<b>ℹ️ 𝙑𝙚𝙧𝙨𝙞𝙤𝙣 :</b> <code>3.2.4</code>"
             #bot.sendMessage(chat_id=OWNER_ID, text=text, parse_mode=enums.ParseMode.HTML)
             if AUTH_CHANNEL:
-                for i in AUTH_CHANNEL:
-                    bot.sendMessage(chat_id=i, text=text, parse_mode=enums.ParseMode.HTML)
+                try:
+                    for i in AUTH_CHANNEL:
+                        bot.sendMessage(chat_id=i, text=text)
+                except:
+                    pass
         except Exception as e:
             LOGGER.warning(e)
 
