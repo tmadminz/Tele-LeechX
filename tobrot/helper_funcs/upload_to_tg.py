@@ -416,7 +416,7 @@ async def upload_single_file(
                     document=local_file_name,
                     thumb=thumb,
                     caption=caption_str,
-                    parse_mode="html",
+                    parse_mode=enums.ParseMode.HTML,
                     disable_notification=True,
                     progress=prog.progress_for_pyrogram,
                     progress_args=(
@@ -428,7 +428,7 @@ async def upload_single_file(
             prm_id = prm_file.id
             sent_msg = await bot.forward_messages(
                 chat_id=message.chat.id,
-                from_chat_id=PRM_LOG,
+                from_chat_id=int(PRM_LOG),
                 message_ids=prm_id
             )
             
