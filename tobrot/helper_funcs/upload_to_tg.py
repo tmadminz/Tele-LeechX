@@ -395,12 +395,12 @@ async def upload_single_file(
             )
             prog = Progress(from_user, client, message_for_progress_display)
         LOGGER.info(f"Premium Active : {prm_atv}")
-        if str(message.chat.id) in str(EXCEP_CHATS) and prm_atv == "False":
+        if str(message.chat.id) in str(EXCEP_CHATS) and not prm_atv:
             sent_message = await message.reply_document(
                 document=local_file_name,
                 thumb=thumb,
                 caption=caption_str,
-                parse_mode=ParseMode.HTML,
+                parse_mode=enums.ParseMode.HTML,
                 disable_notification=True,
                 progress=prog.progress_for_pyrogram,
                 progress_args=(
@@ -408,7 +408,7 @@ async def upload_single_file(
                     start_time,
                 ),
             )
-        if str(message.chat.id) in str(EXCEP_CHATS) and prm_atv == "True":
+        if str(message.chat.id) in str(EXCEP_CHATS) and prm_atv:
             with userBot:
                 LOGGER.info("UserBot Upload : Started")
                 prm_file = await userBot.send_document(
@@ -416,7 +416,7 @@ async def upload_single_file(
                     document=local_file_name,
                     thumb=thumb,
                     caption=caption_str,
-                    parse_mode=ParseMode.HTML,
+                    parse_mode="html",
                     disable_notification=True,
                     progress=prog.progress_for_pyrogram,
                     progress_args=(
