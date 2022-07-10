@@ -21,6 +21,7 @@ from pathlib import Path
 import pyrogram.types as pyrogram
 import requests
 
+from telegram import ParseMode
 from pyrogram import enums
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
@@ -129,7 +130,7 @@ async def upload_to_tg(
                 yt_thumb,
             )
     else:
-        if os.path.getsize(local_file_name) > TG_PRM_FILE_SIZE and str(from_user) in str(PRM_USERS):
+        if os.path.getsize(local_file_name) < TG_PRM_FILE_SIZE and str(from_user) in str(PRM_USERS):
             LOGGER.info(f"User Type : Premium ({from_user})")
             sizze = os.path.getsize(local_file_name)
             prm_atv = True
@@ -180,6 +181,7 @@ async def upload_to_tg(
                 )
         else:
             sizze = os.path.getsize(local_file_name)
+            LOGGER.info("Files Less Than 2 GB")
             prm_atv = False
             sent_message = await upload_single_file(
                 message,
@@ -392,13 +394,13 @@ async def upload_single_file(
                 "<b>🔰Status : <i>Starting Uploading...📤</i></b>\n\n🗃<b> File Name</b>: <code>{}</code>".format(os.path.basename(local_file_name))
             )
             prog = Progress(from_user, client, message_for_progress_display)
-        LOGGER.info(prm_atv)
+        LOGGER.info(f"Premium Active : {prm_atv}")
         if str(message.chat.id) in str(EXCEP_CHATS) and prm_atv == "False":
             sent_message = await message.reply_document(
                 document=local_file_name,
                 thumb=thumb,
                 caption=caption_str,
-                parse_mode=enums.ParseMode.HTML,
+                parse_mode=ParseMode.HTML,
                 disable_notification=True,
                 progress=prog.progress_for_pyrogram,
                 progress_args=(
@@ -414,7 +416,7 @@ async def upload_single_file(
                     document=local_file_name,
                     thumb=thumb,
                     caption=caption_str,
-                    parse_mode=enums.ParseMode.HTML,
+                    parse_mode=ParseMode.HTML,
                     disable_notification=True,
                     progress=prog.progress_for_pyrogram,
                     progress_args=(
