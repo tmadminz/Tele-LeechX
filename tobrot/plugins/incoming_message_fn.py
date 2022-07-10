@@ -148,11 +148,12 @@ async def incoming_message_f(client, message):
         link = "N/A"
         text__ += f"🔗 <b>Link</b> : <code>{link}</code>"
         
-    link_text = await message.reply_text(text=json.dumps(text__), parse_mode=enums.ParseMode.HTML, quote=True, disable_web_page_preview=True)
+    link_text = await message.reply_text(text=text__, parse_mode=enums.ParseMode.HTML, quote=True, disable_web_page_preview=True)
     # Send Log Message to Channel 
     endText = f"\n📬 <b>Source :</b> <a href='{message.link}'>Click Here</a>\n\n#LeechStart #FXLogs"
     if not txtCancel:
-        logs_msg = bot.send_message(chat_id=LEECH_LOG, text=text__+endText, parse_mode=enums.ParseMode.HTML, disable_web_page_preview=True)
+        text__ += endText
+        logs_msg = bot.send_message(chat_id=LEECH_LOG, text=text__, parse_mode=enums.ParseMode.HTML, disable_web_page_preview=True)
     LOGGER.info(f"Leech Started : {message.from_user.first_name}")
 
     i_m_sefg = await message.reply_text("<code>Processing ... 🔄</code>", quote=True)
