@@ -357,7 +357,7 @@ AUDIO_SUFFIXES = ("MP3", "M4A", "M4B", "FLAC", "WAV", "AIF", "OGG", "AAC", "DTS"
 IMAGE_SUFFIXES = ("JPG", "JPX", "PNG", "WEBP", "CR2", "TIF", "BMP", "JXR", "PSD", "ICO", "HEIC", "JPEG")
 
 async def upload_single_file(
-    message, local_file_name, caption_str, from_user, client, edit_media, yt_thumb, prm_atv=False
+    message, local_file_name, caption_str, from_user, client, edit_media, yt_thumb, prm_atv
 ):
     base_file_name = os.path.basename(local_file_name)
     await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
