@@ -135,7 +135,7 @@ async def upload_to_tg(
         if sizze < TG_PRM_FILE_SIZE and sizze > TG_MAX_FILE_SIZE and str(from_user) in str(PRM_USERS) and STRING_SESSION:
             LOGGER.info(f"User Type : Premium ({from_user})")
             prm_atv = True
-            sent_msg = await upload_single_file(
+            sent_message = await upload_single_file(
                 message,
                 local_file_name,
                 caption_str,
@@ -145,7 +145,7 @@ async def upload_to_tg(
                 yt_thumb,
                 prm_atv
             )
-            if sent_msg is not None:
+            if sent_message is not None:
                 dict_contatining_uploaded_files[
                     os.path.basename(local_file_name)
                 ] = sent_message.id
