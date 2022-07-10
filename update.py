@@ -39,6 +39,8 @@ except:
 if UPSTREAM_REPO is not None:
     if ospath.exists('.git'):
         srun(["rm", "-rf", ".git"])
+    if ospath.exists('gautam/.wh.gclone.gz'):
+        srun(["rm", "-rf", "gautam/.wh.gclone.gz"])
 
     update = srun([f"git init -q \
                      && git config --global user.email mysterysd.sd@gmail.com \
