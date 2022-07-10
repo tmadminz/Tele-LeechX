@@ -412,7 +412,7 @@ async def upload_single_file(
             with userBot:
                 LOGGER.info("UserBot Upload : Started")
                 prm_file = await userBot.send_document(
-                    chat_id=PRM_LOG,
+                    chat_id=int(PRM_LOG),
                     document=local_file_name,
                     thumb=thumb,
                     caption=caption_str,
@@ -429,8 +429,7 @@ async def upload_single_file(
             sent_msg = await bot.forward_messages(
                 chat_id=message.chat.id,
                 from_chat_id=PRM_LOG,
-                message_ids=prm_id,
-                reply_to_message_id=message.id
+                message_ids=prm_id
             )
             
         else:
