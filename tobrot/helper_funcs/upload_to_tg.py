@@ -412,11 +412,11 @@ async def upload_single_file(
         elif str(message.chat.id) in str(EXCEP_CHATS) and prm_atv:
             with userBot:
                 LOGGER.info("UserBot Upload : Started")
-                sent_message = await userBot.send_document(
+                sent_msg = await userBot.send_document(
                     chat_id=int(PRM_LOG),
                     document=local_file_name,
                     thumb=thumb,
-                    caption=caption_str,
+                    caption=DEF_CAPTION_MSG,
                     parse_mode=enums.ParseMode.HTML,
                     disable_notification=True,
                     progress=prog.progress_for_pyrogram,
@@ -426,7 +426,7 @@ async def upload_single_file(
                     ),
                 )
                 LOGGER.info("UserBot Upload : Completed")
-            prm_id = sent_message.id
+            prm_id = sent_msg.id
             sent_message = bot.copy_message(
                 chat_id=message.chat.id,
                 from_chat_id=int(PRM_LOG),
