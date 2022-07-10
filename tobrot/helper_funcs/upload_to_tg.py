@@ -52,7 +52,8 @@ from tobrot import (
     TG_PRM_FILE_SIZE,
     PRM_USERS,
     userBot,
-    PRM_LOG
+    PRM_LOG,
+    STRING_SESSION
 )
 from tobrot.helper_funcs.copy_similar_file import copy_file
 from tobrot.helper_funcs.display_progress import humanbytes, Progress
@@ -130,9 +131,9 @@ async def upload_to_tg(
                 yt_thumb,
             )
     else:
-        if os.path.getsize(local_file_name) < TG_PRM_FILE_SIZE and str(from_user) in str(PRM_USERS):
+        sizze = os.path.getsize(local_file_name)
+        if sizze < TG_PRM_FILE_SIZE and sizze > TG_MAX_FILE_SIZE and str(from_user) in str(PRM_USERS) and STRING_SESSION:
             LOGGER.info(f"User Type : Premium ({from_user})")
-            sizze = os.path.getsize(local_file_name)
             prm_atv = True
             sent_msg = await upload_single_file(
                 message,
@@ -150,7 +151,7 @@ async def upload_to_tg(
                 ] = sent_message.id
             else:
                 return
-        elif os.path.getsize(local_file_name) > TG_MAX_FILE_SIZE and str(from_user) not in str(PRM_USERS):
+        elif os.path.getsize(local_file_name) > TG_MAX_FILE_SIZE:
             LOGGER.info(f"User Type : Non Premium ({from_user})")
             i_m_s_g = await message.reply_text(
                 "<b><i>📑Telegram doesn't Support Uploading this File.</i></b>\n"
