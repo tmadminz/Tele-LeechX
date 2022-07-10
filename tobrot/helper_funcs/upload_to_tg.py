@@ -404,19 +404,21 @@ async def upload_single_file(
                 ),
             )
         elif str(message.chat.id) in str(EXCEP_CHATS) and prm_atv == True:
-            sent_message = await message.userBot.send_document(
-                chat_id="me",
-                document=local_file_name,
-                thumb=thumb,
-                caption=caption_str,
-                parse_mode=enums.ParseMode.HTML,
-                disable_notification=True,
-                #progress=prog.progress_for_pyrogram,
-                #progress_args=(
-                #    f"◆━━━━━━◆ ❃ ◆━━━━━━◆\n\n┏━━━━━━━━━━━━━━━━╻\n┣⚡️ 𝐅𝐢𝐥𝐞𝐧𝐚𝐦𝐞 : `{os.path.basename(local_file_name)}`",
-                #    start_time,
-                #),
-            )
+            with userBot:
+                LOGGER.info("UserBot Uploaded : Started")
+                userBot.send_document(
+                    chat_id="me",
+                    document=local_file_name,
+                    thumb=thumb,
+                    caption=caption_str,
+                    parse_mode=enums.ParseMode.HTML,
+                    disable_notification=True,
+                    #progress=prog.progress_for_pyrogram,
+                    #progress_args=(
+                    #    f"◆━━━━━━◆ ❃ ◆━━━━━━◆\n\n┏━━━━━━━━━━━━━━━━╻\n┣⚡️ 𝐅𝐢𝐥𝐞𝐧𝐚𝐦𝐞 : `{os.path.basename(local_file_name)}`",
+                    #    start_time,
+                    #),
+                )
         else:
             sent_msgs = await bot.send_document(
                 chat_id=LEECH_LOG,
