@@ -255,6 +255,8 @@ async def call_apropriate_function(
         if not to_upload_file:
             return True, None
         com_g = True
+    LOGGER.info(f" Zip : {is_zip}")
+    LOGGER.info(f" UnZip : {is_unzip}")
     if is_zip:
         check_if_file = await create_archive(to_upload_file)
         if check_if_file is not None:
