@@ -211,20 +211,24 @@ async def incoming_message_f(client, message):
         is_unzip = False
         bot_unzip = f"{LEECH_UNZIP_COMMAND}@{bot.username}"
         bot_zip = f"{LEECH_ZIP_COMMAND}@{bot.username}"
+        cloud = f"{GLEECH_COMMAND}@{bot.username}"
+        cloud_zip = f"{GLEECH_ZIP_COMMAND}@{bot.username}"
+        cloud_unzip = f"{GLEECH_UNZIP_COMMAND}@{bot.username}"
 
-        if user_command == LEECH_UNZIP_COMMAND.lower() or bot_unzip.lower():
+        if user_command == LEECH_UNZIP_COMMAND.lower() or user_command == bot_unzip.lower():
             is_unzip = True
-        elif user_command == LEECH_ZIP_COMMAND.lower() or bot_zip.lower():
+        elif user_command == LEECH_ZIP_COMMAND.lower() or user_command == bot_zip.lower():
             is_zip = True
 
-        if user_command == GLEECH_COMMAND.lower():
+        if user_command == GLEECH_COMMAND.lower() or user_command == cloud.lower():
             is_cloud = True
-        if user_command == GLEECH_UNZIP_COMMAND.lower():
+        if user_command == GLEECH_UNZIP_COMMAND.lower() or user_command == cloud_unzip.lower():
             is_cloud = True
             is_unzip = True
-        elif user_command == GLEECH_ZIP_COMMAND.lower():
+        elif user_command == GLEECH_ZIP_COMMAND.lower() or user_command == cloud_zip.lower():
             is_cloud = True
             is_zip = True
+
         sagtus, err_message = await call_apropriate_function(
             aria_i_p,
             dl_url,
