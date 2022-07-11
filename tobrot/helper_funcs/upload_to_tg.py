@@ -145,11 +145,11 @@ async def upload_to_tg(
                 yt_thumb,
                 prm_atv
             )
-            LOGGER.info(sent_message)
+            LOGGER.info(sent_message.message_id)
             if sent_message is not None:
                 dict_contatining_uploaded_files[
                     os.path.basename(local_file_name)
-                ] = sent_message.id
+                ] = sent_message.message_id
             else:
                 return
         elif os.path.getsize(local_file_name) > TG_MAX_FILE_SIZE:
@@ -417,7 +417,6 @@ async def upload_single_file(
                     chat_id=int(PRM_LOG),
                     document=local_file_name,
                     thumb=thumb,
-                    caption=f"<code>{os.path.basename(local_file_name)}</code>",
                     parse_mode=enums.ParseMode.HTML,
                     disable_notification=True,
                     progress=prog.progress_for_pyrogram,
